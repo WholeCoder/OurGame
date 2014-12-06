@@ -1,4 +1,4 @@
 OurGame
 =======
 
-This is a video game created with the XNA framework by Ruben PIerich and BrianClements.
+This is a video game created with the XNA framework by Ruben PIerich and Brian Clements.
