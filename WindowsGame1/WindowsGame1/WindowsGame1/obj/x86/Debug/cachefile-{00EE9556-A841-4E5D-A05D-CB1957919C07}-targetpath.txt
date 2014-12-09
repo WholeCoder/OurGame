@@ -1,0 +1,2 @@
+Content\images\head.xnb
+Content\images\transparent_star.xnb
