@@ -24,13 +24,26 @@ namespace WindowsGame1
         int i = 0;
         int delta = 1;
 
+        int stardelta1;
+        int star1y = 0;
+
+        int stardelta2;
+        int star2y = 0;
 
         Texture2D textureTransparent;
+
+        Random rnd = new Random();
+
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+        }
+
+        public int getRandomDelta()
+        {
+            return rnd.Next(1, 5); 
         }
 
         /// <summary>
@@ -42,7 +55,12 @@ namespace WindowsGame1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            stardelta1 = getRandomDelta();// creates a number between 1 and 12
+            stardelta2 = getRandomDelta(); // creates a number between 1 and 12
 
+            Console.WriteLine("***************");
+            Console.WriteLine("stardelta1 == " + stardelta1);
+            Console.WriteLine("stardelta2 == " + stardelta2);
             base.Initialize();
         }
 
@@ -91,6 +109,23 @@ namespace WindowsGame1
 
             // Window.ClientBounds.Height
 
+            // Make stars fall like snowflakes
+            star1y += stardelta1;
+            if (star1y > 100)
+            {
+                star1y = 0;
+                stardelta1 = getRandomDelta();
+            }
+
+            star2y += stardelta2;
+            if (star2y > 100)
+            {
+                star2y = 0;
+                stardelta2 = getRandomDelta();
+            }
+
+
+
             base.Update(gameTime);
         }
 
@@ -103,11 +138,15 @@ namespace WindowsGame1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            Vector2 vec = new Vector2(0.0f+i, 0.0f);
+            Vector2 vec = new Vector2(0.0f + i, 0.0f);
+            Vector2 vec2 = new Vector2(0.0f, star1y); 
+            Vector2 vec3 = new Vector2(200.0f, star2y);
+
             //Vector2.Zero
             spriteBatch.Begin();
             spriteBatch.Draw(texture, vec, Color.White);
-            spriteBatch.Draw(textureTransparent, Vector2.Zero, Color.White);
+            spriteBatch.Draw(textureTransparent, vec2, Color.White);
+            spriteBatch.Draw(textureTransparent, vec3, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
