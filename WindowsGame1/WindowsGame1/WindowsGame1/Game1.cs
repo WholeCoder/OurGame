@@ -34,6 +34,16 @@ namespace WindowsGame1
 
         Random rnd = new Random();
 
+        // Level editor instance variables
+        int tileWidth = 20;
+        int tileHeight = 20;
+
+        //Default width X height it starts in a 800x600 resolution.
+        int width = 0;
+        int height = 0;
+
+        int numberOfHorizontalTiles;
+        int numberofVerticalTiles;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -57,11 +67,20 @@ namespace WindowsGame1
             stardelta1 = getRandomDelta();// creates a number between 1 and 12
             stardelta2 = getRandomDelta(); // creates a number between 1 and 12
 
-            Console.WriteLine("***************");
-            Console.WriteLine("stardelta1 == " + stardelta1);
-            Console.WriteLine("stardelta2 == " + stardelta2);
-
             this.IsMouseVisible = true;
+
+            height = Window.ClientBounds.Height;
+            width = Window.ClientBounds.Width;
+
+            numberofVerticalTiles = height / tileHeight;
+            numberOfHorizontalTiles = width / tileWidth;
+
+            Console.WriteLine("height = " + height);
+            Console.WriteLine("width = " + width);
+
+            Console.WriteLine("numberofVerticalTiles = " + numberofVerticalTiles);
+            Console.WriteLine("numberOfHorizontalTiles = " + numberOfHorizontalTiles);
+               
 
             base.Initialize();
         }
@@ -152,6 +171,17 @@ namespace WindowsGame1
             spriteBatch.Draw(textureTransparent, vec2, Color.White);
             spriteBatch.Draw(textureTransparent, vec3, Color.White);
             C3.XNA.Primitives2D.FillRectangle(spriteBatch, new Rectangle(100, 100, 10, 10), Color.Red);
+
+            for (int y = 0; y < height; y += tileHeight)
+            {
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f, y), new Vector2(width, y), Color.White);
+            }
+
+            for (int x = 0; x < width; x += tileWidth)
+            {
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x, 0.0f), new Vector2(x, height), Color.White);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
