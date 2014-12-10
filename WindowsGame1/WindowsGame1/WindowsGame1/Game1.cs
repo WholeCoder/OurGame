@@ -34,7 +34,6 @@ namespace WindowsGame1
 
         Random rnd = new Random();
 
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -61,6 +60,9 @@ namespace WindowsGame1
             Console.WriteLine("***************");
             Console.WriteLine("stardelta1 == " + stardelta1);
             Console.WriteLine("stardelta2 == " + stardelta2);
+
+            this.IsMouseVisible = true;
+
             base.Initialize();
         }
 
@@ -138,15 +140,18 @@ namespace WindowsGame1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            MouseState ms = Mouse.GetState();
+           
             Vector2 vec = new Vector2(0.0f + i, 0.0f);
             Vector2 vec2 = new Vector2(0.0f, star1y); 
-            Vector2 vec3 = new Vector2(200.0f, star2y);
+            Vector2 vec3 = new Vector2(ms.X, ms.Y);//star2y
 
             //Vector2.Zero
             spriteBatch.Begin();
             spriteBatch.Draw(texture, vec, Color.White);
             spriteBatch.Draw(textureTransparent, vec2, Color.White);
             spriteBatch.Draw(textureTransparent, vec3, Color.White);
+            C3.XNA.Primitives2D.FillRectangle(spriteBatch, new Rectangle(100, 100, 10, 10), Color.Red);
             spriteBatch.End();
 
             base.Draw(gameTime);

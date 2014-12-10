@@ -14,3 +14,13 @@ C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\D
 C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.exe
 C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.pdb
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\head.xnb
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\transparent_star.xnb
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\WindowsGame1.exe
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\WindowsGame1.pdb
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.csprojResolveAssemblyReference.cache
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.exe
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\obj\x86\Debug\WindowsGame1.pdb
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\C3.XNA.Primitives2D.dll
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\C3.XNA.Primitives2D.pdb

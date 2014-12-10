@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\head.xnb</Output>
+      <Output>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\head.xnb</Output>
       <Time>2014-12-07T18:03:17.2368069-05:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\transparent_star.xnb</Output>
+      <Output>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\transparent_star.xnb</Output>
       <Time>2014-12-08T10:47:44.8048802-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -25,10 +25,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Ruben\OurGames\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
