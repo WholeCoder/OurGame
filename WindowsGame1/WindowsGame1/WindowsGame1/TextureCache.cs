@@ -17,9 +17,6 @@ namespace WindowsGame1
         private Texture2D[] textures;
         private int currentTextureIndex;
 
-        private const int SLOW_DOWNMOUSE_TICKS = 1;
-        private int slowDownMouseClick;
-
         public TextureCache(ContentManager Content)
         {
             // TODO: use this.Content to load your game content here
@@ -28,18 +25,11 @@ namespace WindowsGame1
             textures[0] = Content.Load<Texture2D>(@"Images/tile");
             textures[1] = Content.Load<Texture2D>(@"Images/tile2");
             currentTextureIndex = 0;
-
-            slowDownMouseClick = SLOW_DOWNMOUSE_TICKS;
         }
 
         public void NextTexture()
         {
-            if (slowDownMouseClick == 0)
-            {
-                currentTextureIndex = (currentTextureIndex + 1) % textures.Length;
-                slowDownMouseClick = SLOW_DOWNMOUSE_TICKS;
-            }
-            slowDownMouseClick--;
+            currentTextureIndex = (currentTextureIndex + 1) % textures.Length;
         }
 
         public Texture2D GetCurrentTexture()
