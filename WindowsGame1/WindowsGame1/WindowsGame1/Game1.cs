@@ -18,43 +18,27 @@ namespace WindowsGame1
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D texture;
-        string str1 = @"images\head";
-        string str2 = "images\\head";
-        int i = 0;
-        int delta = 1;
 
-        int stardelta1;
-        int star1y = 0;
-
-        int stardelta2;
-        int star2y = 0;
-
-        Texture2D textureTransparent;
         Texture2D aTile;
-
-        Random rnd = new Random();
 
         // Level editor instance variables
         int tileWidth = 20;
         int tileHeight = 20;
 
-        //Default width X height it starts in a 800x600 resolution.
-        int width = 0;
-        int height = 0;
+        //Default width X height it starts in a 800x480 resolution.
+        int screenWidth;
+        int screenHeight;
 
         int numberOfHorizontalTiles;
         int numberofVerticalTiles;
+
+        // This is the position of the mouse "locked" onto a grid position.
+        Vector2 mouseCursorLockedToNearestGridPositionVector;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-        }
-
-        public int getRandomDelta()
-        {
-            return rnd.Next(1, 5); 
         }
 
         /// <summary>
@@ -66,22 +50,13 @@ namespace WindowsGame1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            stardelta1 = getRandomDelta();// creates a number between 1 and 12
-            stardelta2 = getRandomDelta(); // creates a number between 1 and 12
-
             this.IsMouseVisible = true;
 
-            height = Window.ClientBounds.Height;
-            width = Window.ClientBounds.Width;
+            screenHeight = Window.ClientBounds.Height;
+            screenWidth = Window.ClientBounds.Width;
 
-            numberofVerticalTiles = height / tileHeight;
-            numberOfHorizontalTiles = width / tileWidth;
-
-            Console.WriteLine("height = " + height);
-            Console.WriteLine("width = " + width);
-
-            Console.WriteLine("numberofVerticalTiles = " + numberofVerticalTiles);
-            Console.WriteLine("numberOfHorizontalTiles = " + numberOfHorizontalTiles);
+            numberofVerticalTiles = screenHeight / tileHeight;
+            numberOfHorizontalTiles = screenWidth / tileWidth;
 
             base.Initialize();
         }
@@ -96,9 +71,6 @@ namespace WindowsGame1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            texture = Content.Load<Texture2D>(@"Images/head");
-
-            textureTransparent = Content.Load<Texture2D>(@"Images/transparent_star");
             aTile = Content.Load<Texture2D>(@"Images/tile");
         }
 
@@ -123,32 +95,13 @@ namespace WindowsGame1
                 this.Exit();
 
             // TODO: Add your update logic here
-            i += delta;
+            MouseState ms = Mouse.GetState();
 
-            if ((delta > 0 && i >= 100)  || (delta < 0 && i <= 0))
-            {
-                delta *= -1;
-            }
+            int putX = (ms.X / tileWidth) * tileWidth;
+            int putY = (ms.Y / tileHeight) * tileHeight;
 
-            // Window.ClientBounds.Height
-
-            // Make stars fall like snowflakes
-            star1y += stardelta1;
-            if (star1y > 100)
-            {
-                star1y = 0;
-                stardelta1 = getRandomDelta();
-            }
-
-            star2y += stardelta2;
-            if (star2y > 100)
-            {
-                star2y = 0;
-                stardelta2 = getRandomDelta();
-            }
-
-
-
+            mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
+            
             base.Update(gameTime);
         }
 
@@ -161,39 +114,19 @@ namespace WindowsGame1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            MouseState ms = Mouse.GetState();
-
-            /*int tileWidth = 20;
-            int tileHeight = 20;
-            */
-            int putX = (ms.X / tileWidth) * tileWidth;
-            int putY = (ms.Y / tileHeight) * tileHeight;
-
-
-            Vector2 vec3 = new Vector2(putX, putY);//star2y
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(aTile, vec3, Color.White);
+            spriteBatch.Draw(aTile, mouseCursorLockedToNearestGridPositionVector, Color.White);
             
-            /*            Vector2 vec = new Vector2(0.0f + i, 0.0f);
-                        Vector2 vec2 = new Vector2(0.0f, star1y); 
-                        Vector2 vec3 = new Vector2(ms.X, ms.Y);//star2y
-
-                        //Vector2.Zero
-                        spriteBatch.Begin();
-                        spriteBatch.Draw(texture, vec, Color.White);
-                        spriteBatch.Draw(textureTransparent, vec2, Color.White);
-                        C3.XNA.Primitives2D.FillRectangle(spriteBatch, new Rectangle(100, 100, 10, 10), Color.Red);
-            */
-            for (int y = 0; y < height; y += tileHeight)
+            for (int y = 0; y < screenHeight; y += tileHeight)
             {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f, y), new Vector2(width, y), Color.White);
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f, y), new Vector2(screenWidth, y), Color.White);
             }
 
-            for (int x = 0; x < width; x += tileWidth)
+            for (int x = 0; x < screenWidth; x += tileWidth)
             {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x, 0.0f), new Vector2(x, height), Color.White);
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x, 0.0f), new Vector2(x, screenHeight), Color.White);
             }
 
             spriteBatch.End();

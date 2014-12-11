@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="DoNothingCommand.cs" />
+    <Compile Include="MacroCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
