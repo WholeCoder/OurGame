@@ -169,6 +169,7 @@ namespace WindowsGame1
             int putX = (ms.X / tileWidth) * tileWidth;
             int putY = (ms.Y / tileHeight) * tileHeight;
 
+
             Vector2 vec3 = new Vector2(putX, putY);//star2y
 
             spriteBatch.Begin();
