@@ -1,3 +1,4 @@
 Content\images\head.xnb
 Content\images\transparent_star.xnb
 Content\images\tile.xnb
+Content\images\tile2.xnb

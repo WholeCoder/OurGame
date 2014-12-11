@@ -35,6 +35,13 @@ namespace WindowsGame1
         // This is the position of the mouse "locked" onto a grid position.
         Vector2 mouseCursorLockedToNearestGridPositionVector;
 
+        TextureCache tCache;
+
+        MouseState lastMouseState;
+        MouseState currentMouseState;
+
+        bool clickOccurred = true;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -52,11 +59,13 @@ namespace WindowsGame1
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
 
-            screenHeight = Window.ClientBounds.Height;
-            screenWidth = Window.ClientBounds.Width;
+            screenHeight = Window.ClientBounds.Height;  // defaults to 480
+            screenWidth  = Window.ClientBounds.Width;   // defaults to 800
 
-            numberofVerticalTiles = screenHeight / tileHeight;
+            numberofVerticalTiles   = screenHeight / tileHeight;
             numberOfHorizontalTiles = screenWidth / tileWidth;
+
+            lastMouseState = Mouse.GetState();
 
             base.Initialize();
         }
@@ -72,6 +81,8 @@ namespace WindowsGame1
 
             // TODO: use this.Content to load your game content here
             aTile = Content.Load<Texture2D>(@"Images/tile");
+
+            tCache = new TextureCache(Content);
         }
 
         /// <summary>
@@ -97,6 +108,27 @@ namespace WindowsGame1
             // TODO: Add your update logic here
             MouseState ms = Mouse.GetState();
 
+
+            // The active state from the last frame is now old
+            lastMouseState = currentMouseState;
+
+            // Get the mouse state relevant for this frame
+            currentMouseState = Mouse.GetState();
+
+            // Recognize a single click of the left mouse button
+            if (lastMouseState.RightButton == ButtonState.Released && currentMouseState.RightButton == ButtonState.Pressed)
+            {
+                // React to the click
+                // ...
+                clickOccurred = true;
+            }
+
+            if (clickOccurred)
+            {
+                this.tCache.NextTexture();
+                clickOccurred = false;
+            }
+
             int putX = (ms.X / tileWidth) * tileWidth;
             int putY = (ms.Y / tileHeight) * tileHeight;
 
@@ -117,7 +149,7 @@ namespace WindowsGame1
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(aTile, mouseCursorLockedToNearestGridPositionVector, Color.White);
+            spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);
             
             for (int y = 0; y < screenHeight; y += tileHeight)
             {
