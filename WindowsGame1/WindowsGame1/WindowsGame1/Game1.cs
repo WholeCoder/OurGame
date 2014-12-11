@@ -31,6 +31,7 @@ namespace WindowsGame1
         int star2y = 0;
 
         Texture2D textureTransparent;
+        Texture2D aTile;
 
         Random rnd = new Random();
 
@@ -44,6 +45,7 @@ namespace WindowsGame1
 
         int numberOfHorizontalTiles;
         int numberofVerticalTiles;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -80,7 +82,6 @@ namespace WindowsGame1
 
             Console.WriteLine("numberofVerticalTiles = " + numberofVerticalTiles);
             Console.WriteLine("numberOfHorizontalTiles = " + numberOfHorizontalTiles);
-               
 
             base.Initialize();
         }
@@ -98,6 +99,7 @@ namespace WindowsGame1
             texture = Content.Load<Texture2D>(@"Images/head");
 
             textureTransparent = Content.Load<Texture2D>(@"Images/transparent_star");
+            aTile = Content.Load<Texture2D>(@"Images/tile");
         }
 
         /// <summary>
@@ -160,18 +162,29 @@ namespace WindowsGame1
 
             // TODO: Add your drawing code here
             MouseState ms = Mouse.GetState();
-           
-            Vector2 vec = new Vector2(0.0f + i, 0.0f);
-            Vector2 vec2 = new Vector2(0.0f, star1y); 
-            Vector2 vec3 = new Vector2(ms.X, ms.Y);//star2y
 
-            //Vector2.Zero
+            /*int tileWidth = 20;
+            int tileHeight = 20;
+            */
+            int putX = (ms.X / tileWidth) * tileWidth;
+            int putY = (ms.Y / tileHeight) * tileHeight;
+
+            Vector2 vec3 = new Vector2(putX, putY);//star2y
+
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, vec, Color.White);
-            spriteBatch.Draw(textureTransparent, vec2, Color.White);
-            spriteBatch.Draw(textureTransparent, vec3, Color.White);
-            C3.XNA.Primitives2D.FillRectangle(spriteBatch, new Rectangle(100, 100, 10, 10), Color.Red);
 
+            spriteBatch.Draw(aTile, vec3, Color.White);
+            
+            /*            Vector2 vec = new Vector2(0.0f + i, 0.0f);
+                        Vector2 vec2 = new Vector2(0.0f, star1y); 
+                        Vector2 vec3 = new Vector2(ms.X, ms.Y);//star2y
+
+                        //Vector2.Zero
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(texture, vec, Color.White);
+                        spriteBatch.Draw(textureTransparent, vec2, Color.White);
+                        C3.XNA.Primitives2D.FillRectangle(spriteBatch, new Rectangle(100, 100, 10, 10), Color.Red);
+            */
             for (int y = 0; y < height; y += tileHeight)
             {
                 C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f, y), new Vector2(width, y), Color.White);
