@@ -40,7 +40,10 @@ namespace WindowsGame1
         MouseState lastMouseState;
         MouseState currentMouseState;
 
-        bool clickOccurred = true;
+        bool rightClickOccurred = true;
+        bool leftClickOccurred = false;
+
+        Texture2D[,] gameBoard;
 
         public Game1()
         {
@@ -66,6 +69,15 @@ namespace WindowsGame1
             numberOfHorizontalTiles = screenWidth / tileWidth;
 
             lastMouseState = Mouse.GetState();
+
+            gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
+            for (int i = 0; i < gameBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < gameBoard.GetLength(1); j++)
+                {
+                    gameBoard[i, j] = null;
+                }
+            }
 
             base.Initialize();
         }
@@ -120,14 +132,28 @@ namespace WindowsGame1
             {
                 // React to the click
                 // ...
-                clickOccurred = true;
+                rightClickOccurred = true;
             }
 
-            if (clickOccurred)
+            if (rightClickOccurred)
             {
                 // Flip to the next texture under the mouse pointer.
                 this.tCache.NextTexture();
-                clickOccurred = false;
+                rightClickOccurred = false;
+            }
+
+            // Recognize a single click of the leftmouse button
+            if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+            {
+                // React to the click
+                // ...
+                leftClickOccurred = true;
+            }
+
+            if (leftClickOccurred)
+            {
+                this.gameBoard[ms.Y / tileHeight, ms.X / tileWidth] = this.tCache.GetCurrentTexture();
+                leftClickOccurred = false;
             }
 
             int putX = (ms.X / tileWidth) * tileWidth;
@@ -150,8 +176,6 @@ namespace WindowsGame1
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);
-            
             for (int y = 0; y < screenHeight; y += tileHeight)
             {
                 C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f, y), new Vector2(screenWidth, y), Color.White);
@@ -162,8 +186,22 @@ namespace WindowsGame1
                 C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x, 0.0f), new Vector2(x, screenHeight), Color.White);
             }
 
-            spriteBatch.End();
+            for (int i = 0; i < gameBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < gameBoard.GetLength(1); j++)
+                {
+                    if (gameBoard[i, j] != null)
+                    {
+                        Vector2 tilePosition = new Vector2(j*tileWidth, i*tileHeight);
+                        spriteBatch.Draw(gameBoard[i, j], tilePosition, Color.White);
+                    }
+                }
+            }
 
+            spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);
+
+            spriteBatch.End();
+            
             base.Draw(gameTime);
         }
     }
