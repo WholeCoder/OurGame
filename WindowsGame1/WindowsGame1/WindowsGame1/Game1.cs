@@ -115,7 +115,7 @@ namespace WindowsGame1
             // Get the mouse state relevant for this frame
             currentMouseState = Mouse.GetState();
 
-            // Recognize a single click of the left mouse button
+            // Recognize a single click of the right mouse button
             if (lastMouseState.RightButton == ButtonState.Released && currentMouseState.RightButton == ButtonState.Pressed)
             {
                 // React to the click
@@ -125,6 +125,7 @@ namespace WindowsGame1
 
             if (clickOccurred)
             {
+                // Flip to the next texture under the mouse pointer.
                 this.tCache.NextTexture();
                 clickOccurred = false;
             }
