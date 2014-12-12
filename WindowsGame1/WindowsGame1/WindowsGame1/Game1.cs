@@ -45,6 +45,9 @@ namespace WindowsGame1
 
         Texture2D[,] gameBoard;
 
+        // This instance variable lets us scroll the board horizontally.
+        int screenXOffset = 0;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -166,7 +169,29 @@ namespace WindowsGame1
             int putY = (ms.Y / tileHeight) * tileHeight;
 
             mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
-            
+
+            // Move game board.
+            KeyboardState keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+                screenXOffset -= 1;
+            }
+
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                screenXOffset += 1;
+            }
+
+            if (screenXOffset <= -screenWidth)
+            {
+                screenXOffset = -screenWidth;
+            }
+
+            if (screenXOffset >= 0)
+            {
+                screenXOffset = 0;
+            }
+
             base.Update(gameTime);
         }
 
@@ -184,12 +209,12 @@ namespace WindowsGame1
 
             for (int y = 0; y < screenHeight; y += tileHeight)
             {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f, y), new Vector2(screenWidth, y), Color.White);
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + screenXOffset, y), new Vector2(screenWidth + screenXOffset, y), Color.White);
             }
 
-            for (int x = 0; x < screenWidth; x += tileWidth)
+            for (int x = 0; x < screenWidth+1; x += tileWidth)
             {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x, 0.0f), new Vector2(x, screenHeight), Color.White);
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x + screenXOffset, 0.0f), new Vector2(x + screenXOffset, screenHeight), Color.White);
             }
 
             for (int i = 0; i < gameBoard.GetLength(0); i++)
@@ -198,7 +223,7 @@ namespace WindowsGame1
                 {
                     if (gameBoard[i, j] != null)
                     {
-                        Vector2 tilePosition = new Vector2(j*tileWidth, i*tileHeight);
+                        Vector2 tilePosition = new Vector2(j * tileWidth + screenXOffset, i * tileHeight);
                         spriteBatch.Draw(gameBoard[i, j], tilePosition, Color.White);
                     }
                 }
