@@ -152,7 +152,13 @@ namespace WindowsGame1
 
             if (leftClickOccurred)
             {
-                this.gameBoard[ms.Y / tileHeight, ms.X / tileWidth] = this.tCache.GetCurrentTexture();
+                int putInGameArrayY = ms.Y / tileHeight;
+                int putInGameArrayX = ms.X / tileWidth;
+
+                if (putInGameArrayY < this.gameBoard.GetLength(0) && putInGameArrayX < this.gameBoard.GetLength(1))
+                {
+                    this.gameBoard[putInGameArrayY, putInGameArrayX] = this.tCache.GetCurrentTexture();
+                }
                 leftClickOccurred = false;
             }
 
