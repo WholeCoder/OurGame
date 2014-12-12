@@ -156,7 +156,7 @@ namespace WindowsGame1
             if (leftClickOccurred)
             {
                 int putInGameArrayY = ms.Y / tileHeight;
-                int putInGameArrayX = ms.X / tileWidth;
+                int putInGameArrayX = (ms.X - screenXOffset) / tileWidth;
 
                 if (putInGameArrayY < this.gameBoard.GetLength(0) && putInGameArrayX < this.gameBoard.GetLength(1))
                 {
