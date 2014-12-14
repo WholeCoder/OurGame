@@ -165,7 +165,7 @@ namespace WindowsGame1
                 leftClickOccurred = false;
             }
 
-            int putX = (ms.X / tileWidth) * tileWidth + screenXOffset % tileWidth;
+            int putX = ((ms.X - screenXOffset) / tileWidth) * tileWidth + screenXOffset;// (ms.X / tileWidth) * tileWidth + screenXOffset % tileWidth;
             int putY = (ms.Y / tileHeight) * tileHeight;
 
             mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
