@@ -26,5 +26,13 @@ namespace Command
                 this.commands[i].execute();
             }
         }
+
+        public void undo()
+        {
+            for (int i = 0; i < this.commands.Length; i++)
+            {
+                this.commands[i].undo();
+            }
+        }
     }
 }
