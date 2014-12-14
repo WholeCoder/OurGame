@@ -19,8 +19,6 @@ namespace WindowsGame1
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D aTile;
-
         // Level editor instance variables
         int tileWidth = 20;
         int tileHeight = 20;
@@ -95,9 +93,7 @@ namespace WindowsGame1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            aTile = Content.Load<Texture2D>(@"Images/tile");
-
-            tCache = new TextureCache(Content);
+            tCache = new TextureCache(Content); // Loads the texture cache with all the textures.
         }
 
         /// <summary>
