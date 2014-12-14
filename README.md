@@ -9,5 +9,7 @@ This is a video game created with the XNA framework by Ruben Pierich and Brian C
 **Controls**
 
 **left keyboard arrow/right keyboard arrow** - use to scroll the board
+
 **left mouse button** - place a tile on the game board
+
 **right mouse button** - change to next texture under the mouse cursor.
