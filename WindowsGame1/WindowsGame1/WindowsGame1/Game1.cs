@@ -45,6 +45,7 @@ namespace WindowsGame1
 
         // This instance variable lets us scroll the board horizontally.
         int screenXOffset = 0;
+        int scrollAmount = 5;
 
         public Game1()
         {
@@ -170,12 +171,12 @@ namespace WindowsGame1
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.Right))
             {
-                screenXOffset -= 1;
+                screenXOffset -= scrollAmount;
             }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
-                screenXOffset += 1;
+                screenXOffset += scrollAmount;
             }
 
             if (screenXOffset <= -screenWidth)
