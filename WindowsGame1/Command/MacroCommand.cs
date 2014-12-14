@@ -29,7 +29,7 @@ namespace Command
 
         public void undo()
         {
-            for (int i = 0; i < this.commands.Length; i++)
+            for (int i = this.commands.Length - 1; i >= 0 ; i--)
             {
                 this.commands[i].undo();
             }
