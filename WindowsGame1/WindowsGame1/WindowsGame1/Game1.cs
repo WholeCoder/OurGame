@@ -38,8 +38,8 @@ namespace WindowsGame1
         MouseState lastMouseState;
         MouseState currentMouseState;
 
-        bool rightClickOccurred = true;
-        bool leftClickOccurred = false;
+        bool rightMouseClickOccurred = true;
+        bool leftMouseClickOccurred = false;
 
         Texture2D[,] gameBoard;
 
@@ -132,14 +132,14 @@ namespace WindowsGame1
             {
                 // React to the click
                 // ...
-                rightClickOccurred = true;
+                rightMouseClickOccurred = true;
             }
 
-            if (rightClickOccurred)
+            if (rightMouseClickOccurred)
             {
                 // Flip to the next texture under the mouse pointer.
                 this.tCache.NextTexture();
-                rightClickOccurred = false;
+                rightMouseClickOccurred = false;
             }
 
             // Recognize a single click of the leftmouse button
@@ -147,10 +147,10 @@ namespace WindowsGame1
             {
                 // React to the click
                 // ...
-                leftClickOccurred = true;
+                leftMouseClickOccurred = true;
             }
 
-            if (leftClickOccurred)
+            if (leftMouseClickOccurred)
             {
                 int putInGameArrayY = ms.Y / tileHeight;
                 int putInGameArrayX = (ms.X - screenXOffset) / tileWidth;
@@ -159,7 +159,7 @@ namespace WindowsGame1
                 {
                     this.gameBoard[putInGameArrayY, putInGameArrayX] = this.tCache.GetCurrentTexture();
                 }
-                leftClickOccurred = false;
+                leftMouseClickOccurred = false;
             }
 
             int putX = ((ms.X - screenXOffset) / tileWidth) * tileWidth + screenXOffset;
