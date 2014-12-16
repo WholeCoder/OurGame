@@ -53,11 +53,21 @@ namespace Command
 
         public void execute()
         {
+            if (putX == -1)
+            {
+                throw new SetTilePositionAndTextureInArrayCoordinatesNetCalledFirstException();
+            }
+            
             this.gameBoard[putY, putX] = this.putTexture;
         }
 
         public void undo()
         {
+            if (putX == -1)
+            {
+                throw new SetTilePositionAndTextureInArrayCoordinatesNetCalledFirstException();
+            }
+
             this.gameBoard[undoY, undoX] = this.undoTexture;
         }
     }
