@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Command;
 
 namespace WindowsGame1
 {
@@ -33,6 +34,7 @@ namespace WindowsGame1
         // This is the position of the mouse "locked" onto a grid position.
         Vector2 mouseCursorLockedToNearestGridPositionVector;
 
+        // Holds textures so they aren't re-created.
         TextureCache tCache;
 
         MouseState lastMouseState;
@@ -46,6 +48,8 @@ namespace WindowsGame1
         // This instance variable lets us scroll the board horizontally.
         int screenXOffset = 0;
         int scrollAmount = 5;
+
+        PlaceTileOnBoardCommand ptOnBoardCommand;       
 
         public Game1()
         {
@@ -80,6 +84,8 @@ namespace WindowsGame1
                     gameBoard[i, j] = null;
                 }
             }
+
+            ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard);
 
             base.Initialize();
         }
@@ -157,7 +163,10 @@ namespace WindowsGame1
 
                 if (putInGameArrayY < this.gameBoard.GetLength(0) && putInGameArrayX < this.gameBoard.GetLength(1))
                 {
-                    this.gameBoard[putInGameArrayY, putInGameArrayX] = this.tCache.GetCurrentTexture();
+                    this.ptOnBoardCommand.setTilePositionAndTextureInArrayCoordinates(putInGameArrayX, putInGameArrayY, this.tCache.GetCurrentTexture());
+                    this.ptOnBoardCommand.execute();
+
+                    //this.gameBoard[putInGameArrayY, putInGameArrayX] = this.tCache.GetCurrentTexture();
                 }
                 leftMouseClickOccurred = false;
             }

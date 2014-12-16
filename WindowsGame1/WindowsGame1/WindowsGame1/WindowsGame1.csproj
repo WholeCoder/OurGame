@@ -124,6 +124,10 @@
       <Project>{39AD1482-1881-4852-A05D-DC61B0D3446A}</Project>
       <Name>Primitives2D</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Command\Command.csproj">
+      <Project>{5DBB305B-3A31-4DFC-96FC-F5AD408D4BA2}</Project>
+      <Name>Command</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WindowsGame1Content\WindowsGame1Content.contentproj">
       <Name>WindowsGame1Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
