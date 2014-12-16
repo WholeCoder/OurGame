@@ -50,7 +50,7 @@ namespace WindowsGame1
         int scrollAmount = 5;
 
         PlaceTileOnBoardCommand ptOnBoardCommand;
-        Stack<PlaceTileOnBoardCommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit ctrl-z
+        Stack<PlaceTileOnBoardCommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
 
         KeyboardState oldKeyboardState;
 
