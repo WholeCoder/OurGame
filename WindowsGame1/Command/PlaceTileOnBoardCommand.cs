@@ -44,15 +44,15 @@ namespace Command
             this.putX = x;
             this.putY = y;
 
+            this.undoX = putX;
+            this.undoY = putY;
+            this.undoTexture = this.gameBoard[putY, putX];
+
             this.putTexture = tex;
         }
 
         public void execute()
         {
-            this.undoTexture = this.gameBoard[putY, putX];
-            this.undoX = putX;
-            this.undoY = putY;
-
             this.gameBoard[putY, putX] = this.putTexture;
         }
 

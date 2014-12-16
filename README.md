@@ -13,3 +13,5 @@ This is a video game created with the XNA framework by Ruben Pierich and Brian C
 **left mouse button** - place a tile on the game board
 
 **right mouse button** - change to next texture under the mouse cursor.
+
+**press Z key** - undo placing a tile on the game board grid

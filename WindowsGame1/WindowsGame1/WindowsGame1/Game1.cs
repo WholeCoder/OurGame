@@ -49,7 +49,10 @@ namespace WindowsGame1
         int screenXOffset = 0;
         int scrollAmount = 5;
 
-        PlaceTileOnBoardCommand ptOnBoardCommand;       
+        PlaceTileOnBoardCommand ptOnBoardCommand;
+        Stack<PlaceTileOnBoardCommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit ctrl-z
+
+        KeyboardState oldKeyboardState;
 
         public Game1()
         {
@@ -85,7 +88,7 @@ namespace WindowsGame1
                 }
             }
 
-            ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard);
+            undoStack = new Stack<PlaceTileOnBoardCommand>();
 
             base.Initialize();
         }
@@ -163,11 +166,13 @@ namespace WindowsGame1
 
                 if (putInGameArrayY < this.gameBoard.GetLength(0) && putInGameArrayX < this.gameBoard.GetLength(1))
                 {
+                    this.ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard);
                     this.ptOnBoardCommand.setTilePositionAndTextureInArrayCoordinates(putInGameArrayX, putInGameArrayY, this.tCache.GetCurrentTexture());
                     this.ptOnBoardCommand.execute();
 
-                    //this.gameBoard[putInGameArrayY, putInGameArrayX] = this.tCache.GetCurrentTexture();
+                    this.undoStack.Push(this.ptOnBoardCommand);
                 }
+
                 leftMouseClickOccurred = false;
             }
 
@@ -197,6 +202,22 @@ namespace WindowsGame1
             {
                 screenXOffset = 0;
             }
+
+
+            // Do undo place tile command
+            KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
+
+            // handle the input
+            if (newKeyboardState.IsKeyDown(Keys.Z) && oldKeyboardState.IsKeyUp(Keys.Z))
+            {
+                if (this.undoStack.Count() != 0)
+                {
+                    PlaceTileOnBoardCommand ptoBoardCommandUndo = this.undoStack.Pop();
+                    ptoBoardCommandUndo.undo();
+                }
+            }
+
+            oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
             base.Update(gameTime);
         }
