@@ -49,7 +49,6 @@ namespace WindowsGame1
         int screenXOffset = 0;
         int scrollAmount = 5;
 
-        PlaceTileOnBoardCommand ptOnBoardCommand;
         Stack<PlaceTileOnBoardCommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
 
         KeyboardState oldKeyboardState;
@@ -166,11 +165,12 @@ namespace WindowsGame1
 
                 if (putInGameArrayY < this.gameBoard.GetLength(0) && putInGameArrayX < this.gameBoard.GetLength(1))
                 {
-                    this.ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard);
-                    this.ptOnBoardCommand.setTilePositionAndTextureInArrayCoordinates(putInGameArrayX, putInGameArrayY, this.tCache.GetCurrentTexture());
-                    this.ptOnBoardCommand.execute();
 
-                    this.undoStack.Push(this.ptOnBoardCommand);
+                    PlaceTileOnBoardCommand ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard);
+                    ptOnBoardCommand.setTilePositionAndTextureInArrayCoordinates(putInGameArrayX, putInGameArrayY, this.tCache.GetCurrentTexture());
+                    ptOnBoardCommand.execute();
+
+                    this.undoStack.Push(ptOnBoardCommand);
                 }
 
                 leftMouseClickOccurred = false;
