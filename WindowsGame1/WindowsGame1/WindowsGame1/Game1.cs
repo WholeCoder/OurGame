@@ -166,8 +166,7 @@ namespace WindowsGame1
                 if (putInGameArrayY < this.gameBoard.GetLength(0) && putInGameArrayX < this.gameBoard.GetLength(1))
                 {
 
-                    PlaceTileOnBoardCommand ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard);
-                    ptOnBoardCommand.setTilePositionAndTextureInArrayCoordinates(putInGameArrayX, putInGameArrayY, this.tCache.GetCurrentTexture());
+                    PlaceTileOnBoardCommand ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard, putInGameArrayX, putInGameArrayY, this.tCache.GetCurrentTexture());
                     ptOnBoardCommand.execute();
 
                     this.undoStack.Push(ptOnBoardCommand);

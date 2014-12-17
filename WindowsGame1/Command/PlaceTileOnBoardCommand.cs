@@ -26,48 +26,25 @@ namespace Command
         private int undoY;
         private Texture2D undoTexture;
 
-        public PlaceTileOnBoardCommand(Texture2D[,] pBoard)
+        public PlaceTileOnBoardCommand(Texture2D[,] pBoard, int x, int y, Texture2D tex)
         {
             this.gameBoard = pBoard;
-            this.putX = -1;
-            this.putY = -1;
-            this.putTexture = null;
-
-            this.undoTexture = null;
-            this.undoX = -1;
-            this.undoY = -1;
-        }
-
-        // MUST call this method before execute is called!
-        public void setTilePositionAndTextureInArrayCoordinates(int x, int y, Texture2D tex)
-        {
             this.putX = x;
             this.putY = y;
+            this.putTexture = tex;
 
+            this.undoTexture = this.gameBoard[putY, putX]; ;
             this.undoX = putX;
             this.undoY = putY;
-            this.undoTexture = this.gameBoard[putY, putX];
-
-            this.putTexture = tex;
         }
 
-        public void execute()
+        public void execute() // must call setTilePositionAndTextureInArrayCoordinates BEFORE THIS!!
         {
-            if (putX == -1)
-            {
-                throw new SetTilePositionAndTextureInArrayCoordinatesNetCalledFirstException();
-            }
-            
             this.gameBoard[putY, putX] = this.putTexture;
         }
 
-        public void undo()
+        public void undo() // must call setTilePositionAndTextureInArrayCoordinates BEFORE THIS!!
         {
-            if (putX == -1)
-            {
-                throw new SetTilePositionAndTextureInArrayCoordinatesNetCalledFirstException();
-            }
-
             this.gameBoard[undoY, undoX] = this.undoTexture;
         }
     }
