@@ -1,8 +1,12 @@
+using System.Text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
@@ -103,7 +107,71 @@ namespace WindowsGame1
 
             // TODO: use this.Content to load your game content here
             tCache = new TextureCache(Content); // Loads the texture cache with all the textures.
+
+/*            string level0Data = null;
+
+            using (var stream = TitleContainer.OpenStream(Content.RootDirectory + "\\ruben.txt"))
+            {
+                using (var writer = new StreamWriter(stream))
+                {
+                    // Call StreamReader methods like ReadLine, ReadBlock, or ReadToEnd to read in your data, e.g.:  
+                    writer.WriteLine("PIerich");
+                }
+                using (var reader = new StreamReader(stream))
+                {
+                    // Call StreamReader methods like ReadLine, ReadBlock, or ReadToEnd to read in your data, e.g.:  
+                    level0Data = reader.ReadToEnd();
+                }
+            }
+            
+            Console.WriteLine("ruben.txt contains:  " + level0Data);
+ */
+            Main2();
         }
+
+        public static void Main2()
+        {
+            string path = @"MyTest.txt";
+
+            // Delete the file if it exists. 
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            //Create the file. 
+            using (FileStream fs = File.Create(path))
+            {
+                AddText(fs, "This is some text");
+                AddText(fs, "This is some more text,");
+                AddText(fs, "\r\nand this is on a new line");
+                AddText(fs, "\r\n\r\nThe following is a subset of characters:\r\n");
+
+                for (int i = 1; i < 120; i++)
+                {
+                    AddText(fs, Convert.ToChar(i).ToString());
+
+                }
+            }
+
+            //Open the stream and read it back. 
+            using (FileStream fs = File.OpenRead(path))
+            {
+                byte[] b = new byte[1024];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                while (fs.Read(b, 0, b.Length) > 0)
+                {
+                    Console.WriteLine(temp.GetString(b));
+                }
+            }
+        }
+
+        private static void AddText(FileStream fs, string value)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            fs.Write(info, 0, info.Length);
+        }
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
