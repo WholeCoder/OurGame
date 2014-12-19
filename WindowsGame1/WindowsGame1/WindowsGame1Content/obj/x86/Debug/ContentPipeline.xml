@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\head.xnb</Output>
-      <Time>2014-12-07T18:03:17.2368069-05:00</Time>
+      <Time>2014-12-18T23:28:17.681145-05:00</Time>
     </Item>
     <Item>
       <Source>images\transparent_star.png</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\transparent_star.xnb</Output>
-      <Time>2014-12-08T10:47:44.8048802-05:00</Time>
+      <Time>2014-12-18T23:28:17.712437-05:00</Time>
     </Item>
     <Item>
       <Source>images\tile.png</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\tile.xnb</Output>
-      <Time>2014-12-11T14:30:25.9880249-05:00</Time>
+      <Time>2014-12-18T23:28:17.681145-05:00</Time>
     </Item>
     <Item>
       <Source>images\tile2.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGame1\WindowsGame1\bin\x86\Debug\Content\images\tile2.xnb</Output>
-      <Time>2014-12-11T18:26:21.2530118-05:00</Time>
+      <Time>2014-12-18T23:28:17.6967695-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
