@@ -3,3 +3,6 @@ WindowsGame1/WindowsGame1/WindowsGame1/bin/x86/Debug
 WindowsGame1/WindowsGameLibrary1/bin/x86/Debug
 WindowsGame1/WindowsGame1/WindowsGame1/bin/x86/Debug/MyLevel.txt
 WindowsGame1/WindowsGame1.suo
+WindowsGame1/Command/obj
+WindowsGame1/WindowsGame1/WindowsGame1/obj
+WindowsGame1/WindowsGameLibrary1/obj
