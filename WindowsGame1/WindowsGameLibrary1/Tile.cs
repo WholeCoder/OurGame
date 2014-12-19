@@ -36,7 +36,7 @@ namespace WindowsGameLibrary1
         public Tile(int screenX, // in pixels
                     int screenY, 
 
-                    int arrayX,  // array position column   DON'T FORGET THESE ARE BACKWARDS IN ARRAY!!
+                    int arrayX,  // array position column   DON noT FORGET THESE ARE BACKWARDS IN ARRAY!!
                     int arrayY,  //                row
 
                     int width,   // in pixels
