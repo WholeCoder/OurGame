@@ -96,7 +96,8 @@ namespace WindowsGame1
             }
             else
             {
-                String configurationString = "";
+                String configurationString = "";  // Holds the entire configuration file.
+
                 //Open the stream and read it back. 
                 using (FileStream fs = File.OpenRead(path))
                 {
@@ -105,13 +106,10 @@ namespace WindowsGame1
                     while (fs.Read(b, 0, b.Length) > 0)
                     {
                         configurationString += temp.GetString(b);
-                        //Console.WriteLine(temp.GetString(b));
                     }
                 }
 
                 String[] configStringSplitRay = configurationString.Split('\n');
-
-                Console.WriteLine("------------------");
 
                 screenHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
                 screenWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800
@@ -121,9 +119,6 @@ namespace WindowsGame1
 
                 tileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
                 tileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);
-
-                Console.WriteLine("tileHeight == "+tileHeight);
-                Console.WriteLine("TileWidth == "+tileWidth);
 
                 int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[4].Split(':')[1]);
                 String[] texStringRay = new String[numberOfTileTextures];
@@ -136,8 +131,6 @@ namespace WindowsGame1
 
                 numberofVerticalTiles = screenHeight / tileHeight;
                 numberOfHorizontalTiles = screenWidth / tileWidth;
-
-                lastMouseState = Mouse.GetState();
 
                 gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
                 for (int i = 0; i < gameBoard.GetLength(0); i++)
