@@ -71,7 +71,7 @@ namespace WindowsGame1
 
             tCache = new TextureCache(Content); // Loads the texture cache with DEFAULT Textures!!!!
 
-            // Delete the file if it exists. 
+            // Load the default game board configuration if the config file doesn't exist.
             if (!File.Exists(path))
             {
                 screenHeight = Window.ClientBounds.Height;  // defaults to 480
@@ -111,17 +111,25 @@ namespace WindowsGame1
 
                 String[] configStringSplitRay = configurationString.Split('\n');
 
+                Console.WriteLine("------------------");
+
                 screenHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
                 screenWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800
 
+                Console.WriteLine("screenHeight == "+screenHeight);
+                Console.WriteLine("screenWidth == "+screenWidth);
+
                 tileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
                 tileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);
+
+                Console.WriteLine("tileHeight == "+tileHeight);
+                Console.WriteLine("TileWidth == "+tileWidth);
 
                 int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[4].Split(':')[1]);
                 String[] texStringRay = new String[numberOfTileTextures];
                 for (int i = 0; i < texStringRay.Length; i++)
                 {
-                    texStringRay[i] = configStringSplitRay[4+i];
+                    texStringRay[i] = configStringSplitRay[5+i];
                 }
 
                 tCache.loadTheseTextures(Content, texStringRay);
@@ -134,11 +142,11 @@ namespace WindowsGame1
                 gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
                 for (int i = 0; i < gameBoard.GetLength(0); i++)
                 {
-                    String[] stringGameBoardRay = configStringSplitRay[4+numberOfTileTextures+i].Split(',');
+                    String[] stringGameBoardRay = configStringSplitRay[5+numberOfTileTextures+i].Split(',');
 
                     for (int j = 0; j < gameBoard.GetLength(1); j++)
                     {
-                        gameBoard[i, j] = tCache.GetTexture2DFromString(stringGameBoardRay[i];
+                        gameBoard[i, j] = tCache.GetTexture2DFromString(stringGameBoardRay[j]);
                     }
                 }
 
