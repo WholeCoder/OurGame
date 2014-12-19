@@ -1,6 +1,0 @@
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGameLibrary1\bin\x86\Debug\WindowsGameLibrary1.dll
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGameLibrary1\bin\x86\Debug\WindowsGameLibrary1.pdb
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGameLibrary1\obj\x86\Debug\WindowsGameLibrary1.csprojResolveAssemblyReference.cache
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGameLibrary1\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGameLibrary1\obj\x86\Debug\WindowsGameLibrary1.dll
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\WindowsGameLibrary1\obj\x86\Debug\WindowsGameLibrary1.pdb

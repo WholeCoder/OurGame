@@ -1,6 +1,0 @@
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\Command\obj\x86\Debug\Command.csprojResolveAssemblyReference.cache
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\Command\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\Command\bin\x86\Debug\Command.dll
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\Command\bin\x86\Debug\Command.pdb
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\Command\obj\x86\Debug\Command.dll
-C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\Command\obj\x86\Debug\Command.pdb
