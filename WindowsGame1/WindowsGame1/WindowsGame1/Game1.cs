@@ -54,7 +54,7 @@ namespace WindowsGame1
         KeyboardState oldKeyboardState;
         
         // This is the name the gameboard is saved to when S is pressed.
-        string path = @"MyLevel.txt";
+        string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
 
         public Game1()
         {
@@ -68,7 +68,7 @@ namespace WindowsGame1
             tCache = new TextureCache(Content); // Loads the texture cache with DEFAULT Textures!!!!
 
             // Load the default game board configuration if the config file doesn't exist.
-            if (!File.Exists(path))
+            if (!File.Exists(pathToSavedGambeBoardConfigurationFile))
             {
                 screenHeight = Window.ClientBounds.Height;  // defaults to 480
                 screenWidth = Window.ClientBounds.Width;   // defaults to 800
@@ -88,14 +88,14 @@ namespace WindowsGame1
                 }
 
                 // Write out the default dimensions of the board
-                WriteOutDimensionsOfTheGameBoard(path);
+                WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile);
             }
             else
             {
                 String configurationString = "";  // Holds the entire configuration file.
 
                 //Open the stream and read it back. 
-                using (FileStream fs = File.OpenRead(path))
+                using (FileStream fs = File.OpenRead(pathToSavedGambeBoardConfigurationFile))
                 {
                     byte[] b = new byte[1024];
                     UTF8Encoding temp = new UTF8Encoding(true);
@@ -335,12 +335,12 @@ namespace WindowsGame1
 
             if (newKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S))
             {
-                if (File.Exists(path))
+                if (File.Exists(pathToSavedGambeBoardConfigurationFile))
                 {
-                    File.Delete(path);
+                    File.Delete(pathToSavedGambeBoardConfigurationFile);
                 }
 
-                WriteOutDimensionsOfTheGameBoard(path);
+                WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile);
             }
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
