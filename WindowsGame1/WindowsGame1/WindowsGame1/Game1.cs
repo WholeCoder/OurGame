@@ -56,12 +56,145 @@ namespace WindowsGame1
         Stack<PlaceTileOnBoardCommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
 
         KeyboardState oldKeyboardState;
+        
+        // This is the name the gameboard is saved to when S is pressed.
+        string path = @"MyLevel.txt";
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
+
+        public void ReadInCurrentBoardAndDimensions()
+        {
+
+            tCache = new TextureCache(Content); // Loads the texture cache with DEFAULT Textures!!!!
+
+            // Delete the file if it exists. 
+            if (!File.Exists(path))
+            {
+                screenHeight = Window.ClientBounds.Height;  // defaults to 480
+                screenWidth = Window.ClientBounds.Width;   // defaults to 800
+
+                numberofVerticalTiles = screenHeight / tileHeight;
+                numberOfHorizontalTiles = screenWidth / tileWidth;
+
+                lastMouseState = Mouse.GetState();
+
+                gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
+                for (int i = 0; i < gameBoard.GetLength(0); i++)
+                {
+                    for (int j = 0; j < gameBoard.GetLength(1); j++)
+                    {
+                        gameBoard[i, j] = null;
+                    }
+                }
+
+                // Write out the default dimensions of the board
+                WriteOutDimensionsOfTheGameBoard(path);
+            }
+            else
+            {
+                String configurationString = "";
+                //Open the stream and read it back. 
+                using (FileStream fs = File.OpenRead(path))
+                {
+                    byte[] b = new byte[1024];
+                    UTF8Encoding temp = new UTF8Encoding(true);
+                    while (fs.Read(b, 0, b.Length) > 0)
+                    {
+                        configurationString += temp.GetString(b);
+                        //Console.WriteLine(temp.GetString(b));
+                    }
+                }
+
+                String[] configStringSplitRay = configurationString.Split('\n');
+
+                screenHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
+                screenWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800
+
+                tileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
+                tileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);
+
+                int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[4].Split(':')[1]);
+                String[] texStringRay = new String[numberOfTileTextures];
+                for (int i = 0; i < texStringRay.Length; i++)
+                {
+                    texStringRay[i] = configStringSplitRay[4+i];
+                }
+
+                tCache.loadTheseTextures(Content, texStringRay);
+
+                numberofVerticalTiles = screenHeight / tileHeight;
+                numberOfHorizontalTiles = screenWidth / tileWidth;
+
+                lastMouseState = Mouse.GetState();
+
+                gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
+                for (int i = 0; i < gameBoard.GetLength(0); i++)
+                {
+                    String[] stringGameBoardRay = configStringSplitRay[4+numberOfTileTextures+i].Split(',');
+
+                    for (int j = 0; j < gameBoard.GetLength(1); j++)
+                    {
+                        gameBoard[i, j] = tCache.GetTexture2DFromString(stringGameBoardRay[i];
+                    }
+                }
+
+            } // end else
+        }
+
+        private static void AddText(FileStream fs, string value)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            fs.Write(info, 0, info.Length);
+        }
+
+        public void WriteOutDimensionsOfTheGameBoard(String path)
+        {
+            using (FileStream fs = File.Create(path))
+            {
+                AddText(fs, "screenHeight:" + screenHeight); 
+                AddText(fs, "\n");
+                AddText(fs, "screenWidth:" + screenWidth);      
+                AddText(fs, "\n");
+
+                AddText(fs, "tileHeight:" + tileHeight); 
+                AddText(fs, "\n");
+                AddText(fs, "tileWidth:" + tileWidth); 
+                AddText(fs, "\n");
+
+                AddText(fs, "numberOfTileTextures:" + 2); 
+                AddText(fs, "\n");
+                AddText(fs, "Images/tile"); 
+                AddText(fs, "\n");
+                AddText(fs, "Images/tile2"); 
+                AddText(fs, "\n");
+
+                for (int i = 0; i < gameBoard.GetLength(0); i++)
+                {
+                    for (int j = 0; j < gameBoard.GetLength(1); j++)
+                    {
+                        Texture2D gBTile = gameBoard[i, j];
+                        if (gBTile == null)
+                        {
+                            AddText(fs, "null");
+                        }
+                        else
+                        {
+                            AddText(fs, tCache.GetStringFilenameFromTexture2D(gBTile));
+                        }
+
+                        if (j != gameBoard.GetLength(1) - 1)
+                        {
+                            AddText(fs, ",");
+                        } // end if
+                    } // end inner for
+                    AddText(fs, "\n");
+                } // end outer for
+            } // end using
+        } // end method
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -73,23 +206,6 @@ namespace WindowsGame1
         {
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
-
-            screenHeight = Window.ClientBounds.Height;  // defaults to 480
-            screenWidth  = Window.ClientBounds.Width;   // defaults to 800
-
-            numberofVerticalTiles   = screenHeight / tileHeight;
-            numberOfHorizontalTiles = screenWidth / tileWidth;
-
-            lastMouseState = Mouse.GetState();
-
-            gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
-            for (int i = 0; i < gameBoard.GetLength(0); i++)
-            {
-                for (int j = 0; j < gameBoard.GetLength(1); j++)
-                {
-                    gameBoard[i, j] = null;
-                }
-            }
 
             undoStack = new Stack<PlaceTileOnBoardCommand>();
 
@@ -106,72 +222,8 @@ namespace WindowsGame1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            tCache = new TextureCache(Content); // Loads the texture cache with all the textures.
-
-/*            string level0Data = null;
-
-            using (var stream = TitleContainer.OpenStream(Content.RootDirectory + "\\ruben.txt"))
-            {
-                using (var writer = new StreamWriter(stream))
-                {
-                    // Call StreamReader methods like ReadLine, ReadBlock, or ReadToEnd to read in your data, e.g.:  
-                    writer.WriteLine("PIerich");
-                }
-                using (var reader = new StreamReader(stream))
-                {
-                    // Call StreamReader methods like ReadLine, ReadBlock, or ReadToEnd to read in your data, e.g.:  
-                    level0Data = reader.ReadToEnd();
-                }
-            }
-            
-            Console.WriteLine("ruben.txt contains:  " + level0Data);
- */
-            Main2();
+            ReadInCurrentBoardAndDimensions();
         }
-
-        public static void Main2()
-        {
-            string path = @"MyTest.txt";
-
-            // Delete the file if it exists. 
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
-            //Create the file. 
-            using (FileStream fs = File.Create(path))
-            {
-                AddText(fs, "This is some text");
-                AddText(fs, "This is some more text,");
-                AddText(fs, "\r\nand this is on a new line");
-                AddText(fs, "\r\n\r\nThe following is a subset of characters:\r\n");
-
-                for (int i = 1; i < 120; i++)
-                {
-                    AddText(fs, Convert.ToChar(i).ToString());
-
-                }
-            }
-
-            //Open the stream and read it back. 
-            using (FileStream fs = File.OpenRead(path))
-            {
-                byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                while (fs.Read(b, 0, b.Length) > 0)
-                {
-                    Console.WriteLine(temp.GetString(b));
-                }
-            }
-        }
-
-        private static void AddText(FileStream fs, string value)
-        {
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
-        }
-
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -284,6 +336,15 @@ namespace WindowsGame1
                 }
             }
 
+            if (newKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S))
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
+                WriteOutDimensionsOfTheGameBoard(path);
+            }
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
             base.Update(gameTime);
