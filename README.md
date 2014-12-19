@@ -15,3 +15,5 @@ This is a video game created with the XNA framework by Ruben Pierich and Brian C
 **right mouse button** - change to next texture under the mouse cursor.
 
 **press Z key** - undo placing a tile on the game board grid
+
+**press S key** - save the game boards' configuration as MyLevel.txt in the location of the .exe executable file
