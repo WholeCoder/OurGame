@@ -38,12 +38,12 @@ namespace Command
             this.undoY = putY;
         }
 
-        public void execute() // must call setTilePositionAndTextureInArrayCoordinates BEFORE THIS!!
+        public void execute()
         {
             this.gameBoard[putY, putX] = this.putTexture;
         }
 
-        public void undo() // must call setTilePositionAndTextureInArrayCoordinates BEFORE THIS!!
+        public void undo()
         {
             this.gameBoard[undoY, undoX] = this.undoTexture;
         }
