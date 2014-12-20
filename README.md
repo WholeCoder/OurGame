@@ -17,3 +17,5 @@ This is a video game created with the XNA framework by Ruben Pierich and Brian C
 **press Z key** - undo placing a tile on the game board grid
 
 **press S key** - save the game boards' configuration as MyLevel.txt in the location of the .exe executable file
+
+**press D key** - reset the game board and write out  a "blank" MyLevel.txt.
