@@ -333,6 +333,7 @@ namespace WindowsGame1
                 }
             }
 
+            // Save to MyLevel.txt.
             if (newKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S))
             {
                 if (File.Exists(pathToSavedGambeBoardConfigurationFile))
@@ -342,6 +343,18 @@ namespace WindowsGame1
 
                 WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile);
             }
+
+            // Delete MyLevel.txt.
+            if (newKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.D))
+            {
+                if (File.Exists(pathToSavedGambeBoardConfigurationFile))
+                {
+                    File.Delete(pathToSavedGambeBoardConfigurationFile);
+                }
+
+                ReadInCurrentBoardAndDimensions();
+            }
+            
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
             base.Update(gameTime);
