@@ -27,6 +27,7 @@ namespace WindowsGameLibrary1
             this.loadTextures(fileNameString, Content);
         }
 
+        // Don't use this publicly - This method is a helper method used by loadTextures.
         private void loadTheseTextures(ContentManager Content, String[] texStringRay)
         {
             textures = new Texture2D[texStringRay.Length];
