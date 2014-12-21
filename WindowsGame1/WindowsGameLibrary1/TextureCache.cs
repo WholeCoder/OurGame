@@ -25,8 +25,6 @@ namespace WindowsGameLibrary1
         {
             // TODO: use this.Content to load your game content here
             this.loadTextures(fileNameString, Content);
-
-            currentTextureIndex = 0;
         }
 
         private void loadTheseTextures(ContentManager Content, String[] texStringRay)
@@ -97,6 +95,8 @@ namespace WindowsGameLibrary1
         // Use this called from the main Game Class.
         public void loadTextures(String fileNameString, ContentManager Content)
         {
+            currentTextureIndex = 0;
+
             if (File.Exists(fileNameString))
             {
 
