@@ -134,7 +134,8 @@ namespace WindowsGameLibrary1
 
             if (leftMouseClickOccurred)
             {
-                if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X,screenXOffset) < this.board.TheBoard.GetLength(1))
+                if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X,screenXOffset) < this.board.TheBoard.GetLength(1)
+                    && this.board.CalculateYIndex(ms.Y) >= 0 && this.board.CalculateXIndex(ms.X, screenXOffset) >= 0)
                 {
 
                     Command.Command ptOnBoardCommand = new PlaceTileOnBoardCommand(this.board, ms.X, ms.Y, this.tCache.GetCurrentTexture(),screenXOffset);
