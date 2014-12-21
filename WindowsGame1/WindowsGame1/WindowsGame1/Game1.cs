@@ -80,7 +80,7 @@ namespace WindowsGameLibrary1
 
             // TODO: use this.Content to load your game content here
             tCache = new TextureCache(pathToTextureCacheConfig, Content);
-            board = new Board(pathToSavedGambeBoardConfigurationFile, tCache);
+            board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
         }
 
         /// <summary>
@@ -105,7 +105,6 @@ namespace WindowsGameLibrary1
 
             // TODO: Add your update logic here
             MouseState ms = Mouse.GetState();
-
 
             // The active state from the last frame is now old
             lastMouseState = currentMouseState;

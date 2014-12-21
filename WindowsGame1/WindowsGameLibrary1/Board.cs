@@ -68,6 +68,7 @@ namespace WindowsGameLibrary1
             t.TheTexture = tTexture;
         }
 
+        // for calculating the indices intot he game board array.
         public int CalculateYIndex(int mouseY)
         {
             int putInGameArrayY = mouseY / this.TileHeight;
