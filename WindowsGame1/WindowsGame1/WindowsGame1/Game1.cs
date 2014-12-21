@@ -61,7 +61,6 @@ namespace WindowsGameLibrary1
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
 
             undoStack = new Stack<Command.Command>();
@@ -78,7 +77,6 @@ namespace WindowsGameLibrary1
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             tCache = new TextureCache(pathToTextureCacheConfig, Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
         }
@@ -103,7 +101,6 @@ namespace WindowsGameLibrary1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
             MouseState ms = Mouse.GetState();
 
             // The active state from the last frame is now old
@@ -226,8 +223,6 @@ namespace WindowsGameLibrary1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
 
             spriteBatch.Begin();
 

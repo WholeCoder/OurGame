@@ -23,7 +23,6 @@ namespace WindowsGameLibrary1
 
         public TextureCache(String fileNameString, ContentManager Content)
         {
-            // TODO: use this.Content to load your game content here
             this.loadTextures(fileNameString, Content);
         }
 
