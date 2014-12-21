@@ -44,6 +44,7 @@ namespace WindowsGameLibrary1
         
         // This is the name the gameboard is saved to when S is pressed.
         string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
+        string pathToTextureCacheConfig = @"TextureCache.txt";
 
         public Game1()
         {
@@ -78,8 +79,8 @@ namespace WindowsGameLibrary1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            tCache = new TextureCache("TextureCache.txt",Content);
-            board = new Board("MyLevel.txt", tCache);
+            tCache = new TextureCache(pathToTextureCacheConfig, Content);
+            board = new Board(pathToSavedGambeBoardConfigurationFile, tCache);
         }
 
         /// <summary>
@@ -211,7 +212,7 @@ namespace WindowsGameLibrary1
                     File.Delete(pathToSavedGambeBoardConfigurationFile);
                 }
 
-                this.board.ReadInBoardConfigurationOrUseDefault("MyLevel.txt", tCache);
+                this.board.ReadInBoardConfigurationOrUseDefault(pathToSavedGambeBoardConfigurationFile, tCache);
             }
             
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
