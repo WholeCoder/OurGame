@@ -171,7 +171,7 @@ namespace WindowsGameLibrary1
                 this.TheBoard= new Tile[this.NumberOfVerticalTiles, this.NumberOfHorizontalTiles];
                 for (int i = 0; i < this.TheBoard.GetLength(0); i++)
                 {
-                    String[] stringGameBoardRay = configStringSplitRay[4].Split(',');
+                    String[] stringGameBoardRay = configStringSplitRay[4+i].Split(',');
 
                     for (int j = 0; j < this.TheBoard.GetLength(1); j++)
                     {
