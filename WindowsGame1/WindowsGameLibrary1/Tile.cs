@@ -13,6 +13,8 @@ namespace WindowsGameLibrary1
 {
     public class Tile
     {
+        public Texture2D TheTexture { get; set; }  // null denotes an empty tile.
+
         public int Width { get; set; }
         public int Height { get; set; }
 
@@ -33,7 +35,9 @@ namespace WindowsGameLibrary1
         public int EndBoundaryX { get; set; }
         public int EndBoundaryY { get; set; }
 
-        public Tile(int screenX, // in pixels
+        public Tile(Texture2D tTexture,
+
+                    int screenX, // in pixels
                     int screenY, 
 
                     int arrayX,  // array position column   DON noT FORGET THESE ARE BACKWARDS IN ARRAY!!
@@ -49,6 +53,8 @@ namespace WindowsGameLibrary1
                     int endBoundaryX, 
                     int endBoundaryY)
         {
+            this.TheTexture = tTexture;
+
             this.ScreenX = screenX;
             this.ScreenY = screenY;
 
@@ -60,6 +66,6 @@ namespace WindowsGameLibrary1
 
             this.StartBoundaryX = startBoundaryX;
             this.StartBoundaryY = startBoundaryY;
-        }
-    }
+        } // End constructor.
+    } // End class.
 }

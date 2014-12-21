@@ -9,12 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using WindowsGameLibrary1;
 
 namespace Command
 {
     public class PlaceTileOnBoardCommand : Command
     {
-        private Texture2D[,] gameBoard;
+        Board gameBoard;
 
         // these co-ordinates are array indices
         private int putX;
@@ -26,26 +27,27 @@ namespace Command
         private int undoY;
         private Texture2D undoTexture;
 
-        public PlaceTileOnBoardCommand(Texture2D[,] pBoard, int x, int y, Texture2D tex)
+        public PlaceTileOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset)
         {
+            // Do some calcs with board.
             this.gameBoard = pBoard;
-            this.putX = x;
-            this.putY = y;
+            this.putY = this.gameBoard.CalculateYIndex(mouseY);
+            this.putX = this.gameBoard.CalculateXIndex(mouseX, screenXOffset);
             this.putTexture = tex;
 
-            this.undoTexture = this.gameBoard[putY, putX]; ;
+            this.undoTexture = this.gameBoard.GetTextureAt(putY, putX);
             this.undoX = putX;
             this.undoY = putY;
         }
 
         public void execute()
         {
-            this.gameBoard[putY, putX] = this.putTexture;
+            this.gameBoard.putTextureOntoBoard(this.putTexture, putY, putX);
         }
 
         public void undo()
         {
-            this.gameBoard[undoY, undoX] = this.undoTexture;
+            this.gameBoard.putTextureOntoBoard(this.undoTexture, undoY, undoX);
         }
     }
 }

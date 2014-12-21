@@ -98,6 +98,12 @@
     <Compile Include="PlaceTileOnBoardCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WindowsGameLibrary1\WindowsGameLibrary1.csproj">
+      <Project>{561DC557-A6C5-4B18-AAEA-8864F0266A2C}</Project>
+      <Name>WindowsGameLibrary1</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

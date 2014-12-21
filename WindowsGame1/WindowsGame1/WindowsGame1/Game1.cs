@@ -10,26 +10,17 @@ using Microsoft.Xna.Framework.Graphics;
 // My usings.
 using Command;
 
-namespace WindowsGame1
+namespace WindowsGameLibrary1
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        Board board;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        // Level editor instance variables
-        int tileWidth = 20;
-        int tileHeight = 20;
-
-        //Default width X height it starts in a 800x480 resolution.
-        int screenWidth;
-        int screenHeight;
-
-        int numberOfHorizontalTiles;
-        int numberofVerticalTiles;
 
         // This is the position of the mouse "locked" onto a grid position.
         Vector2 mouseCursorLockedToNearestGridPositionVector;
@@ -43,13 +34,11 @@ namespace WindowsGame1
         bool rightMouseClickOccurred = true;
         bool leftMouseClickOccurred = false;
 
-        Texture2D[,] gameBoard;
-
         // This instance variable lets us scroll the board horizontally.
         int screenXOffset = 0;
         int scrollAmount = 5;
 
-        Stack<PlaceTileOnBoardCommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
+        Stack<Command.Command> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
 
         KeyboardState oldKeyboardState;
         
@@ -62,136 +51,6 @@ namespace WindowsGame1
             Content.RootDirectory = "Content";
         }
 
-        public void ReadInCurrentBoardAndDimensions()
-        {
-
-            tCache = new TextureCache(Content); // Loads the texture cache with DEFAULT Textures!!!!
-
-            // Load the default game board configuration if the config file doesn't exist.
-            if (!File.Exists(pathToSavedGambeBoardConfigurationFile))
-            {
-                screenHeight = Window.ClientBounds.Height;  // defaults to 480
-                screenWidth = Window.ClientBounds.Width;   // defaults to 800
-
-                numberofVerticalTiles = screenHeight / tileHeight;
-                numberOfHorizontalTiles = screenWidth / tileWidth;
-
-                lastMouseState = Mouse.GetState();
-
-                gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
-                for (int i = 0; i < gameBoard.GetLength(0); i++)
-                {
-                    for (int j = 0; j < gameBoard.GetLength(1); j++)
-                    {
-                        gameBoard[i, j] = null;
-                    }
-                }
-
-                // Write out the default dimensions of the board
-                WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile);
-            }
-            else
-            {
-                String configurationString = "";  // Holds the entire configuration file.
-
-                //Open the stream and read it back. 
-                using (FileStream fs = File.OpenRead(pathToSavedGambeBoardConfigurationFile))
-                {
-                    byte[] b = new byte[1024];
-                    UTF8Encoding temp = new UTF8Encoding(true);
-                    while (fs.Read(b, 0, b.Length) > 0)
-                    {
-                        configurationString += temp.GetString(b);
-                    }
-                }
-
-                String[] configStringSplitRay = configurationString.Split('\n');
-
-                screenHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
-                screenWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800
-
-                Console.WriteLine("screenHeight == "+screenHeight);
-                Console.WriteLine("screenWidth == "+screenWidth);
-
-                tileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
-                tileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);
-
-                int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[4].Split(':')[1]);
-                String[] texStringRay = new String[numberOfTileTextures];
-                for (int i = 0; i < texStringRay.Length; i++)
-                {
-                    texStringRay[i] = configStringSplitRay[5+i];
-                }
-
-                tCache.loadTheseTextures(Content, texStringRay);
-
-                numberofVerticalTiles = screenHeight / tileHeight;
-                numberOfHorizontalTiles = screenWidth / tileWidth;
-
-                gameBoard = new Texture2D[numberofVerticalTiles, numberOfHorizontalTiles];
-                for (int i = 0; i < gameBoard.GetLength(0); i++)
-                {
-                    String[] stringGameBoardRay = configStringSplitRay[5+numberOfTileTextures+i].Split(',');
-
-                    for (int j = 0; j < gameBoard.GetLength(1); j++)
-                    {
-                        gameBoard[i, j] = tCache.GetTexture2DFromString(stringGameBoardRay[j]);
-                    }
-                }
-
-            } // end else
-        }
-
-        private static void AddText(FileStream fs, string value)
-        {
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
-        }
-
-        public void WriteOutDimensionsOfTheGameBoard(String path)
-        {
-            using (FileStream fs = File.Create(path))
-            {
-                AddText(fs, "screenHeight:" + screenHeight); 
-                AddText(fs, "\n");
-                AddText(fs, "screenWidth:" + screenWidth);      
-                AddText(fs, "\n");
-
-                AddText(fs, "tileHeight:" + tileHeight); 
-                AddText(fs, "\n");
-                AddText(fs, "tileWidth:" + tileWidth); 
-                AddText(fs, "\n");
-
-                AddText(fs, "numberOfTileTextures:" + 2); 
-                AddText(fs, "\n");
-                AddText(fs, "Images/tile"); 
-                AddText(fs, "\n");
-                AddText(fs, "Images/tile2"); 
-                AddText(fs, "\n");
-
-                for (int i = 0; i < gameBoard.GetLength(0); i++)
-                {
-                    for (int j = 0; j < gameBoard.GetLength(1); j++)
-                    {
-                        Texture2D gBTile = gameBoard[i, j];
-                        if (gBTile == null)
-                        {
-                            AddText(fs, "null");
-                        }
-                        else
-                        {
-                            AddText(fs, tCache.GetStringFilenameFromTexture2D(gBTile));
-                        }
-
-                        if (j != gameBoard.GetLength(1) - 1)
-                        {
-                            AddText(fs, ",");
-                        } // end if
-                    } // end inner for
-                    AddText(fs, "\n");
-                } // end outer for
-            } // end using
-        } // end method
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -204,7 +63,7 @@ namespace WindowsGame1
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
 
-            undoStack = new Stack<PlaceTileOnBoardCommand>();
+            undoStack = new Stack<Command.Command>();
 
             base.Initialize();
         }
@@ -219,7 +78,8 @@ namespace WindowsGame1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            ReadInCurrentBoardAndDimensions();
+            tCache = new TextureCache("TextureCache.txt",Content);
+            board = new Board("MyLevel.txt", tCache);
         }
 
         /// <summary>
@@ -277,13 +137,10 @@ namespace WindowsGame1
 
             if (leftMouseClickOccurred)
             {
-                int putInGameArrayY = ms.Y / tileHeight;
-                int putInGameArrayX = (ms.X - screenXOffset) / tileWidth;
-
-                if (putInGameArrayY < this.gameBoard.GetLength(0) && putInGameArrayX < this.gameBoard.GetLength(1))
+                if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X,screenXOffset) < this.board.TheBoard.GetLength(1))
                 {
 
-                    PlaceTileOnBoardCommand ptOnBoardCommand = new PlaceTileOnBoardCommand(this.gameBoard, putInGameArrayX, putInGameArrayY, this.tCache.GetCurrentTexture());
+                    Command.Command ptOnBoardCommand = new PlaceTileOnBoardCommand(this.board, ms.X, ms.Y, this.tCache.GetCurrentTexture(),screenXOffset);
                     ptOnBoardCommand.execute();
 
                     this.undoStack.Push(ptOnBoardCommand);
@@ -292,8 +149,8 @@ namespace WindowsGame1
                 leftMouseClickOccurred = false;
             }
 
-            int putX = ((ms.X - screenXOffset) / tileWidth) * tileWidth + screenXOffset;
-            int putY = (ms.Y / tileHeight) * tileHeight;
+            int putX = this.board.CalculateScreenCoordinateXFromMousePosition(ms.X, screenXOffset);
+            int putY = this.board.CalculateScreenCoordinateYFromMousePosition(ms.Y);
 
             mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
 
@@ -309,9 +166,9 @@ namespace WindowsGame1
                 screenXOffset += scrollAmount;
             }
 
-            if (screenXOffset <= -screenWidth)
+            if (screenXOffset <= -this.board.ScreenWidth)
             {
-                screenXOffset = -screenWidth;
+                screenXOffset = -this.board.ScreenWidth;
             }
 
             if (screenXOffset >= 0)
@@ -328,7 +185,7 @@ namespace WindowsGame1
             {
                 if (this.undoStack.Count() != 0)
                 {
-                    PlaceTileOnBoardCommand ptoBoardCommandUndo = this.undoStack.Pop();
+                    Command.Command ptoBoardCommandUndo = this.undoStack.Pop();
                     ptoBoardCommandUndo.undo();
                 }
             }
@@ -341,7 +198,9 @@ namespace WindowsGame1
                     File.Delete(pathToSavedGambeBoardConfigurationFile);
                 }
 
-                WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile);
+                Console.WriteLine("Saving to "+pathToSavedGambeBoardConfigurationFile);
+
+                this.board.WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile, tCache);
             }
 
             // Delete MyLevel.txt.
@@ -352,7 +211,7 @@ namespace WindowsGame1
                     File.Delete(pathToSavedGambeBoardConfigurationFile);
                 }
 
-                ReadInCurrentBoardAndDimensions();
+                this.board.ReadInBoardConfigurationOrUseDefault("MyLevel.txt", tCache);
             }
             
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
@@ -372,27 +231,7 @@ namespace WindowsGame1
 
             spriteBatch.Begin();
 
-            for (int y = 0; y < screenHeight; y += tileHeight)
-            {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + screenXOffset, y), new Vector2(screenWidth + screenXOffset, y), Color.White);
-            }
-
-            for (int x = 0; x < screenWidth+1; x += tileWidth)
-            {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x + screenXOffset, 0.0f), new Vector2(x + screenXOffset, screenHeight), Color.White);
-            }
-
-            for (int i = 0; i < gameBoard.GetLength(0); i++)
-            {
-                for (int j = 0; j < gameBoard.GetLength(1); j++)
-                {
-                    if (gameBoard[i, j] != null)
-                    {
-                        Vector2 tilePosition = new Vector2(j * tileWidth + screenXOffset, i * tileHeight);
-                        spriteBatch.Draw(gameBoard[i, j], tilePosition, Color.White);
-                    }
-                }
-            }
+            this.board.DrawBoard(spriteBatch, screenXOffset);
 
             spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);
 

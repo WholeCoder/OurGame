@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsGame1</RootNamespace>
+    <RootNamespace>WindowsGameLibrary1</RootNamespace>
     <AssemblyName>WindowsGame1</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -113,7 +113,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="TextureCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -127,6 +126,10 @@
     <ProjectReference Include="..\..\Command\Command.csproj">
       <Project>{5DBB305B-3A31-4DFC-96FC-F5AD408D4BA2}</Project>
       <Name>Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WindowsGameLibrary1\WindowsGameLibrary1.csproj">
+      <Project>{561DC557-A6C5-4B18-AAEA-8864F0266A2C}</Project>
+      <Name>WindowsGameLibrary1</Name>
     </ProjectReference>
     <ProjectReference Include="..\WindowsGame1Content\WindowsGame1Content.contentproj">
       <Name>WindowsGame1Content</Name>

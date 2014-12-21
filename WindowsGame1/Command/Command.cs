@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Command
 {
-    interface Command
+    public interface Command
     {
         void execute();
         void undo();
