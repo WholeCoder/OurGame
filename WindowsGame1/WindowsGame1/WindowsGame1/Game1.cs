@@ -209,6 +209,9 @@ namespace WindowsGameLibrary1
                 }
 
                 this.board.ReadInBoardConfigurationOrUseDefault(pathToSavedGambeBoardConfigurationFile, tCache);
+
+                // Make sure we reset the undo history.
+                undoStack = new Stack<Command.Command>();
             }
             
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
