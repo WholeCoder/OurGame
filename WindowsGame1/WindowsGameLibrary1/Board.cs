@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+
+// My usings.
 using WindowsGameLibrary1;
 
 namespace WindowsGameLibrary1

@@ -228,6 +228,7 @@ namespace WindowsGameLibrary1
 
             this.board.DrawBoard(spriteBatch, screenXOffset);
 
+            // Draw current tile under Mouse cursor.
             spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);
 
             spriteBatch.End();
