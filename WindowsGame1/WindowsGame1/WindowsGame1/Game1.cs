@@ -214,7 +214,12 @@ namespace WindowsGameLibrary1
                 // Make sure we reset the undo history.
                 undoStack = new Stack<Command.Command>();
             }
-            
+
+            if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
+            {
+                this.Exit();
+            }
+
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
             base.Update(gameTime);
@@ -230,7 +235,7 @@ namespace WindowsGameLibrary1
 
             spriteBatch.Begin();
 
-            this.board.DrawBoard(spriteBatch, screenXOffset);
+            this.board.DrawBoard(spriteBatch, screenXOffset);  // screenXOffset scrolls the board left and right!
 
             // Draw current tile under Mouse cursor.
             spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);

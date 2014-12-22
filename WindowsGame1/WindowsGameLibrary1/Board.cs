@@ -138,14 +138,16 @@ namespace WindowsGameLibrary1
                         this.TheBoard[row, column] = t;
                     }
                 }
-                // Write out the default dimensions of the board
+                // Write out the default config of the board
                 WriteOutDimensionsOfTheGameBoard(path, tCache);
             }
             else
             {
+                // A config file exists for the board so load it now!
+
                 String configurationString = "";  // Holds the entire configuration file.
 
-                //Open the stream and read it back. 
+                // Open the stream and read it back. 
                 using (FileStream fs = File.OpenRead(path))
                 {
                     byte[] b = new byte[1024];
