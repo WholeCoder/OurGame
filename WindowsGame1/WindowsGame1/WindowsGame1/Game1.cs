@@ -47,6 +47,7 @@ namespace WindowsGameLibrary1
         string pathToTextureCacheConfig = @"TextureCache.txt";
 
         MultiTexture multiTexture;
+        int textureWidthHeight = 1;
 
         public Game1()
         {
@@ -82,7 +83,7 @@ namespace WindowsGameLibrary1
             tCache = new TextureCache(pathToTextureCacheConfig, Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
-            multiTexture = new MultiTexture(4, 4, tCache.GetCurrentTexture());
+            multiTexture = new MultiTexture(textureWidthHeight, textureWidthHeight, tCache.GetCurrentTexture());
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace WindowsGameLibrary1
             {
                 // Flip to the next texture under the mouse pointer.
                 this.tCache.NextTexture();
-                multiTexture = new MultiTexture(4, 4, tCache.GetCurrentTexture());
+                multiTexture = new MultiTexture(textureWidthHeight, textureWidthHeight, tCache.GetCurrentTexture());
                 rightMouseClickOccurred = false;
             }
 
@@ -178,9 +179,25 @@ namespace WindowsGameLibrary1
                 screenXOffset = 0;
             }
 
-
             // Do undo place tile command
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
+
+            if (newKeyboardState.IsKeyDown(Keys.PageUp) && oldKeyboardState.IsKeyUp(Keys.PageUp))
+            {
+                textureWidthHeight++;
+            }
+
+            if (newKeyboardState.IsKeyDown(Keys.PageDown) && oldKeyboardState.IsKeyUp(Keys.PageDown))
+            {
+                textureWidthHeight--;
+            }
+
+            if (textureWidthHeight <= 0)
+            {
+                textureWidthHeight = 1;
+            }
+
+            multiTexture = new MultiTexture(textureWidthHeight, textureWidthHeight, tCache.GetCurrentTexture());
 
             // handle the input
             if (newKeyboardState.IsKeyDown(Keys.Z) && oldKeyboardState.IsKeyUp(Keys.Z))
