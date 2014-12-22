@@ -141,10 +141,6 @@ namespace WindowsGameLibrary1
                 if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X,screenXOffset) < this.board.TheBoard.GetLength(1)
                     && this.board.CalculateYIndex(ms.Y) >= 0 && this.board.CalculateXIndex(ms.X, screenXOffset) >= 0)
                 {
-
-//                    Command.Command ptOnBoardCommand = new PlaceTextureOnBoardCommand(this.board, ms.X, ms.Y, this.tCache.GetCurrentTexture(),screenXOffset);
-//                    ptOnBoardCommand.execute();
-
                     Command.Command ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTile.TextureToRepeat, screenXOffset, this.multiTile.NumberOfHorizontalTiles, this.multiTile.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.execute();
 
