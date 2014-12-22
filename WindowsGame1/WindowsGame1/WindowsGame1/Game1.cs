@@ -125,6 +125,7 @@ namespace WindowsGameLibrary1
             {
                 // Flip to the next texture under the mouse pointer.
                 this.tCache.NextTexture();
+                multiTexture = new MultiTexture(4, 4, tCache.GetCurrentTexture());
                 rightMouseClickOccurred = false;
             }
 
