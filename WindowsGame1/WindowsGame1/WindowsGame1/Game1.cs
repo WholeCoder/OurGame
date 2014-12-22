@@ -46,7 +46,7 @@ namespace WindowsGameLibrary1
         string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
         string pathToTextureCacheConfig = @"TextureCache.txt";
 
-        MultiTexture multiTile;
+        MultiTexture multiTexture;
 
         public Game1()
         {
@@ -82,7 +82,7 @@ namespace WindowsGameLibrary1
             tCache = new TextureCache(pathToTextureCacheConfig, Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
-            multiTile = new MultiTexture(4, 4, tCache.GetCurrentTexture());
+            multiTexture = new MultiTexture(4, 4, tCache.GetCurrentTexture());
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace WindowsGameLibrary1
                 if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X,screenXOffset) < this.board.TheBoard.GetLength(1)
                     && this.board.CalculateYIndex(ms.Y) >= 0 && this.board.CalculateXIndex(ms.X, screenXOffset) >= 0)
                 {
-                    Command.Command ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTile.TextureToRepeat, screenXOffset, this.multiTile.NumberOfHorizontalTiles, this.multiTile.NumberOfVerticalTiles);
+                    Command.Command ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTexture.TextureToRepeat, screenXOffset, this.multiTexture.NumberOfHorizontalTiles, this.multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.execute();
 
                     this.undoStack.Push(ptMultiOnBoardCommand);
@@ -243,7 +243,7 @@ namespace WindowsGameLibrary1
             // Draw current tile under Mouse cursor.
             //spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);
 
-            this.multiTile.Draw(spriteBatch, mouseCursorLockedToNearestGridPositionVector);
+            this.multiTexture.Draw(spriteBatch, mouseCursorLockedToNearestGridPositionVector);
 
             spriteBatch.End();
             
