@@ -13,7 +13,7 @@ using WindowsGameLibrary1;
 
 namespace Command
 {
-    public class PlaceTileOnBoardCommand : Command
+    public class PlaceTextureOnBoardCommand : Command
     {
         Board gameBoard;
 
@@ -27,7 +27,7 @@ namespace Command
         private int undoY;
         private Texture2D undoTexture;
 
-        public PlaceTileOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset)
+        public PlaceTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset)
         {
             // Do some calcs with board.
             this.gameBoard = pBoard;

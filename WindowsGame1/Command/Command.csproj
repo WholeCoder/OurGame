@@ -95,7 +95,8 @@
     <Compile Include="Command.cs" />
     <Compile Include="DoNothingCommand.cs" />
     <Compile Include="MacroCommand.cs" />
-    <Compile Include="PlaceTileOnBoardCommand.cs" />
+    <Compile Include="PlaceMultiTextureOnBoardCommand.cs" />
+    <Compile Include="PlaceTextureOnBoardCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -121,9 +121,6 @@ namespace WindowsGameLibrary1
                     {
                         Tile t = new Tile(null,                  // blank tile
                         
-                                          column*this.TileWidth, // x
-                                          row*this.TileHeight,   // y
-                                      
                                           column,                // remembert hese are swapped in array!!!
                                           row,
 
@@ -183,9 +180,6 @@ namespace WindowsGameLibrary1
                         Tile t = new Tile(
                                       tCache.GetTexture2DFromString(stringGameBoardRay[j]),                  // blank tile
                         
-                                      j*this.TileWidth, // x
-                                      i*this.TileHeight,   // y
-                                      
                                       j,                // remembert hese are swapped in array!!!
                                       i,
 
@@ -250,6 +244,20 @@ namespace WindowsGameLibrary1
             fs.Write(info, 0, info.Length);
         }
 
+        public void PutMultiTileInBoard(MultiTexture mTile, int rowIndex, int columnIndex)
+        {
+            for (int i = 0; i < mTile.NumberOfVerticalTiles; i++)
+            {
+                for (int j = 0; j < mTile.NumberOfHorizontalTiles; j++)
+                {
+                    if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < this.TheBoard.GetLength(0) && columnIndex < this.TheBoard.GetLength(1))
+                    {
+                        Tile t = this.TheBoard[rowIndex + i, columnIndex + j];
+                        t.TheTexture = mTile.TextureToRepeat;
+                    }
+                }
+            }
+        }
     } // end class Board
 }
 

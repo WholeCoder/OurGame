@@ -37,9 +37,6 @@ namespace WindowsGameLibrary1
 
         public Tile(Texture2D tTexture,
 
-                    int screenX, // in pixels
-                    int screenY, 
-
                     int arrayX,  // array position column   DON noT FORGET THESE ARE BACKWARDS IN ARRAY!!
                     int arrayY,  //                row
 
@@ -54,9 +51,6 @@ namespace WindowsGameLibrary1
                     int endBoundaryY)
         {
             this.TheTexture = tTexture;
-
-            this.ScreenX = screenX;
-            this.ScreenY = screenY;
 
             this.ArrayX = arrayX;
             this.ArrayY = arrayY;
