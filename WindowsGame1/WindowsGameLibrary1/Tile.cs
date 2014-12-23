@@ -15,6 +15,7 @@ namespace WindowsGameLibrary1
     {
         public Texture2D TheTexture { get; set; }  // null denotes an empty tile.
 
+        // These are in pixels.
         public int Width { get; set; }
         public int Height { get; set; }
 
