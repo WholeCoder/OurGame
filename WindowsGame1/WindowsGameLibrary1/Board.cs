@@ -28,7 +28,7 @@ namespace WindowsGameLibrary1
 
         public Tile[,] TheBoard { get; set; }
 
-        // The widht and height of the individual tiles.
+        // The width and height of the individual tiles.
         public int TileWidth { get; set; }
         public int TileHeight { get; set; }
 
