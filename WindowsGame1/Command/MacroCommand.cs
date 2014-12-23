@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Command
 {
-    class MacroCommand : Command
+    public class MacroCommand : Command
     {
         private Command[] commands;
 

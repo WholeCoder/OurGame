@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Command
 {
-    class DoNothingCommand : Command
+    public class DoNothingCommand : Command
     {
         public void execute()
         {
