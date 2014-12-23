@@ -258,9 +258,6 @@ namespace WindowsGameLibrary1
 
             this.board.DrawBoard(spriteBatch, screenXOffset);  // screenXOffset scrolls the board left and right!
 
-            // Draw current tile under Mouse cursor.
-            //spriteBatch.Draw(tCache.GetCurrentTexture(), mouseCursorLockedToNearestGridPositionVector, Color.White);
-
             this.multiTexture.Draw(spriteBatch, mouseCursorLockedToNearestGridPositionVector);
 
             spriteBatch.End();
