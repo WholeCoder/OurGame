@@ -47,7 +47,7 @@ namespace WindowsGameLibrary1
         string pathToTextureCacheConfig = @"TextureCache.txt";
 
         MultiTexture multiTexture;
-        int textureWidthHeight = 1;
+        int multiTextureWidthHeight = 1;
 
         public Game1()
         {
@@ -83,7 +83,7 @@ namespace WindowsGameLibrary1
             tCache = new TextureCache(pathToTextureCacheConfig, Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
-            multiTexture = new MultiTexture(textureWidthHeight, textureWidthHeight, tCache.GetCurrentTexture());
+            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace WindowsGameLibrary1
             {
                 // Flip to the next texture under the mouse pointer.
                 this.tCache.NextTexture();
-                multiTexture = new MultiTexture(textureWidthHeight, textureWidthHeight, tCache.GetCurrentTexture());
+                multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
                 rightMouseClickOccurred = false;
             }
 
@@ -184,20 +184,20 @@ namespace WindowsGameLibrary1
 
             if (newKeyboardState.IsKeyDown(Keys.PageUp) && oldKeyboardState.IsKeyUp(Keys.PageUp))
             {
-                textureWidthHeight++;
+                multiTextureWidthHeight++;
             }
 
             if (newKeyboardState.IsKeyDown(Keys.PageDown) && oldKeyboardState.IsKeyUp(Keys.PageDown))
             {
-                textureWidthHeight--;
+                multiTextureWidthHeight--;
             }
 
-            if (textureWidthHeight <= 0)
+            if (multiTextureWidthHeight <= 0)
             {
-                textureWidthHeight = 1;
+                multiTextureWidthHeight = 1;
             }
 
-            multiTexture = new MultiTexture(textureWidthHeight, textureWidthHeight, tCache.GetCurrentTexture());
+            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
 
             // handle the input
             if (newKeyboardState.IsKeyDown(Keys.Z) && oldKeyboardState.IsKeyUp(Keys.Z))
