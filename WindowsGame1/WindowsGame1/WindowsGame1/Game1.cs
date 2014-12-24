@@ -8,10 +8,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using Command;
 using GameState;
 
-namespace WindowsGameLibrary1
+namespace WindowsGame1
 {
     /// <summary>
     /// This is the main type for your game
@@ -34,8 +33,17 @@ namespace WindowsGameLibrary1
         // Create one instance variable for each oft he different States that this game will have!
         // Create them in the Initialize method as well.
         public State editBoardState { get; set; }
-        
-        public void setState(State state)
+        public State blankState { get; set; }
+
+        // This version is called when we change state in an update() call.
+        public void setStateWhenUpdating(State state, GameTime gameTime)
+        {
+            this.CurrentState = state;
+            this.CurrentState.Update(gameTime);
+        }
+
+        // This version is called in the Game1.Initilize() method.
+        public void setStateWhenInitializing(State state)
         {
             this.CurrentState = state;
         }
@@ -55,7 +63,10 @@ namespace WindowsGameLibrary1
             this.editBoardState = new EditBoardState();
             this.editBoardState.Initialize(this);
 
-            this.setState(this.editBoardState);
+            this.blankState = new BlankState();
+            this.blankState.Initialize(this);
+
+            this.setStateWhenInitializing(this.editBoardState);
 
             base.Initialize();
         }

@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsGameLibrary1</RootNamespace>
+    <RootNamespace>My</RootNamespace>
     <AssemblyName>WindowsGame1</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -18,6 +18,7 @@
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -119,21 +119,9 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Primitives2D\Primitives2D.csproj">
-      <Project>{39AD1482-1881-4852-A05D-DC61B0D3446A}</Project>
-      <Name>Primitives2D</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Command\Command.csproj">
-      <Project>{5DBB305B-3A31-4DFC-96FC-F5AD408D4BA2}</Project>
-      <Name>Command</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\GameState\GameState.csproj">
       <Project>{49D62E05-45B9-4394-8592-269AA178C39D}</Project>
       <Name>GameState</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WindowsGameLibrary1\WindowsGameLibrary1.csproj">
-      <Project>{561DC557-A6C5-4B18-AAEA-8864F0266A2C}</Project>
-      <Name>WindowsGameLibrary1</Name>
     </ProjectReference>
     <ProjectReference Include="..\WindowsGame1Content\WindowsGame1Content.contentproj">
       <Name>WindowsGame1Content</Name>

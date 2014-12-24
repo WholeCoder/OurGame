@@ -16,7 +16,7 @@ namespace GameState
         abstract public void Initialize(Game ourGame);
         abstract public void LoadContent(ContentManager Content);
         abstract public void UnloadContent();
-        abstract public void Update(GameTime gameTime);
+        abstract public void Update(GameTime gameTime);  // NOTE:  This method is called in the Board.setState(...) method!
         abstract public void Draw(GameTime gameTime, SpriteBatch spriteBatch);
     }
 }

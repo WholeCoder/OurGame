@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlankState.cs" />
     <Compile Include="EditBoardState.cs" />
     <Compile Include="State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

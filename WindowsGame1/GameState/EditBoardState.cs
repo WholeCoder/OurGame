@@ -17,7 +17,7 @@ namespace GameState
     public class EditBoardState : State
     {
         Board board;
-
+        
         // This is the position of the mouse "locked" onto a grid position.
         Vector2 mouseCursorLockedToNearestGridPositionVector;
 
@@ -45,14 +45,13 @@ namespace GameState
 
         KeyboardState oldKeyboardState;
 
-        // Call setState on this instance variable to change to a different game state.
-        // We might want to call Update() on the new state too.
+        // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game OurGame { get; set; }
 
         public EditBoardState()
         {
         }
-
+        
         public override void Initialize(Game ourGame)
         {
             this.OurGame = ourGame;
@@ -205,6 +204,12 @@ namespace GameState
             if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
             {
                 this.OurGame.Exit();
+            }
+
+            // Press B for the blank state.  Just for testing.
+            if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
+            {
+                //this.OurGame
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
