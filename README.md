@@ -23,3 +23,5 @@ This is a 2D video game level editor created with the XNA framework.
 **press PageUp** -- increase the size of the tile under the mouse cursor.
 
 **press PageDown** - Decrease the size of the tile under the mouse cursor.
+
+**press Q key** - Quit the editor.
