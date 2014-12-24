@@ -32,6 +32,8 @@ namespace WindowsGame1
         public State blankState { get; set; }
 
 
+        /***********************************************************************************************************/
+        /*                             GameCircularDependencyFixInterface interface                                */
         // ** note ** This next section of methodes fixes a circular dependency (not allowed) using an interface
         //            GameCircularDependencyFixInterface
 
@@ -62,6 +64,7 @@ namespace WindowsGame1
         {
             return this.editBoardState;
         }
+        /***********************************************************************************************************/
 
 
         /// <summary>
