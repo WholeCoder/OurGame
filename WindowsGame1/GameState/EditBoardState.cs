@@ -46,13 +46,13 @@ namespace GameState
         KeyboardState oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
-        public Game OurGame { get; set; }
+        public GameCircularDependencyFixInterface OurGame { get; set; }
 
         public EditBoardState()
         {
         }
-        
-        public override void Initialize(Game ourGame)
+
+        public override void Initialize(GameCircularDependencyFixInterface ourGame)
         {
             this.OurGame = ourGame;
             undoStack = new Stack<Command.Command>();
@@ -203,13 +203,13 @@ namespace GameState
 
             if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
             {
-                this.OurGame.Exit();
+                this.OurGame.Exit2();
             }
 
             // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
             {
-                //this.OurGame
+                this.OurGame.setStateWhenUpdating(this.OurGame.getBlankState(), gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time

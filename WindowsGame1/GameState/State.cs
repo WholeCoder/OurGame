@@ -13,7 +13,7 @@ namespace GameState
 {
     public abstract class State
     {
-        abstract public void Initialize(Game ourGame);
+        abstract public void Initialize(GameCircularDependencyFixInterface ourGame);
         abstract public void LoadContent(ContentManager Content);
         abstract public void UnloadContent();
         abstract public void Update(GameTime gameTime);  // NOTE:  This method is called in the Board.setState(...) method!

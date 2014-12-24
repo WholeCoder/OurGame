@@ -1,9 +1,5 @@
 using System;
-using System.IO;
-using System.Text;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,7 +11,7 @@ namespace WindowsGame1
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Microsoft.Xna.Framework.Game, GameCircularDependencyFixInterface
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -35,6 +31,10 @@ namespace WindowsGame1
         public State editBoardState { get; set; }
         public State blankState { get; set; }
 
+
+        // ** note ** This next section of methodes fixes a circular dependency (not allowed) using an interface
+        //            GameCircularDependencyFixInterface
+
         // This version is called when we change state in an update() call.
         public void setStateWhenUpdating(State state, GameTime gameTime)
         {
@@ -46,6 +46,21 @@ namespace WindowsGame1
         public void setStateWhenInitializing(State state)
         {
             this.CurrentState = state;
+        }
+
+        public void Exit2()
+        {
+            this.Exit();
+        }
+
+        public State getBlankState()
+        {
+            return this.blankState;
+        }
+
+        public State getEditBoardState()
+        {
+            return this.editBoardState;
         }
 
 

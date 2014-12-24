@@ -13,7 +13,7 @@ namespace GameState
             
         }
 
-        public override void Initialize(Microsoft.Xna.Framework.Game ourGame)
+        public override void Initialize(GameCircularDependencyFixInterface ourGame)
         {
 
         }
