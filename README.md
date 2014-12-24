@@ -6,7 +6,7 @@ This is a 2D video game level editor created with the XNA framework.
 
 **note**  Make sure the Primitives2D project is imported into the WindowsGame1 solution and that the WindowsGame1 project references the Primitives2D project as a dependency.
 
-**Controls**
+**Controls** - **Game Board Edit Mode**
 
 **left keyboard arrow/right keyboard arrow** - use to scroll the board
 
