@@ -45,6 +45,8 @@ namespace GameState
 
         KeyboardState oldKeyboardState;
 
+        // Call setState on this instance variable to change to a different game state.
+        // We might want to call Update() on the new state too.
         public Game OurGame { get; set; }
 
         public EditBoardState()

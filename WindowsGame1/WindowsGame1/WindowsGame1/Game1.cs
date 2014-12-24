@@ -21,12 +21,12 @@ namespace WindowsGameLibrary1
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
+
 
         // These next methods and properties let us use the State pattern to switch between Game states - i.e. editor, play game, game over.
         public State CurrentState { get; set; }
