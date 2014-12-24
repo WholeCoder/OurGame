@@ -127,6 +127,10 @@
       <Project>{5DBB305B-3A31-4DFC-96FC-F5AD408D4BA2}</Project>
       <Name>Command</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\GameState\GameState.csproj">
+      <Project>{49D62E05-45B9-4394-8592-269AA178C39D}</Project>
+      <Name>GameState</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WindowsGameLibrary1\WindowsGameLibrary1.csproj">
       <Project>{561DC557-A6C5-4B18-AAEA-8864F0266A2C}</Project>
       <Name>WindowsGameLibrary1</Name>

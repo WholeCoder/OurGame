@@ -13,10 +13,10 @@ namespace GameState
 {
     public abstract class State
     {
-        abstract public void Initialize();
-        abstract public void LoadContent();
+        abstract public void Initialize(Game ourGame);
+        abstract public void LoadContent(ContentManager Content);
         abstract public void UnloadContent();
         abstract public void Update(GameTime gameTime);
-        abstract public void Draw(GameTime gameTime);
+        abstract public void Draw(GameTime gameTime, SpriteBatch spriteBatch);
     }
 }

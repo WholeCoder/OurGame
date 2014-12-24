@@ -92,8 +92,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditBoardState.cs" />
     <Compile Include="State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Primitives2D\Primitives2D.csproj">
+      <Project>{39AD1482-1881-4852-A05D-DC61B0D3446A}</Project>
+      <Name>Primitives2D</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Command\Command.csproj">
+      <Project>{5DBB305B-3A31-4DFC-96FC-F5AD408D4BA2}</Project>
+      <Name>Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsGameLibrary1\WindowsGameLibrary1.csproj">
+      <Project>{561DC557-A6C5-4B18-AAEA-8864F0266A2C}</Project>
+      <Name>WindowsGameLibrary1</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
