@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using Command;
+using GameState;
 
 namespace WindowsGameLibrary1
 {
@@ -55,6 +56,18 @@ namespace WindowsGameLibrary1
             Content.RootDirectory = "Content";
         }
 
+        // These next methods and properties let us use the State pattern to switch between Game states - i.e. editor, play game, game over.
+        public State CurrentState { get; set; }
+
+        // Create one instance variable for each oft he different States that this game will have!
+        // Create them in the Initialize method as well.
+        public State editBoardState { get; set; }
+        
+        public void setState(State state)
+        {
+            this.CurrentState = state;
+        }
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -67,6 +80,12 @@ namespace WindowsGameLibrary1
             this.IsMouseVisible = true;
 
             undoStack = new Stack<Command.Command>();
+
+            // Create all states that this game will go through here! And initialize them!
+            this.editBoardState = new EditBoardState();
+            this.editBoardState.Initialize();
+
+            this.CurrentState = this.editBoardState;
 
             base.Initialize();
         }
@@ -84,6 +103,8 @@ namespace WindowsGameLibrary1
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
             multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
+
+            this.editBoardState.LoadContent();
         }
 
         /// <summary>
@@ -93,6 +114,7 @@ namespace WindowsGameLibrary1
         protected override void UnloadContent()
         {
             // Unload any non ContentManager content here
+            this.editBoardState.UnloadContent();
         }
 
         /// <summary>
@@ -105,6 +127,9 @@ namespace WindowsGameLibrary1
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            this.CurrentState.Update(gameTime);
+
 
             MouseState ms = Mouse.GetState();
 
@@ -255,6 +280,11 @@ namespace WindowsGameLibrary1
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+
+            
+            this.CurrentState.Draw(gameTime);
+
+
 
             this.board.DrawBoard(spriteBatch, screenXOffset);  // screenXOffset scrolls the board left and right!
 
