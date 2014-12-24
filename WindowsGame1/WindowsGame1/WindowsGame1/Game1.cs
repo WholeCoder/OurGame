@@ -96,6 +96,7 @@ namespace WindowsGame1
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             this.editBoardState.LoadContent(Content);
+            this.blankState.LoadContent(Content);
         }
 
         /// <summary>
@@ -106,8 +107,9 @@ namespace WindowsGame1
         {
             // Unload any non ContentManager content here
 
-            // Call UloadContent for ervery State you create!
+            // Call UnloadContent for ervery State you create!
             this.editBoardState.UnloadContent();
+            this.blankState.UnloadContent();
         }
 
         /// <summary>
