@@ -1,0 +1,5 @@
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\GameState\bin\x86\Debug\GameState.dll
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\GameState\bin\x86\Debug\GameState.pdb
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\GameState\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\GameState\obj\x86\Debug\GameState.dll
+C:\Users\Ruben\Documents\My C# Games\OurGame\WindowsGame1\GameState\obj\x86\Debug\GameState.pdb
