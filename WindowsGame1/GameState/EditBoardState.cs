@@ -146,7 +146,6 @@ namespace GameState
                 screenXOffset = 0;
             }
 
-            // Do undo place tile command
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
             if (newKeyboardState.IsKeyDown(Keys.PageUp) && oldKeyboardState.IsKeyUp(Keys.PageUp))
@@ -166,7 +165,7 @@ namespace GameState
 
             multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
 
-            // handle the input
+            // Do undo place tile command
             if (newKeyboardState.IsKeyDown(Keys.Z) && oldKeyboardState.IsKeyUp(Keys.Z))
             {
                 if (this.undoStack.Count() != 0)
@@ -218,5 +217,5 @@ namespace GameState
 
             this.multiTexture.Draw(spriteBatch, mouseCursorLockedToNearestGridPositionVector);
         }
-    }
-}
+    } // end class
+} // end namespace
