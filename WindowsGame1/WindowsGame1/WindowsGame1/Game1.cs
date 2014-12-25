@@ -34,7 +34,7 @@ namespace WindowsGame1
 
         /***********************************************************************************************************/
         /*                             GameCircularDependencyFixInterface interface                                */
-        // ** note ** This next section of methodes fixes a circular dependency (not allowed) using an interface
+        // ** note ** This next section of methods fixes a circular dependency (not allowed) using an interface
         //            GameCircularDependencyFixInterface
 
         // This version is called when we change state in an update() call.
