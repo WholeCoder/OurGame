@@ -1,10 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
