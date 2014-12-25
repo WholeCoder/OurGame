@@ -26,7 +26,7 @@ namespace WindowsGame1
         // These next methods and properties let us use the State pattern to switch between Game states - i.e. editor, play game, game over.
         public State CurrentState { get; set; }
 
-        // Create one instance variable for each oft he different States that this game will have!
+        // Create one instance variable for each oft the different States that this game will have!
         // Create them in the Initialize method as well.
         public State editBoardState { get; set; }
         public State blankState { get; set; }
