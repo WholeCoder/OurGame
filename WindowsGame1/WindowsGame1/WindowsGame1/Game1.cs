@@ -110,7 +110,7 @@ namespace WindowsGame1
         {
             // Unload any non ContentManager content here
 
-            // Call UnloadContent for ervery State you create!
+            // Call UnloadContent for every State you create!
             this.editBoardState.UnloadContent();
             this.blankState.UnloadContent();
         }
