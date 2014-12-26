@@ -204,7 +204,7 @@ namespace GameState
 
             if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
             {
-                this.OurGame.Exit2();
+                this.OurGame.Exit();
             }
 
             // Press B for the blank state.  Just for testing.

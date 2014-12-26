@@ -48,11 +48,6 @@ namespace WindowsGame1
             this.CurrentState = state;
         }
 
-        public void Exit2()
-        {
-            this.Exit();
-        }
-
         /***********************************************************************************************************/
 
 
