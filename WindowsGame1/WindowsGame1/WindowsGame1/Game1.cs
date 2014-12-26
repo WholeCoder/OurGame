@@ -32,8 +32,8 @@ namespace WindowsGame1
         public State blankState { get; set; }
 
 
-        /***********************************************************************************************************/
-        /*  *note*  These are used by the State subclasses to change state of game to another. ex) Game Over state.*/
+        /***************************************************************************************************************/
+        /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
 
         // This version is called when we change state in an update() call.
         public void setStateWhenUpdating(State state, GameTime gameTime)
@@ -48,7 +48,7 @@ namespace WindowsGame1
             this.CurrentState = state;
         }
 
-        /***********************************************************************************************************/
+        /***************************************************************************************************************/
 
 
         /// <summary>
