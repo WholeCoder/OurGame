@@ -53,15 +53,6 @@ namespace WindowsGame1
             this.Exit();
         }
 
-        public State getBlankState()
-        {
-            return this.blankState;
-        }
-
-        public State getEditBoardState()
-        {
-            return this.editBoardState;
-        }
         /***********************************************************************************************************/
 
 

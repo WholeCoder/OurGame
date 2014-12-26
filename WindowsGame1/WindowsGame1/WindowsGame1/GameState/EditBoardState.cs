@@ -210,7 +210,7 @@ namespace GameState
             // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
             {
-                this.OurGame.setStateWhenUpdating(this.OurGame.getBlankState(), gameTime);
+                this.OurGame.setStateWhenUpdating(this.OurGame.blankState, gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time

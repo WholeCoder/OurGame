@@ -43,7 +43,7 @@ namespace GameState
 
             if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
             {
-                this.OurGame.setStateWhenUpdating(this.OurGame.getEditBoardState(), gameTime);
+                this.OurGame.setStateWhenUpdating(this.OurGame.editBoardState, gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
