@@ -11,7 +11,7 @@ namespace WindowsGame1
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game, GameCircularDependencyFixInterface
+    public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -33,9 +33,7 @@ namespace WindowsGame1
 
 
         /***********************************************************************************************************/
-        /*                             GameCircularDependencyFixInterface interface                                */
-        // ** note ** This next section of methods fixes a circular dependency (not allowed) using an interface
-        //            GameCircularDependencyFixInterface
+        /*  *note*  These are used by the State subclasses to change state of game to another. ex) Game Over state.*/
 
         // This version is called when we change state in an update() call.
         public void setStateWhenUpdating(State state, GameTime gameTime)

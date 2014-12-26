@@ -4,6 +4,9 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
+// My usings.
+using WindowsGame1;
+
 namespace GameState
 {
     // This class doesn't do anything. It is just used to demonstrate setStateWhenUpdating() and setStateWhenInitializing().
@@ -12,14 +15,14 @@ namespace GameState
         KeyboardState oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
-        public GameCircularDependencyFixInterface OurGame { get; set; }
+        public Game1 OurGame { get; set; }
 
         public BlankState()
         {
 
         }
 
-        public override void Initialize(GameCircularDependencyFixInterface ourGame)
+        public override void Initialize(Game1 ourGame)
         {
             this.OurGame = ourGame;
         }

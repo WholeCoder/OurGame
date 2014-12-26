@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using Command;
+using WindowsGame1;
 using WindowsGameLibrary1;
 
 namespace GameState
@@ -46,13 +47,13 @@ namespace GameState
         KeyboardState oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
-        public GameCircularDependencyFixInterface OurGame { get; set; }
+        public Game1 OurGame { get; set; }
 
         public EditBoardState()
         {
         }
 
-        public override void Initialize(GameCircularDependencyFixInterface ourGame)
+        public override void Initialize(Game1 ourGame)
         {
             this.OurGame = ourGame;
             undoStack = new Stack<Command.Command>();
