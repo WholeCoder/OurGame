@@ -29,3 +29,5 @@ This is a 2D video game level editor created with the XNA framework.
 **press B key** - Go to Blank Screen (Only when on editor grid screen)
 
 **press E key** - Go to Editor screen (Only when on blank screen)
+
+**press P key** - Enter mode that scrolls the board by pressing Left/Right arrow keys
