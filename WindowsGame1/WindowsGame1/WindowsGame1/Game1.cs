@@ -30,7 +30,7 @@ namespace WindowsGame1
         // Create them in the Initialize method as well.
         public State editBoardState { get; set; }
         public State blankState { get; set; }
-
+        public State playGameState { get; set; }
 
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
@@ -70,6 +70,9 @@ namespace WindowsGame1
 
             this.setStateWhenInitializing(this.editBoardState);
 
+            this.playGameState= new PlayGameState();
+            this.playGameState.Initialize(this);
+
             base.Initialize();
         }
 
@@ -84,6 +87,7 @@ namespace WindowsGame1
 
             this.editBoardState.LoadContent(Content);
             this.blankState.LoadContent(Content);
+            this.playGameState.LoadContent(Content);
         }
 
         /// <summary>
@@ -97,6 +101,7 @@ namespace WindowsGame1
             // Call UnloadContent for every State you create!
             this.editBoardState.UnloadContent();
             this.blankState.UnloadContent();
+            this.playGameState.UnloadContent();
         }
 
         /// <summary>
