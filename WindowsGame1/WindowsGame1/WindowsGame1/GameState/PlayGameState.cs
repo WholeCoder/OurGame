@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using Command;
 using WindowsGame1;
 using WindowsGameLibrary1;
 
