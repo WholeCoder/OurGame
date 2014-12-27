@@ -41,7 +41,7 @@ namespace GameState
         MouseState lastMouseState;
         MouseState currentMouseState;
 
-        bool rightMouseClickOccurred = true;
+        bool rightMouseClickOccurred = false;
         bool leftMouseClickOccurred = false;
 
         KeyboardState oldKeyboardState;
@@ -64,7 +64,7 @@ namespace GameState
             tCache = new TextureCache(pathToTextureCacheConfig, Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
-            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
+            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture(), tCache);
         }
 
         public override void UnloadContent()
@@ -93,7 +93,7 @@ namespace GameState
             {
                 // Flip to the next texture under the mouse pointer.
                 this.tCache.NextTexture();
-                multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
+                multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture(), tCache);
                 rightMouseClickOccurred = false;
             }
 
@@ -163,7 +163,7 @@ namespace GameState
                 multiTextureWidthHeight = 1;
             }
 
-            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture());
+            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture(), tCache);
 
             // Do undo place tile command
             if (newKeyboardState.IsKeyDown(Keys.Z) && oldKeyboardState.IsKeyUp(Keys.Z))

@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGameLibrary1
 {
+    // *** note *** First Texture is the delete texture!
+
     public class TextureCache
     {
         private Texture2D[] textures;
@@ -83,6 +85,11 @@ namespace WindowsGameLibrary1
 
         public Texture2D GetCurrentTexture()
         {
+            // This is the DeleteBrush texture to delete what is under the mouse cursor brush.
+            if (this.textureFileNames[currentTextureIndex].Equals("Images/DeleteBrush"))
+            {
+                return null;
+            }
             return textures[currentTextureIndex];
         }
 
@@ -120,17 +127,20 @@ namespace WindowsGameLibrary1
             {
                 using (FileStream fs = File.Create(fileNameString))
                 {
-                    AddText(fs, "numberOfTileTextures:" + 2);
+                    AddText(fs, "numberOfTileTextures:" + 3);
                     AddText(fs, "\n");
 
+                    AddText(fs, "Images/DeleteBrush");
+                    AddText(fs, "\n");
                     AddText(fs, "Images/tile");
                     AddText(fs, "\n");
                     AddText(fs, "Images/tile2");
                     AddText(fs, "\n");
 
-                    String[] texStringRay = new String[2];
-                    texStringRay[0] = "Images/tile";
-                    texStringRay[1] = "Images/tile2";
+                    String[] texStringRay = new String[3];
+                    texStringRay[0] = "Images/DeleteBrush";
+                    texStringRay[1] = "Images/tile";
+                    texStringRay[2] = "Images/tile2";
                     this.loadTheseTextures(Content, texStringRay);
                 } // end using
             } // end else
