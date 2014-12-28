@@ -49,6 +49,9 @@ namespace GameState
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
+        // Used to reload the contend in the board for the playGameState
+        public ContentManager Content { get; set; }
+        
         public EditBoardState()
         {
         }
@@ -63,6 +66,8 @@ namespace GameState
         {
             tCache = new TextureCache(pathToTextureCacheConfig, Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
+
+            this.Content = Content;
 
             multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture(), tCache);
         }
@@ -178,14 +183,7 @@ namespace GameState
             // Save to MyLevel.txt.
             if (newKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S))
             {
-                if (File.Exists(pathToSavedGambeBoardConfigurationFile))
-                {
-                    File.Delete(pathToSavedGambeBoardConfigurationFile);
-                }
-
-                Console.WriteLine("Saving to " + pathToSavedGambeBoardConfigurationFile);
-
-                this.board.WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile, tCache);
+                SaveCurrentBoard();
             }
 
             // Delete MyLevel.txt.
@@ -216,11 +214,25 @@ namespace GameState
             // Press P for play game state.
             if (newKeyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
+                this.SaveCurrentBoard();
+                this.OurGame.playGameState.LoadContent(Content);
                 this.OurGame.setStateWhenUpdating(this.OurGame.playGameState, gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
+        }
+
+        private void SaveCurrentBoard()
+        {
+            if (File.Exists(pathToSavedGambeBoardConfigurationFile))
+            {
+                File.Delete(pathToSavedGambeBoardConfigurationFile);
+            }
+
+            Console.WriteLine("Saving to " + pathToSavedGambeBoardConfigurationFile);
+
+            this.board.WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile, tCache);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
