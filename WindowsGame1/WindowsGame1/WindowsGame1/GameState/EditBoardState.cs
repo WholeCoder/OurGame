@@ -208,19 +208,25 @@ namespace GameState
             // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
             {
+                this.saveBoardToDiskAndReloadPlayGameState(gameTime);
                 this.OurGame.setStateWhenUpdating(this.OurGame.blankState, gameTime);
             }
 
             // Press P for play game state.
             if (newKeyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
-                this.SaveCurrentBoard();
-                this.OurGame.playGameState.LoadContent(Content);
-                this.OurGame.setStateWhenUpdating(this.OurGame.playGameState, gameTime);
+                this.saveBoardToDiskAndReloadPlayGameState(gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
+        }
+
+        private void saveBoardToDiskAndReloadPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            this.SaveCurrentBoard();
+            this.OurGame.playGameState.LoadContent(Content);
+            this.OurGame.setStateWhenUpdating(this.OurGame.playGameState, gameTime);
         }
 
         private void SaveCurrentBoard()
