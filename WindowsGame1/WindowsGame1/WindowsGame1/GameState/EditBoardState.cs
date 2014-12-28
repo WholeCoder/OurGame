@@ -154,9 +154,9 @@ namespace GameState
                 screenXOffset += scrollAmount;
             }
 
-            if (screenXOffset <= -this.board.ScreenWidth)
+            if (screenXOffset <= -this.board.BoardWidth)
             {
-                screenXOffset = -this.board.ScreenWidth;
+                screenXOffset = -this.board.BoardWidth;
             }
 
             if (screenXOffset >= 0)

@@ -17,8 +17,8 @@ namespace WindowsGameLibrary1
     public class Board
     {
         // In pixels.
-        public int ScreenWidth { get; set; }
-        public int ScreenHeight { get; set; }
+        public int BoardWidth { get; set; }
+        public int BoardHeight { get; set; }
 
         public int NumberOfHorizontalTiles { get; set; }
         public int NumberOfVerticalTiles { get; set; }
@@ -37,14 +37,14 @@ namespace WindowsGameLibrary1
 
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset)
         {
-            for (int y = 0; y < this.ScreenHeight; y += this.TileHeight)
+            for (int y = 0; y < this.BoardHeight; y += this.TileHeight)
             {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + screenXOffset, y), new Vector2(this.ScreenWidth + screenXOffset, y), Color.White);
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + screenXOffset, y), new Vector2(this.BoardWidth + screenXOffset, y), Color.White);
             }
 
-            for (int x = 0; x < this.ScreenWidth + 1; x += this.TileWidth)
+            for (int x = 0; x < this.BoardWidth + 1; x += this.TileWidth)
             {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x + screenXOffset, 0.0f), new Vector2(x + screenXOffset, this.ScreenHeight), Color.White);
+                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x + screenXOffset, 0.0f), new Vector2(x + screenXOffset, this.BoardHeight), Color.White);
             }
 
             for (int i = 0; i < this.TheBoard.GetLength(0); i++)
@@ -101,14 +101,14 @@ namespace WindowsGameLibrary1
             // Load the default game board configuration if the config file doesn't exist.
             if (!File.Exists(path))
             {
-                this.ScreenHeight = 480;  // defaults to 480
-                this.ScreenWidth = 800;   // defaults to 800
+                this.BoardHeight = 20*24;  // defaults to 480 // 20*24
+                this.BoardWidth = 29*80;   // defaults to 800 // 20*40
 
                 this.TileHeight = 20;
                 this.TileWidth = 20;
 
-                this.NumberOfVerticalTiles = this.ScreenHeight / this.TileHeight;
-                this.NumberOfHorizontalTiles = this.ScreenWidth / this.TileWidth;
+                this.NumberOfVerticalTiles = this.BoardHeight / this.TileHeight;
+                this.NumberOfHorizontalTiles = this.BoardWidth / this.TileWidth;
 
                 this.TheBoard = new Tile[this.NumberOfVerticalTiles, this.NumberOfHorizontalTiles];
                 
@@ -154,18 +154,18 @@ namespace WindowsGameLibrary1
 
                 String[] configStringSplitRay = configurationString.Split('\n');
 
-                this.ScreenHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
-                this.ScreenWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800
+                this.BoardHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
+                this.BoardWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800
 
-                Console.WriteLine("screenHeight == " + this.ScreenHeight);
-                Console.WriteLine("screenWidth == " + this.ScreenWidth);
+                Console.WriteLine("screenHeight == " + this.BoardHeight);
+                Console.WriteLine("screenWidth == " + this.BoardWidth);
 
                 this.TileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
                 this.TileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);
 
 
-                this.NumberOfVerticalTiles = this.ScreenHeight / this.TileHeight;
-                this.NumberOfHorizontalTiles = this.ScreenWidth / this.TileWidth;
+                this.NumberOfVerticalTiles = this.BoardHeight / this.TileHeight;
+                this.NumberOfHorizontalTiles = this.BoardWidth / this.TileWidth;
 
                 this.TheBoard= new Tile[this.NumberOfVerticalTiles, this.NumberOfHorizontalTiles];
                 for (int i = 0; i < this.TheBoard.GetLength(0); i++)
@@ -200,9 +200,9 @@ namespace WindowsGameLibrary1
         {
             using (FileStream fs = File.Create(path))
             {
-                AddText(fs, "screenHeight:" + this.ScreenHeight);
+                AddText(fs, "screenHeight:" + this.BoardHeight);
                 AddText(fs, "\n");
-                AddText(fs, "screenWidth:" + this.ScreenWidth);
+                AddText(fs, "screenWidth:" + this.BoardWidth);
                 AddText(fs, "\n");
 
                 AddText(fs, "tileHeight:" + this.TileHeight);
