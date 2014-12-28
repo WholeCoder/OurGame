@@ -31,3 +31,5 @@ This is a 2D video game level editor created with the XNA framework.
 **press E key** - Go to Editor screen (Only when on blank screen)
 
 **press P key** - Enter mode that scrolls the board by pressing Left/Right arrow keys
+
+**press U key** - To undo if the D key was pressed (The whole board was deleted.)
