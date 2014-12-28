@@ -37,6 +37,7 @@ namespace GameState
         int multiTextureWidthHeight = 1;
 
         Stack<Command.Command> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
+        Stack<Command.Command> undoDeleteBoardStack;
 
         MouseState lastMouseState;
         MouseState currentMouseState;
@@ -62,6 +63,7 @@ namespace GameState
         {
             this.OurGame = ourGame;
             undoStack = new Stack<Command.Command>();
+            undoDeleteBoardStack = new Stack<Command.Command>();
             previousScrollValue = Mouse.GetState().ScrollWheelValue;
         }
 
@@ -202,15 +204,24 @@ namespace GameState
             // Delete MyLevel.txt.
             if (newKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.D))
             {
-                if (File.Exists(pathToSavedGambeBoardConfigurationFile))
-                {
-                    File.Delete(pathToSavedGambeBoardConfigurationFile);
-                }
-
-                this.board.ReadInBoardConfigurationOrUseDefault(pathToSavedGambeBoardConfigurationFile, tCache);
+                Command.Command dbCommand = new DeleteBoardCommand(pathToSavedGambeBoardConfigurationFile, tCache, this.board, this);
+                dbCommand.execute();                
+                
+                // Add this delete to the undo history.
+                undoDeleteBoardStack.Push(dbCommand);
 
                 // Make sure we reset the undo history.
                 undoStack = new Stack<Command.Command>();
+            }
+
+            // Press U to undo a board deletion.
+            if (newKeyboardState.IsKeyDown(Keys.U) && oldKeyboardState.IsKeyUp(Keys.U))
+            {
+                if (this.undoDeleteBoardStack.Count() != 0)
+                {
+                    Command.Command dbCommand = this.undoDeleteBoardStack.Pop();
+                    dbCommand.undo();
+                }
             }
 
             if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
@@ -242,7 +253,7 @@ namespace GameState
             this.OurGame.setStateWhenUpdating(this.OurGame.playGameState, gameTime);
         }
 
-        private void SaveCurrentBoard()
+        public void SaveCurrentBoard()
         {
             if (File.Exists(pathToSavedGambeBoardConfigurationFile))
             {

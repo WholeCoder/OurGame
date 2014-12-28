@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\DeleteBoardCommand.cs" />
     <Compile Include="Command\DoNothingCommand.cs" />
     <Compile Include="Command\MacroCommand.cs" />
     <Compile Include="Command\PlaceMultiTextureOnBoardCommand.cs" />
