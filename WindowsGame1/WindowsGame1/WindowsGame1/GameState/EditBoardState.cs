@@ -44,6 +44,8 @@ namespace GameState
         bool rightMouseClickOccurred = false;
         bool leftMouseClickOccurred = false;
 
+        private int previousScrollValue;
+
         KeyboardState oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
@@ -60,6 +62,7 @@ namespace GameState
         {
             this.OurGame = ourGame;
             undoStack = new Stack<Command.Command>();
+            previousScrollValue = Mouse.GetState().ScrollWheelValue;
         }
 
         public override void LoadContent(ContentManager Content)
@@ -85,6 +88,16 @@ namespace GameState
 
             // Get the mouse state relevant for this frame
             currentMouseState = Mouse.GetState();
+
+            if (currentMouseState.ScrollWheelValue < previousScrollValue)
+            {
+                multiTextureWidthHeight--;
+            }
+            else if (currentMouseState.ScrollWheelValue > previousScrollValue)
+            {
+                multiTextureWidthHeight++;
+            }
+            previousScrollValue = currentMouseState.ScrollWheelValue;
 
             // Recognize a single click of the right mouse button
             if (lastMouseState.RightButton == ButtonState.Released && currentMouseState.RightButton == ButtonState.Pressed)
