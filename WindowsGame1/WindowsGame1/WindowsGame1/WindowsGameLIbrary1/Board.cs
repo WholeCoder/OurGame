@@ -101,8 +101,8 @@ namespace WindowsGameLibrary1
             // Load the default game board configuration if the config file doesn't exist.
             if (!File.Exists(path))
             {
-                this.BoardHeight = 20*24;  // defaults to 480 // 20*24
-                this.BoardWidth = 29*80;   // defaults to 800 // 20*40
+                this.BoardHeight = 20*24;  // Screen's height is 480 BoardHeight and Tile Height will be used to calc the number of tiles across array will be
+                this.BoardWidth = 29*80;   // Screen's width is 800 BoardWidth and Tile Height will be used to calc the # of tiles across the array will be
 
                 this.TileHeight = 20;
                 this.TileWidth = 20;
