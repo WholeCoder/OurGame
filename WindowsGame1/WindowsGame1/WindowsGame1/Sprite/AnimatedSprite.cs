@@ -46,10 +46,6 @@ namespace Sprite
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // Might need to call following too!:
-            /*
-             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
-             */
             spriteBatch.Draw(tCache.GetTexture2DFromStringSpriteArray(textureFilename), 
                               Vector2.Zero,
                               new Rectangle(CurrentFrame.X * FrameSize.X + CurrentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
@@ -62,10 +58,6 @@ namespace Sprite
                               1, 
                               SpriteEffects.None, 
                               0);
-            /*
-             // Might need to call the following too!
-             spriteBatch.End();
-             */
-        }
-    }
-}
+        } // end Draw method
+    } // end class
+} // end namespace
