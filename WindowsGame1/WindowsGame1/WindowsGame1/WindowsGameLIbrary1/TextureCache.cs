@@ -11,31 +11,70 @@ namespace WindowsGameLibrary1
 
     public class TextureCache
     {
+        // These are all for the board.
         private Texture2D[] boardTextures;
         private String[] boardTextureFileNames;
 
         // This instance method is used in Board Editing mode to get the current "brush" under the mouse cursor.
         private int currentTextureIndex;
 
-        public TextureCache(String boardFileNameString, ContentManager Content)
+        
+        // These are for the player and non-player characters
+        private Texture2D[] spriteTexures;
+        private string[] spriteTextureFileNames;
+
+
+        public TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
         {
             this.loadBoardTextures(boardFileNameString, Content);
+            this.loadSpriteTextures(spriteFileName, Content);
+        }
+
+        private void loadSpriteTextures(string spriteFileName, ContentManager Content)
+        {
+            if (File.Exists(spriteFileName))
+            {
+                // The next call also calls this.loadTheseTextures(Content, texStringRay, false)
+                string[] texStringRay = ReadInTextureArrayFromAFile(spriteFileName, Content); // end using
+                this.loadTheseTextures(Content, texStringRay, false);
+            }
+            else
+            {
+                // Write out our default texture file for the board.
+                String[] texStringRay = new String[0];
+
+                // TODO:  Make some real Sprite Sheet Textures!
+                //texStringRay[0] = "Images/DeleteBrush"; 
+                //texStringRay[1] = "Images/tile";
+                //texStringRay[2] = "Images/tile2";
+
+                WriteOutStringRayAndLenthToFile(spriteFileName, texStringRay);
+
+                this.loadTheseTextures(Content, texStringRay, false);
+            } // end else
         }
 
         // Don't use this publicly - This method is a helper method used by loadTextures.
-        private void loadTheseBoardTextures(ContentManager Content, String[] texStringRay)
+        private void loadTheseTextures(ContentManager Content, String[] texStringRay, bool forBoard)
         {
-            boardTextures = new Texture2D[texStringRay.Length];
-            boardTextureFileNames = new String[texStringRay.Length];
-
-            for (int i = 0; i < boardTextureFileNames.Length; i++)
+            if (forBoard)
             {
-                boardTextureFileNames[i] = texStringRay[i];
+                boardTextures = new Texture2D[texStringRay.Length];
+                boardTextureFileNames = new String[texStringRay.Length];
+
+                for (int i = 0; i < boardTextureFileNames.Length; i++)
+                {
+                    boardTextureFileNames[i] = texStringRay[i];
+                }
+
+                for (int i = 0; i < boardTextures.Length; i++)
+                {
+                    boardTextures[i] = Content.Load<Texture2D>(boardTextureFileNames[i]);
+                }
             }
-
-            for (int i = 0; i < boardTextures.Length; i++)
+            else
             {
-                boardTextures[i] = Content.Load<Texture2D>(boardTextureFileNames[i]);
+                // Load sprite sheets for player and non-player characters.
             }
         }
 
@@ -101,51 +140,65 @@ namespace WindowsGameLibrary1
 
             if (File.Exists(boardsFileNameString))
             {
+                // The next call also calls this.loadTheseTextures(Content, texStringRay, true)
+                string[] texArray = ReadInTextureArrayFromAFile(boardsFileNameString, Content); // end using
 
-                using (FileStream fs = File.OpenRead(boardsFileNameString))
-                {
-                    byte[] b = new byte[1024];
-                    String configurationString = "";
-                    UTF8Encoding temp = new UTF8Encoding(true);
-
-                    while (fs.Read(b, 0, b.Length) > 0)
-                    {
-                        configurationString += temp.GetString(b);
-                    }
-
-                    String[] configStringSplitRay = configurationString.Split('\n');
-                    Console.WriteLine("configStringRay == " + configStringSplitRay[0]);
-                    int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
-                    String[] texStringRay = new String[numberOfTileTextures];
-                    for (int i = 0; i < texStringRay.Length; i++)
-                    {
-                        texStringRay[i] = configStringSplitRay[1 + i];
-                    }
-                    this.loadTheseBoardTextures(Content, texStringRay);
-                } // end using
+                this.loadTheseTextures(Content, texArray, true);
             }
             else
             {
-                using (FileStream fs = File.Create(boardsFileNameString))
-                {
-                    AddText(fs, "numberOfTileTextures:" + 3);
-                    AddText(fs, "\n");
+                // Write out our default texture file for the board.
+                String[] texStringRay = new String[3];
+                texStringRay[0] = "Images/DeleteBrush";
+                texStringRay[1] = "Images/tile";
+                texStringRay[2] = "Images/tile2";
 
-                    AddText(fs, "Images/DeleteBrush");
-                    AddText(fs, "\n");
-                    AddText(fs, "Images/tile");
-                    AddText(fs, "\n");
-                    AddText(fs, "Images/tile2");
-                    AddText(fs, "\n");
+                WriteOutStringRayAndLenthToFile(boardsFileNameString, texStringRay);
 
-                    String[] texStringRay = new String[3];
-                    texStringRay[0] = "Images/DeleteBrush";
-                    texStringRay[1] = "Images/tile";
-                    texStringRay[2] = "Images/tile2";
-                    this.loadTheseBoardTextures(Content, texStringRay);
-                } // end using
+                this.loadTheseTextures(Content, texStringRay, true);
             } // end else
         } // end method
+
+        private string[] ReadInTextureArrayFromAFile(String textureFileNameString, ContentManager Content)
+        {
+            using (FileStream fs = File.OpenRead(textureFileNameString))
+            {
+                byte[] b = new byte[1024];
+                String configurationString = "";
+                UTF8Encoding temp = new UTF8Encoding(true);
+
+                while (fs.Read(b, 0, b.Length) > 0)
+                {
+                    configurationString += temp.GetString(b);
+                }
+
+                String[] configStringSplitRay = configurationString.Split('\n');
+                Console.WriteLine("configStringRay == " + configStringSplitRay[0]);
+                int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
+                String[] texStringRay = new String[numberOfTileTextures];
+                for (int i = 0; i < texStringRay.Length; i++)
+                {
+                    texStringRay[i] = configStringSplitRay[1 + i];
+                }
+
+                return texStringRay;
+            }
+        }
+
+        private static void WriteOutStringRayAndLenthToFile(String textureFileName, String[] texStringRay)
+        {
+            using (FileStream fs = File.Create(textureFileName))
+            {
+                AddText(fs, "numberOfTileTextures:" + texStringRay.Length);
+                AddText(fs, "\n");
+
+                for (int i = 0; i < texStringRay.Length; i++)
+                {
+                    AddText(fs, texStringRay[i]);
+                    AddText(fs, "\n");
+                }
+            } // end using
+        }
 
         private static void AddText(FileStream fs, string value)
         {

@@ -30,7 +30,8 @@ namespace GameState
 
         // This is the name the gameboard is saved to when S is pressed.
         string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
-        string pathToTextureCacheConfig = @"TextureCache.txt";
+        string pathToTextureCacheConfig = @"BoardTextureCache.txt";
+        string pathToSpriteTextureCacheConfig = @"SpriteTextureCache.txt";
 
         MultiTexture multiTexture;
         int multiTextureWidthHeight = 1;
@@ -68,7 +69,7 @@ namespace GameState
 
         public override void LoadContent(ContentManager Content)
         {
-            tCache = new TextureCache(pathToTextureCacheConfig, Content);
+            tCache = new TextureCache(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
             this.Content = Content;
