@@ -4,9 +4,6 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-// My usings.
-using WindowsGameLibrary1;
-
 namespace WindowsGameLibrary1
 {
 

@@ -13,9 +13,9 @@ namespace Sprite
 {
     public class AnimatedSprite
     {
-        public Point FrameSize { get; set; }
-        public Point CurrentFrame { get; set; }
-        public Point SheetSize { get; set; }
+        private Point FrameSize;
+        private Point CurrentFrame;
+        private Point SheetSize;
 
         private string textureFilename;
         private TextureCache tCache { get; set; }
@@ -30,21 +30,21 @@ namespace Sprite
             this.tCache = tCache;
         }
 
-        protected void Initialize()
+        public void Initialize()
         {
         }
 
-        protected void LoadContent(ContentManager Content)
-        {
-
-        }
-        
-        protected void UnloadContent()
+        public void LoadContent(ContentManager Content)
         {
 
         }
 
-        protected void Update(GameTime gameTime)
+        public void UnloadContent()
+        {
+
+        }
+
+        public void Update(GameTime gameTime)
         {
             ++this.CurrentFrame.X;
             if (this.CurrentFrame.X >= this.SheetSize.X)
@@ -56,7 +56,7 @@ namespace Sprite
             }
         }
 
-        protected override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Might need to call following too!:
             /*

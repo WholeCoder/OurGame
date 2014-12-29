@@ -3,7 +3,6 @@ using System.IO;
 
 // My usings.
 using GameState;
-using WindowsGame1;
 using WindowsGameLibrary1;
 
 namespace Command
