@@ -41,11 +41,11 @@ namespace WindowsGameLibrary1
             else
             {
                 // Write out our default texture file for the board.
-                String[] texStringRay = new String[1];
+                String[] texStringRay = new String[2];
 
                 // TODO:  Make some real Sprite Sheet Textures!
-                texStringRay[0] = "Images/spritesheets/manspritesheet"; 
-                //texStringRay[1] = "Images/tile";
+                texStringRay[0] = "Images/spritesheets/manspritesheet";
+                texStringRay[1] = "Images/spritesheets/testspritesheet";
                 //texStringRay[2] = "Images/tile2";
 
                 WriteOutStringRayAndLenthToFile(spriteFileName, texStringRay);
