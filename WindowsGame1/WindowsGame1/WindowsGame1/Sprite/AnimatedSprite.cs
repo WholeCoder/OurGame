@@ -55,7 +55,7 @@ namespace Sprite
                               Color.White, 
                               0, 
                               Vector2.Zero,
-                              1, 
+                              5, // scale
                               SpriteEffects.None, 
                               0);
         } // end Draw method
