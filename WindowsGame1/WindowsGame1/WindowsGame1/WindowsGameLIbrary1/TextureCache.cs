@@ -20,7 +20,7 @@ namespace WindowsGameLibrary1
 
         
         // These are for the player and non-player characters
-        private Texture2D[] spriteTexures;
+        private Texture2D[] spriteTextures;
         private string[] spriteTextureFileNames;
 
 
@@ -41,10 +41,10 @@ namespace WindowsGameLibrary1
             else
             {
                 // Write out our default texture file for the board.
-                String[] texStringRay = new String[0];
+                String[] texStringRay = new String[1];
 
                 // TODO:  Make some real Sprite Sheet Textures!
-                //texStringRay[0] = "Images/DeleteBrush"; 
+                texStringRay[0] = "Images/spritesheets/manspritesheet"; 
                 //texStringRay[1] = "Images/tile";
                 //texStringRay[2] = "Images/tile2";
 
@@ -75,6 +75,18 @@ namespace WindowsGameLibrary1
             else
             {
                 // Load sprite sheets for player and non-player characters.
+                spriteTextures = new Texture2D[texStringRay.Length] ;
+                spriteTextureFileNames = new String[texStringRay.Length];
+
+                for (int i = 0; i < spriteTextureFileNames.Length; i++)
+                {
+                    spriteTextureFileNames[i] = texStringRay[i];
+                }
+
+                for (int i = 0; i < spriteTextures.Length; i++)
+                {
+                    spriteTextures[i] = Content.Load<Texture2D>(spriteTextureFileNames[i]);
+                }
             }
         }
 
@@ -112,6 +124,30 @@ namespace WindowsGameLibrary1
                 if (boardTextures[i] == text)
                 {
                     return boardTextureFileNames[i];
+                }
+            }
+            return "null";
+        }
+
+        public Texture2D GetTexture2DFromStringSpriteArray(String str)
+        {
+            for (int i = 0; i < spriteTextureFileNames.Length; i++)
+            {
+                if (spriteTextureFileNames[i].Equals(str))
+                {
+                    return spriteTextures[i];
+                }
+            }
+            return null;
+        }
+
+        public String GetStringFilenameFromTexture2DForSprite(Texture2D text)
+        {
+            for (int i = 0; i < spriteTextures.Length; i++)
+            {
+                if (spriteTextures[i] == text)
+                {
+                    return spriteTextureFileNames[i];
                 }
             }
             return "null";
