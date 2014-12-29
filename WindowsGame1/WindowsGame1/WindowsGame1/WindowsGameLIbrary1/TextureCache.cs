@@ -11,96 +11,98 @@ namespace WindowsGameLibrary1
 
     public class TextureCache
     {
-        private Texture2D[] textures;
-        private String[] textureFileNames;
+        private Texture2D[] boardTextures;
+        private String[] boardTextureFileNames;
 
+        // This instance method is used in Board Editing mode to get the current "brush" under the mouse cursor.
         private int currentTextureIndex;
 
-        public TextureCache(String fileNameString, ContentManager Content)
+        public TextureCache(String boardFileNameString, ContentManager Content)
         {
-            this.loadTextures(fileNameString, Content);
+            this.loadBoardTextures(boardFileNameString, Content);
         }
 
         // Don't use this publicly - This method is a helper method used by loadTextures.
-        private void loadTheseTextures(ContentManager Content, String[] texStringRay)
+        private void loadTheseBoardTextures(ContentManager Content, String[] texStringRay)
         {
-            textures = new Texture2D[texStringRay.Length];
-            textureFileNames = new String[texStringRay.Length];
+            boardTextures = new Texture2D[texStringRay.Length];
+            boardTextureFileNames = new String[texStringRay.Length];
 
-            for (int i = 0; i < textureFileNames.Length; i++)
+            for (int i = 0; i < boardTextureFileNames.Length; i++)
             {
-                textureFileNames[i] = texStringRay[i];
+                boardTextureFileNames[i] = texStringRay[i];
             }
 
-            for (int i = 0; i < textures.Length; i++)
+            for (int i = 0; i < boardTextures.Length; i++)
             {
-                textures[i] = Content.Load<Texture2D>(textureFileNames[i]);
+                boardTextures[i] = Content.Load<Texture2D>(boardTextureFileNames[i]);
             }
         }
 
-        public int GetLengthOfTextureArray()
+        public int GetLengthOfBoardTextureArray()
         {
-            return textures.Length;
+            return boardTextures.Length;
         }
 
-        public Texture2D GetFromTexture2DArray(int index)
+        public Texture2D GetFromTexture2DBoardArray(int index)
         {
-            return textures[index];
+            return boardTextures[index];
         }
 
-        public String GetFromTextureStringArray(int index)
+        public String GetFromTextureBoardStringArray(int index)
         {
-            return textureFileNames[index];
+            return boardTextureFileNames[index];
         }
 
-        public Texture2D GetTexture2DFromString(String str)
+        public Texture2D GetTexture2DFromStringBoardArray(String str)
         {
-            for (int i = 0; i < textureFileNames.Length; i++)
+            for (int i = 0; i < boardTextureFileNames.Length; i++)
             {
-                if (textureFileNames[i].Equals(str))
+                if (boardTextureFileNames[i].Equals(str))
                 {
-                    return textures[i];
+                    return boardTextures[i];
                 }
             }
             return null;
         }
 
-        public String GetStringFilenameFromTexture2D(Texture2D text)
+        public String GetStringFilenameFromTexture2DForBoard(Texture2D text)
         {
-            for (int i = 0; i < textures.Length; i++)
+            for (int i = 0; i < boardTextures.Length; i++)
             {
-                if (textures[i] == text)
+                if (boardTextures[i] == text)
                 {
-                    return textureFileNames[i];
+                    return boardTextureFileNames[i];
                 }
             }
             return "null";
         }
 
+        // This method is called by the EditBoardState class to change to the next "brush" under the mouse cursor.
         public void NextTexture()
         {
-            currentTextureIndex = (currentTextureIndex + 1) % textures.Length;
+            currentTextureIndex = (currentTextureIndex + 1) % boardTextures.Length;
         }
 
         public Texture2D GetCurrentTexture()
         {
             // This is the DeleteBrush texture to delete what is under the mouse cursor brush.
-            if (this.textureFileNames[currentTextureIndex].Equals("Images/DeleteBrush"))
+            if (this.boardTextureFileNames[currentTextureIndex].Equals("Images/DeleteBrush"))
             {
                 return null;
             }
-            return textures[currentTextureIndex];
+            return boardTextures[currentTextureIndex];
         }
 
         // Use this called from the main Game Class.
-        public void loadTextures(String fileNameString, ContentManager Content)
+        public void loadBoardTextures(String boardsFileNameString, ContentManager Content)
         {
             currentTextureIndex = 0;
 
-            if (File.Exists(fileNameString))
+            if (File.Exists(boardsFileNameString))
             {
 
-                using (FileStream fs = File.OpenRead(fileNameString))
+                using (FileStream fs = File.OpenRead(boardsFileNameString))
                 {
                     byte[] b = new byte[1024];
                     String configurationString = "";
@@ -119,12 +121,12 @@ namespace WindowsGameLibrary1
                     {
                         texStringRay[i] = configStringSplitRay[1 + i];
                     }
-                    this.loadTheseTextures(Content, texStringRay);
+                    this.loadTheseBoardTextures(Content, texStringRay);
                 } // end using
             }
             else
             {
-                using (FileStream fs = File.Create(fileNameString))
+                using (FileStream fs = File.Create(boardsFileNameString))
                 {
                     AddText(fs, "numberOfTileTextures:" + 3);
                     AddText(fs, "\n");
@@ -140,7 +142,7 @@ namespace WindowsGameLibrary1
                     texStringRay[0] = "Images/DeleteBrush";
                     texStringRay[1] = "Images/tile";
                     texStringRay[2] = "Images/tile2";
-                    this.loadTheseTextures(Content, texStringRay);
+                    this.loadTheseBoardTextures(Content, texStringRay);
                 } // end using
             } // end else
         } // end method

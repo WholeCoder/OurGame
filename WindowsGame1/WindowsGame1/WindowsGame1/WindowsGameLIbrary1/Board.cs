@@ -172,7 +172,7 @@ namespace WindowsGameLibrary1
                     for (int j = 0; j < this.TheBoard.GetLength(1); j++)
                     {
                         Tile t = new Tile(
-                                      tCache.GetTexture2DFromString(stringGameBoardRay[j]),                  // blank tile
+                                      tCache.GetTexture2DFromStringBoardArray(stringGameBoardRay[j]),                  // blank tile
                         
                                       j,                // remembert hese are swapped in array!!!
                                       i,
@@ -218,7 +218,7 @@ namespace WindowsGameLibrary1
                         }
                         else
                         {
-                            AddText(fs, tCache.GetStringFilenameFromTexture2D(gBTile.TheTexture));
+                            AddText(fs, tCache.GetStringFilenameFromTexture2DForBoard(gBTile.TheTexture));
                         }
 
                         if (j != this.TheBoard.GetLength(1) - 1)

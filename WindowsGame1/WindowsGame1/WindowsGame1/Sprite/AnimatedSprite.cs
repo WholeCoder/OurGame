@@ -62,7 +62,7 @@ namespace Sprite
             /*
              spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
              */
-            spriteBatch.Draw(tCache.GetTexture2DFromString(textureFilename), 
+            spriteBatch.Draw(tCache.GetTexture2DFromStringBoardArray(textureFilename), 
                               Vector2.Zero,
                               new Rectangle(CurrentFrame.X * FrameSize.X,
                               CurrentFrame.Y * FrameSize.Y,

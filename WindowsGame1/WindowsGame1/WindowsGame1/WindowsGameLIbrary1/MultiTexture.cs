@@ -30,8 +30,8 @@ namespace WindowsGameLibrary1
             {
                 for (int j = 0; j < this.NumberOfHorizontalTiles; j++)
                 {
-                    int width = tCache.GetFromTexture2DArray(0).Width;
-                    int height = tCache.GetFromTexture2DArray(0).Height;
+                    int width = tCache.GetFromTexture2DBoardArray(0).Width;
+                    int height = tCache.GetFromTexture2DBoardArray(0).Height;
 
                     if (this.TextureToRepeat != null)
                     {
@@ -52,7 +52,7 @@ namespace WindowsGameLibrary1
         {
             if (this.TextureToRepeat == null)
             {
-                return tCache.GetTexture2DFromString("Images/DeleteBrush");
+                return tCache.GetTexture2DFromStringBoardArray("Images/DeleteBrush");
             }
             return t;
         } // end method
