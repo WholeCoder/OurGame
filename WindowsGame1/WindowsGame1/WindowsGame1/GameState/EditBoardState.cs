@@ -267,7 +267,7 @@ namespace GameState
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this.board.DrawBoard(spriteBatch, screenXOffset);  // screenXOffset scrolls the board left and right!
+            this.board.DrawBoard(spriteBatch, screenXOffset, true);  // screenXOffset scrolls the board left and right!
 
             this.multiTexture.Draw(spriteBatch, mouseCursorLockedToNearestGridPositionVector);
         }

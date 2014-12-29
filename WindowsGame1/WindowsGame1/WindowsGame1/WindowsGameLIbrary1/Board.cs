@@ -32,17 +32,20 @@ namespace WindowsGameLibrary1
             this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile, tCache); // tCache must fully loaded to use here!!!!
         } // end constructor
 
-        public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset)
+        public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {
-            for (int y = 0; y < this.BoardHeight; y += this.TileHeight)
+            if (drawGrid)
             {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + screenXOffset, y), new Vector2(this.BoardWidth + screenXOffset, y), Color.White);
-            }
+                for (int y = 0; y < this.BoardHeight; y += this.TileHeight)
+                {
+                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + screenXOffset, y), new Vector2(this.BoardWidth + screenXOffset, y), Color.White);
+                }
 
-            for (int x = 0; x < this.BoardWidth + 1; x += this.TileWidth)
-            {
-                C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x + screenXOffset, 0.0f), new Vector2(x + screenXOffset, this.BoardHeight), Color.White);
-            }
+                for (int x = 0; x < this.BoardWidth + 1; x += this.TileWidth)
+                {
+                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x + screenXOffset, 0.0f), new Vector2(x + screenXOffset, this.BoardHeight), Color.White);
+                }
+            } // end if
 
             for (int i = 0; i < this.TheBoard.GetLength(0); i++)
             {

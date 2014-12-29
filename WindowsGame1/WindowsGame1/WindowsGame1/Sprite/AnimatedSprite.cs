@@ -18,6 +18,7 @@ namespace Sprite
         private Point SheetSize;
 
         private string textureFilename;
+        private Texture2D theTexture;
         private TextureCache tCache { get; set; }
 
         public AnimatedSprite(Point frameSize, Point sheetSize, string textureFilename, TextureCache tCache)
@@ -27,21 +28,8 @@ namespace Sprite
             this.SheetSize = sheetSize;// new Point(6, 8);
 
             this.textureFilename = textureFilename;
+            this.theTexture = tCache.GetTexture2DFromStringSpriteArray(textureFilename);
             this.tCache = tCache;
-        }
-
-        public void Initialize()
-        {
-        }
-
-        public void LoadContent(ContentManager Content)
-        {
-
-        }
-
-        public void UnloadContent()
-        {
-
         }
 
         public void Update(GameTime gameTime)
@@ -62,9 +50,9 @@ namespace Sprite
             /*
              spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
              */
-            spriteBatch.Draw(tCache.GetTexture2DFromStringBoardArray(textureFilename), 
+            spriteBatch.Draw(tCache.GetTexture2DFromStringSpriteArray(textureFilename), 
                               Vector2.Zero,
-                              new Rectangle(CurrentFrame.X * FrameSize.X,
+                              new Rectangle(CurrentFrame.X * FrameSize.X + CurrentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
                               CurrentFrame.Y * FrameSize.Y,
                               FrameSize.X,
                               FrameSize.Y),

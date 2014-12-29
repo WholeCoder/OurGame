@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
+using Sprite;
 using WindowsGame1;
 using WindowsGameLibrary1;
 
@@ -30,6 +31,8 @@ namespace GameState
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
+        public AnimatedSprite Player { get; set; }
+
         public PlayGameState()
         {
         }
@@ -43,6 +46,8 @@ namespace GameState
         {
             tCache = new TextureCache(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig,Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
+
+            Player = new AnimatedSprite(new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache);
         }
 
         public override void UnloadContent()
@@ -51,6 +56,7 @@ namespace GameState
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            Player.Update(gameTime);
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
@@ -99,7 +105,8 @@ namespace GameState
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this.board.DrawBoard(spriteBatch, screenXOffset);  // screenXOffset scrolls the board left and right!
+            this.board.DrawBoard(spriteBatch, screenXOffset, false);  // screenXOffset scrolls the board left and right!
+            Player.Draw(gameTime, spriteBatch);
         }
     }
 }
