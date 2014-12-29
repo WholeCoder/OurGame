@@ -8,6 +8,8 @@ This is a 2D video game level editor created with the XNA framework.
 
 **Controls** - **Game Board Edit Mode**
 
+**mouse scroll wheel** - makes the brush bigger or smaller
+
 **left keyboard arrow/right keyboard arrow** - use to scroll the board
 
 **left mouse button** - place a tile on the game board
