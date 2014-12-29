@@ -18,9 +18,9 @@ namespace Sprite
 
         public AnimatedSprite(Point frameSize, Point sheetSize, string textureFilename, TextureCache tCache)
         {
-            this.FrameSize = frameSize;// new Point(75, 75);
+            this.FrameSize = frameSize;
             this.CurrentFrame = new Point(0, 0);
-            this.SheetSize = sheetSize;// new Point(6, 8);
+            this.SheetSize = sheetSize;
 
             this.textureFilename = textureFilename;
             this.theTexture = tCache.GetTexture2DFromStringSpriteArray(textureFilename);
@@ -50,7 +50,7 @@ namespace Sprite
                               Color.White, 
                               0, 
                               Vector2.Zero,
-                              5, // scale
+                              10, // scale
                               SpriteEffects.None, 
                               0);
         } // end Draw method
