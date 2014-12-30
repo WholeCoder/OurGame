@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
@@ -16,11 +17,14 @@ namespace Sprite
         private Texture2D theTexture;
         private TextureCache tCache { get; set; }
 
+        private int ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
+
         public AnimatedSprite(Point frameSize, Point sheetSize, string textureFilename, TextureCache tCache)
         {
             this.FrameSize = frameSize;
             this.CurrentFrame = new Point(0, 0);
             this.SheetSize = sheetSize;
+            this.ElapsedGameTime = 0;
 
             this.textureFilename = textureFilename;
             this.theTexture = tCache.GetTexture2DFromStringSpriteArray(textureFilename);
@@ -29,15 +33,23 @@ namespace Sprite
 
         public void Update(GameTime gameTime)
         {
-            ++this.CurrentFrame.X;
-            if (this.CurrentFrame.X >= this.SheetSize.X)
+            Console.WriteLine("gameTime == " + gameTime.ElapsedGameTime.Milliseconds);
+            this.ElapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (this.ElapsedGameTime >= 100) // 100 milliseconds
             {
-                this.CurrentFrame.X = 0;
-                ++this.CurrentFrame.Y;
-                if (this.CurrentFrame.Y >= this.SheetSize.Y)
-                    this.CurrentFrame.Y = 0;
-            }
-        }
+                this.ElapsedGameTime = 0;
+
+                ++this.CurrentFrame.X;
+                if (this.CurrentFrame.X >= this.SheetSize.X)
+                {
+                    this.CurrentFrame.X = 0;
+                    ++this.CurrentFrame.Y;
+                    if (this.CurrentFrame.Y >= this.SheetSize.Y)
+                        this.CurrentFrame.Y = 0;
+                }
+            } // end if
+        } // end method
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
