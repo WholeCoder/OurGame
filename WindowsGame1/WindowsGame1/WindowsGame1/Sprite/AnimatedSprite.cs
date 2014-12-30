@@ -33,7 +33,6 @@ namespace Sprite
 
         public void Update(GameTime gameTime)
         {
-            Console.WriteLine("gameTime == " + gameTime.ElapsedGameTime.Milliseconds);
             this.ElapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
 
             if (this.ElapsedGameTime >= 100) // 100 milliseconds
