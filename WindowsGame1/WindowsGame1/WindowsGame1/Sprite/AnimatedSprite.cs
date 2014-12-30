@@ -18,13 +18,15 @@ namespace Sprite
         private TextureCache tCache { get; set; }
 
         private int ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
+        private int TimeBetweenFrames;
 
-        public AnimatedSprite(Point frameSize, Point sheetSize, string textureFilename, TextureCache tCache)
+        public AnimatedSprite(Point frameSize, Point sheetSize, string textureFilename, TextureCache tCache, int TimeBetweenFrames)
         {
             this.FrameSize = frameSize;
             this.CurrentFrame = new Point(0, 0);
             this.SheetSize = sheetSize;
             this.ElapsedGameTime = 0;
+            this.TimeBetweenFrames = TimeBetweenFrames;
 
             this.textureFilename = textureFilename;
             this.theTexture = tCache.GetTexture2DFromStringSpriteArray(textureFilename);
@@ -35,7 +37,7 @@ namespace Sprite
         {
             this.ElapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (this.ElapsedGameTime >= 100) // 100 milliseconds
+            if (this.ElapsedGameTime >= this.TimeBetweenFrames) // 100 milliseconds
             {
                 this.ElapsedGameTime = 0;
 
