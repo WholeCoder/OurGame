@@ -137,6 +137,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Sprite\AnimatedSprite.cs" />
+    <Compile Include="Sprite\AutomatedSprite.cs" />
+    <Compile Include="Sprite\UserControlledSprite .cs" />
     <Compile Include="WindowsGameLIbrary1\Board.cs" />
     <Compile Include="WindowsGameLIbrary1\MultiTexture.cs" />
     <Compile Include="WindowsGameLIbrary1\TextureCache.cs" />

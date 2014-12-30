@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -31,7 +32,7 @@ namespace GameState
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
-        public AnimatedSprite Player { get; set; }
+        public UserControlledSprite Player { get; set; }
 
         public PlayGameState()
         {
@@ -47,7 +48,7 @@ namespace GameState
             tCache = new TextureCache(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig,Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
-            Player = new AnimatedSprite(new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100);
+            Player = new UserControlledSprite(new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100));
         }
 
         public override void UnloadContent()
