@@ -26,7 +26,11 @@ namespace WindowsGameLibrary1
         public int TileWidth { get; set; }
         public int TileHeight { get; set; }
 
-        public int PushOverBoardX { get; set; }
+        // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - use dto speed up the game by not drawing.
+        // all the game board every cycle.
+        public int BoardMarginX { get; set; }
+        public const int SCREEN_WIDTH = 800;
+        public const int NUMBER_OF_TILES_IN_MARGIN_X = 1;
 
         public Board(String pathToConfigFile, TextureCache tCache)
         {
@@ -36,29 +40,39 @@ namespace WindowsGameLibrary1
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {
             // This will make the board only draw the part that is on the screen on the left side.
-            this.PushOverBoardX = this.TileWidth*2;
+            this.BoardMarginX = this.TileWidth*Board.NUMBER_OF_TILES_IN_MARGIN_X;
 
             if (drawGrid)
             {
                 for (int y = 0; y < this.BoardHeight; y += this.TileHeight)
                 {
-                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + this.PushOverBoardX+screenXOffset, y), new Vector2(this.BoardWidth + screenXOffset + this.PushOverBoardX, y), Color.White);
+                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + this.BoardMarginX+screenXOffset, y), new Vector2(this.BoardWidth + screenXOffset + this.BoardMarginX, y), Color.White);
                 }
 
                 for (int x = 0; x < this.BoardWidth + 1; x += this.TileWidth)
                 {
-                    int putItX = x / this.TileWidth * this.TileWidth + this.PushOverBoardX + screenXOffset;
+                    int putItX = x / this.TileWidth * this.TileWidth + this.BoardMarginX + screenXOffset;
                     C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(putItX, 0.0f), new Vector2(putItX, this.BoardHeight), Color.White);
                 }
             } // end if
 
             for (int i = 0; i < this.TheBoard.GetLength(0); i++)
             {
-                for (int j = this.CalculateXIndex(this.PushOverBoardX, screenXOffset); j < this.TheBoard.GetLength(1); j++)
+                int startX = this.CalculateXIndex(this.BoardMarginX, screenXOffset);
+                int endX = Math.Max(startX, this.CalculateXIndex(Board.SCREEN_WIDTH-this.BoardMarginX, screenXOffset));  // this.TheBoard.GetLength(1);
+                if (startX >= this.TheBoard.GetLength(1))
+                {
+                    startX = this.TheBoard.GetLength(1) - 1;
+                }
+                if (endX >= this.TheBoard.GetLength(1))
+                {
+                    endX = this.TheBoard.GetLength(1) - 1;
+                }
+                for (int j = startX; j < endX; j++)
                 {
                     if (this.TheBoard[i, j].TheTexture != null)
                     {
-                        Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset + this.PushOverBoardX, i * this.TileHeight);
+                        Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset + this.BoardMarginX, i * this.TileHeight);
                         spriteBatch.Draw(this.TheBoard[i, j].TheTexture, tilePosition, Color.White);
                     }
                 }
@@ -81,7 +95,7 @@ namespace WindowsGameLibrary1
 
         public int CalculateXIndex(int mouseX, int screenXOffset)
         {
-            int putInGameArrayX = (mouseX - screenXOffset - this.PushOverBoardX) / this.TileWidth;
+            int putInGameArrayX = (mouseX - screenXOffset - this.BoardMarginX) / this.TileWidth;
             return putInGameArrayX;
         }
 
