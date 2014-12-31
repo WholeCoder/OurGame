@@ -70,5 +70,7 @@ namespace Sprite
                               SpriteEffects.None,
                               0);
         } // end Draw method
+
+        public abstract AnimatedSprite Load(string filepath);
     } // end class
 } // end namespace
