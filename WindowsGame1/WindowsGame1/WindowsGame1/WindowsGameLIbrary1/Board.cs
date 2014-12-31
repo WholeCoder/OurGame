@@ -26,6 +26,7 @@ namespace WindowsGameLibrary1
         public int TileWidth { get; set; }
         public int TileHeight { get; set; }
 
+        public int PushOverBoardX { get; set; }
 
         public Board(String pathToConfigFile, TextureCache tCache)
         {
@@ -34,26 +35,30 @@ namespace WindowsGameLibrary1
 
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {
+            // This will make the board only draw the part that is on the screen on the left side.
+            this.PushOverBoardX = this.TileWidth*2;
+
             if (drawGrid)
             {
                 for (int y = 0; y < this.BoardHeight; y += this.TileHeight)
                 {
-                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + screenXOffset, y), new Vector2(this.BoardWidth + screenXOffset, y), Color.White);
+                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + this.PushOverBoardX+screenXOffset, y), new Vector2(this.BoardWidth + screenXOffset + this.PushOverBoardX, y), Color.White);
                 }
 
                 for (int x = 0; x < this.BoardWidth + 1; x += this.TileWidth)
                 {
-                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(x + screenXOffset, 0.0f), new Vector2(x + screenXOffset, this.BoardHeight), Color.White);
+                    int putItX = x / this.TileWidth * this.TileWidth + this.PushOverBoardX + screenXOffset;
+                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(putItX, 0.0f), new Vector2(putItX, this.BoardHeight), Color.White);
                 }
             } // end if
 
             for (int i = 0; i < this.TheBoard.GetLength(0); i++)
             {
-                for (int j = 0; j < this.TheBoard.GetLength(1); j++)
+                for (int j = this.CalculateXIndex(this.PushOverBoardX, screenXOffset); j < this.TheBoard.GetLength(1); j++)
                 {
                     if (this.TheBoard[i, j].TheTexture != null)
                     {
-                        Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset, i * this.TileHeight);
+                        Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset + this.PushOverBoardX, i * this.TileHeight);
                         spriteBatch.Draw(this.TheBoard[i, j].TheTexture, tilePosition, Color.White);
                     }
                 }
@@ -76,7 +81,7 @@ namespace WindowsGameLibrary1
 
         public int CalculateXIndex(int mouseX, int screenXOffset)
         {
-            int putInGameArrayX = (mouseX - screenXOffset) / this.TileWidth;
+            int putInGameArrayX = (mouseX - screenXOffset - this.PushOverBoardX) / this.TileWidth;
             return putInGameArrayX;
         }
 
