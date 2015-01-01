@@ -29,20 +29,6 @@ namespace Sprite
             this.tCache = tCache;
         }
 
-/*
-        public AnimatedSprite(Point frameSize, Point sheetSize, string textureFilename, TextureCache tCache, int TimeBetweenFrames, Vector2 CurrentPosition)
-        {
-            this.FrameSize = frameSize;
-            this.CurrentFrame = new Point(0, 0);
-            this.SheetSize = sheetSize;
-            this.ElapsedGameTime = 0;
-            this.TimeBetweenFrames = TimeBetweenFrames;
-
-            this.textureFilename = textureFilename;
-            this.theTexture = tCache.GetTexture2DFromStringSpriteArray(textureFilename);
-            this.tCache = tCache;
-        }
-*/
         public void Update(GameTime gameTime)
         {
             this.ElapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
