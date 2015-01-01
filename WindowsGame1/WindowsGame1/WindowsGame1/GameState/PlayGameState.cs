@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -48,7 +47,9 @@ namespace GameState
             tCache = new TextureCache(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig,Content);
             board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
 
-            Player = new UserControlledSprite(new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100));
+            // old UserControlledSprite/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/
+            // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
+            Player = new UserControlledSprite(tCache, "UserControlledSpriteConfig.txt");
         }
 
         public override void UnloadContent()

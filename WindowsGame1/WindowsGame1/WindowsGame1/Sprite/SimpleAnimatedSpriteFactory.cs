@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using Microsoft.Xna.Framework;
 
 // My usings
 using WindowsGameLibrary1;
@@ -33,13 +32,17 @@ namespace Sprite
             if (typeOfAnimatedSprite.Equals("AutomatedSprite"))
             {
                 // TODO: Remove all arguments to constructor and create the implementation of the load method.
-                spriteWeAreLoading = new AutomatedSprite(new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100));
-                spriteWeAreLoading.Load(filepath);
+                spriteWeAreLoading = new AutomatedSprite(tCache,filepath/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/);
+                
+                // TODO: possibly call this later to "Load(Content)"
+                //spriteWeAreLoading.Load(filepath);
             } else if (typeOfAnimatedSprite.Equals("UserControlledSprite"))
             {
                 // TODO: Remove all arguments to constructor and create the implementation of the load method.
-                spriteWeAreLoading = new UserControlledSprite(new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100));
-                spriteWeAreLoading.Load(filepath);
+                spriteWeAreLoading = new UserControlledSprite(tCache, filepath/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/);
+
+                // TODO: possibly call this later to "Load(Content)"
+                //spriteWeAreLoading.Load(filepath);
             }
 
             return spriteWeAreLoading;
