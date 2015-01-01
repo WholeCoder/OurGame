@@ -38,6 +38,7 @@ namespace Sprite
                 this.ElapsedGameTime = 0;
 
                 ++this.CurrentFrame.X;
+                //Console.WriteLine("this.CurrentFrame.X == " + this.CurrentFrame.X);
                 if (this.CurrentFrame.X >= this.SheetSize.X)
                 {
                     this.CurrentFrame.X = 0;
@@ -83,11 +84,11 @@ namespace Sprite
                                        Convert.ToInt32(configArray[startOffset].Split(',')[1]));
 
             this.CurrentFrame = new Point(Convert.ToInt32(configArray[startOffset+1].Split(',')[0]),
-                                          Convert.ToInt32(configArray[startOffset+1].Split(',')[0]));
+                                          Convert.ToInt32(configArray[startOffset+1].Split(',')[1]));
 
             this.SheetSize = new Point(Convert.ToInt32(configArray[startOffset+2].Split(',')[0]),
-                                          Convert.ToInt32(configArray[startOffset+2].Split(',')[0]));
-
+                                          Convert.ToInt32(configArray[startOffset+2].Split(',')[1]));
+            Console.WriteLine("this.SheetSize == " + this.SheetSize);
             this.TimeBetweenFrames = Convert.ToInt32(configArray[startOffset+3]);
 
             this.textureFilename = configArray[startOffset+4];
