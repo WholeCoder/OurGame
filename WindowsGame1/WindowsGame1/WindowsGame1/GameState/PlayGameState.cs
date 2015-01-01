@@ -31,7 +31,7 @@ namespace GameState
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
-        public UserControlledSprite Player { get; set; }
+        public AnimatedSprite Player { get; set; }
 
         public PlayGameState()
         {
