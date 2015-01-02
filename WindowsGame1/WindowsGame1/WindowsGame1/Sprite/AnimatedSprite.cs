@@ -12,24 +12,38 @@ namespace Sprite
     public abstract class AnimatedSprite
     {
         public Vector2 CurrentPosition { get; set; }
+        public Vector2 InitialPosition { get; set; }
 
-        protected Point FrameSize;
-        protected Point CurrentFrame;
-        protected Point SheetSize;
+        private Point leftFrameSize;
+        private Point rightFrameSize;
+        private Point atRestFrameSize;
 
-        protected string textureFilename;
-        protected Texture2D theTexture;
-        protected TextureCache tCache { get; set; }
+        private Point leftSheetSize;
+        private Point rightSheetSize;
+        private Point atRestSheetSize;
 
-        protected int ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
-        protected int TimeBetweenFrames;
+        private string leftTextureFilename;
+        private string rightTextureFilename;
+        private string atRestTextureFilename;
+
+
+
+        private Point CurrentFrame;
+        private String CurrentTextureFilename; // The textures are received from the TextureCache.
+        private Point CurrentSheetSize;
+        private Point CurrentFrameSize;
+
+        private TextureCache tCache { get; set; }
+
+        private int ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
+        private int TimeBetweenFrames;
 
         public AnimatedSprite(TextureCache tCache)
         {
             this.tCache = tCache;
         }
 
-        public void Update(GameTime gameTime)
+        private void NextFrame(GameTime gameTime)
         {
             this.ElapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
 
@@ -39,24 +53,56 @@ namespace Sprite
 
                 ++this.CurrentFrame.X;
                 //Console.WriteLine("this.CurrentFrame.X == " + this.CurrentFrame.X);
-                if (this.CurrentFrame.X >= this.SheetSize.X)
+                if (this.CurrentFrame.X >= this.CurrentSheetSize.X)
                 {
                     this.CurrentFrame.X = 0;
                     ++this.CurrentFrame.Y;
-                    if (this.CurrentFrame.Y >= this.SheetSize.Y)
+                    if (this.CurrentFrame.Y >= this.CurrentSheetSize.Y)
                         this.CurrentFrame.Y = 0;
                 }
             } // end if
+        }
+
+        public void SwitchToGoRightTexture()
+        {
+            this.CurrentFrame = new Point(0, 0);
+            this.CurrentTextureFilename = this.rightTextureFilename;
+            this.CurrentSheetSize = this.rightSheetSize;
+            this.CurrentFrameSize = this.rightFrameSize;
+        }
+
+        public void SwitchToGoLeftTexture()
+        {
+            this.CurrentFrame = new Point(0, 0);
+            this.CurrentTextureFilename = this.leftTextureFilename;
+            this.CurrentSheetSize = this.leftSheetSize;
+            this.CurrentFrameSize = this.leftFrameSize;
+        }
+
+        public void SwitchToAtRestTexture()
+        {
+            this.CurrentFrame = new Point(0, 0);
+            this.CurrentTextureFilename = this.atRestTextureFilename;
+            this.CurrentSheetSize = this.atRestSheetSize;
+            this.CurrentFrameSize = this.atRestFrameSize;
+        }
+
+
+
+
+        public void Update(GameTime gameTime)
+        {
+            this.NextFrame(gameTime);
         } // end method
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tCache.GetTexture2DFromStringSpriteArray(textureFilename),
+            spriteBatch.Draw(tCache.GetTexture2DFromStringSpriteArray(CurrentTextureFilename),
                               this.CurrentPosition,
-                              new Rectangle(CurrentFrame.X * FrameSize.X + CurrentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
-                              CurrentFrame.Y * FrameSize.Y,
-                              FrameSize.X,
-                              FrameSize.Y),
+                              new Rectangle(CurrentFrame.X * CurrentFrameSize.X + CurrentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
+                              CurrentFrame.Y * CurrentFrameSize.Y,
+                              CurrentFrameSize.X,
+                              CurrentFrameSize.Y),
                               Color.White,
                               0,
                               Vector2.Zero,
@@ -66,71 +112,135 @@ namespace Sprite
         } // end Draw method
 
         // This will start at the startOffset and read out it's attributes.
-        protected int Load(string[] configArray, int startOffset)
+        public abstract void Load(string[] configArray, int startOffset);
+        public abstract string NameOfThisSubclassForWritingToConfigFile();
+
+        // In this method we use fs to write out the subclasses properties.
+        public abstract void Write(FileStream fs);
+
+
+        // This is the template method pattern.
+        public void Load(string filepath)
         {
-            /*
-                UserControlledSprite - ALREADY READ IN
-                0,0 - startOffset is set here 
-                0,0
-                2,1
-                100
-                Images/spritesheets/manspritesheet
+            if (!File.Exists(filepath))
+            {
+                using (FileStream fs = File.Create(filepath))
+                {
+                    // Set defaults
 
-                 */
-            // Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
-            
-            // read in properties for the AnimatedSprite starting at startOffset.
-            this.FrameSize = new Point(Convert.ToInt32(configArray[startOffset].Split(',')[0]),
-                                       Convert.ToInt32(configArray[startOffset].Split(',')[1]));
+                    // Write "AutomatedSprite" to file and a \n.
+                    AddText(fs, this.NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
+                    AddText(fs, "\n");
 
-            this.CurrentFrame = new Point(Convert.ToInt32(configArray[startOffset+1].Split(',')[0]),
-                                          Convert.ToInt32(configArray[startOffset+1].Split(',')[1]));
-
-            this.SheetSize = new Point(Convert.ToInt32(configArray[startOffset+2].Split(',')[0]),
-                                          Convert.ToInt32(configArray[startOffset+2].Split(',')[1]));
-            Console.WriteLine("this.SheetSize == " + this.SheetSize);
-            this.TimeBetweenFrames = Convert.ToInt32(configArray[startOffset+3]);
-
-            this.textureFilename = configArray[startOffset+4];
-            this.theTexture = tCache.GetTexture2DFromStringSpriteArray(this.textureFilename);
-
-            Console.WriteLine("this.textureFilename == " + this.textureFilename);
-
-            return startOffset+5;
-        }
+                    this.InitialPosition = new Vector2(100, 100);
+                    AddText(fs, this.InitialPosition.X + "," + this.InitialPosition.Y);
 
 
-        public abstract void Load(string filepath);
+                    this.leftFrameSize = new Point(20, 20);
+                    AddText(fs, this.leftFrameSize.X + "," + this.leftFrameSize.Y);
+                    AddText(fs, "\n");
 
-        // Must wrap these in a filestream.  This will just append the attributes to the file
-        public virtual void WriteToDisk(FileStream fs)
-        {
-            this.FrameSize = new Point(20, 20) ;
-            AddText(fs,this.FrameSize.X+","+this.FrameSize.Y);
-            AddText(fs, "\n");
+                    this.rightFrameSize = new Point(20, 20);
+                    AddText(fs, this.rightFrameSize.X + "," + this.rightFrameSize.Y);
+                    AddText(fs, "\n");
 
-            this.CurrentFrame = new Point(0, 0);
-            AddText(fs,this.CurrentFrame.X+","+this.CurrentFrame.Y);
-            AddText(fs, "\n");
+                    this.atRestFrameSize = new Point(20, 20);
+                    AddText(fs, this.atRestFrameSize.X + "," + this.atRestFrameSize.Y);
+                    AddText(fs, "\n");
 
-            this.SheetSize = new Point(2,0);
-            AddText(fs,this.SheetSize.X+","+this.SheetSize.Y);
-            AddText(fs, "\n");
 
-            this.TimeBetweenFrames = 100;
-            AddText(fs, this.TimeBetweenFrames+"");
-            AddText(fs, "\n");
+                    this.leftSheetSize = new Point(2, 0);
+                    AddText(fs, this.leftSheetSize.X + "," + this.leftSheetSize.Y);
+                    AddText(fs, "\n");
 
-            this.textureFilename = "Images/spritesheets/manspritesheet";
-            AddText(fs,this.textureFilename);
-            AddText(fs, "\n");
+                    this.rightSheetSize = new Point(2, 0);
+                    AddText(fs, this.rightSheetSize.X + "," + this.rightSheetSize.Y);
+                    AddText(fs, "\n");
 
-            this.ElapsedGameTime = 0; // SKIPPTED!!!!!!!!!!!!!!!!!!!! NOT WRITTEN TO DISK
-            this.theTexture = tCache.GetTexture2DFromStringSpriteArray(textureFilename);
+                    this.atRestSheetSize = new Point(1, 0);
+                    AddText(fs, this.atRestSheetSize.X + "," + this.atRestSheetSize.Y);
+                    AddText(fs, "\n");
+
+
+                    this.leftTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this.leftTextureFilename);
+                    AddText(fs, "\n");
+
+                    this.rightTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this.rightTextureFilename);
+                    AddText(fs, "\n");
+
+                    this.atRestTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this.atRestTextureFilename);
+                    AddText(fs, "\n");
+
+                    
+                    this.TimeBetweenFrames = 100;
+                    AddText(fs, this.TimeBetweenFrames + "");
+                    AddText(fs, "\n");
+
+
+                    this.ElapsedGameTime = 0; // SKIPPTED!!!!!!!!!!!!!!!!!!!! NOT WRITTEN TO DISK
+
+                    // Write out the subclass's properties.
+                    this.Write(fs);
+                }
+            }
+            else
+            {
+                String configurationString = "";  // Holds the entire configuration file.
+
+                // Open the stream and read it back. 
+                using (FileStream fs = File.OpenRead(filepath))
+                {
+                    byte[] b = new byte[1024];
+                    UTF8Encoding temp = new UTF8Encoding(true);
+                    while (fs.Read(b, 0, b.Length) > 0)
+                    {
+                        configurationString += temp.GetString(b);
+                    }
+                }
+                string[] configStringSplitRay = configurationString.Split('\n');
+
+                this.SetNameOfThisSubclassWhenReadIn(configStringSplitRay[0]);
+
+                this.InitialPosition = new Vector2(Convert.ToInt32(configStringSplitRay[1].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[1].Split(',')[1]));
+
+
+                this.leftFrameSize = new Point(Convert.ToInt32(configStringSplitRay[2].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[2].Split(',')[1]));
+
+                this.rightFrameSize = new Point(Convert.ToInt32(configStringSplitRay[3].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[3].Split(',')[1]));
+
+
+                this.atRestFrameSize = new Point(Convert.ToInt32(configStringSplitRay[4].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[4].Split(',')[1]));
+
+                this.leftSheetSize = new Point(Convert.ToInt32(configStringSplitRay[5].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[5].Split(',')[1]));
+
+                this.rightSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[6].Split(',')[1]));
+
+                this.atRestSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[6].Split(',')[1]));
+
+                this.leftTextureFilename = configStringSplitRay[7];
+                this.rightTextureFilename = configStringSplitRay[8];
+                this.atRestTextureFilename = configStringSplitRay[9];
+
+                this.TimeBetweenFrames = Convert.ToInt32(configStringSplitRay[10]);
+                
+                // This next call reads in the properties of the sub-class. (template method)
+                this.Load(configStringSplitRay, 11);
+
+            } // end else
         }
 
         // Useful in sub-classes.
-        protected static void AddText(FileStream fs, string value)
+        private static void AddText(FileStream fs, string value)
         {
             byte[] info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
