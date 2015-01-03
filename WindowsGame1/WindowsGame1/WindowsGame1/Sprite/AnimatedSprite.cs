@@ -91,11 +91,16 @@ namespace Sprite
 
 
 
-
-        public void Update(GameTime gameTime)
+        // A template method.
+        public virtual void Update(GameTime gameTime)
         {
             this.NextFrame(gameTime);
+
+            this.UpdateInAfterNextFrame(gameTime);
         } // end method
+
+        public abstract void UpdateAfterNextFrame(GameTime gameTime);
+
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

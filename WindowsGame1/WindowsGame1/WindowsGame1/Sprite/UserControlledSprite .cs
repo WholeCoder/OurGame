@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using System.IO;
+using Microsoft.Xna.Framework;
 
+// My using statements.
 using WindowsGameLibrary1;
 
 namespace Sprite
@@ -19,6 +19,11 @@ namespace Sprite
         {
             // Nothing to Load yet!
             // TODO: Read properties starting at startOffset.
+        }
+
+        public override void UpdateAfterNextFrame(GameTime gameTime)
+        {
+
         }
 
         public override string NameOfThisSubclassForWritingToConfigFile()

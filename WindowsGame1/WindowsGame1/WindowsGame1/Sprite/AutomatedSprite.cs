@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 using WindowsGameLibrary1;
 
@@ -21,6 +22,12 @@ namespace Sprite
             // TODO: Read properties starting at startOffset.
         }
 
+
+        public override void UpdateAfterNextFrame(GameTime gameTime)
+        {
+
+        }
+        
         public override string NameOfThisSubclassForWritingToConfigFile()
         {
             // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
