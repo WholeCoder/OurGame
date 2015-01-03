@@ -38,9 +38,10 @@ namespace Sprite
         private int ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
         private int TimeBetweenFrames;
 
-        public AnimatedSprite(TextureCache tCache)
+        public AnimatedSprite(TextureCache tCache, string configFilePathAndName)
         {
             this.tCache = tCache;
+            this.Load(configFilePathAndName);
         }
 
         private void NextFrame(GameTime gameTime)
@@ -109,6 +110,11 @@ namespace Sprite
                               10, // scale
                               SpriteEffects.None,
                               0);
+
+            Console.WriteLine("--------------");
+            Console.WriteLine("     this.CurrentPosition == " + this.CurrentPosition.X + "," + this.CurrentPosition.Y);
+            Console.WriteLine("     this.CurrentTextureFilename == "+this.CurrentTextureFilename);
+            Console.WriteLine("--------------");
         } // end Draw method
 
         // This will start at the startOffset and read out it's attributes.
@@ -134,6 +140,7 @@ namespace Sprite
 
                     this.InitialPosition = new Vector2(100, 100);
                     AddText(fs, this.InitialPosition.X + "," + this.InitialPosition.Y);
+                    AddText(fs, "\n");
 
 
                     this.leftFrameSize = new Point(20, 20);
@@ -179,15 +186,27 @@ namespace Sprite
                     AddText(fs, this.TimeBetweenFrames + "");
                     AddText(fs, "\n");
 
-
-                    this.ElapsedGameTime = 0; // SKIPPTED!!!!!!!!!!!!!!!!!!!! NOT WRITTEN TO DISK
-
                     // Write out the subclass's properties.
                     this.Write(fs);
                 }
             }
             else
             {
+                /*
+                    UserControlledSprite
+100,100
+20,20
+20,20
+20,20
+2,0
+2,0
+1,0
+Images/spritesheets/manspritesheet
+Images/spritesheets/manspritesheet
+Images/spritesheets/manspritesheet
+100
+
+                    */
                 String configurationString = "";  // Holds the entire configuration file.
 
                 // Open the stream and read it back. 
@@ -201,8 +220,6 @@ namespace Sprite
                     }
                 }
                 string[] configStringSplitRay = configurationString.Split('\n');
-
-                this.SetNameOfThisSubclassWhenReadIn(configStringSplitRay[0]);
 
                 this.InitialPosition = new Vector2(Convert.ToInt32(configStringSplitRay[1].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[1].Split(',')[1]));
@@ -224,19 +241,24 @@ namespace Sprite
                 this.rightSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[6].Split(',')[1]));
 
-                this.atRestSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
-                                                   Convert.ToInt32(configStringSplitRay[6].Split(',')[1]));
+                this.atRestSheetSize = new Point(Convert.ToInt32(configStringSplitRay[7].Split(',')[0]),
+                                                   Convert.ToInt32(configStringSplitRay[7].Split(',')[1]));
 
-                this.leftTextureFilename = configStringSplitRay[7];
-                this.rightTextureFilename = configStringSplitRay[8];
-                this.atRestTextureFilename = configStringSplitRay[9];
+                this.leftTextureFilename = configStringSplitRay[8];
+                this.rightTextureFilename = configStringSplitRay[9];
+                this.atRestTextureFilename = configStringSplitRay[10];
 
-                this.TimeBetweenFrames = Convert.ToInt32(configStringSplitRay[10]);
-                
+                this.TimeBetweenFrames = Convert.ToInt32(configStringSplitRay[11]);
+
+
                 // This next call reads in the properties of the sub-class. (template method)
-                this.Load(configStringSplitRay, 11);
+                this.Load(configStringSplitRay, 12);
 
             } // end else
+
+            this.ElapsedGameTime = 0; // SKIPPTED!!!!!!!!!!!!!!!!!!!! NOT WRITTEN TO DISK
+            this.CurrentTextureFilename = this.leftTextureFilename;
+            this.CurrentPosition = this.InitialPosition;
         }
 
         // Useful in sub-classes.

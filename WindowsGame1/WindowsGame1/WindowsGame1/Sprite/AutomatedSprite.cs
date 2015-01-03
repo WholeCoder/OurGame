@@ -8,8 +8,8 @@ namespace Sprite
 {
     public class AutomatedSprite : AnimatedSprite
     {
-        public AutomatedSprite(TextureCache tCache, string pathWithFile)
-            : base(tCache)
+        public AutomatedSprite(TextureCache tCache, string configFilePathAndName)
+            : base(tCache, configFilePathAndName)
         {
             //            this.Load(pathWithFile);  // Will write defaults to disk if the file isn't found.
         }

@@ -8,10 +8,10 @@ namespace Sprite
 {
     public class UserControlledSprite : AnimatedSprite
     {
-        public UserControlledSprite(TextureCache tCache,string pathWithFile)
-            : base(tCache)
+        public UserControlledSprite(TextureCache tCache, string configFilePathAndName)
+            : base(tCache, configFilePathAndName)
         {
-            this.Load(pathWithFile);
+
         }
 
         // This will start at the startOffset and read out it's attributes.
