@@ -96,7 +96,7 @@ namespace Sprite
         {
             this.NextFrame(gameTime);
 
-            this.UpdateInAfterNextFrame(gameTime);
+            this.UpdateAfterNextFrame(gameTime);
         } // end method
 
         public abstract void UpdateAfterNextFrame(GameTime gameTime);
