@@ -42,6 +42,7 @@ namespace Sprite
         {
             this.tCache = tCache;
             this.Load(configFilePathAndName);
+            this.SwitchToGoRightTexture();
         }
 
         private void NextFrame(GameTime gameTime)
@@ -110,11 +111,6 @@ namespace Sprite
                               10, // scale
                               SpriteEffects.None,
                               0);
-
-            Console.WriteLine("--------------");
-            Console.WriteLine("     this.CurrentPosition == " + this.CurrentPosition.X + "," + this.CurrentPosition.Y);
-            Console.WriteLine("     this.CurrentTextureFilename == "+this.CurrentTextureFilename);
-            Console.WriteLine("--------------");
         } // end Draw method
 
         // This will start at the startOffset and read out it's attributes.
@@ -194,19 +190,18 @@ namespace Sprite
             {
                 /*
                     UserControlledSprite
-100,100
-20,20
-20,20
-20,20
-2,0
-2,0
-1,0
-Images/spritesheets/manspritesheet
-Images/spritesheets/manspritesheet
-Images/spritesheets/manspritesheet
-100
-
-                    */
+                    100,100
+                    20,20
+                    20,20
+                    20,20
+                    2,0
+                    2,0
+                    1,0
+                    Images/spritesheets/manspritesheet
+                    Images/spritesheets/manspritesheet
+                    Images/spritesheets/manspritesheet
+                    100
+                */
                 String configurationString = "";  // Holds the entire configuration file.
 
                 // Open the stream and read it back. 
