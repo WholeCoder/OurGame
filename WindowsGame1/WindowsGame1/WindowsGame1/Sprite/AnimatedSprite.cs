@@ -11,7 +11,7 @@ namespace Sprite
 {
     public abstract class AnimatedSprite
     {
-        public Vector2 CurrentPosition { get; set; }
+        public Vector2 CurrentPosition;
         public Vector2 InitialPosition { get; set; }
 
         private Point leftFrameSize;

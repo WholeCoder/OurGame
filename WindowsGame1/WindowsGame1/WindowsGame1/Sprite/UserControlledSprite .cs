@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 // My using statements.
 using WindowsGameLibrary1;
@@ -23,7 +24,16 @@ namespace Sprite
 
         public override void UpdateAfterNextFrame(GameTime gameTime)
         {
+            KeyboardState keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+                this.CurrentPosition.X = this.CurrentPosition.X + 5;
+            }
 
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                this.CurrentPosition.X = this.CurrentPosition.X - 5;
+            }
         }
 
         public override string NameOfThisSubclassForWritingToConfigFile()
