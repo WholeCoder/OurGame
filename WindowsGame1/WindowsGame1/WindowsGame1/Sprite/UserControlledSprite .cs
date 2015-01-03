@@ -23,6 +23,7 @@ namespace Sprite
 
         public override string NameOfThisSubclassForWritingToConfigFile()
         {
+            // This is written out to the config file.
             return "UserControlledSprite";
         }
 

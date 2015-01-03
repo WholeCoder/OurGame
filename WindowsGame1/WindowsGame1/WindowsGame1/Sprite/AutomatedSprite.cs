@@ -23,6 +23,7 @@ namespace Sprite
 
         public override string NameOfThisSubclassForWritingToConfigFile()
         {
+            // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
             return "AutomatedSprite";
         }
 
