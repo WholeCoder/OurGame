@@ -39,13 +39,13 @@ namespace GameState
 
             if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
             {
-                this.OurGame.setStateWhenUpdating(this.OurGame.editBoardState, gameTime);
+                this.OurGame.SetStateWhenUpdating(this.OurGame.editBoardState, gameTime);
             }
 
             // Press P for play game state.
             if (newKeyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
-                this.OurGame.setStateWhenUpdating(this.OurGame.playGameState, gameTime);
+                this.OurGame.SetStateWhenUpdating(this.OurGame.playGameState, gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time

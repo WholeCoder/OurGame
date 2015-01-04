@@ -26,7 +26,7 @@ namespace Command
             this.editBoardState = editBoardState;
         }
 
-        public void execute()
+        public void Execute()
         {
             this.TheUndoBoard = new Tile[this.board.TheBoard.GetLength(0), this.board.TheBoard.GetLength(1)];
             for (int i = 0; i < this.TheUndoBoard.GetLength(0); i++)
@@ -46,7 +46,7 @@ namespace Command
             this.board.ReadInBoardConfigurationOrUseDefault(pathToSavedGambeBoardConfigurationFile, tCache);
         }
 
-        public void undo()
+        public void Undo()
         {
             for (int i = 0; i < this.TheUndoBoard.GetLength(0); i++)
             {

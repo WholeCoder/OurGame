@@ -92,13 +92,13 @@ namespace GameState
             // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
             {
-                this.OurGame.setStateWhenUpdating(this.OurGame.blankState, gameTime);
+                this.OurGame.SetStateWhenUpdating(this.OurGame.blankState, gameTime);
             }
 
             // Press E for editor state.
             if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
             {
-                this.OurGame.setStateWhenUpdating(this.OurGame.editBoardState, gameTime);
+                this.OurGame.SetStateWhenUpdating(this.OurGame.editBoardState, gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time

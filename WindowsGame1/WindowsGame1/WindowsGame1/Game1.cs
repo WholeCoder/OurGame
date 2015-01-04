@@ -35,14 +35,14 @@ namespace WindowsGame1
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
 
         // This version is called when we change state in an update() call.
-        public void setStateWhenUpdating(State state, GameTime gameTime)
+        public void SetStateWhenUpdating(State state, GameTime gameTime)
         {
             this.CurrentState = state;
             this.CurrentState.Update(gameTime);
         }
 
         // This version is called in the Game1.Initilize() method.
-        public void setStateWhenInitializing(State state)
+        public void SetStateWhenInitializing(State state)
         {
             this.CurrentState = state;
         }
@@ -67,7 +67,7 @@ namespace WindowsGame1
             this.blankState = new BlankState();
             this.blankState.Initialize(this);
 
-            this.setStateWhenInitializing(this.editBoardState);
+            this.SetStateWhenInitializing(this.editBoardState);
 
             this.playGameState= new PlayGameState();
             this.playGameState.Initialize(this);

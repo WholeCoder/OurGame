@@ -80,7 +80,7 @@ namespace WindowsGameLibrary1
 
         } // end method DrawBoard
 
-        public void putTextureOntoBoard(Texture2D tTexture, int rowIndex, int columnIndex)
+        public void PutTextureOntoBoard(Texture2D tTexture, int rowIndex, int columnIndex)
         {
             Tile t = this.TheBoard[rowIndex, columnIndex];
             t.TheTexture = tTexture;

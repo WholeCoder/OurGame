@@ -131,7 +131,7 @@ namespace GameState
                     && this.board.CalculateYIndex(ms.Y) >= 0 && this.board.CalculateXIndex(ms.X, screenXOffset) >= 0)
                 {
                     Command.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTexture.TextureToRepeat, screenXOffset, this.multiTexture.NumberOfHorizontalTiles, this.multiTexture.NumberOfVerticalTiles);
-                    ptMultiOnBoardCommand.execute();
+                    ptMultiOnBoardCommand.Execute();
 
                     this.undoStack.Push(ptMultiOnBoardCommand);
                 }
@@ -191,7 +191,7 @@ namespace GameState
                 if (this.undoStack.Count() != 0)
                 {
                     Command.ICommand ptoBoardCommandUndo = this.undoStack.Pop();
-                    ptoBoardCommandUndo.undo();
+                    ptoBoardCommandUndo.Undo();
                 }
             }
 
@@ -205,7 +205,7 @@ namespace GameState
             if (newKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.D))
             {
                 Command.ICommand dbCommand = new DeleteBoardCommand(pathToSavedGambeBoardConfigurationFile, tCache, this.board, this);
-                dbCommand.execute();                
+                dbCommand.Execute();                
                 
                 // Add this delete to the undo history.
                 undoDeleteBoardStack.Push(dbCommand);
@@ -220,7 +220,7 @@ namespace GameState
                 if (this.undoDeleteBoardStack.Count() != 0)
                 {
                     Command.ICommand dbCommand = this.undoDeleteBoardStack.Pop();
-                    dbCommand.undo();
+                    dbCommand.Undo();
                 }
             }
 
@@ -232,25 +232,25 @@ namespace GameState
             // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
             {
-                this.saveBoardToDiskAndReloadPlayGameState(gameTime);
-                this.OurGame.setStateWhenUpdating(this.OurGame.blankState, gameTime);
+                this.SaveBoardToDiskAndReloadPlayGameState(gameTime);
+                this.OurGame.SetStateWhenUpdating(this.OurGame.blankState, gameTime);
             }
 
             // Press P for play game state.
             if (newKeyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
-                this.saveBoardToDiskAndReloadPlayGameState(gameTime);
+                this.SaveBoardToDiskAndReloadPlayGameState(gameTime);
             }
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
         }
 
-        private void saveBoardToDiskAndReloadPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
+        private void SaveBoardToDiskAndReloadPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
         {
             this.SaveCurrentBoard();
             this.OurGame.playGameState.LoadContent(Content);
-            this.OurGame.setStateWhenUpdating(this.OurGame.playGameState, gameTime);
+            this.OurGame.SetStateWhenUpdating(this.OurGame.playGameState, gameTime);
         }
 
         public void SaveCurrentBoard()

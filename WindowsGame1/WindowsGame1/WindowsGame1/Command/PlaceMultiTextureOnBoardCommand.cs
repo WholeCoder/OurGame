@@ -55,7 +55,7 @@ namespace Command
             this.undoY = putY;
         }
 
-        public void execute()
+        public void Execute()
         {
             for (int i = 0; i < this.numberOfVerticalTiles; i++)
             {
@@ -65,13 +65,13 @@ namespace Command
                     int rowIndex = putY + i;
                     if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < this.gameBoard.TheBoard.GetLength(0) && columnIndex < this.gameBoard.TheBoard.GetLength(1))
                     {
-                        this.gameBoard.putTextureOntoBoard(this.putTexture, rowIndex, columnIndex);
+                        this.gameBoard.PutTextureOntoBoard(this.putTexture, rowIndex, columnIndex);
                     } // end if
                 } // end for
             } // end outer for
         } // end method
 
-        public void undo()
+        public void Undo()
         {
             for (int i = 0; i < this.undoTextures.GetLength(0); i++)
             {
@@ -82,7 +82,7 @@ namespace Command
 
                     if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < this.gameBoard.TheBoard.GetLength(0) && columnIndex < this.gameBoard.TheBoard.GetLength(1))
                     {
-                        this.gameBoard.putTextureOntoBoard(this.undoTextures[i,j], rowIndex, columnIndex);
+                        this.gameBoard.PutTextureOntoBoard(this.undoTextures[i,j], rowIndex, columnIndex);
                     }
                 }
             } // end outer for

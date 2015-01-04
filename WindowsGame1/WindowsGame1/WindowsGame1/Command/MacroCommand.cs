@@ -15,19 +15,19 @@ namespace Command
             }
         }
 
-        public void execute()
+        public void Execute()
         {
             for (int i = 0; i < this.commands.Length; i++)
             {
-                this.commands[i].execute();
+                this.commands[i].Execute();
             }
         }
 
-        public void undo()
+        public void Undo()
         {
             for (int i = this.commands.Length - 1; i >= 0 ; i--)
             {
-                this.commands[i].undo();
+                this.commands[i].Undo();
             }
         }
     }

@@ -43,12 +43,12 @@ namespace WindowsGameLibrary1
                     int putY = (int)mouseCursorUpperLeftCorner.Y+(height*i);
                     
                     Vector2 alteredPosition = new Vector2(putX, putY);
-                    spriteBatch.Draw(this.selectDeleteBrushPossibly(this.TextureToRepeat), alteredPosition, Color.White);
+                    spriteBatch.Draw(this.SelectDeleteBrushPossibly(this.TextureToRepeat), alteredPosition, Color.White);
                 }
             } // end for
         } // end method
 
-        public Texture2D selectDeleteBrushPossibly(Texture2D t)
+        public Texture2D SelectDeleteBrushPossibly(Texture2D t)
         {
             if (this.TextureToRepeat == null)
             {

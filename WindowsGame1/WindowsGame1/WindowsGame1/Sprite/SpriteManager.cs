@@ -44,7 +44,7 @@ namespace Sprite
 
             for (int i = 0; i < this.sprites.Length; i++)
             {
-                this.sprites[i] = SimpleAnimatedSpriteFactory.createAnimatedSprite(configStringSplitRay[1 + i], tCache);
+                this.sprites[i] = SimpleAnimatedSpriteFactory.CreateAnimatedSprite(configStringSplitRay[1 + i], tCache);
 
                 string currentSpriteFileName = configStringSplitRay[i + 1];
             } // end for

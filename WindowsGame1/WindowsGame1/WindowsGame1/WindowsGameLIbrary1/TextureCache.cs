@@ -26,17 +26,17 @@ namespace WindowsGameLibrary1
 
         public TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
         {
-            this.loadBoardTextures(boardFileNameString, Content);
-            this.loadSpriteTextures(spriteFileName, Content);
+            this.LoadBoardTextures(boardFileNameString, Content);
+            this.LoadSpriteTextures(spriteFileName, Content);
         }
 
-        private void loadSpriteTextures(string spriteFileName, ContentManager Content)
+        private void LoadSpriteTextures(string spriteFileName, ContentManager Content)
         {
             if (File.Exists(spriteFileName))
             {
                 // The next call also calls this.loadTheseTextures(Content, texStringRay, false)
                 string[] texStringRay = ReadInTextureArrayFromAFile(spriteFileName, Content); // end using
-                this.loadTheseTextures(Content, texStringRay, false);
+                this.LoadTheseTextures(Content, texStringRay, false);
             }
             else
             {
@@ -49,12 +49,12 @@ namespace WindowsGameLibrary1
 
                 WriteOutStringRayAndLenthToFile(spriteFileName, texStringRay);
 
-                this.loadTheseTextures(Content, texStringRay, false);
+                this.LoadTheseTextures(Content, texStringRay, false);
             } // end else
         }
 
         // Don't use this publicly - This method is a helper method used by loadTextures.
-        private void loadTheseTextures(ContentManager Content, String[] texStringRay, bool forBoard)
+        private void LoadTheseTextures(ContentManager Content, String[] texStringRay, bool forBoard)
         {
             if (forBoard)
             {
@@ -169,7 +169,7 @@ namespace WindowsGameLibrary1
         }
 
         // Use this called from the main Game Class.
-        public void loadBoardTextures(String boardsFileNameString, ContentManager Content)
+        public void LoadBoardTextures(String boardsFileNameString, ContentManager Content)
         {
             currentTextureIndex = 0;
 
@@ -178,7 +178,7 @@ namespace WindowsGameLibrary1
                 // The next call also calls this.loadTheseTextures(Content, texStringRay, true)
                 string[] texArray = ReadInTextureArrayFromAFile(boardsFileNameString, Content); // end using
 
-                this.loadTheseTextures(Content, texArray, true);
+                this.LoadTheseTextures(Content, texArray, true);
             }
             else
             {
@@ -190,7 +190,7 @@ namespace WindowsGameLibrary1
 
                 WriteOutStringRayAndLenthToFile(boardsFileNameString, texStringRay);
 
-                this.loadTheseTextures(Content, texStringRay, true);
+                this.LoadTheseTextures(Content, texStringRay, true);
             } // end else
         } // end method
 

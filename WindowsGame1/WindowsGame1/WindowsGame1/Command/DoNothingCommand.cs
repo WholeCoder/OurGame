@@ -3,11 +3,11 @@ namespace Command
 {
     public class DoNothingCommand : ICommand
     {
-        public void execute()
+        public void Execute()
         {
         }
 
-        public void undo()
+        public void Undo()
         {
         }
     }

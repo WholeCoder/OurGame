@@ -9,7 +9,7 @@ namespace Sprite
 {
     class SimpleAnimatedSpriteFactory
     {
-        public static AnimatedSprite createAnimatedSprite(String filepath, TextureCache tCache)
+        public static AnimatedSprite CreateAnimatedSprite(String filepath, TextureCache tCache)
         {
             String configurationString = "";  // Holds the entire configuration file.
 
