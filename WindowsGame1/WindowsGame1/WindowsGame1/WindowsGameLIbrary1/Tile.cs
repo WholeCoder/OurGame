@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGameLibrary1
+namespace OurGame.WindowsGameLibrary1
 {
     public class Tile
     {

@@ -124,11 +124,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\DeleteBoardCommand.cs" />
-    <Compile Include="Command\DoNothingCommand.cs" />
-    <Compile Include="Command\MacroCommand.cs" />
-    <Compile Include="Command\PlaceMultiTextureOnBoardCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\DeleteBoardCommand.cs" />
+    <Compile Include="Commands\DoNothingCommand.cs" />
+    <Compile Include="Commands\MacroCommand.cs" />
+    <Compile Include="Commands\PlaceMultiTextureOnBoardCommand.cs" />
     <Compile Include="GameState\BlankState.cs" />
     <Compile Include="GameState\EditBoardState.cs" />
     <Compile Include="GameState\PlayGameState.cs" />

@@ -3,9 +3,9 @@ using System.IO;
 using System.Text;
 
 // My usings
-using WindowsGameLibrary1;
+using OurGame.WindowsGameLibrary1;
 
-namespace Sprite
+namespace OurGame.Sprites
 {
     class SimpleAnimatedSpriteFactory
     {

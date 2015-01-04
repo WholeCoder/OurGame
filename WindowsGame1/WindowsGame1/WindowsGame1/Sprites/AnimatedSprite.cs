@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using WindowsGameLibrary1;
+using OurGame.WindowsGameLibrary1;
 
-namespace Sprite
+namespace OurGame.Sprites
 {
     public abstract class AnimatedSprite
     {

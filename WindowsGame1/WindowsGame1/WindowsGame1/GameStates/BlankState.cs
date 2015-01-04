@@ -3,7 +3,7 @@
 // My usings.
 using WindowsGame1;
 
-namespace GameState
+namespace OurGame.GameStates
 {
     // This class doesn't do anything. It is just used to demonstrate setStateWhenUpdating() and setStateWhenInitializing().
     public class BlankState : State

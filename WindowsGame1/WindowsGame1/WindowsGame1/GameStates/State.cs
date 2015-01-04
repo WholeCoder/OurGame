@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 // My usings.
 using WindowsGame1;
 
-namespace GameState
+namespace OurGame.GameStates
 {
     public abstract class State
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGameLibrary1
+namespace OurGame.WindowsGameLibrary1
 {
     // This class will hold 1-many Tile classes so that the user can place more tiles at the same time onto the game board.
     public class MultiTexture

@@ -4,9 +4,9 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 
 // My usings.
-using WindowsGameLibrary1;
+using OurGame.WindowsGameLibrary1;
 
-namespace Sprite
+namespace OurGame.Sprites
 {
     class SpriteManager
     {

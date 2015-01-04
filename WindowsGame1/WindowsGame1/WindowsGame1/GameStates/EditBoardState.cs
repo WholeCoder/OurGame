@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using Command;
+using OurGame.Commands;
 using WindowsGame1;
-using WindowsGameLibrary1;
+using OurGame.WindowsGameLibrary1;
 
-namespace GameState
+namespace OurGame.GameStates
 {
     public class EditBoardState : State
     {
@@ -36,8 +36,8 @@ namespace GameState
         MultiTexture multiTexture;
         int multiTextureWidthHeight = 1;
 
-        Stack<Command.ICommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
-        Stack<Command.ICommand> undoDeleteBoardStack;
+        Stack<OurGame.Commands.ICommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
+        Stack<OurGame.Commands.ICommand> undoDeleteBoardStack;
 
         MouseState lastMouseState;
         MouseState currentMouseState;
@@ -62,8 +62,8 @@ namespace GameState
         public override void Initialize(Game1 ourGame)
         {
             this.OurGame = ourGame;
-            undoStack = new Stack<Command.ICommand>();
-            undoDeleteBoardStack = new Stack<Command.ICommand>();
+            undoStack = new Stack<OurGame.Commands.ICommand>();
+            undoDeleteBoardStack = new Stack<OurGame.Commands.ICommand>();
             previousScrollValue = Mouse.GetState().ScrollWheelValue;
         }
 
@@ -130,7 +130,7 @@ namespace GameState
                 if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X, screenXOffset) < this.board.TheBoard.GetLength(1)
                     && this.board.CalculateYIndex(ms.Y) >= 0 && this.board.CalculateXIndex(ms.X, screenXOffset) >= 0)
                 {
-                    Command.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTexture.TextureToRepeat, screenXOffset, this.multiTexture.NumberOfHorizontalTiles, this.multiTexture.NumberOfVerticalTiles);
+                    OurGame.Commands.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTexture.TextureToRepeat, screenXOffset, this.multiTexture.NumberOfHorizontalTiles, this.multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.Execute();
 
                     this.undoStack.Push(ptMultiOnBoardCommand);
@@ -190,7 +190,7 @@ namespace GameState
             {
                 if (this.undoStack.Count() != 0)
                 {
-                    Command.ICommand ptoBoardCommandUndo = this.undoStack.Pop();
+                    OurGame.Commands.ICommand ptoBoardCommandUndo = this.undoStack.Pop();
                     ptoBoardCommandUndo.Undo();
                 }
             }
@@ -204,14 +204,14 @@ namespace GameState
             // Delete MyLevel.txt.
             if (newKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.D))
             {
-                Command.ICommand dbCommand = new DeleteBoardCommand(pathToSavedGambeBoardConfigurationFile, tCache, this.board, this);
+                OurGame.Commands.ICommand dbCommand = new DeleteBoardCommand(pathToSavedGambeBoardConfigurationFile, tCache, this.board, this);
                 dbCommand.Execute();                
                 
                 // Add this delete to the undo history.
                 undoDeleteBoardStack.Push(dbCommand);
 
                 // Make sure we reset the undo history.
-                undoStack = new Stack<Command.ICommand>();
+                undoStack = new Stack<OurGame.Commands.ICommand>();
             }
 
             // Press U to undo a board deletion.
@@ -219,7 +219,7 @@ namespace GameState
             {
                 if (this.undoDeleteBoardStack.Count() != 0)
                 {
-                    Command.ICommand dbCommand = this.undoDeleteBoardStack.Pop();
+                    OurGame.Commands.ICommand dbCommand = this.undoDeleteBoardStack.Pop();
                     dbCommand.Undo();
                 }
             }

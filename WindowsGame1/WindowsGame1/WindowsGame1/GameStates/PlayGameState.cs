@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using Sprite;
+using OurGame.Sprites;
 using WindowsGame1;
-using WindowsGameLibrary1;
+using OurGame.WindowsGameLibrary1;
 
 
-namespace GameState
+namespace OurGame.GameStates
 {
     class PlayGameState : State
     {

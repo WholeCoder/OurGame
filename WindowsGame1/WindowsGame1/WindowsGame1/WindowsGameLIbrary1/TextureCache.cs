@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace WindowsGameLibrary1
+namespace OurGame.WindowsGameLibrary1
 {
     // *** note *** First Texture is the delete texture!
 

@@ -1,18 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
-using WindowsGameLibrary1;
+// My using statements.
+using OurGame.WindowsGameLibrary1;
 
-namespace Sprite
+namespace OurGame.Sprites
 {
-    public class AutomatedSprite : AnimatedSprite
+    public class UserControlledSprite : AnimatedSprite
     {
-        public AutomatedSprite(TextureCache tCache, string configFilePathAndName)
+        public UserControlledSprite(TextureCache tCache, string configFilePathAndName)
             : base(tCache, configFilePathAndName)
         {
-            //            this.Load(pathWithFile);  // Will write defaults to disk if the file isn't found.
+
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -22,16 +22,24 @@ namespace Sprite
             // TODO: Read properties starting at startOffset.
         }
 
-
         public override void UpdateAfterNextFrame(GameTime gameTime)
         {
+            KeyboardState keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+                this.CurrentPosition.X = this.CurrentPosition.X + 5;
+            }
 
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                this.CurrentPosition.X = this.CurrentPosition.X - 5;
+            }
         }
-        
+
         public override string NameOfThisSubclassForWritingToConfigFile()
         {
-            // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
-            return "AutomatedSprite";
+            // This is written out to the config file.
+            return "UserControlledSprite";
         }
 
         // In this method we use fs to write out the subclasses properties.
@@ -41,6 +49,5 @@ namespace Sprite
             // TODO: Write out attributes if they exist for UserCotnrolledSprite
 
         } // end method
-
     } // end class
-}
+} // end using

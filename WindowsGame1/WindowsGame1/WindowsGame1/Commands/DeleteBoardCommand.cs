@@ -2,10 +2,10 @@
 using System.IO;
 
 // My usings.
-using GameState;
-using WindowsGameLibrary1;
+using OurGame.GameStates;
+using OurGame.WindowsGameLibrary1;
 
-namespace Command
+namespace OurGame.Commands
 {
     public class DeleteBoardCommand : ICommand
     {

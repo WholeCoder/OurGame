@@ -1,5 +1,5 @@
 ﻿
-namespace Command
+namespace OurGame.Commands
 {
     public class MacroCommand : ICommand
     {

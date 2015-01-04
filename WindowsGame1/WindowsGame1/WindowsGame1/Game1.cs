@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using GameState;
+using OurGame.GameStates;
 
 namespace WindowsGame1
 {

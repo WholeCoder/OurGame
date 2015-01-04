@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using WindowsGameLibrary1;
+using OurGame.WindowsGameLibrary1;
 
-namespace Command
+namespace OurGame.Commands
 {
     public class PlaceMultiTextureOnBoardCommand : ICommand
     {
