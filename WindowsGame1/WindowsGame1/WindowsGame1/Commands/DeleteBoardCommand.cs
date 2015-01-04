@@ -9,41 +9,41 @@ namespace OurGame.Commands
 {
     public class DeleteBoardCommand : ICommand
     {
-        String pathToSavedGambeBoardConfigurationFile;
-        TextureCache tCache;
-        Board board;
+        private String _pathToSavedGambeBoardConfigurationFile;
+        private TextureCache _tCache;
+        private Board _board;
 
         public Tile[,] TheUndoBoard { get; set; }
 
-        EditBoardState editBoardState;
+        private EditBoardState _editBoardState;
 
         public DeleteBoardCommand(String pathToSavedGambeBoardConfigurationFile, TextureCache tCache, Board board, EditBoardState editBoardState)
         {
-            this.pathToSavedGambeBoardConfigurationFile = pathToSavedGambeBoardConfigurationFile;
-            this.tCache = tCache;
-            this.board = board;
+            this._pathToSavedGambeBoardConfigurationFile = pathToSavedGambeBoardConfigurationFile;
+            this._tCache = tCache;
+            this._board = board;
 
-            this.editBoardState = editBoardState;
+            this._editBoardState = editBoardState;
         }
 
         public void Execute()
         {
-            this.TheUndoBoard = new Tile[this.board.TheBoard.GetLength(0), this.board.TheBoard.GetLength(1)];
+            this.TheUndoBoard = new Tile[this._board.TheBoard.GetLength(0), this._board.TheBoard.GetLength(1)];
             for (int i = 0; i < this.TheUndoBoard.GetLength(0); i++)
             {
                 for (int j = 0; j < this.TheUndoBoard.GetLength(1); j++)
                 {
-                    this.TheUndoBoard[i, j] = this.board.TheBoard[i, j];
-                    this.board.TheBoard[i, j] = null;
+                    this.TheUndoBoard[i, j] = this._board.TheBoard[i, j];
+                    this._board.TheBoard[i, j] = null;
                 }
             }
 
-            if (File.Exists(pathToSavedGambeBoardConfigurationFile))
+            if (File.Exists(_pathToSavedGambeBoardConfigurationFile))
             {
-                File.Delete(pathToSavedGambeBoardConfigurationFile);
+                File.Delete(_pathToSavedGambeBoardConfigurationFile);
             }
 
-            this.board.ReadInBoardConfigurationOrUseDefault(pathToSavedGambeBoardConfigurationFile, tCache);
+            this._board.ReadInBoardConfigurationOrUseDefault(_pathToSavedGambeBoardConfigurationFile, _tCache);
         }
 
         public void Undo()
@@ -52,11 +52,11 @@ namespace OurGame.Commands
             {
                 for (int j = 0; j < this.TheUndoBoard.GetLength(1); j++)
                 {
-                    this.board.TheBoard[i, j] = this.TheUndoBoard[i, j];
+                    this._board.TheBoard[i, j] = this.TheUndoBoard[i, j];
                 }
             }
 
-            this.editBoardState.SaveCurrentBoard();
+            this._editBoardState.SaveCurrentBoard();
         }
     }
 }

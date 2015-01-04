@@ -16,38 +16,38 @@ namespace OurGame.GameStates
 {
     public class EditBoardState : State
     {
-        Board board;
+        private Board _board;
         
         // This is the position of the mouse "locked" onto a grid position.
-        Vector2 mouseCursorLockedToNearestGridPositionVector;
+        private Vector2 _mouseCursorLockedToNearestGridPositionVector;
 
         // Holds textures so they aren't re-created.
-        TextureCache tCache;
+        private TextureCache _tCache;
 
         // This instance variable lets us scroll the board horizontally.
-        int screenXOffset = 0;
-        int scrollAmount = 5;
+        private int _screenXOffset = 0;
+        private int _scrollAmount = 5;
 
         // This is the name the gameboard is saved to when S is pressed.
-        string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
-        string pathToTextureCacheConfig = @"BoardTextureCache.txt";
-        string pathToSpriteTextureCacheConfig = @"SpriteTextureCache.txt";
+        private string _pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
+        private string _pathToTextureCacheConfig = @"BoardTextureCache.txt";
+        private string _pathToSpriteTextureCacheConfig = @"SpriteTextureCache.txt";
 
-        MultiTexture multiTexture;
-        int multiTextureWidthHeight = 1;
+        private MultiTexture _multiTexture;
+        private int _multiTextureWidthHeight = 1;
 
-        Stack<OurGame.Commands.ICommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
-        Stack<OurGame.Commands.ICommand> undoDeleteBoardStack;
+        private Stack<OurGame.Commands.ICommand> _undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
+        private Stack<OurGame.Commands.ICommand> _undoDeleteBoardStack;
 
-        MouseState lastMouseState;
-        MouseState currentMouseState;
+        private MouseState _lastMouseState;
+        private MouseState _currentMouseState;
 
-        bool rightMouseClickOccurred = false;
-        bool leftMouseClickOccurred = false;
+        private bool _rightMouseClickOccurred = false;
+        private bool _leftMouseClickOccurred = false;
 
-        private int previousScrollValue;
+        private int _previousScrollValue;
 
-        KeyboardState oldKeyboardState;
+        private KeyboardState _oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
@@ -62,19 +62,19 @@ namespace OurGame.GameStates
         public override void Initialize(Game1 ourGame)
         {
             this.OurGame = ourGame;
-            undoStack = new Stack<OurGame.Commands.ICommand>();
-            undoDeleteBoardStack = new Stack<OurGame.Commands.ICommand>();
-            previousScrollValue = Mouse.GetState().ScrollWheelValue;
+            _undoStack = new Stack<OurGame.Commands.ICommand>();
+            _undoDeleteBoardStack = new Stack<OurGame.Commands.ICommand>();
+            _previousScrollValue = Mouse.GetState().ScrollWheelValue;
         }
 
         public override void LoadContent(ContentManager Content)
         {
-            tCache = new TextureCache(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
-            board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
+            _tCache = new TextureCache(_pathToTextureCacheConfig, _pathToSpriteTextureCacheConfig, Content);
+            _board = new Board(_pathToSavedGambeBoardConfigurationFile, _tCache); // MUST have tCache created before calling this!
 
             this.Content = Content;
 
-            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture(), tCache);
+            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture(), _tCache);
         }
 
         public override void UnloadContent()
@@ -86,163 +86,163 @@ namespace OurGame.GameStates
             MouseState ms = Mouse.GetState();
 
             // The active state from the last frame is now old
-            lastMouseState = currentMouseState;
+            _lastMouseState = _currentMouseState;
 
             // Get the mouse state relevant for this frame
-            currentMouseState = Mouse.GetState();
+            _currentMouseState = Mouse.GetState();
 
-            if (currentMouseState.ScrollWheelValue < previousScrollValue)
+            if (_currentMouseState.ScrollWheelValue < _previousScrollValue)
             {
-                multiTextureWidthHeight--;
+                _multiTextureWidthHeight--;
             }
-            else if (currentMouseState.ScrollWheelValue > previousScrollValue)
+            else if (_currentMouseState.ScrollWheelValue > _previousScrollValue)
             {
-                multiTextureWidthHeight++;
+                _multiTextureWidthHeight++;
             }
-            previousScrollValue = currentMouseState.ScrollWheelValue;
+            _previousScrollValue = _currentMouseState.ScrollWheelValue;
 
             // Recognize a single click of the right mouse button
-            if (lastMouseState.RightButton == ButtonState.Released && currentMouseState.RightButton == ButtonState.Pressed)
+            if (_lastMouseState.RightButton == ButtonState.Released && _currentMouseState.RightButton == ButtonState.Pressed)
             {
                 // React to the click
                 // ...
-                rightMouseClickOccurred = true;
+                _rightMouseClickOccurred = true;
             }
 
-            if (rightMouseClickOccurred)
+            if (_rightMouseClickOccurred)
             {
                 // Flip to the next texture under the mouse pointer.
-                this.tCache.NextTexture();
-                multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture(), tCache);
-                rightMouseClickOccurred = false;
+                this._tCache.NextTexture();
+                _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture(), _tCache);
+                _rightMouseClickOccurred = false;
             }
 
             // Recognize a single click of the leftmouse button
-            if (lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+            if (_lastMouseState.LeftButton == ButtonState.Released && _currentMouseState.LeftButton == ButtonState.Pressed)
             {
                 // React to the click
                 // ...
-                leftMouseClickOccurred = true;
+                _leftMouseClickOccurred = true;
             }
 
-            if (leftMouseClickOccurred)
+            if (_leftMouseClickOccurred)
             {
-                if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X, screenXOffset) < this.board.TheBoard.GetLength(1)
-                    && this.board.CalculateYIndex(ms.Y) >= 0 && this.board.CalculateXIndex(ms.X, screenXOffset) >= 0)
+                if (this._board.CalculateYIndex(ms.Y) < this._board.TheBoard.GetLength(0) && this._board.CalculateXIndex(ms.X, _screenXOffset) < this._board.TheBoard.GetLength(1)
+                    && this._board.CalculateYIndex(ms.Y) >= 0 && this._board.CalculateXIndex(ms.X, _screenXOffset) >= 0)
                 {
-                    OurGame.Commands.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTexture.TextureToRepeat, screenXOffset, this.multiTexture.NumberOfHorizontalTiles, this.multiTexture.NumberOfVerticalTiles);
+                    OurGame.Commands.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this._board, ms.X, ms.Y, this._multiTexture.TextureToRepeat, _screenXOffset, this._multiTexture.NumberOfHorizontalTiles, this._multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.Execute();
 
-                    this.undoStack.Push(ptMultiOnBoardCommand);
+                    this._undoStack.Push(ptMultiOnBoardCommand);
                 }
 
-                leftMouseClickOccurred = false;
+                _leftMouseClickOccurred = false;
             }
 
-            int putX = this.board.CalculateScreenCoordinateXFromMousePosition(ms.X, screenXOffset);
-            int putY = this.board.CalculateScreenCoordinateYFromMousePosition(ms.Y);
+            int putX = this._board.CalculateScreenCoordinateXFromMousePosition(ms.X, _screenXOffset);
+            int putY = this._board.CalculateScreenCoordinateYFromMousePosition(ms.Y);
 
-            mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
+            _mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.Right))
             {
-                screenXOffset -= scrollAmount;
+                _screenXOffset -= _scrollAmount;
             }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
-                screenXOffset += scrollAmount;
+                _screenXOffset += _scrollAmount;
             }
 
-            if (screenXOffset <= -this.board.BoardWidth)
+            if (_screenXOffset <= -this._board.BoardWidth)
             {
-                screenXOffset = -this.board.BoardWidth;
+                _screenXOffset = -this._board.BoardWidth;
             }
 
-            if (screenXOffset >= 0)
+            if (_screenXOffset >= 0)
             {
-                screenXOffset = 0;
+                _screenXOffset = 0;
             }
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
-            if (newKeyboardState.IsKeyDown(Keys.PageUp) && oldKeyboardState.IsKeyUp(Keys.PageUp))
+            if (newKeyboardState.IsKeyDown(Keys.PageUp) && _oldKeyboardState.IsKeyUp(Keys.PageUp))
             {
-                multiTextureWidthHeight++;
+                _multiTextureWidthHeight++;
             }
 
-            if (newKeyboardState.IsKeyDown(Keys.PageDown) && oldKeyboardState.IsKeyUp(Keys.PageDown))
+            if (newKeyboardState.IsKeyDown(Keys.PageDown) && _oldKeyboardState.IsKeyUp(Keys.PageDown))
             {
-                multiTextureWidthHeight--;
+                _multiTextureWidthHeight--;
             }
 
-            if (multiTextureWidthHeight <= 0)
+            if (_multiTextureWidthHeight <= 0)
             {
-                multiTextureWidthHeight = 1;
+                _multiTextureWidthHeight = 1;
             }
 
-            multiTexture = new MultiTexture(multiTextureWidthHeight, multiTextureWidthHeight, tCache.GetCurrentTexture(), tCache);
+            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture(), _tCache);
 
             // Do undo place tile command
-            if (newKeyboardState.IsKeyDown(Keys.Z) && oldKeyboardState.IsKeyUp(Keys.Z))
+            if (newKeyboardState.IsKeyDown(Keys.Z) && _oldKeyboardState.IsKeyUp(Keys.Z))
             {
-                if (this.undoStack.Count() != 0)
+                if (this._undoStack.Count() != 0)
                 {
-                    OurGame.Commands.ICommand ptoBoardCommandUndo = this.undoStack.Pop();
+                    OurGame.Commands.ICommand ptoBoardCommandUndo = this._undoStack.Pop();
                     ptoBoardCommandUndo.Undo();
                 }
             }
 
             // Save to MyLevel.txt.
-            if (newKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S))
+            if (newKeyboardState.IsKeyDown(Keys.S) && _oldKeyboardState.IsKeyUp(Keys.S))
             {
                 SaveCurrentBoard();
             }
 
             // Delete MyLevel.txt.
-            if (newKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.D))
+            if (newKeyboardState.IsKeyDown(Keys.D) && _oldKeyboardState.IsKeyUp(Keys.D))
             {
-                OurGame.Commands.ICommand dbCommand = new DeleteBoardCommand(pathToSavedGambeBoardConfigurationFile, tCache, this.board, this);
+                OurGame.Commands.ICommand dbCommand = new DeleteBoardCommand(_pathToSavedGambeBoardConfigurationFile, _tCache, this._board, this);
                 dbCommand.Execute();                
                 
                 // Add this delete to the undo history.
-                undoDeleteBoardStack.Push(dbCommand);
+                _undoDeleteBoardStack.Push(dbCommand);
 
                 // Make sure we reset the undo history.
-                undoStack = new Stack<OurGame.Commands.ICommand>();
+                _undoStack = new Stack<OurGame.Commands.ICommand>();
             }
 
             // Press U to undo a board deletion.
-            if (newKeyboardState.IsKeyDown(Keys.U) && oldKeyboardState.IsKeyUp(Keys.U))
+            if (newKeyboardState.IsKeyDown(Keys.U) && _oldKeyboardState.IsKeyUp(Keys.U))
             {
-                if (this.undoDeleteBoardStack.Count() != 0)
+                if (this._undoDeleteBoardStack.Count() != 0)
                 {
-                    OurGame.Commands.ICommand dbCommand = this.undoDeleteBoardStack.Pop();
+                    OurGame.Commands.ICommand dbCommand = this._undoDeleteBoardStack.Pop();
                     dbCommand.Undo();
                 }
             }
 
-            if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
+            if (newKeyboardState.IsKeyDown(Keys.Q) && _oldKeyboardState.IsKeyUp(Keys.Q))
             {
                 this.OurGame.Exit();
             }
 
             // Press B for the blank state.  Just for testing.
-            if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
+            if (newKeyboardState.IsKeyDown(Keys.B) && _oldKeyboardState.IsKeyUp(Keys.B))
             {
                 this.SaveBoardToDiskAndReloadPlayGameState(gameTime);
                 this.OurGame.SetStateWhenUpdating(this.OurGame.blankState, gameTime);
             }
 
             // Press P for play game state.
-            if (newKeyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
+            if (newKeyboardState.IsKeyDown(Keys.P) && _oldKeyboardState.IsKeyUp(Keys.P))
             {
                 this.SaveBoardToDiskAndReloadPlayGameState(gameTime);
             }
 
-            oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
+            _oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
         }
 
@@ -255,21 +255,21 @@ namespace OurGame.GameStates
 
         public void SaveCurrentBoard()
         {
-            if (File.Exists(pathToSavedGambeBoardConfigurationFile))
+            if (File.Exists(_pathToSavedGambeBoardConfigurationFile))
             {
-                File.Delete(pathToSavedGambeBoardConfigurationFile);
+                File.Delete(_pathToSavedGambeBoardConfigurationFile);
             }
 
-            Console.WriteLine("Saving to " + pathToSavedGambeBoardConfigurationFile);
+            Console.WriteLine("Saving to " + _pathToSavedGambeBoardConfigurationFile);
 
-            this.board.WriteOutDimensionsOfTheGameBoard(pathToSavedGambeBoardConfigurationFile, tCache);
+            this._board.WriteOutDimensionsOfTheGameBoard(_pathToSavedGambeBoardConfigurationFile, _tCache);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this.board.DrawBoard(spriteBatch, screenXOffset, true);  // screenXOffset scrolls the board left and right!
+            this._board.DrawBoard(spriteBatch, _screenXOffset, true);  // screenXOffset scrolls the board left and right!
 
-            this.multiTexture.Draw(spriteBatch, mouseCursorLockedToNearestGridPositionVector);
+            this._multiTexture.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
         }
     } // end class
 } // end namespace

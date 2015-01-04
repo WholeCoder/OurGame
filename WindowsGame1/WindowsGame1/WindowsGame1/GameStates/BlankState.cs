@@ -8,7 +8,7 @@ namespace OurGame.GameStates
     // This class doesn't do anything. It is just used to demonstrate setStateWhenUpdating() and setStateWhenInitializing().
     public class BlankState : State
     {
-        KeyboardState oldKeyboardState;
+        private KeyboardState _oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
@@ -37,18 +37,18 @@ namespace OurGame.GameStates
         {
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
-            if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
+            if (newKeyboardState.IsKeyDown(Keys.E) && _oldKeyboardState.IsKeyUp(Keys.E))
             {
                 this.OurGame.SetStateWhenUpdating(this.OurGame.editBoardState, gameTime);
             }
 
             // Press P for play game state.
-            if (newKeyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
+            if (newKeyboardState.IsKeyDown(Keys.P) && _oldKeyboardState.IsKeyUp(Keys.P))
             {
                 this.OurGame.SetStateWhenUpdating(this.OurGame.playGameState, gameTime);
             }
 
-            oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
+            _oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
