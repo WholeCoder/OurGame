@@ -14,79 +14,79 @@ namespace OurGame.Sprites
         public Vector2 CurrentPosition;
         public Vector2 InitialPosition { get; set; }
 
-        private Point leftFrameSize;
-        private Point rightFrameSize;
-        private Point atRestFrameSize;
+        private Point _leftFrameSize;
+        private Point _rightFrameSize;
+        private Point _atRestFrameSize;
 
-        private Point leftSheetSize;
-        private Point rightSheetSize;
-        private Point atRestSheetSize;
+        private Point _leftSheetSize;
+        private Point _rightSheetSize;
+        private Point _atRestSheetSize;
 
-        private string leftTextureFilename;
-        private string rightTextureFilename;
-        private string atRestTextureFilename;
+        private string _leftTextureFilename;
+        private string _rightTextureFilename;
+        private string _atRestTextureFilename;
 
 
 
-        private Point CurrentFrame;
-        private String CurrentTextureFilename; // The textures are received from the TextureCache.
-        private Point CurrentSheetSize;
-        private Point CurrentFrameSize;
+        private Point _CurrentFrame;
+        private String _CurrentTextureFilename; // The textures are received from the TextureCache.
+        private Point _CurrentSheetSize;
+        private Point _CurrentFrameSize;
 
-        private TextureCache tCache { get; set; }
+        private TextureCache _tCache { get; set; }
 
-        private int ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
-        private int TimeBetweenFrames;
+        private int _ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
+        private int _TimeBetweenFrames;
 
         public AnimatedSprite(TextureCache tCache, string configFilePathAndName)
         {
-            this.tCache = tCache;
+            this._tCache = tCache;
             this.Load(configFilePathAndName);
             this.SwitchToGoRightTexture();
         }
 
         private void NextFrame(GameTime gameTime)
         {
-            this.ElapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
+            this._ElapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (this.ElapsedGameTime >= this.TimeBetweenFrames) // 100 milliseconds
+            if (this._ElapsedGameTime >= this._TimeBetweenFrames) // 100 milliseconds
             {
-                this.ElapsedGameTime = 0;
+                this._ElapsedGameTime = 0;
 
-                ++this.CurrentFrame.X;
+                ++this._CurrentFrame.X;
                 //Console.WriteLine("this.CurrentFrame.X == " + this.CurrentFrame.X);
-                if (this.CurrentFrame.X >= this.CurrentSheetSize.X)
+                if (this._CurrentFrame.X >= this._CurrentSheetSize.X)
                 {
-                    this.CurrentFrame.X = 0;
-                    ++this.CurrentFrame.Y;
-                    if (this.CurrentFrame.Y >= this.CurrentSheetSize.Y)
-                        this.CurrentFrame.Y = 0;
+                    this._CurrentFrame.X = 0;
+                    ++this._CurrentFrame.Y;
+                    if (this._CurrentFrame.Y >= this._CurrentSheetSize.Y)
+                        this._CurrentFrame.Y = 0;
                 }
             } // end if
         }
 
         public void SwitchToGoRightTexture()
         {
-            this.CurrentFrame = new Point(0, 0);
-            this.CurrentTextureFilename = this.rightTextureFilename;
-            this.CurrentSheetSize = this.rightSheetSize;
-            this.CurrentFrameSize = this.rightFrameSize;
+            this._CurrentFrame = new Point(0, 0);
+            this._CurrentTextureFilename = this._rightTextureFilename;
+            this._CurrentSheetSize = this._rightSheetSize;
+            this._CurrentFrameSize = this._rightFrameSize;
         }
 
         public void SwitchToGoLeftTexture()
         {
-            this.CurrentFrame = new Point(0, 0);
-            this.CurrentTextureFilename = this.leftTextureFilename;
-            this.CurrentSheetSize = this.leftSheetSize;
-            this.CurrentFrameSize = this.leftFrameSize;
+            this._CurrentFrame = new Point(0, 0);
+            this._CurrentTextureFilename = this._leftTextureFilename;
+            this._CurrentSheetSize = this._leftSheetSize;
+            this._CurrentFrameSize = this._leftFrameSize;
         }
 
         public void SwitchToAtRestTexture()
         {
-            this.CurrentFrame = new Point(0, 0);
-            this.CurrentTextureFilename = this.atRestTextureFilename;
-            this.CurrentSheetSize = this.atRestSheetSize;
-            this.CurrentFrameSize = this.atRestFrameSize;
+            this._CurrentFrame = new Point(0, 0);
+            this._CurrentTextureFilename = this._atRestTextureFilename;
+            this._CurrentSheetSize = this._atRestSheetSize;
+            this._CurrentFrameSize = this._atRestFrameSize;
         }
 
 
@@ -104,12 +104,12 @@ namespace OurGame.Sprites
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tCache.GetTexture2DFromStringSpriteArray(CurrentTextureFilename),
+            spriteBatch.Draw(_tCache.GetTexture2DFromStringSpriteArray(_CurrentTextureFilename),
                               this.CurrentPosition,
-                              new Rectangle(CurrentFrame.X * CurrentFrameSize.X + CurrentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
-                              CurrentFrame.Y * CurrentFrameSize.Y,
-                              CurrentFrameSize.X,
-                              CurrentFrameSize.Y),
+                              new Rectangle(_CurrentFrame.X * _CurrentFrameSize.X + _CurrentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
+                              _CurrentFrame.Y * _CurrentFrameSize.Y,
+                              _CurrentFrameSize.X,
+                              _CurrentFrameSize.Y),
                               Color.White,
                               0,
                               Vector2.Zero,
@@ -144,47 +144,47 @@ namespace OurGame.Sprites
                     AddText(fs, "\n");
 
 
-                    this.leftFrameSize = new Point(20, 20);
-                    AddText(fs, this.leftFrameSize.X + "," + this.leftFrameSize.Y);
+                    this._leftFrameSize = new Point(20, 20);
+                    AddText(fs, this._leftFrameSize.X + "," + this._leftFrameSize.Y);
                     AddText(fs, "\n");
 
-                    this.rightFrameSize = new Point(20, 20);
-                    AddText(fs, this.rightFrameSize.X + "," + this.rightFrameSize.Y);
+                    this._rightFrameSize = new Point(20, 20);
+                    AddText(fs, this._rightFrameSize.X + "," + this._rightFrameSize.Y);
                     AddText(fs, "\n");
 
-                    this.atRestFrameSize = new Point(20, 20);
-                    AddText(fs, this.atRestFrameSize.X + "," + this.atRestFrameSize.Y);
-                    AddText(fs, "\n");
-
-
-                    this.leftSheetSize = new Point(2, 0);
-                    AddText(fs, this.leftSheetSize.X + "," + this.leftSheetSize.Y);
-                    AddText(fs, "\n");
-
-                    this.rightSheetSize = new Point(2, 0);
-                    AddText(fs, this.rightSheetSize.X + "," + this.rightSheetSize.Y);
-                    AddText(fs, "\n");
-
-                    this.atRestSheetSize = new Point(1, 0);
-                    AddText(fs, this.atRestSheetSize.X + "," + this.atRestSheetSize.Y);
+                    this._atRestFrameSize = new Point(20, 20);
+                    AddText(fs, this._atRestFrameSize.X + "," + this._atRestFrameSize.Y);
                     AddText(fs, "\n");
 
 
-                    this.leftTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this.leftTextureFilename);
+                    this._leftSheetSize = new Point(2, 0);
+                    AddText(fs, this._leftSheetSize.X + "," + this._leftSheetSize.Y);
                     AddText(fs, "\n");
 
-                    this.rightTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this.rightTextureFilename);
+                    this._rightSheetSize = new Point(2, 0);
+                    AddText(fs, this._rightSheetSize.X + "," + this._rightSheetSize.Y);
                     AddText(fs, "\n");
 
-                    this.atRestTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this.atRestTextureFilename);
+                    this._atRestSheetSize = new Point(1, 0);
+                    AddText(fs, this._atRestSheetSize.X + "," + this._atRestSheetSize.Y);
+                    AddText(fs, "\n");
+
+
+                    this._leftTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this._leftTextureFilename);
+                    AddText(fs, "\n");
+
+                    this._rightTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this._rightTextureFilename);
+                    AddText(fs, "\n");
+
+                    this._atRestTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this._atRestTextureFilename);
                     AddText(fs, "\n");
 
                     
-                    this.TimeBetweenFrames = 100;
-                    AddText(fs, this.TimeBetweenFrames + "");
+                    this._TimeBetweenFrames = 100;
+                    AddText(fs, this._TimeBetweenFrames + "");
                     AddText(fs, "\n");
 
                     // Write out the subclass's properties.
@@ -225,30 +225,30 @@ namespace OurGame.Sprites
                                                    Convert.ToInt32(configStringSplitRay[1].Split(',')[1]));
 
 
-                this.leftFrameSize = new Point(Convert.ToInt32(configStringSplitRay[2].Split(',')[0]),
+                this._leftFrameSize = new Point(Convert.ToInt32(configStringSplitRay[2].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[2].Split(',')[1]));
 
-                this.rightFrameSize = new Point(Convert.ToInt32(configStringSplitRay[3].Split(',')[0]),
+                this._rightFrameSize = new Point(Convert.ToInt32(configStringSplitRay[3].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[3].Split(',')[1]));
 
 
-                this.atRestFrameSize = new Point(Convert.ToInt32(configStringSplitRay[4].Split(',')[0]),
+                this._atRestFrameSize = new Point(Convert.ToInt32(configStringSplitRay[4].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[4].Split(',')[1]));
 
-                this.leftSheetSize = new Point(Convert.ToInt32(configStringSplitRay[5].Split(',')[0]),
+                this._leftSheetSize = new Point(Convert.ToInt32(configStringSplitRay[5].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[5].Split(',')[1]));
 
-                this.rightSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
+                this._rightSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[6].Split(',')[1]));
 
-                this.atRestSheetSize = new Point(Convert.ToInt32(configStringSplitRay[7].Split(',')[0]),
+                this._atRestSheetSize = new Point(Convert.ToInt32(configStringSplitRay[7].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[7].Split(',')[1]));
 
-                this.leftTextureFilename = configStringSplitRay[8];
-                this.rightTextureFilename = configStringSplitRay[9];
-                this.atRestTextureFilename = configStringSplitRay[10];
+                this._leftTextureFilename = configStringSplitRay[8];
+                this._rightTextureFilename = configStringSplitRay[9];
+                this._atRestTextureFilename = configStringSplitRay[10];
 
-                this.TimeBetweenFrames = Convert.ToInt32(configStringSplitRay[11]);
+                this._TimeBetweenFrames = Convert.ToInt32(configStringSplitRay[11]);
 
 
                 // This next call reads in the properties of the sub-class. (template method)
@@ -256,8 +256,8 @@ namespace OurGame.Sprites
 
             } // end else
 
-            this.ElapsedGameTime = 0; // SKIPPTED!!!!!!!!!!!!!!!!!!!! NOT WRITTEN TO DISK
-            this.CurrentTextureFilename = this.leftTextureFilename;
+            this._ElapsedGameTime = 0; // SKIPPTED!!!!!!!!!!!!!!!!!!!! NOT WRITTEN TO DISK
+            this._CurrentTextureFilename = this._leftTextureFilename;
             this.CurrentPosition = this.InitialPosition;
         }
 
