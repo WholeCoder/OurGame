@@ -27,7 +27,6 @@ namespace OurGame.Sprites
         private string _atRestTextureFilename;
 
 
-
         private Point _CurrentFrame;
         private String _CurrentTextureFilename; // The textures are received from the TextureCache.
         private Point _CurrentSheetSize;
@@ -207,19 +206,8 @@ namespace OurGame.Sprites
                     Images/spritesheets/manspritesheet
                     100
                 */
-                String configurationString = "";  // Holds the entire configuration file.
 
-                // Open the stream and read it back. 
-                using (FileStream fs = File.OpenRead(filepath))
-                {
-                    byte[] b = new byte[1024];
-                    UTF8Encoding temp = new UTF8Encoding(true);
-                    while (fs.Read(b, 0, b.Length) > 0)
-                    {
-                        configurationString += temp.GetString(b);
-                    }
-                }
-                string[] configStringSplitRay = configurationString.Split('\n');
+                string[] configStringSplitRay = File.ReadAllLines(filepath);
 
                 this.InitialPosition = new Vector2(Convert.ToInt32(configStringSplitRay[1].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[1].Split(',')[1]));

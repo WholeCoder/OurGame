@@ -11,20 +11,7 @@ namespace OurGame.Sprites
     {
         public static AnimatedSprite CreateAnimatedSprite(String filepath, TextureCache tCache)
         {
-            String configurationString = "";  // Holds the entire configuration file.
-
-            // Open the stream and read it back. 
-            using (FileStream fs = File.OpenRead(filepath))
-            {
-                byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                while (fs.Read(b, 0, b.Length) > 0)
-                {
-                    configurationString += temp.GetString(b);
-                }
-            }
-
-            string[] configStringSplitRay = configurationString.Split('\n');
+            string[] configStringSplitRay = File.ReadAllLines(filepath);
 
             string typeOfAnimatedSprite = configStringSplitRay[0];
 

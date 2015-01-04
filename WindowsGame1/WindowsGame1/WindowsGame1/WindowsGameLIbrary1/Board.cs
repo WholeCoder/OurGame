@@ -157,21 +157,7 @@ namespace OurGame.WindowsGameLibrary1
             else
             {
                 // A config file exists for the board so load it now!
-
-                String configurationString = "";  // Holds the entire configuration file.
-
-                // Open the stream and read it back. 
-                using (FileStream fs = File.OpenRead(path))
-                {
-                    byte[] b = new byte[1024];
-                    UTF8Encoding temp = new UTF8Encoding(true);
-                    while (fs.Read(b, 0, b.Length) > 0)
-                    {
-                        configurationString += temp.GetString(b);
-                    }
-                }
-
-                String[] configStringSplitRay = configurationString.Split('\n');
+                String[] configStringSplitRay = File.ReadAllLines(path);
 
                 this.BoardHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
                 this.BoardWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800

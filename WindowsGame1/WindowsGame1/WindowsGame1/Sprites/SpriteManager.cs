@@ -24,20 +24,7 @@ namespace OurGame.Sprites
 
         private void LoadSpritesFromAfile(ContentManager Content)
         {
-            String configurationString = "";  // Holds the entire configuration file.
-
-            // Open the stream and read it back. 
-            using (FileStream fs = File.OpenRead(this.SpritesFileName))
-            {
-                byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                while (fs.Read(b, 0, b.Length) > 0)
-                {
-                    configurationString += temp.GetString(b);
-                }
-            }
-
-            String[] configStringSplitRay = configurationString.Split('\n');
+            String[] configStringSplitRay = File.ReadAllLines(this.SpritesFileName);
 
             int numberOfSprites= Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // numberOfSprites:10
             this.sprites = new AnimatedSprite[numberOfSprites];

@@ -196,18 +196,7 @@ namespace OurGame.WindowsGameLibrary1
 
         private string[] ReadInTextureArrayFromAFile(String textureFileNameString, ContentManager Content)
         {
-            using (FileStream fs = File.OpenRead(textureFileNameString))
-            {
-                byte[] b = new byte[1024];
-                String configurationString = "";
-                UTF8Encoding temp = new UTF8Encoding(true);
-
-                while (fs.Read(b, 0, b.Length) > 0)
-                {
-                    configurationString += temp.GetString(b);
-                }
-
-                String[] configStringSplitRay = configurationString.Split('\n');
+                String[] configStringSplitRay = File.ReadAllLines(textureFileNameString);
                 Console.WriteLine("configStringRay == " + configStringSplitRay[0]);
                 int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
                 String[] texStringRay = new String[numberOfTileTextures];
@@ -217,7 +206,7 @@ namespace OurGame.WindowsGameLibrary1
                 }
 
                 return texStringRay;
-            }
+            
         }
 
         private static void WriteOutStringRayAndLenthToFile(String textureFileName, String[] texStringRay)
