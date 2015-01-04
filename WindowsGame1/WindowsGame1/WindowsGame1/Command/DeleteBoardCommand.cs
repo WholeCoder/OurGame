@@ -7,7 +7,7 @@ using WindowsGameLibrary1;
 
 namespace Command
 {
-    public class DeleteBoardCommand : Command
+    public class DeleteBoardCommand : ICommand
     {
         String pathToSavedGambeBoardConfigurationFile;
         TextureCache tCache;

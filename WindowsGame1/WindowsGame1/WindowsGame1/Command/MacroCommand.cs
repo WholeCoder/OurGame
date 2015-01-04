@@ -1,13 +1,13 @@
 ﻿
 namespace Command
 {
-    public class MacroCommand : Command
+    public class MacroCommand : ICommand
     {
-        private Command[] commands;
+        private ICommand[] commands;
 
-        public MacroCommand(params Command[] com)
+        public MacroCommand(params ICommand[] com)
         {
-            this.commands = new Command[com.Length];
+            this.commands = new ICommand[com.Length];
 
             for (int i = 0; i < com.Length; i++)
             {

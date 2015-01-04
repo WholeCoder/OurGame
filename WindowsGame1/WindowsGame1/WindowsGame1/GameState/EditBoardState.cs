@@ -36,8 +36,8 @@ namespace GameState
         MultiTexture multiTexture;
         int multiTextureWidthHeight = 1;
 
-        Stack<Command.Command> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
-        Stack<Command.Command> undoDeleteBoardStack;
+        Stack<Command.ICommand> undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
+        Stack<Command.ICommand> undoDeleteBoardStack;
 
         MouseState lastMouseState;
         MouseState currentMouseState;
@@ -62,8 +62,8 @@ namespace GameState
         public override void Initialize(Game1 ourGame)
         {
             this.OurGame = ourGame;
-            undoStack = new Stack<Command.Command>();
-            undoDeleteBoardStack = new Stack<Command.Command>();
+            undoStack = new Stack<Command.ICommand>();
+            undoDeleteBoardStack = new Stack<Command.ICommand>();
             previousScrollValue = Mouse.GetState().ScrollWheelValue;
         }
 
@@ -130,7 +130,7 @@ namespace GameState
                 if (this.board.CalculateYIndex(ms.Y) < this.board.TheBoard.GetLength(0) && this.board.CalculateXIndex(ms.X, screenXOffset) < this.board.TheBoard.GetLength(1)
                     && this.board.CalculateYIndex(ms.Y) >= 0 && this.board.CalculateXIndex(ms.X, screenXOffset) >= 0)
                 {
-                    Command.Command ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTexture.TextureToRepeat, screenXOffset, this.multiTexture.NumberOfHorizontalTiles, this.multiTexture.NumberOfVerticalTiles);
+                    Command.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this.board, ms.X, ms.Y, this.multiTexture.TextureToRepeat, screenXOffset, this.multiTexture.NumberOfHorizontalTiles, this.multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.execute();
 
                     this.undoStack.Push(ptMultiOnBoardCommand);
@@ -190,7 +190,7 @@ namespace GameState
             {
                 if (this.undoStack.Count() != 0)
                 {
-                    Command.Command ptoBoardCommandUndo = this.undoStack.Pop();
+                    Command.ICommand ptoBoardCommandUndo = this.undoStack.Pop();
                     ptoBoardCommandUndo.undo();
                 }
             }
@@ -204,14 +204,14 @@ namespace GameState
             // Delete MyLevel.txt.
             if (newKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.D))
             {
-                Command.Command dbCommand = new DeleteBoardCommand(pathToSavedGambeBoardConfigurationFile, tCache, this.board, this);
+                Command.ICommand dbCommand = new DeleteBoardCommand(pathToSavedGambeBoardConfigurationFile, tCache, this.board, this);
                 dbCommand.execute();                
                 
                 // Add this delete to the undo history.
                 undoDeleteBoardStack.Push(dbCommand);
 
                 // Make sure we reset the undo history.
-                undoStack = new Stack<Command.Command>();
+                undoStack = new Stack<Command.ICommand>();
             }
 
             // Press U to undo a board deletion.
@@ -219,7 +219,7 @@ namespace GameState
             {
                 if (this.undoDeleteBoardStack.Count() != 0)
                 {
-                    Command.Command dbCommand = this.undoDeleteBoardStack.Pop();
+                    Command.ICommand dbCommand = this.undoDeleteBoardStack.Pop();
                     dbCommand.undo();
                 }
             }

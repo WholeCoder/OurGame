@@ -5,7 +5,7 @@ using WindowsGameLibrary1;
 
 namespace Command
 {
-    public class PlaceMultiTextureOnBoardCommand : Command
+    public class PlaceMultiTextureOnBoardCommand : ICommand
     {
         Board gameBoard;
 

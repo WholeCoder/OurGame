@@ -1,7 +1,7 @@
 ﻿
 namespace Command
 {
-    public class DoNothingCommand : Command
+    public class DoNothingCommand : ICommand
     {
         public void execute()
         {

@@ -124,7 +124,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\DeleteBoardCommand.cs" />
     <Compile Include="Command\DoNothingCommand.cs" />
     <Compile Include="Command\MacroCommand.cs" />
