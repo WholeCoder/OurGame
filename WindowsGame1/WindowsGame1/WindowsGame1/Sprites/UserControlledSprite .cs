@@ -57,5 +57,11 @@ namespace OurGame.Sprites
             // TODO: Write out attributes if they exist for UserCotnrolledSprite
 
         } // end method
+
+        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            C3.XNA.Primitives2D.DrawRectangle(spriteBatch, this.BoundingRectangle, Color.Red);
+        }
     } // end class
 } // end using

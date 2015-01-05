@@ -53,8 +53,8 @@ namespace OurGame.Sprites
             this.CurrentPosition.Y = this._InitialPosition.Y;
             
             // 10 is the scall factor used in Draw.  Change this to be an instance member!
-            this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y*10, 
-                                                         this._CurrentFrameSize.X,    this._CurrentFrameSize.Y*10);
+            this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
+                                                         this._CurrentFrameSize.X * 10, this._CurrentFrameSize.Y * 10);
         }
 
         private void NextFrame(GameTime gameTime)
@@ -146,7 +146,7 @@ namespace OurGame.Sprites
 
             // Update the bounding rectangle of this sprite
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
-                                             this._CurrentFrameSize.X, this._CurrentFrameSize.Y);
+                                             this._CurrentFrameSize.X*10, this._CurrentFrameSize.Y*10);
 
         } // end method
 
