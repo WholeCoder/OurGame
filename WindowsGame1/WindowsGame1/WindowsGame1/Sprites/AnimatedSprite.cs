@@ -41,7 +41,13 @@ namespace OurGame.Sprites
         {
             this._tCache = tCache;
             this.Load(configFilePathAndName);
-            this.SwitchToGoRightTexture();
+            //this.SwitchToAtRestTexture();
+
+            this._CurrentFrame = new Point(0, 0);
+            this._CurrentTextureFilename = this._atRestTextureFilename;
+            this._CurrentSheetSize = this._atRestSheetSize;
+            this._CurrentFrameSize = this._atRestFrameSize;
+
         }
 
         private void NextFrame(GameTime gameTime)
@@ -53,7 +59,7 @@ namespace OurGame.Sprites
                 this._ElapsedGameTime = 0;
 
                 ++this._CurrentFrame.X;
-                //Console.WriteLine("this.CurrentFrame.X == " + this.CurrentFrame.X);
+
                 if (this._CurrentFrame.X >= this._CurrentSheetSize.X)
                 {
                     this._CurrentFrame.X = 0;
@@ -64,28 +70,62 @@ namespace OurGame.Sprites
             } // end if
         }
 
+        public bool TestIfSameFrameMetrics(string textureFilename, Point sheetSize, Point frameSize)
+        {
+            return this._CurrentTextureFilename == textureFilename &&
+                                        this._CurrentSheetSize == sheetSize &&
+                                        this._CurrentFrameSize == frameSize;
+        }
+
         public void SwitchToGoRightTexture()
         {
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._rightTextureFilename, this._rightSheetSize, this._rightFrameSize);
+            
+            if (allreadyUsingTexture)
+            {
+                return;
+            }
+
             this._CurrentFrame = new Point(0, 0);
             this._CurrentTextureFilename = this._rightTextureFilename;
             this._CurrentSheetSize = this._rightSheetSize;
             this._CurrentFrameSize = this._rightFrameSize;
+
+            this._ElapsedGameTime = 0;
         }
 
         public void SwitchToGoLeftTexture()
         {
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._leftTextureFilename, this._leftSheetSize, this._leftFrameSize);
+            
+            if (allreadyUsingTexture)
+            {
+                return;
+            }
+
             this._CurrentFrame = new Point(0, 0);
             this._CurrentTextureFilename = this._leftTextureFilename;
             this._CurrentSheetSize = this._leftSheetSize;
             this._CurrentFrameSize = this._leftFrameSize;
+
+            this._ElapsedGameTime = 0; 
         }
 
         public void SwitchToAtRestTexture()
         {
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._atRestTextureFilename, this._atRestSheetSize, this._atRestFrameSize);
+            
+            if (allreadyUsingTexture)
+            {
+                return;
+            }
+
             this._CurrentFrame = new Point(0, 0);
             this._CurrentTextureFilename = this._atRestTextureFilename;
             this._CurrentSheetSize = this._atRestSheetSize;
             this._CurrentFrameSize = this._atRestFrameSize;
+
+            this._ElapsedGameTime = 0; 
         }
 
 
@@ -244,8 +284,8 @@ namespace OurGame.Sprites
 
             } // end else
 
-            this._ElapsedGameTime = 0; // SKIPPTED!!!!!!!!!!!!!!!!!!!! NOT WRITTEN TO DISK
-            this._CurrentTextureFilename = this._leftTextureFilename;
+            this._ElapsedGameTime = 0; 
+            this._CurrentTextureFilename = this._atRestTextureFilename;
             this.CurrentPosition = this.InitialPosition;
         }
 

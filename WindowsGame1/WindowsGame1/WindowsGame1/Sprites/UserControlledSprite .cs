@@ -9,6 +9,8 @@ namespace OurGame.Sprites
 {
     public class UserControlledSprite : AnimatedSprite
     {
+        bool _pressedRight = false;
+
         public UserControlledSprite(TextureCache tCache, string configFilePathAndName)
             : base(tCache, configFilePathAndName)
         {
@@ -25,16 +27,22 @@ namespace OurGame.Sprites
         public override void UpdateAfterNextFrame(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Keys.Right))
+
+            if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
+
+                this.SwitchToGoRightTexture();
                 this.CurrentPosition.X = this.CurrentPosition.X + 5;
             }
-
-            if (keyState.IsKeyDown(Keys.Left))
+            else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
+                this.SwitchToGoLeftTexture();
                 this.CurrentPosition.X = this.CurrentPosition.X - 5;
-            }
-        }
+            } else if (keyState.IsKeyUp(Keys.Left) && keyState.IsKeyUp(Keys.Right))
+            {
+                this.SwitchToAtRestTexture();
+            }           
+        } // end method
 
         public override string NameOfThisSubclassForWritingToConfigFile()
         {
