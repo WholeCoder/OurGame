@@ -14,7 +14,7 @@ namespace OurGame.Sprites
         public Vector2 CurrentPosition;
         private Vector2 _InitialPosition { get; set; }
 
-        private int _scaleUpThisSpriteFactor = 10;
+        private int _ScaleUpThisSpriteFactor = 10;
 
         private Point _leftFrameSize;
         private Point _rightFrameSize;
@@ -56,7 +56,7 @@ namespace OurGame.Sprites
 
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
-                                                         this._CurrentFrameSize.X * this._scaleUpThisSpriteFactor, this._CurrentFrameSize.Y * this._scaleUpThisSpriteFactor);
+                                                         this._CurrentFrameSize.X * this._ScaleUpThisSpriteFactor, this._CurrentFrameSize.Y * this._ScaleUpThisSpriteFactor);
         }
 
         private void NextFrame(GameTime gameTime)
@@ -148,7 +148,7 @@ namespace OurGame.Sprites
 
             // Update the bounding rectangle of this sprite
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
-                                             this._CurrentFrameSize.X * this._scaleUpThisSpriteFactor, this._CurrentFrameSize.Y * this._scaleUpThisSpriteFactor);
+                                             this._CurrentFrameSize.X * this._ScaleUpThisSpriteFactor, this._CurrentFrameSize.Y * this._ScaleUpThisSpriteFactor);
 
         } // end method
 
