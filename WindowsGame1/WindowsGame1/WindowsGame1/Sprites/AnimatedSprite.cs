@@ -12,7 +12,7 @@ namespace OurGame.Sprites
     public abstract class AnimatedSprite
     {
         public Vector2 CurrentPosition;
-        public Vector2 InitialPosition { get; set; }
+        private Vector2 _InitialPosition { get; set; }
 
         private Point _leftFrameSize;
         private Point _rightFrameSize;
@@ -37,6 +37,8 @@ namespace OurGame.Sprites
         private int _ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
         private int _TimeBetweenFrames;
 
+        private Rectangle _BoundingRectangle;
+
         public AnimatedSprite(TextureCache tCache, string configFilePathAndName)
         {
             this._tCache = tCache;
@@ -47,7 +49,10 @@ namespace OurGame.Sprites
             this._CurrentTextureFilename = this._atRestTextureFilename;
             this._CurrentSheetSize = this._atRestSheetSize;
             this._CurrentFrameSize = this._atRestFrameSize;
-
+            this.CurrentPosition.X = this._InitialPosition.X;
+            this.CurrentPosition.Y = this._InitialPosition.Y;
+            this._BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y, 
+                                                         this._CurrentFrameSize.X,    this._CurrentFrameSize.Y);
         }
 
         private void NextFrame(GameTime gameTime)
@@ -136,6 +141,11 @@ namespace OurGame.Sprites
             this.NextFrame(gameTime);
 
             this.UpdateAfterNextFrame(gameTime);
+
+            // Update the bounding rectangle of this sprite
+            this._BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
+                                             this._CurrentFrameSize.X, this._CurrentFrameSize.Y);
+
         } // end method
 
         public abstract void UpdateAfterNextFrame(GameTime gameTime);
@@ -178,8 +188,8 @@ namespace OurGame.Sprites
                     AddText(fs, this.NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
                     AddText(fs, "\n");
 
-                    this.InitialPosition = new Vector2(100, 100);
-                    AddText(fs, this.InitialPosition.X + "," + this.InitialPosition.Y);
+                    this._InitialPosition = new Vector2(100, 100);
+                    AddText(fs, this._InitialPosition.X + "," + this._InitialPosition.Y);
                     AddText(fs, "\n");
 
 
@@ -249,7 +259,7 @@ namespace OurGame.Sprites
 
                 string[] configStringSplitRay = File.ReadAllLines(filepath);
 
-                this.InitialPosition = new Vector2(Convert.ToInt32(configStringSplitRay[1].Split(',')[0]),
+                this._InitialPosition = new Vector2(Convert.ToInt32(configStringSplitRay[1].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[1].Split(',')[1]));
 
 
@@ -286,7 +296,7 @@ namespace OurGame.Sprites
 
             this._ElapsedGameTime = 0; 
             this._CurrentTextureFilename = this._atRestTextureFilename;
-            this.CurrentPosition = this.InitialPosition;
+            this.CurrentPosition = this._InitialPosition;
         }
 
         // Useful in sub-classes.
