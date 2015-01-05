@@ -9,8 +9,6 @@ namespace OurGame.Sprites
 {
     public class UserControlledSprite : AnimatedSprite
     {
-        bool _pressedRight = false;
-
         private int _StartyingYCoordinateForJumping;
         private int _JumpDelta = 0;
         private bool _CurrentlyJumpting = false;
