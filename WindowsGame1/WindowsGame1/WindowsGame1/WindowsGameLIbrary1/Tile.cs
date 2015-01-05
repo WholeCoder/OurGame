@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OurGame.WindowsGameLibrary1
@@ -22,6 +23,9 @@ namespace OurGame.WindowsGameLibrary1
 
         public int EndBoundaryX { get; set; }
         public int EndBoundaryY { get; set; }
+
+        // This will be changed by the Board class to allow a check to see if something (ex: Player) hits a Tile on the board.
+        public Rectangle BoundingRectangle;
 
         public Tile(Texture2D tTexture,
 
@@ -48,6 +52,13 @@ namespace OurGame.WindowsGameLibrary1
 
             this.StartBoundaryX = startBoundaryX;
             this.StartBoundaryY = startBoundaryY;
+
+            // Setting these to 0 just to initialize them but the Board class will alter these.
+            this.BoundingRectangle.X = 0;
+            this.BoundingRectangle.Y = 0;
+
+            this.BoundingRectangle.Width = this.Width;
+            this.BoundingRectangle.Height = this.Height;
         } // End constructor.
     } // End class.
 }

@@ -62,14 +62,17 @@ namespace OurGame.GameStates
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Keys.Right))
+            if (!this.board.IsThereACollisionWith(Player, screenXOffset))
             {
-                screenXOffset -= scrollAmount;
-            }
+                if (keyState.IsKeyDown(Keys.Right))
+                {
+                    screenXOffset -= scrollAmount;
+                }
 
-            if (keyState.IsKeyDown(Keys.Left))
-            {
-                screenXOffset += scrollAmount;
+                if (keyState.IsKeyDown(Keys.Left))
+                {
+                    screenXOffset += scrollAmount;
+                }
             }
 
             if (screenXOffset <= -this.board.BoardWidth)

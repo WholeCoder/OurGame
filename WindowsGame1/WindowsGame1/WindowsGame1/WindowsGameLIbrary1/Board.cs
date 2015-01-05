@@ -4,6 +4,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+// My usings.
+using OurGame.Sprites;
+
 namespace OurGame.WindowsGameLibrary1
 {
 
@@ -36,6 +39,40 @@ namespace OurGame.WindowsGameLibrary1
         {
             this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile, tCache); // tCache must fully loaded to use here!!!!
         } // end constructor
+
+        public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
+        {
+            // This will make the board only draw the part that is on the screen on the left side.
+            this.BoardMarginX = this.TileWidth * Board.NUMBER_OF_TILES_IN_MARGIN_X;
+
+            for (int i = 0; i < this.TheBoard.GetLength(0); i++)
+            {
+                int startX = this.CalculateXIndex(this.BoardMarginX, screenXOffset);
+                int endX = Math.Max(startX, this.CalculateXIndex(Board.SCREEN_WIDTH - this.BoardMarginX, screenXOffset));  // this.TheBoard.GetLength(1);
+                if (startX >= this.TheBoard.GetLength(1))
+                {
+                    startX = this.TheBoard.GetLength(1) - 1;
+                }
+                if (endX >= this.TheBoard.GetLength(1))
+                {
+                    endX = this.TheBoard.GetLength(1) - 1;
+                }
+                for (int j = startX; j < endX; j++)
+                {
+                    if (this.TheBoard[i, j].TheTexture != null)
+                    {
+                        Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset + this.BoardMarginX, i * this.TileHeight);
+                        this.TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y, 
+                                                                              this.TheBoard[i, j].Width, this.TheBoard[i, j].Height);
+                        if (aSprite.BoundingRectangle.Intersects(this.TheBoard[i, j].BoundingRectangle))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            } // End outer for.
+            return false;
+        } // end method
 
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {

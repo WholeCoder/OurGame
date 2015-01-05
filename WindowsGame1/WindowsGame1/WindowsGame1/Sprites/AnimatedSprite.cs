@@ -37,7 +37,7 @@ namespace OurGame.Sprites
         private int _ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
         private int _TimeBetweenFrames;
 
-        private Rectangle _BoundingRectangle;
+        public Rectangle BoundingRectangle; // For collision detection.
 
         public AnimatedSprite(TextureCache tCache, string configFilePathAndName)
         {
@@ -51,8 +51,10 @@ namespace OurGame.Sprites
             this._CurrentFrameSize = this._atRestFrameSize;
             this.CurrentPosition.X = this._InitialPosition.X;
             this.CurrentPosition.Y = this._InitialPosition.Y;
-            this._BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y, 
-                                                         this._CurrentFrameSize.X,    this._CurrentFrameSize.Y);
+            
+            // 10 is the scall factor used in Draw.  Change this to be an instance member!
+            this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y*10, 
+                                                         this._CurrentFrameSize.X,    this._CurrentFrameSize.Y*10);
         }
 
         private void NextFrame(GameTime gameTime)
@@ -143,7 +145,7 @@ namespace OurGame.Sprites
             this.UpdateAfterNextFrame(gameTime);
 
             // Update the bounding rectangle of this sprite
-            this._BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
+            this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
                                              this._CurrentFrameSize.X, this._CurrentFrameSize.Y);
 
         } // end method
