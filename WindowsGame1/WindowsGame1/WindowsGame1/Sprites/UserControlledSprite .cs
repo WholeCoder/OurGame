@@ -11,6 +11,10 @@ namespace OurGame.Sprites
     {
         bool _pressedRight = false;
 
+        private int _StartyingYCoordinateForJumping;
+        private int _JumpDelta = 0;
+        private bool _CurrentlyJumpting = false;
+
         public UserControlledSprite(TextureCache tCache, string configFilePathAndName)
             : base(tCache, configFilePathAndName)
         {
@@ -41,7 +45,27 @@ namespace OurGame.Sprites
             } else if (keyState.IsKeyUp(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
                 this.SwitchToAtRestTexture();
-            }           
+            }
+
+            if (keyState.IsKeyDown(Keys.Space) && !this._CurrentlyJumpting)
+            {
+                this._JumpDelta = -10;
+                this._CurrentlyJumpting = true;
+                this._StartyingYCoordinateForJumping = (int)this.CurrentPosition.Y;
+            }
+
+            if (this._CurrentlyJumpting && this.CurrentPosition.Y <= this._StartyingYCoordinateForJumping)
+            {
+                this.CurrentPosition.Y += this._JumpDelta;
+                this._JumpDelta += 1;
+            }
+
+            if (this.CurrentPosition.Y > this._StartyingYCoordinateForJumping)
+            {
+                this._CurrentlyJumpting = false;
+                this._JumpDelta = 0;
+                this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
+            }
         } // end method
 
         public override string NameOfThisSubclassForWritingToConfigFile()
