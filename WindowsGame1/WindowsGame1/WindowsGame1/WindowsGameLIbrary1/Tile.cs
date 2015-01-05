@@ -10,10 +10,6 @@ namespace OurGame.WindowsGameLibrary1
         public int Width { get; set; }
         public int Height { get; set; }
 
-        // These are the pixel co-ordinates on the screen of this tile.
-        public int ScreenX { get; set; }
-        public int ScreenY { get; set; }
-
         // These are the co-ordinates in the board's array;
         public int ArrayX {get; set;}
         public int ArrayY { get; set; }
