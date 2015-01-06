@@ -7,7 +7,7 @@ using OurGame.WindowsGameLibrary1;
 
 namespace OurGame.Sprites
 {
-    public class AutomatedSprite : AnimatedSprite
+    public sealed class AutomatedSprite : AnimatedSprite
     {
         public AutomatedSprite(TextureCache tCache, string configFilePathAndName)
             : base(tCache, configFilePathAndName)

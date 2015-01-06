@@ -7,7 +7,7 @@ using OurGame.WindowsGameLibrary1;
 
 namespace OurGame.Sprites
 {
-    public class UserControlledSprite : AnimatedSprite
+    public sealed class UserControlledSprite : AnimatedSprite
     {
         private int _StartyingYCoordinateForJumping;
         private int _JumpDelta = 0;
