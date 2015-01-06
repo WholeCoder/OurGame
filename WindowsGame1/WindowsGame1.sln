@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsGame1Content", "Wind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Primitives2D", "..\Primitives2D\Primitives2D.csproj", "{39AD1482-1881-4852-A05D-DC61B0D3446A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08-1-0-ParticleEffects1", "..\..\..\..\Downloads\2dGPfG-master\2dGPfG-master\2dGPfG-XNA\8-1-0-ParticleEffects1\08-1-0-ParticleEffects1.csproj", "{7728C4CD-38AA-46BA-82DC-51919768AB1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08-1-0-ParticleEffects1", "..\8-1-0-ParticleEffects1\08-1-0-ParticleEffects1.csproj", "{7728C4CD-38AA-46BA-82DC-51919768AB1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedContent", "..\SharedContent\SharedContent.contentproj", "{99AF9415-B77A-4D03-ABDB-6E109887A0B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,12 @@ Global
 		{7728C4CD-38AA-46BA-82DC-51919768AB1F}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7728C4CD-38AA-46BA-82DC-51919768AB1F}.Release|x86.ActiveCfg = Release|x86
 		{7728C4CD-38AA-46BA-82DC-51919768AB1F}.Release|x86.Build.0 = Release|x86
+		{99AF9415-B77A-4D03-ABDB-6E109887A0B0}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{99AF9415-B77A-4D03-ABDB-6E109887A0B0}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{99AF9415-B77A-4D03-ABDB-6E109887A0B0}.Debug|x86.ActiveCfg = Debug|x86
+		{99AF9415-B77A-4D03-ABDB-6E109887A0B0}.Release|Any CPU.ActiveCfg = Release|x86
+		{99AF9415-B77A-4D03-ABDB-6E109887A0B0}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{99AF9415-B77A-4D03-ABDB-6E109887A0B0}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
