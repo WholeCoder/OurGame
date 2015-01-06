@@ -11,6 +11,7 @@ namespace OurGame.Sprites
 {
     public class UserControlledSprite : AnimatedSprite
     {
+        private int STARTING_DELTA = 20;
         private int _StartyingYCoordinateForJumping;
         private int _JumpDelta = 0;
         private bool _CurrentlyJumpting = false;
@@ -52,7 +53,7 @@ namespace OurGame.Sprites
 
             if (keyState.IsKeyDown(Keys.Space) && !this._CurrentlyJumpting)
             {
-                this._JumpDelta = -10;
+                this._JumpDelta = -this.STARTING_DELTA;
                 this._CurrentlyJumpting = true;
                 this._StartyingYCoordinateForJumping = (int)this.CurrentPosition.Y;
             }
