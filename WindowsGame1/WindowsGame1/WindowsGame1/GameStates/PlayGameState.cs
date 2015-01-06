@@ -7,11 +7,16 @@ using OurGame.Sprites;
 using WindowsGame1;
 using OurGame.WindowsGameLibrary1;
 
+// Created by someone else.
+using ParticleEffects;
 
 namespace OurGame.GameStates
 {
     class PlayGameState : State
     {
+        cEffectManager myEffectsManager;
+        int keyboardDelayCounter = 0;
+
         Board board;
         
         // Holds textures so they aren't re-created.
@@ -35,6 +40,7 @@ namespace OurGame.GameStates
 
         public PlayGameState()
         {
+            myEffectsManager = new cEffectManager();
         }
 
         public override void Initialize(Game1 ourGame)
@@ -50,6 +56,8 @@ namespace OurGame.GameStates
             // old UserControlledSprite/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/
             // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
             Player = new UserControlledSprite(tCache, "UserControlledSpriteConfig.txt");
+
+            myEffectsManager.LoadContent(Content);
         }
 
         public override void UnloadContent()
@@ -62,6 +70,43 @@ namespace OurGame.GameStates
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
+
+            if (keyboardDelayCounter > 0)
+            {
+                keyboardDelayCounter -= gameTime.ElapsedGameTime.Milliseconds;
+            }
+            else
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                {
+                    myEffectsManager.AddEffect(eEffectType.explosion);
+                    keyboardDelayCounter = 300;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                {
+                    myEffectsManager.AddEffect(eEffectType.fire);
+                    keyboardDelayCounter = 300;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                {
+                    myEffectsManager.AddEffect(eEffectType.snow);
+                    keyboardDelayCounter = 300;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                {
+                    myEffectsManager.AddEffect(eEffectType.smoke);
+                    keyboardDelayCounter = 300;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    myEffectsManager.AddEffect(eEffectType.spiral);
+                    keyboardDelayCounter = 300;
+                }
+            }
+
+            myEffectsManager.Update(gameTime);
+
+
             if (!this.board.IsThereACollisionWith(Player, screenXOffset))
             {
                 if (keyState.IsKeyDown(Keys.Right))
@@ -112,6 +157,7 @@ namespace OurGame.GameStates
         {
             this.board.DrawBoard(spriteBatch, screenXOffset, false);  // screenXOffset scrolls the board left and right!
             Player.Draw(spriteBatch);
+            myEffectsManager.Draw(spriteBatch);
         }
     }
 }
