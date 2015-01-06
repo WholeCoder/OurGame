@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OurGame.WindowsGameLibrary1
@@ -16,6 +17,8 @@ namespace OurGame.WindowsGameLibrary1
 
         public MultiTexture(int numberOfHorizontalTiles, int numberOfVirticalTiles, Texture2D tileToRepeat, TextureCache tCache)
         {
+            Debug.Assert(tCache != null);
+
             this.NumberOfHorizontalTiles = numberOfHorizontalTiles;
             this.NumberOfVerticalTiles = numberOfVirticalTiles;
 
@@ -26,6 +29,9 @@ namespace OurGame.WindowsGameLibrary1
 
         public void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)
         {
+            Debug.Assert(spriteBatch != null);
+            Debug.Assert(mouseCursorUpperLeftCorner != null);
+
             for (int i = 0; i < this.NumberOfVerticalTiles; i++)
             {
                 for (int j = 0; j < this.NumberOfHorizontalTiles; j++)

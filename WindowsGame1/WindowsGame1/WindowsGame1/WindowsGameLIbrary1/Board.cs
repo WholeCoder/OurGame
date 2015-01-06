@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -37,11 +38,16 @@ namespace OurGame.WindowsGameLibrary1
 
         public Board(String pathToConfigFile, TextureCache tCache)
         {
+            Debug.Assert(pathToConfigFile != null && !pathToConfigFile.Equals(""));
+            Debug.Assert(tCache != null);
+
             this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile, tCache); // tCache must fully loaded to use here!!!!
         } // end constructor
 
         public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
         {
+            Debug.Assert(aSprite != null);
+
             // This will make the board only draw the part that is on the screen on the left side.
             this.BoardMarginX = this.TileWidth * Board.NUMBER_OF_TILES_IN_MARGIN_X;
 
@@ -76,6 +82,8 @@ namespace OurGame.WindowsGameLibrary1
 
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {
+            Debug.Assert(spriteBatch != null);
+
             // This will make the board only draw the part that is on the screen on the left side.
             this.BoardMarginX = this.TileWidth*Board.NUMBER_OF_TILES_IN_MARGIN_X;
 
@@ -154,6 +162,9 @@ namespace OurGame.WindowsGameLibrary1
 
         public void ReadInBoardConfigurationOrUseDefault(String path, TextureCache tCache) // tCache must fully loaded to use here!!!!
         {
+            Debug.Assert(path != null && !path.Equals(""));
+            Debug.Assert(tCache != null);
+
             // Load the default game board configuration if the config file doesn't exist.
             if (!File.Exists(path))
             {
@@ -240,6 +251,9 @@ namespace OurGame.WindowsGameLibrary1
 
         public void WriteOutDimensionsOfTheGameBoard(String path, TextureCache tCache)
         {
+            Debug.Assert(path != null && !path.Equals(""));
+            Debug.Assert(tCache != null);
+
             using (FileStream fs = File.Create(path))
             {
                 AddText(fs, "screenHeight:" + this.BoardHeight);
@@ -279,12 +293,17 @@ namespace OurGame.WindowsGameLibrary1
 
         private static void AddText(FileStream fs, string value)
         {
+            Debug.Assert(fs.CanWrite);
+            Debug.Assert(value != null);
+
             byte[] info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
         }
 
         public void PutMultiTileInBoard(MultiTexture mTile, int rowIndex, int columnIndex)
         {
+            Debug.Assert(mTile != null);
+
             for (int i = 0; i < mTile.NumberOfVerticalTiles; i++)
             {
                 for (int j = 0; j < mTile.NumberOfHorizontalTiles; j++)
