@@ -197,7 +197,7 @@ namespace OurGame.WindowsGameLibrary1
         private string[] ReadInTextureArrayFromAFile(String textureFileNameString, ContentManager Content)
         {
                 String[] configStringSplitRay = File.ReadAllLines(textureFileNameString);
-                Console.WriteLine("configStringRay == " + configStringSplitRay[0]);
+
                 int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
                 String[] texStringRay = new String[numberOfTileTextures];
                 for (int i = 0; i < texStringRay.Length; i++)

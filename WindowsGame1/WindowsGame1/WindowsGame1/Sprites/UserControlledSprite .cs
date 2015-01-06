@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -62,7 +63,7 @@ namespace OurGame.Sprites
                 this._JumpDelta += 1;
             }
 
-            if (this.CurrentPosition.Y > this._StartyingYCoordinateForJumping)
+            if (this.CurrentPosition.Y > this._StartyingYCoordinateForJumping && this._CurrentlyJumpting)
             {
                 this._CurrentlyJumpting = false;
                 this._JumpDelta = 0;
