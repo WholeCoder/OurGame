@@ -7,7 +7,7 @@ using OurGame.WindowsGameLibrary1;
 
 namespace OurGame.Sprites
 {
-    public sealed class AutomatedSprite : AnimatedSprite
+    public class AutomatedSprite : AnimatedSprite
     {
         public AutomatedSprite(TextureCache tCache, string configFilePathAndName)
             : base(tCache, configFilePathAndName)
@@ -16,7 +16,7 @@ namespace OurGame.Sprites
         }
 
         // This will start at the startOffset and read out it's attributes.
-        public override void Load(string[] configArray, int startOffset)
+        public sealed override void Load(string[] configArray, int startOffset)
         {
             // Nothing to Load yet!
             // TODO: Read properties starting at startOffset.
@@ -35,7 +35,7 @@ namespace OurGame.Sprites
         }
 
         // In this method we use fs to write out the subclasses properties.
-        public override void Write(FileStream fs)
+        public sealed override void Write(FileStream fs)
         {
             // Nothing to write yet!
             // TODO: Write out attributes if they exist for UserCotnrolledSprite
