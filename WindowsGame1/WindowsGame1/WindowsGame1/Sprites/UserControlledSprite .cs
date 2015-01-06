@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -22,6 +23,9 @@ namespace OurGame.Sprites
         // This will start at the startOffset and read out it's attributes.
         public override void Load(string[] configArray, int startOffset)
         {
+            Debug.Assert(configArray != null && configArray.Length >= 0);
+            Debug.Assert(startOffset >= 0);
+
             // Nothing to Load yet!
             // TODO: Read properties starting at startOffset.
         }
@@ -75,6 +79,8 @@ namespace OurGame.Sprites
         // In this method we use fs to write out the subclasses properties.
         public override void Write(FileStream fs)
         {
+            Debug.Assert(fs.CanWrite);
+
             // Nothing to write yet!
             // TODO: Write out attributes if they exist for UserCotnrolledSprite
 
