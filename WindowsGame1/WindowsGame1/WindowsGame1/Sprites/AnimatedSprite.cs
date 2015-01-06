@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -43,6 +44,9 @@ namespace OurGame.Sprites
 
         public AnimatedSprite(TextureCache tCache, string configFilePathAndName)
         {
+            Debug.Assert(tCache != null);
+            Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null);
+
             this._tCache = tCache;
             this.Load(configFilePathAndName);
             //this.SwitchToAtRestTexture();
@@ -79,8 +83,14 @@ namespace OurGame.Sprites
             } // end if
         }
 
+        // this is used in the SwitchToGo...Texture() method to see if we need to switch our texture and attributes
+        //    For example, switching to going right texture or at rest.
         public bool TestIfSameFrameMetrics(string textureFilename, Point sheetSize, Point frameSize)
         {
+            Debug.Assert(!textureFilename.Equals("") && textureFilename != null);
+            Debug.Assert(sheetSize != null);
+            Debug.Assert(frameSize != null);
+
             return this._CurrentTextureFilename == textureFilename &&
                                         this._CurrentSheetSize == sheetSize &&
                                         this._CurrentFrameSize == frameSize;
@@ -182,6 +192,8 @@ namespace OurGame.Sprites
         // This is the template method pattern.
         public void Load(string filepath)
         {
+            Debug.Assert(!filepath.Equals("") && filepath != null);
+
             if (!File.Exists(filepath))
             {
                 using (FileStream fs = File.Create(filepath))
@@ -189,6 +201,7 @@ namespace OurGame.Sprites
                     // Set defaults
 
                     // Write "AutomatedSprite" to file and a \n.
+                    Debug.Assert(!this.NameOfThisSubclassForWritingToConfigFile().Equals(""));
                     AddText(fs, this.NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
                     AddText(fs, "\n");
 
@@ -306,6 +319,9 @@ namespace OurGame.Sprites
         // Useful in sub-classes.
         private static void AddText(FileStream fs, string value)
         {
+            Debug.Assert(fs != null);
+            Debug.Assert(value != null);
+
             byte[] info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
         } // end method

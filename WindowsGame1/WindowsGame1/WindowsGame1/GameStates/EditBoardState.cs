@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
@@ -61,6 +62,8 @@ namespace OurGame.GameStates
 
         public override void Initialize(Game1 ourGame)
         {
+            Debug.Assert(ourGame != null);
+
             this.OurGame = ourGame;
             _undoStack = new Stack<OurGame.Commands.ICommand>();
             _undoDeleteBoardStack = new Stack<OurGame.Commands.ICommand>();
@@ -69,6 +72,8 @@ namespace OurGame.GameStates
 
         public override void LoadContent(ContentManager Content)
         {
+            Debug.Assert(Content != null);
+
             _tCache = new TextureCache(_pathToTextureCacheConfig, _pathToSpriteTextureCacheConfig, Content);
             _board = new Board(_pathToSavedGambeBoardConfigurationFile, _tCache); // MUST have tCache created before calling this!
 
@@ -83,6 +88,8 @@ namespace OurGame.GameStates
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            Debug.Assert(gameTime != null);
+
             MouseState ms = Mouse.GetState();
 
             // The active state from the last frame is now old
@@ -267,6 +274,9 @@ namespace OurGame.GameStates
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Debug.Assert(gameTime!= null);
+            Debug.Assert(spriteBatch != null);
+
             this._board.DrawBoard(spriteBatch, _screenXOffset, true);  // screenXOffset scrolls the board left and right!
 
             this._multiTexture.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);

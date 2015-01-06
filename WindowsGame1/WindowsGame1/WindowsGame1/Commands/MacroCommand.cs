@@ -1,4 +1,4 @@
-﻿
+﻿using System.Diagnostics;
 namespace OurGame.Commands
 {
     public class MacroCommand : ICommand
@@ -7,6 +7,8 @@ namespace OurGame.Commands
 
         public MacroCommand(params ICommand[] com)
         {
+            Debug.Assert(com != null);
+
             this._commands = new ICommand[com.Length];
 
             for (int i = 0; i < com.Length; i++)

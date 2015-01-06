@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 
 // My usings.
@@ -16,6 +17,10 @@ namespace OurGame.Sprites
 
         public SpriteManager(String spritesFileName, ContentManager Content, TextureCache tCache)
         {
+            Debug.Assert(!spritesFileName.Equals("") && spritesFileName != null);
+            Debug.Assert(Content != null);
+            Debug.Assert(tCache != null);
+
             this.SpritesFileName = spritesFileName;
             this.tCache = tCache;
 
@@ -24,6 +29,8 @@ namespace OurGame.Sprites
 
         private void LoadSpritesFromAfile(ContentManager Content)
         {
+            Debug.Assert(Content != null);
+
             String[] configStringSplitRay = File.ReadAllLines(this.SpritesFileName);
 
             int numberOfSprites= Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // numberOfSprites:10

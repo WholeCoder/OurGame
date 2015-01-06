@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
 
 // My usings.
 using OurGame.GameStates;
@@ -19,6 +20,11 @@ namespace OurGame.Commands
 
         public DeleteBoardCommand(String pathToSavedGambeBoardConfigurationFile, TextureCache tCache, Board board, EditBoardState editBoardState)
         {
+            Debug.Assert(!pathToSavedGambeBoardConfigurationFile.Equals("") && pathToSavedGambeBoardConfigurationFile != null);
+            Debug.Assert(tCache != null);
+            Debug.Assert(board != null);
+            Debug.Assert(editBoardState != null);
+
             this._pathToSavedGambeBoardConfigurationFile = pathToSavedGambeBoardConfigurationFile;
             this._tCache = tCache;
             this._board = board;

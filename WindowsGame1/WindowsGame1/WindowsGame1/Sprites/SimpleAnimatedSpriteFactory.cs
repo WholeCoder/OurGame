@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 
 // My usings
 using OurGame.WindowsGameLibrary1;
@@ -11,6 +12,9 @@ namespace OurGame.Sprites
     {
         public static AnimatedSprite CreateAnimatedSprite(String filepath, TextureCache tCache)
         {
+            Debug.Assert(!filepath.Equals("") && filepath != null);
+            Debug.Assert(tCache != null);
+
             string[] configStringSplitRay = File.ReadAllLines(filepath);
 
             string typeOfAnimatedSprite = configStringSplitRay[0];

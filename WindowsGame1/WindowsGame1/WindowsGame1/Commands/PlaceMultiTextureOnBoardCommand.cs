@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.WindowsGameLibrary1;
@@ -25,6 +26,8 @@ namespace OurGame.Commands
 
         public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset, int numberOfHorizontalTiles, int numberOfVerticalTiles)
         {
+            Debug.Assert(pBoard != null);
+
             // Do some calcs with board.
             this._gameBoard = pBoard;
             this._putY = this._gameBoard.CalculateYIndex(mouseY);
