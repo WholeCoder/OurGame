@@ -17,6 +17,12 @@ namespace OurGame.GameStates
         cEffectManager myEffectsManager;
         int keyboardDelayCounter = 0;
 
+        bool fireIsRunning = false;
+        bool fireworksAreRunning = false;
+        bool snowIsFalling = false;
+        bool smokeIsRunning = false;
+        bool spiralIsRunning = false;
+
         Board board;
         
         // Holds textures so they aren't re-created.
@@ -77,30 +83,35 @@ namespace OurGame.GameStates
             }
             else
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                if (Keyboard.GetState().IsKeyDown(Keys.Up) && !fireworksAreRunning)
                 {
                     myEffectsManager.AddEffect(eEffectType.explosion);
                     keyboardDelayCounter = 300;
+                    fireworksAreRunning = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                if (Keyboard.GetState().IsKeyDown(Keys.Down) && !fireIsRunning)
                 {
                     myEffectsManager.AddEffect(eEffectType.fire);
                     keyboardDelayCounter = 300;
+                    fireIsRunning = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                if (Keyboard.GetState().IsKeyDown(Keys.Left) && !snowIsFalling)
                 {
                     myEffectsManager.AddEffect(eEffectType.snow);
                     keyboardDelayCounter = 300;
+                    snowIsFalling = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                if (Keyboard.GetState().IsKeyDown(Keys.Right) && !smokeIsRunning)
                 {
                     myEffectsManager.AddEffect(eEffectType.smoke);
                     keyboardDelayCounter = 300;
+                    smokeIsRunning = false;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spiralIsRunning)
                 {
                     myEffectsManager.AddEffect(eEffectType.spiral);
                     keyboardDelayCounter = 300;
+                    spiralIsRunning = true;
                 }
             }
 
