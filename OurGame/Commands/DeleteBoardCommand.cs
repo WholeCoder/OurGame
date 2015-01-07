@@ -18,15 +18,14 @@ namespace OurGame.Commands
 
         private EditBoardState _editBoardState;
 
-        public DeleteBoardCommand(String pathToSavedGameBoardConfigurationFile, TextureCache tCache, Board board, EditBoardState editBoardState)
+        public DeleteBoardCommand(String pathToSavedGameBoardConfigurationFile, Board board, EditBoardState editBoardState)
         {
             Debug.Assert(!pathToSavedGameBoardConfigurationFile.Equals("") && pathToSavedGameBoardConfigurationFile != null, "pathToSavedGameBoardConfigurationFile is null or empty string!");
-            Debug.Assert(tCache != null,"tCache is NULL!");
             Debug.Assert(board != null, "board is NULL!");
             Debug.Assert(editBoardState != null, "editBoardState is NULL!");
 
             this._pathToSavedGambeBoardConfigurationFile = pathToSavedGameBoardConfigurationFile;
-            this._tCache = tCache;
+            this._tCache = TextureCache.getInstance();
             this._board = board;
 
             this._editBoardState = editBoardState;
@@ -49,7 +48,7 @@ namespace OurGame.Commands
                 File.Delete(_pathToSavedGambeBoardConfigurationFile);
             }
 
-            this._board.ReadInBoardConfigurationOrUseDefault(_pathToSavedGambeBoardConfigurationFile, _tCache);
+            this._board.ReadInBoardConfigurationOrUseDefault(_pathToSavedGambeBoardConfigurationFile);
         }
 
         public void Undo()

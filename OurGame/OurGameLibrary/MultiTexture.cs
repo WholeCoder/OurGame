@@ -15,16 +15,14 @@ namespace OurGame.WindowsGameLibrary1
         public Texture2D TextureToRepeat { get; set; }
 
 
-        public MultiTexture(int numberOfHorizontalTiles, int numberOfVirticalTiles, Texture2D tileToRepeat, TextureCache tCache)
+        public MultiTexture(int numberOfHorizontalTiles, int numberOfVirticalTiles, Texture2D tileToRepeat)
         {
-            Debug.Assert(tCache != null, "tCache can not be null!");
-
             this.NumberOfHorizontalTiles = numberOfHorizontalTiles;
             this.NumberOfVerticalTiles = numberOfVirticalTiles;
 
             this.TextureToRepeat = tileToRepeat;
 
-            this.tCache = tCache;
+            this.tCache = TextureCache.getInstance();
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)

@@ -16,8 +16,8 @@ namespace OurGame.Sprites
         private int _JumpDelta = 0;
         private bool _CurrentlyJumpting = false;
 
-        public UserControlledSprite(TextureCache tCache, string configFilePathAndName)
-            : base(tCache, configFilePathAndName)
+        public UserControlledSprite(string configFilePathAndName)
+            : base(configFilePathAndName)
         {
 
         }

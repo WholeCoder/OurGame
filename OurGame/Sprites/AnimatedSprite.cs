@@ -42,12 +42,11 @@ namespace OurGame.Sprites
 
         public Rectangle BoundingRectangle; // For collision detection.
 
-        public AnimatedSprite(TextureCache tCache, string configFilePathAndName)
+        public AnimatedSprite(string configFilePathAndName)
         {
-            Debug.Assert(tCache != null, "TextureCache tCache can't be null!");
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null, "configFilePathAndName can't be null or blank!");
 
-            this._tCache = tCache;
+            this._tCache = TextureCache.getInstance();
             this.Load(configFilePathAndName);
             //this.SwitchToAtRestTexture();
 

@@ -36,12 +36,11 @@ namespace OurGame.WindowsGameLibrary1
         public const int SCREEN_WIDTH = 800;
         public const int NUMBER_OF_TILES_IN_MARGIN_X = 1;
 
-        public Board(String pathToConfigFile, TextureCache tCache)
+        public Board(String pathToConfigFile)
         {
             Debug.Assert(pathToConfigFile != null && !pathToConfigFile.Equals(""), "pathToConfigFile is null or empty!");
-            Debug.Assert(tCache != null, "TextureCache tCache is null!");
 
-            this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile, tCache); // tCache must fully loaded to use here!!!!
+            this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile); // tCache must fully loaded to use here!!!!
         } // end constructor
 
         public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
@@ -160,10 +159,9 @@ namespace OurGame.WindowsGameLibrary1
             return (mouseY / this.TileHeight) * this.TileHeight;
         }
 
-        public void ReadInBoardConfigurationOrUseDefault(String path, TextureCache tCache) // tCache must fully loaded to use here!!!!
+        public void ReadInBoardConfigurationOrUseDefault(String path) // tCache must fully loaded to use here!!!!
         {
             Debug.Assert(path != null && !path.Equals(""), "path can not be null or empty!");
-            Debug.Assert(tCache != null, "tCache can not be null");
 
             // Load the default game board configuration if the config file doesn't exist.
             if (!File.Exists(path))
@@ -200,7 +198,7 @@ namespace OurGame.WindowsGameLibrary1
                     }
                 }
                 // Write out the default config of the board
-                WriteOutDimensionsOfTheGameBoard(path, tCache);
+                WriteOutDimensionsOfTheGameBoard(path);
             }
             else
             {
@@ -228,7 +226,7 @@ namespace OurGame.WindowsGameLibrary1
                     for (int j = 0; j < this.TheBoard.GetLength(1); j++)
                     {
                         Tile t = new Tile(
-                                      tCache.GetTexture2DFromStringBoardArray(stringGameBoardRay[j]),                  // blank tile
+                                      TextureCache.getInstance().GetTexture2DFromStringBoardArray(stringGameBoardRay[j]),                  // blank tile
                         
                                       j,                // remembert hese are swapped in array!!!
                                       i,
@@ -249,10 +247,9 @@ namespace OurGame.WindowsGameLibrary1
             } // end else
         }
 
-        public void WriteOutDimensionsOfTheGameBoard(String path, TextureCache tCache)
+        public void WriteOutDimensionsOfTheGameBoard(String path)
         {
             Debug.Assert(path != null && !path.Equals(""), "path can not be null or empty!");
-            Debug.Assert(tCache != null, "tCache can not be null!");
 
             using (FileStream fs = File.Create(path))
             {
@@ -277,7 +274,7 @@ namespace OurGame.WindowsGameLibrary1
                         }
                         else
                         {
-                            AddText(fs, tCache.GetStringFilenameFromTexture2DForBoard(gBTile.TheTexture));
+                            AddText(fs, TextureCache.getInstance().GetStringFilenameFromTexture2DForBoard(gBTile.TheTexture));
                         }
 
                         if (j != this.TheBoard.GetLength(1) - 1)

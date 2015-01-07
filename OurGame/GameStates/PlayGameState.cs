@@ -56,12 +56,13 @@ namespace OurGame.GameStates
 
         public override void LoadContent(ContentManager Content)
         {
-            tCache = new TextureCache(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig,Content);
-            board = new Board(pathToSavedGambeBoardConfigurationFile, tCache); // MUST have tCache created before calling this!
+            TextureCache.setupFileNamesAndcontent(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
+            tCache = TextureCache.getInstance();
+            board = new Board(pathToSavedGambeBoardConfigurationFile); // MUST have tCache created before calling this!
 
             // old UserControlledSprite/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/
             // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
-            Player = new UserControlledSprite(tCache, "UserControlledSpriteConfig.txt");
+            Player = new UserControlledSprite("UserControlledSpriteConfig.txt");
 
             myEffectsManager.LoadContent(Content);
         }

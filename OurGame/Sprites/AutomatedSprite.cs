@@ -11,7 +11,7 @@ namespace OurGame.Sprites
     public class AutomatedSprite : AnimatedSprite
     {
         public AutomatedSprite(TextureCache tCache, string configFilePathAndName)
-            : base(tCache, configFilePathAndName)
+            : base(configFilePathAndName)
         {
             //            this.Load(pathWithFile);  // Will write defaults to disk if the file isn't found.
         }

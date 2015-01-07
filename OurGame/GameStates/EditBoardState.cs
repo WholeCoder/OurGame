@@ -74,12 +74,14 @@ namespace OurGame.GameStates
         {
             Debug.Assert(Content != null," Content can't be null!");
 
-            _tCache = new TextureCache(_pathToTextureCacheConfig, _pathToSpriteTextureCacheConfig, Content);
-            _board = new Board(_pathToSavedGambeBoardConfigurationFile, _tCache); // MUST have tCache created before calling this!
+            TextureCache.setupFileNamesAndcontent(_pathToTextureCacheConfig, _pathToSpriteTextureCacheConfig, Content);
+
+            _tCache = TextureCache.getInstance();
+            _board = new Board(_pathToSavedGambeBoardConfigurationFile); // MUST have tCache created before calling this!
 
             this.Content = Content;
 
-            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture(), _tCache);
+            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture());
         }
 
         public override void UnloadContent()
@@ -120,7 +122,7 @@ namespace OurGame.GameStates
             {
                 // Flip to the next texture under the mouse pointer.
                 this._tCache.NextTexture();
-                _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture(), _tCache);
+                _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture());
                 _rightMouseClickOccurred = false;
             }
 
@@ -190,7 +192,7 @@ namespace OurGame.GameStates
                 _multiTextureWidthHeight = 1;
             }
 
-            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture(), _tCache);
+            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture());
 
             // Do undo place tile command
             if (newKeyboardState.IsKeyDown(Keys.Z) && _oldKeyboardState.IsKeyUp(Keys.Z))
@@ -211,7 +213,7 @@ namespace OurGame.GameStates
             // Delete MyLevel.txt.
             if (newKeyboardState.IsKeyDown(Keys.D) && _oldKeyboardState.IsKeyUp(Keys.D))
             {
-                OurGame.Commands.ICommand dbCommand = new DeleteBoardCommand(_pathToSavedGambeBoardConfigurationFile, _tCache, this._board, this);
+                OurGame.Commands.ICommand dbCommand = new DeleteBoardCommand(_pathToSavedGambeBoardConfigurationFile, this._board, this);
                 dbCommand.Execute();                
                 
                 // Add this delete to the undo history.
@@ -269,7 +271,7 @@ namespace OurGame.GameStates
 
             Console.WriteLine("Saving to " + _pathToSavedGambeBoardConfigurationFile);
 
-            this._board.WriteOutDimensionsOfTheGameBoard(_pathToSavedGambeBoardConfigurationFile, _tCache);
+            this._board.WriteOutDimensionsOfTheGameBoard(_pathToSavedGambeBoardConfigurationFile);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -23,8 +24,33 @@ namespace OurGame.WindowsGameLibrary1
         private Texture2D[] spriteTextures;
         private string[] spriteTextureFileNames;
 
+        private static TextureCache _TextureCacheInsance = null;
+        private static String _boardFileNameString;
+        private static string _spriteFileName;
+        private static ContentManager _Content;
 
-        public TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
+        public static TextureCache getInstance() 
+        {
+            Debug.Assert(TextureCache._boardFileNameString != null && !TextureCache._boardFileNameString.Equals(""), "static member _boardfileNameString must not be set to null (and not empty) before getting the instance of the Singleton.");
+            Debug.Assert(TextureCache._spriteFileName != null && !TextureCache._spriteFileName.Equals(""), "static member TextureCache._spriteFileName must not be null and not the empty string.");
+            Debug.Assert(TextureCache._Content != null, "TextureCache._Content must not be nulll!");
+
+            if (TextureCache._TextureCacheInsance == null)
+            {
+                TextureCache._TextureCacheInsance = new TextureCache(_boardFileNameString, _spriteFileName, _Content);
+            }
+
+            return TextureCache._TextureCacheInsance;
+        }
+
+        public static void setupFileNamesAndcontent(String boardFileNameString, string spriteFileName, ContentManager Content)
+        {
+            TextureCache._boardFileNameString = boardFileNameString;
+            TextureCache._spriteFileName = spriteFileName;
+            TextureCache._Content = Content;
+        }
+
+        private TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
         {
             this.LoadBoardTextures(boardFileNameString, Content);
             this.LoadSpriteTextures(spriteFileName, Content);

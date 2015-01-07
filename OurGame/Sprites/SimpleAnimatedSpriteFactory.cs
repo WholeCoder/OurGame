@@ -30,7 +30,7 @@ namespace OurGame.Sprites
             } else if (typeOfAnimatedSprite.Equals("UserControlledSprite"))
             {
                 // TODO: Remove all arguments to constructor and create the implementation of the load method.
-                spriteWeAreLoading = new UserControlledSprite(tCache, filepath/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/);
+                spriteWeAreLoading = new UserControlledSprite(filepath/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/);
 
                 // TODO: possibly call this later to "Load(Content)"
                 //spriteWeAreLoading.Load(filepath);
