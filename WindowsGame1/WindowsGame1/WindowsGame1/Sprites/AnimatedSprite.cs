@@ -44,8 +44,8 @@ namespace OurGame.Sprites
 
         public AnimatedSprite(TextureCache tCache, string configFilePathAndName)
         {
-            Debug.Assert(tCache != null);
-            Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null);
+            Debug.Assert(tCache != null, "TextureCache tCache can't be null!");
+            Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null, "configFilePathAndName can't be null or blank!");
 
             this._tCache = tCache;
             this.Load(configFilePathAndName);
@@ -87,9 +87,9 @@ namespace OurGame.Sprites
         //    For example, switching to going right texture or at rest.
         public bool TestIfSameFrameMetrics(string textureFilename, Point sheetSize, Point frameSize)
         {
-            Debug.Assert(!textureFilename.Equals("") && textureFilename != null);
-            Debug.Assert(sheetSize != null);
-            Debug.Assert(frameSize != null);
+            Debug.Assert(!textureFilename.Equals("") && textureFilename != null, "textureFilename can't be null or blank!");
+            Debug.Assert(sheetSize != null, "sheetSize can't be null!");
+            Debug.Assert(frameSize != null, "frameSize can't be null!");
 
             return this._CurrentTextureFilename == textureFilename &&
                                         this._CurrentSheetSize == sheetSize &&
@@ -192,7 +192,7 @@ namespace OurGame.Sprites
         // This is the template method pattern.
         public void Load(string filepath)
         {
-            Debug.Assert(!filepath.Equals("") && filepath != null);
+            Debug.Assert(!filepath.Equals("") && filepath != null, "filepath can't be null or blank!");
 
             if (!File.Exists(filepath))
             {
@@ -201,7 +201,7 @@ namespace OurGame.Sprites
                     // Set defaults
 
                     // Write "AutomatedSprite" to file and a \n.
-                    Debug.Assert(!this.NameOfThisSubclassForWritingToConfigFile().Equals(""));
+                    Debug.Assert(!this.NameOfThisSubclassForWritingToConfigFile().Equals(""), "AnimatedSprite.NameOfThisSubclassForWritingToConfigFile() must return the name of the subclass that is being loaded!");
                     AddText(fs, this.NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
                     AddText(fs, "\n");
 
@@ -319,8 +319,9 @@ namespace OurGame.Sprites
         // Useful in sub-classes.
         private static void AddText(FileStream fs, string value)
         {
-            Debug.Assert(fs != null);
-            Debug.Assert(value != null);
+            Debug.Assert(fs != null, "FileStream fs can't be null!");
+            Debug.Assert(value != null, "value can't be null!");
+            Debug.Assert(fs.CanWrite, "FileStream fs must be open for writing!");
 
             byte[] info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);

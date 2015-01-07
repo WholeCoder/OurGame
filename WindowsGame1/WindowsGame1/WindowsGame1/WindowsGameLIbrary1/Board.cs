@@ -38,15 +38,15 @@ namespace OurGame.WindowsGameLibrary1
 
         public Board(String pathToConfigFile, TextureCache tCache)
         {
-            Debug.Assert(pathToConfigFile != null && !pathToConfigFile.Equals(""));
-            Debug.Assert(tCache != null);
+            Debug.Assert(pathToConfigFile != null && !pathToConfigFile.Equals(""), "pathToConfigFile is null or empty!");
+            Debug.Assert(tCache != null, "TextureCache tCache is null!");
 
             this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile, tCache); // tCache must fully loaded to use here!!!!
         } // end constructor
 
         public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
         {
-            Debug.Assert(aSprite != null);
+            Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
 
             // This will make the board only draw the part that is on the screen on the left side.
             this.BoardMarginX = this.TileWidth * Board.NUMBER_OF_TILES_IN_MARGIN_X;
@@ -82,7 +82,7 @@ namespace OurGame.WindowsGameLibrary1
 
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {
-            Debug.Assert(spriteBatch != null);
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
             // This will make the board only draw the part that is on the screen on the left side.
             this.BoardMarginX = this.TileWidth*Board.NUMBER_OF_TILES_IN_MARGIN_X;
@@ -162,8 +162,8 @@ namespace OurGame.WindowsGameLibrary1
 
         public void ReadInBoardConfigurationOrUseDefault(String path, TextureCache tCache) // tCache must fully loaded to use here!!!!
         {
-            Debug.Assert(path != null && !path.Equals(""));
-            Debug.Assert(tCache != null);
+            Debug.Assert(path != null && !path.Equals(""), "path can not be null or empty!");
+            Debug.Assert(tCache != null, "tCache can not be null");
 
             // Load the default game board configuration if the config file doesn't exist.
             if (!File.Exists(path))
@@ -251,8 +251,8 @@ namespace OurGame.WindowsGameLibrary1
 
         public void WriteOutDimensionsOfTheGameBoard(String path, TextureCache tCache)
         {
-            Debug.Assert(path != null && !path.Equals(""));
-            Debug.Assert(tCache != null);
+            Debug.Assert(path != null && !path.Equals(""), "path can not be null or empty!");
+            Debug.Assert(tCache != null, "tCache can not be null!");
 
             using (FileStream fs = File.Create(path))
             {
@@ -293,8 +293,8 @@ namespace OurGame.WindowsGameLibrary1
 
         private static void AddText(FileStream fs, string value)
         {
-            Debug.Assert(fs.CanWrite);
-            Debug.Assert(value != null);
+            Debug.Assert(fs.CanWrite, "FileStream fs nust be writable1");
+            Debug.Assert(value != null, "value being written can not be null!");
 
             byte[] info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
@@ -302,7 +302,7 @@ namespace OurGame.WindowsGameLibrary1
 
         public void PutMultiTileInBoard(MultiTexture mTile, int rowIndex, int columnIndex)
         {
-            Debug.Assert(mTile != null);
+            Debug.Assert(mTile != null, "MultiTexture mTile can not be null!");
 
             for (int i = 0; i < mTile.NumberOfVerticalTiles; i++)
             {

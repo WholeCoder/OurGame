@@ -38,8 +38,8 @@ namespace WindowsGame1
         // This version is called when we change state in an update() call.
         public void SetStateWhenUpdating(State state, GameTime gameTime)
         {
-            Debug.Assert(state != null);
-            Debug.Assert(gameTime != null);
+            Debug.Assert(state != null,"state can't be null!");
+            Debug.Assert(gameTime != null,"gameTime can't be null!");
 
             this.CurrentState = state;
             this.CurrentState.Update(gameTime);
@@ -48,7 +48,7 @@ namespace WindowsGame1
         // This version is called in the Game1.Initilize() method.
         public void SetStateWhenInitializing(State state)
         {
-            Debug.Assert(state != null);
+            Debug.Assert(state != null, "state can't be null!");
 
             this.CurrentState = state;
         }

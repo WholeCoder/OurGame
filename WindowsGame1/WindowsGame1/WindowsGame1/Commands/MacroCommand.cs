@@ -7,7 +7,7 @@ namespace OurGame.Commands
 
         public MacroCommand(params ICommand[] com)
         {
-            Debug.Assert(com != null);
+            Debug.Assert(com != null, "Command list, com, can't be null!");
 
             this._commands = new ICommand[com.Length];
 

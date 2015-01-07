@@ -17,9 +17,9 @@ namespace OurGame.Sprites
 
         public SpriteManager(String spritesFileName, ContentManager Content, TextureCache tCache)
         {
-            Debug.Assert(!spritesFileName.Equals("") && spritesFileName != null);
-            Debug.Assert(Content != null);
-            Debug.Assert(tCache != null);
+            Debug.Assert(spritesFileName != null && !spritesFileName.Equals(""),"spritesFileName can not be null or empty!");
+            Debug.Assert(Content != null, "Content can not be null!");
+            Debug.Assert(tCache != null, "tCache can not be null!");
 
             this.SpritesFileName = spritesFileName;
             this.tCache = tCache;
@@ -29,7 +29,7 @@ namespace OurGame.Sprites
 
         private void LoadSpritesFromAfile(ContentManager Content)
         {
-            Debug.Assert(Content != null);
+            Debug.Assert(Content != null, "Content can not be null!");
 
             String[] configStringSplitRay = File.ReadAllLines(this.SpritesFileName);
 

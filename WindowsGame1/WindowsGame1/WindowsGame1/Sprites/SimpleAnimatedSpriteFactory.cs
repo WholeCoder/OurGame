@@ -12,8 +12,8 @@ namespace OurGame.Sprites
     {
         public static AnimatedSprite CreateAnimatedSprite(String filepath, TextureCache tCache)
         {
-            Debug.Assert(!filepath.Equals("") && filepath != null);
-            Debug.Assert(tCache != null);
+            Debug.Assert( filepath != null && !filepath.Equals(""),"filepath must not be null or empty!");
+            Debug.Assert(tCache != null, "TextureCache tCache can not be null!");
 
             string[] configStringSplitRay = File.ReadAllLines(filepath);
 

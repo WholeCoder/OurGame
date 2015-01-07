@@ -62,7 +62,7 @@ namespace OurGame.GameStates
 
         public override void Initialize(Game1 ourGame)
         {
-            Debug.Assert(ourGame != null);
+            Debug.Assert(ourGame != null, "ourGame can't be null!");
 
             this.OurGame = ourGame;
             _undoStack = new Stack<OurGame.Commands.ICommand>();
@@ -72,7 +72,7 @@ namespace OurGame.GameStates
 
         public override void LoadContent(ContentManager Content)
         {
-            Debug.Assert(Content != null);
+            Debug.Assert(Content != null," Content can't be null!");
 
             _tCache = new TextureCache(_pathToTextureCacheConfig, _pathToSpriteTextureCacheConfig, Content);
             _board = new Board(_pathToSavedGambeBoardConfigurationFile, _tCache); // MUST have tCache created before calling this!
@@ -88,7 +88,7 @@ namespace OurGame.GameStates
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            Debug.Assert(gameTime != null);
+            Debug.Assert(gameTime != null, "gameTime can't be null!");
 
             MouseState ms = Mouse.GetState();
 
@@ -274,8 +274,8 @@ namespace OurGame.GameStates
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Debug.Assert(gameTime!= null);
-            Debug.Assert(spriteBatch != null);
+            Debug.Assert(gameTime!= null, "gameTime can't be null!");
+            Debug.Assert(spriteBatch != null, "spriteBatch can't be null");
 
             this._board.DrawBoard(spriteBatch, _screenXOffset, true);  // screenXOffset scrolls the board left and right!
 

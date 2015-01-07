@@ -19,8 +19,8 @@ namespace OurGame.Sprites
         // This will start at the startOffset and read out it's attributes.
         public sealed override void Load(string[] configArray, int startOffset)
         {
-            Debug.Assert(configArray != null && configArray.Length >= 0);
-            Debug.Assert(startOffset >= 0);
+            Debug.Assert(configArray != null, "configArray can't be null!");
+            Debug.Assert(startOffset >= 0, "startOffset must be >= 0!");
 
             // Nothing to Load yet!
             // TODO: Read properties starting at startOffset.
@@ -41,7 +41,7 @@ namespace OurGame.Sprites
         // In this method we use fs to write out the subclasses properties.
         public sealed override void Write(FileStream fs)
         {
-            Debug.Assert(fs.CanWrite);
+            Debug.Assert(fs.CanWrite, "FileStream fs must be open for writing!");
 
             // Nothing to write yet!
             // TODO: Write out attributes if they exist for UserCotnrolledSprite
