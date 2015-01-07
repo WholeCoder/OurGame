@@ -40,7 +40,7 @@ namespace OurGame.WindowsGameLibrary1
         {
             Debug.Assert(pathToConfigFile != null && !pathToConfigFile.Equals(""), "pathToConfigFile is null or empty!");
 
-            this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile); // tCache must fully loaded to use here!!!!
+            this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile);
         } // end constructor
 
         public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
@@ -159,7 +159,7 @@ namespace OurGame.WindowsGameLibrary1
             return (mouseY / this.TileHeight) * this.TileHeight;
         }
 
-        public void ReadInBoardConfigurationOrUseDefault(String path) // tCache must fully loaded to use here!!!!
+        public void ReadInBoardConfigurationOrUseDefault(String path)
         {
             Debug.Assert(path != null && !path.Equals(""), "path can not be null or empty!");
 

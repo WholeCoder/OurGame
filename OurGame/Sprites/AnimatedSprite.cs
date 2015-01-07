@@ -35,8 +35,6 @@ namespace OurGame.Sprites
         private Point _CurrentSheetSize;
         private Point _CurrentFrameSize;
 
-        private TextureCache _tCache { get; set; }
-
         private int _ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
         private int _TimeBetweenFrames;
 
@@ -46,7 +44,6 @@ namespace OurGame.Sprites
         {
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null, "configFilePathAndName can't be null or blank!");
 
-            this._tCache = TextureCache.getInstance();
             this.Load(configFilePathAndName);
             //this.SwitchToAtRestTexture();
 
@@ -166,7 +163,7 @@ namespace OurGame.Sprites
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_tCache.GetTexture2DFromStringSpriteArray(_CurrentTextureFilename),
+            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_CurrentTextureFilename),
                               this.CurrentPosition,
                               new Rectangle(_CurrentFrame.X * _CurrentFrameSize.X + _CurrentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
                               _CurrentFrame.Y * _CurrentFrameSize.Y,

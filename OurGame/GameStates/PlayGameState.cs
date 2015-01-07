@@ -25,9 +25,6 @@ namespace OurGame.GameStates
 
         Board board;
         
-        // Holds textures so they aren't re-created.
-        TextureCache tCache;
-
         // This instance variable lets us scroll the board horizontally.
         int screenXOffset = 0;
         int scrollAmount = 5;
@@ -57,11 +54,9 @@ namespace OurGame.GameStates
         public override void LoadContent(ContentManager Content)
         {
             TextureCache.setupFileNamesAndcontent(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
-            tCache = TextureCache.getInstance();
 
-            board = new Board(pathToSavedGambeBoardConfigurationFile); // MUST have tCache created before calling this!
+            board = new Board(pathToSavedGambeBoardConfigurationFile);
 
-            // old UserControlledSprite/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/
             // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt");
 

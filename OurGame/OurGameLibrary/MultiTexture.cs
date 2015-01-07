@@ -7,8 +7,6 @@ namespace OurGame.WindowsGameLibrary1
     // This class will hold 1-many Tile classes so that the user can place more tiles at the same time onto the game board.
     public class MultiTexture
     {
-        TextureCache tCache;
-
         public int NumberOfHorizontalTiles { get; set; }
         public int NumberOfVerticalTiles { get; set; }
 
@@ -21,8 +19,6 @@ namespace OurGame.WindowsGameLibrary1
             this.NumberOfVerticalTiles = numberOfVirticalTiles;
 
             this.TextureToRepeat = tileToRepeat;
-
-            this.tCache = TextureCache.getInstance();
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)
@@ -34,13 +30,13 @@ namespace OurGame.WindowsGameLibrary1
             {
                 for (int j = 0; j < this.NumberOfHorizontalTiles; j++)
                 {
-                    int width = tCache.GetFromTexture2DBoardArray(0).Width;
-                    int height = tCache.GetFromTexture2DBoardArray(0).Height;
+                    int width = TextureCache.getInstance().GetFromTexture2DBoardArray(0).Width;
+                    int height = TextureCache.getInstance().GetFromTexture2DBoardArray(0).Height;
 
                     if (this.TextureToRepeat != null)
                     {
-                        width = tCache.GetCurrentTexture().Width;
-                        height = tCache.GetCurrentTexture().Height;
+                        width = TextureCache.getInstance().GetCurrentTexture().Width;
+                        height = TextureCache.getInstance().GetCurrentTexture().Height;
                     }
 
                     int putX = (int)mouseCursorUpperLeftCorner.X+(width*j);
@@ -56,7 +52,7 @@ namespace OurGame.WindowsGameLibrary1
         {
             if (this.TextureToRepeat == null)
             {
-                return tCache.GetTexture2DFromStringBoardArray("Images/DeleteBrush");
+                return TextureCache.getInstance().GetTexture2DFromStringBoardArray("Images/DeleteBrush");
             }
             return t;
         } // end method

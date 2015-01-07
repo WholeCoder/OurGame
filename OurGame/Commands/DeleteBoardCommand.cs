@@ -11,7 +11,6 @@ namespace OurGame.Commands
     public class DeleteBoardCommand : ICommand
     {
         private String _pathToSavedGambeBoardConfigurationFile;
-        private TextureCache _tCache;
         private Board _board;
 
         public Tile[,] TheUndoBoard { get; set; }
@@ -25,7 +24,6 @@ namespace OurGame.Commands
             Debug.Assert(editBoardState != null, "editBoardState is NULL!");
 
             this._pathToSavedGambeBoardConfigurationFile = pathToSavedGameBoardConfigurationFile;
-            this._tCache = TextureCache.getInstance();
             this._board = board;
 
             this._editBoardState = editBoardState;

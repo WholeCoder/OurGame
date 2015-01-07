@@ -13,16 +13,13 @@ namespace OurGame.Sprites
     {
         public AnimatedSprite[] sprites;
         public string SpritesFileName;
-        public TextureCache tCache { get; set; }
 
-        public SpriteManager(String spritesFileName, ContentManager Content, TextureCache tCache)
+        public SpriteManager(String spritesFileName, ContentManager Content)
         {
             Debug.Assert(spritesFileName != null && !spritesFileName.Equals(""),"spritesFileName can not be null or empty!");
             Debug.Assert(Content != null, "Content can not be null!");
-            Debug.Assert(tCache != null, "tCache can not be null!");
 
             this.SpritesFileName = spritesFileName;
-            this.tCache = tCache;
 
             this.LoadSpritesFromAfile(Content);
         }
@@ -38,7 +35,7 @@ namespace OurGame.Sprites
 
             for (int i = 0; i < this.sprites.Length; i++)
             {
-                this.sprites[i] = SimpleAnimatedSpriteFactory.CreateAnimatedSprite(configStringSplitRay[1 + i], tCache);
+                this.sprites[i] = SimpleAnimatedSpriteFactory.CreateAnimatedSprite(configStringSplitRay[1 + i]);
 
                 string currentSpriteFileName = configStringSplitRay[i + 1];
             } // end for

@@ -22,9 +22,6 @@ namespace OurGame.GameStates
         // This is the position of the mouse "locked" onto a grid position.
         private Vector2 _mouseCursorLockedToNearestGridPositionVector;
 
-        // Holds textures so they aren't re-created.
-        private TextureCache _tCache;
-
         // This instance variable lets us scroll the board horizontally.
         private int _screenXOffset = 0;
         private int _scrollAmount = 5;
@@ -74,14 +71,14 @@ namespace OurGame.GameStates
         {
             Debug.Assert(Content != null," Content can't be null!");
 
+            // Must call this method before calling TextureCache.getInstance(); 
             TextureCache.setupFileNamesAndcontent(_pathToTextureCacheConfig, _pathToSpriteTextureCacheConfig, Content);
-            _tCache = TextureCache.getInstance();
 
-            _board = new Board(_pathToSavedGambeBoardConfigurationFile); // MUST have tCache created before calling this!
+            _board = new Board(_pathToSavedGambeBoardConfigurationFile);
 
             this.Content = Content;
 
-            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture());
+            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, TextureCache.getInstance().GetCurrentTexture());
         }
 
         public override void UnloadContent()
@@ -121,8 +118,8 @@ namespace OurGame.GameStates
             if (_rightMouseClickOccurred)
             {
                 // Flip to the next texture under the mouse pointer.
-                this._tCache.NextTexture();
-                _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture());
+                TextureCache.getInstance().NextTexture();
+                _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, TextureCache.getInstance().GetCurrentTexture());
                 _rightMouseClickOccurred = false;
             }
 
@@ -192,7 +189,7 @@ namespace OurGame.GameStates
                 _multiTextureWidthHeight = 1;
             }
 
-            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, _tCache.GetCurrentTexture());
+            _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, TextureCache.getInstance().GetCurrentTexture());
 
             // Do undo place tile command
             if (newKeyboardState.IsKeyDown(Keys.Z) && _oldKeyboardState.IsKeyUp(Keys.Z))
