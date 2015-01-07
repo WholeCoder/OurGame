@@ -16,6 +16,9 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 
 
+
+
+
 **Controls** - **Game Board Edit Mode**
 
 **mouse scroll wheel** - makes the brush bigger or smaller
