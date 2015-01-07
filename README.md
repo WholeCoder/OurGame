@@ -2,7 +2,7 @@ OurGame
 =======
 
 This is a 2D video game level editor created with the XNA framework.
-
+---
 **Building**
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
 
@@ -14,10 +14,7 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 (from the OurGame directory)
 
-
-
-
-
+---
 
 **Controls** - **Game Board Edit Mode**
 
