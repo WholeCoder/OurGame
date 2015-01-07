@@ -58,6 +58,7 @@ namespace OurGame.GameStates
         {
             TextureCache.setupFileNamesAndcontent(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
             tCache = TextureCache.getInstance();
+
             board = new Board(pathToSavedGambeBoardConfigurationFile); // MUST have tCache created before calling this!
 
             // old UserControlledSprite/*new Microsoft.Xna.Framework.Point(20, 20), new Microsoft.Xna.Framework.Point(2, 0), "Images/spritesheets/manspritesheet", tCache, 100, new Vector2(100, 100)*/

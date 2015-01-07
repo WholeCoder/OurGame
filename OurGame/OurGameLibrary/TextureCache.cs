@@ -5,6 +5,8 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+// My usings.
+using OurGame.OurGameLibrary;
 
 namespace OurGame.WindowsGameLibrary1
 {
@@ -29,8 +31,16 @@ namespace OurGame.WindowsGameLibrary1
         private static string _spriteFileName;
         private static ContentManager _Content;
 
+        // MUST CALL setupFileNamesAndcontent(...) BEFORE CALLING THIS!
         public static TextureCache getInstance() 
         {
+            if ((TextureCache._boardFileNameString == null || TextureCache._boardFileNameString.Equals(""))
+                || (TextureCache._spriteFileName == null || TextureCache._spriteFileName.Equals(""))
+                || (TextureCache._Content == null))
+            {
+                throw new MustCallsetupFileNameAndContentMethodFirst("setupFileNameAndContentMethod(...) must be called before TextureCache.getInstance() is called!");
+            }
+
             Debug.Assert(TextureCache._boardFileNameString != null && !TextureCache._boardFileNameString.Equals(""), "static member _boardfileNameString must not be set to null (and not empty) before getting the instance of the Singleton.");
             Debug.Assert(TextureCache._spriteFileName != null && !TextureCache._spriteFileName.Equals(""), "static member TextureCache._spriteFileName must not be null and not the empty string.");
             Debug.Assert(TextureCache._Content != null, "TextureCache._Content must not be nulll!");
