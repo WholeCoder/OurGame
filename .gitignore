@@ -1,11 +1,12 @@
-WindowsGame1/WindowsGame1/WindowsGame1/bin
-WindowsGame1/WindowsGame1/WindowsGame1/obj
-WindowsGame1/WindowsGame1.suo
-WindowsGame1/WindowsGame1/WindowsGame1Content/bin
-WindowsGame1/WindowsGame1/WindowsGame1Content/obj
+OurGame/bin
+OUrGame/obj
+OurGameContent/bin
+OurGameContent/obj
 Primitives2D/bin
 Primitives2D/obj
 SharedContent/obj
 SharedContent/bin
 8-1-0-ParticleEffects1/bin
 8-1-0-ParticleEffects1/obj
+Tests/bin
+Test/obj

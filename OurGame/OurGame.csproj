@@ -141,10 +141,10 @@
     <Compile Include="Sprites\SimpleAnimatedSpriteFactory.cs" />
     <Compile Include="Sprites\SpriteManager.cs" />
     <Compile Include="Sprites\UserControlledSprite .cs" />
-    <Compile Include="WindowsGameLIbrary1\Board.cs" />
-    <Compile Include="WindowsGameLIbrary1\MultiTexture.cs" />
-    <Compile Include="WindowsGameLIbrary1\TextureCache.cs" />
-    <Compile Include="WindowsGameLIbrary1\Tile.cs" />
+    <Compile Include="OurGameLibrary\Board.cs" />
+    <Compile Include="OurGameLibrary\MultiTexture.cs" />
+    <Compile Include="OurGameLibrary\TextureCache.cs" />
+    <Compile Include="OurGameLibrary\Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -155,13 +155,14 @@
       <Project>{7728C4CD-38AA-46BA-82DC-51919768AB1F}</Project>
       <Name>08-1-0-ParticleEffects1</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OurGameContent\OurGameContent.contentproj">
+      <Project>{00EE9556-A841-4E5D-A05D-CB1957919C07}</Project>
+      <Name>OurGameContent %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
     <ProjectReference Include="..\Primitives2D\Primitives2D.csproj">
       <Project>{39AD1482-1881-4852-A05D-DC61B0D3446A}</Project>
       <Name>Primitives2D</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WindowsGame1Content\WindowsGame1Content.contentproj">
-      <Name>WindowsGame1Content</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,0 @@
-numberOfTileTextures:3
-Images/DeleteBrush
-Images/tile
-Images/tile2
