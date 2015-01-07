@@ -1,0 +1,5 @@
+1.  Go to OurGame directory with packages.config in it.
+
+2.  Run the following command:
+
+nuget.exe install -o packages .\packages.config
