@@ -82,31 +82,31 @@ namespace OurGame.GameStates
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Up) && !fireworksAreRunning)
                 {
-                    myEffectsManager.AddEffect(eEffectType.explosion);
+                    //myEffectsManager.AddEffect(eEffectType.explosion);
                     keyboardDelayCounter = 300;
                     fireworksAreRunning = true;
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Down) && !fireIsRunning)
                 {
-                    myEffectsManager.AddEffect(eEffectType.fire);
+                    //myEffectsManager.AddEffect(eEffectType.fire);
                     keyboardDelayCounter = 300;
                     fireIsRunning = true;
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Left) && !snowIsFalling)
                 {
-                    myEffectsManager.AddEffect(eEffectType.snow);
+                    //myEffectsManager.AddEffect(eEffectType.snow);
                     keyboardDelayCounter = 300;
                     snowIsFalling = true;
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Right) && !smokeIsRunning)
                 {
-                    myEffectsManager.AddEffect(eEffectType.smoke);
+                    //myEffectsManager.AddEffect(eEffectType.smoke);
                     keyboardDelayCounter = 300;
                     smokeIsRunning = false;
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spiralIsRunning)
                 {
-                    myEffectsManager.AddEffect(eEffectType.spiral);
+                    //myEffectsManager.AddEffect(eEffectType.spiral);
                     keyboardDelayCounter = 300;
                     spiralIsRunning = true;
                 }
