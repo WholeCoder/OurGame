@@ -6,7 +6,7 @@ This is a 2D video game level editor created with the XNA framework.
 **Building**
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
 
-1.  Go to **OurGame** directory with **packages.config** in it.
+1.  Go to the **OurGame** directory with **packages.config** in it.
 
 2.  Run the following command:
 
