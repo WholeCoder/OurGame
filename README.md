@@ -14,7 +14,7 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 **nuget.exe install -o packages .\packages.config**
 
-(from the OurGame directory)
+
 
 ---
 
