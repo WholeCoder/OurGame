@@ -3,8 +3,18 @@ OurGame
 
 This is a 2D video game level editor created with the XNA framework.
 
+**Building**
+After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
 
-**note**  Make sure the Primitives2D project is imported into the WindowsGame1 solution and that the WindowsGame1 project references the Primitives2D project as a dependency.
+1.  Go to **OurGame** directory with **packages.config** in it.
+
+2.  Run the following command:
+
+**nuget.exe install -o packages .\packages.config**
+
+(from the OurGame directory)
+
+
 
 **Controls** - **Game Board Edit Mode**
 
