@@ -151,11 +151,11 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\8-1-0-ParticleEffects1\08-1-0-ParticleEffects1.csproj">
+    <ProjectReference Include="..\8-1-0-ParticleEffects1\08-1-0-ParticleEffects1.csproj">
       <Project>{7728C4CD-38AA-46BA-82DC-51919768AB1F}</Project>
       <Name>08-1-0-ParticleEffects1</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Primitives2D\Primitives2D.csproj">
+    <ProjectReference Include="..\Primitives2D\Primitives2D.csproj">
       <Project>{39AD1482-1881-4852-A05D-DC61B0D3446A}</Project>
       <Name>Primitives2D</Name>
     </ProjectReference>

@@ -1,0 +1,12 @@
+UserControlledSprite
+200,200
+20,20
+20,20
+20,20
+2,0
+2,0
+1,0
+Images/spritesheets/manspritesheet
+Images/spritesheets/manspritesheet
+Images/spritesheets/manspritesheet
+100

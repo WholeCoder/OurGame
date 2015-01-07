@@ -1,0 +1,3 @@
+numberOfTileTextures:2
+Images/spritesheets/manspritesheet
+Images/spritesheets/testspritesheet
