@@ -83,7 +83,7 @@ namespace OurGame.WindowsGameLibrary1
                 texStringRay[1] = "Images/spritesheets/testspritesheet";
                 //texStringRay[2] = "Images/tile2";
 
-                WriteOutStringRayAndLenthToFile(spriteFileName, texStringRay);
+                WriteOutStringRayAndLengthToFile(spriteFileName, texStringRay);
 
                 this.LoadTheseTextures(Content, texStringRay, false);
             } // end else
@@ -224,7 +224,7 @@ namespace OurGame.WindowsGameLibrary1
                 texStringRay[1] = "Images/tile";
                 texStringRay[2] = "Images/tile2";
 
-                WriteOutStringRayAndLenthToFile(boardsFileNameString, texStringRay);
+                WriteOutStringRayAndLengthToFile(boardsFileNameString, texStringRay);
 
                 this.LoadTheseTextures(Content, texStringRay, true);
             } // end else
@@ -245,7 +245,7 @@ namespace OurGame.WindowsGameLibrary1
             
         }
 
-        private static void WriteOutStringRayAndLenthToFile(String textureFileName, String[] texStringRay)
+        private static void WriteOutStringRayAndLengthToFile(String textureFileName, String[] texStringRay)
         {
             using (FileStream fs = File.Create(textureFileName))
             {
