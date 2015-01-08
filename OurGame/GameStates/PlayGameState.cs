@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.Sprites;
-using WindowsGame1;
+using OurGame.WindowsGame1;
 using OurGame.WindowsGameLibrary1;
 
 // Created by someone else.
@@ -140,22 +140,7 @@ namespace OurGame.GameStates
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
-            if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
-            {
-                this.OurGame.Exit();
-            }
-
-            // Press B for the blank state.  Just for testing.
-            if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
-            {
-                this.OurGame.SetStateWhenUpdating(this.OurGame.blankState, gameTime);
-            }
-
-            // Press E for editor state.
-            if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
-            {
-                this.OurGame.SetStateWhenUpdating(this.OurGame.editBoardState, gameTime);
-            }
+            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, oldKeyboardState, this.OurGame, gameTime);
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 

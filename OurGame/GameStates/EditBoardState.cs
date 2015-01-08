@@ -10,8 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.Commands;
-using WindowsGame1;
 using OurGame.WindowsGameLibrary1;
+using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {
@@ -230,29 +230,21 @@ namespace OurGame.GameStates
                 }
             }
 
-            if (newKeyboardState.IsKeyDown(Keys.Q) && _oldKeyboardState.IsKeyUp(Keys.Q))
-            {
-                this.OurGame.Exit();
-            }
-
-            // Press B for the blank state.  Just for testing.
+/*            // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && _oldKeyboardState.IsKeyUp(Keys.B))
             {
                 this.SaveBoardToDiskAndReloadPlayGameState(gameTime);
                 this.OurGame.SetStateWhenUpdating(this.OurGame.blankState, gameTime);
             }
+*/
+            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, this.OurGame, gameTime);
 
-            // Press P for play game state.
-            if (newKeyboardState.IsKeyDown(Keys.P) && _oldKeyboardState.IsKeyUp(Keys.P))
-            {
-                this.SaveBoardToDiskAndReloadPlayGameState(gameTime);
-            }
 
             _oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
         }
 
-        private void SaveBoardToDiskAndReloadPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
+        public void SaveBoardToDiskAndReloadPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
         {
             this.SaveCurrentBoard();
             this.OurGame.playGameState.LoadContent(Content);

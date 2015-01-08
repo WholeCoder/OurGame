@@ -131,8 +131,13 @@
     <Compile Include="Commands\PlaceMultiTextureOnBoardCommand.cs" />
     <Compile Include="GameStates\BlankState.cs" />
     <Compile Include="GameStates\EditBoardState.cs" />
+    <Compile Include="GameStates\HelpMenuState.cs" />
     <Compile Include="GameStates\PlayGameState.cs" />
     <Compile Include="GameStates\State.cs" />
+    <Compile Include="GameStates\SwitchStateLogic.cs" />
+    <Compile Include="MenuComponents\DidNotAddAnyMenuItemsToMenucomponent.cs" />
+    <Compile Include="MenuComponents\DidNotSetCommandInMenuComponent.cs" />
+    <Compile Include="MenuComponents\MenuComponent.cs" />
     <Compile Include="OurGameLibrary\MustCallsetupFileNameAndContentMethodFirst.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

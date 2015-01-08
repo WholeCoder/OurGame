@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 // My usings.
 using OurGame.GameStates;
 
-namespace WindowsGame1
+namespace OurGame.WindowsGame1
 {
     /// <summary>
     /// This is the main type for your game
@@ -31,6 +31,7 @@ namespace WindowsGame1
         public State editBoardState { get; set; }
         public State blankState { get; set; }
         public State playGameState { get; set; }
+        public State helpMenuState { get; set; }
 
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
@@ -75,8 +76,11 @@ namespace WindowsGame1
 
             this.SetStateWhenInitializing(this.editBoardState);
 
-            this.playGameState= new PlayGameState();
+            this.playGameState = new PlayGameState();
             this.playGameState.Initialize(this);
+
+            this.helpMenuState= new HelpMenuState();
+            this.helpMenuState.Initialize(this);
 
             base.Initialize();
         }
@@ -93,6 +97,7 @@ namespace WindowsGame1
             this.editBoardState.LoadContent(Content);
             this.blankState.LoadContent(Content);
             this.playGameState.LoadContent(Content);
+            this.helpMenuState.LoadContent(Content);
         }
 
         /// <summary>
@@ -107,6 +112,7 @@ namespace WindowsGame1
             this.editBoardState.UnloadContent();
             this.blankState.UnloadContent();
             this.playGameState.UnloadContent();
+            this.helpMenuState.UnloadContent();
         }
 
         /// <summary>

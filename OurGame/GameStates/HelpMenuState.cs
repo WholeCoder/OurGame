@@ -1,19 +1,28 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
+using OurGame.Commands;
+using OurGame.WindowsGameLibrary1;
 using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {
-    // This class doesn't do anything. It is just used to demonstrate setStateWhenUpdating() and setStateWhenInitializing().
-    public class BlankState : State
+    class HelpMenuState : State
     {
         private KeyboardState _oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
-        public BlankState()
+        public HelpMenuState()
         {
 
         }
