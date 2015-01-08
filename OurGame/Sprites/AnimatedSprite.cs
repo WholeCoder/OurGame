@@ -158,7 +158,7 @@ namespace OurGame.Sprites
 
         } // end method
 
-        public abstract void UpdateAfterNextFrame(GameTime gameTime);
+        protected abstract void UpdateAfterNextFrame(GameTime gameTime);
 
 
         public virtual void Draw(SpriteBatch spriteBatch)

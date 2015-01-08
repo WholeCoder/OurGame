@@ -27,7 +27,7 @@ namespace OurGame.Sprites
         }
 
 
-        public override void UpdateAfterNextFrame(GameTime gameTime)
+        protected override void UpdateAfterNextFrame(GameTime gameTime)
         {
 
         }

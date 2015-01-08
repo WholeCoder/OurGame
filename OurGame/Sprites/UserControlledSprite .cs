@@ -32,7 +32,7 @@ namespace OurGame.Sprites
             // TODO: Read properties starting at startOffset.
         }
 
-        public override void UpdateAfterNextFrame(GameTime gameTime)
+        protected override void UpdateAfterNextFrame(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState();
 
