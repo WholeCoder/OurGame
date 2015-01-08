@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08-1-0-ParticleEffects1", "8-1-0-ParticleEffects1\08-1-0-ParticleEffects1.csproj", "{7728C4CD-38AA-46BA-82DC-51919768AB1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleEffects", "8-1-0-ParticleEffects1\ParticleEffects.csproj", "{7728C4CD-38AA-46BA-82DC-51919768AB1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Primitives2D", "Primitives2D\Primitives2D.csproj", "{39AD1482-1881-4852-A05D-DC61B0D3446A}"
 EndProject

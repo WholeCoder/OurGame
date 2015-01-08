@@ -157,9 +157,9 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\8-1-0-ParticleEffects1\08-1-0-ParticleEffects1.csproj">
+    <ProjectReference Include="..\8-1-0-ParticleEffects1\ParticleEffects.csproj">
       <Project>{7728C4CD-38AA-46BA-82DC-51919768AB1F}</Project>
-      <Name>08-1-0-ParticleEffects1</Name>
+      <Name>ParticleEffects</Name>
     </ProjectReference>
     <ProjectReference Include="..\OurGameContent\OurGameContent.contentproj">
       <Project>{00EE9556-A841-4E5D-A05D-CB1957919C07}</Project>
