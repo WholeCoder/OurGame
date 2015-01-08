@@ -47,3 +47,5 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 **press P key** - Enter mode that scrolls the board by pressing Left/Right arrow keys
 
 **press U key** - To undo if the D key was pressed (The whole board was deleted.)
+
+**press H key** - To get help with keyboard and mouse commands
