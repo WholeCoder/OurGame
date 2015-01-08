@@ -18,7 +18,7 @@ namespace OurGame.GameStates
     class HelpMenuState : State
     {
         private KeyboardState _oldKeyboardState;
-        private SpriteFont scoreFont;
+        private SpriteFont _helpFont;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
@@ -35,7 +35,7 @@ namespace OurGame.GameStates
 
         public override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
-            scoreFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+            _helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
         }
 
         public override void UnloadContent()
@@ -54,7 +54,7 @@ namespace OurGame.GameStates
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(scoreFont, "Score: ",
+            spriteBatch.DrawString(_helpFont, "Score: ",
                                    new Vector2(10, 10), Color.White, 0, Vector2.Zero,
                                    1, SpriteEffects.None, 1);
         }
