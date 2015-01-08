@@ -5,6 +5,8 @@ using System.Text;
 
 namespace OurGame.OurGameLibrary
 {
+
+    // This exception is thrown when you fail to call TextureCache.setupFileNamesAndcontent(...) with valid parameters.
     class MustCallsetupFileNameAndContentMethodFirst : Exception
     {
         public MustCallsetupFileNameAndContentMethodFirst()
