@@ -157,14 +157,14 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\8-1-0-ParticleEffects1\ParticleEffects.csproj">
-      <Project>{7728C4CD-38AA-46BA-82DC-51919768AB1F}</Project>
-      <Name>ParticleEffects</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OurGameContent\OurGameContent.contentproj">
       <Project>{00EE9556-A841-4E5D-A05D-CB1957919C07}</Project>
       <Name>OurGameContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\ParticleEffects\ParticleEffects.csproj">
+      <Project>{7728C4CD-38AA-46BA-82DC-51919768AB1F}</Project>
+      <Name>ParticleEffects</Name>
     </ProjectReference>
     <ProjectReference Include="..\Primitives2D\Primitives2D.csproj">
       <Project>{39AD1482-1881-4852-A05D-DC61B0D3446A}</Project>
