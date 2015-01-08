@@ -23,7 +23,7 @@ namespace OurGame.Sprites
         }
 
         // This will start at the startOffset and read out it's attributes.
-        public override void Load(string[] configArray, int startOffset)
+        protected override void Load(string[] configArray, int startOffset)
         {
             Debug.Assert(startOffset >= 0);
             Debug.Assert(configArray != null, "configArray can not be null!");
@@ -72,7 +72,7 @@ namespace OurGame.Sprites
             }
         } // end method
 
-        public override string NameOfThisSubclassForWritingToConfigFile()
+        protected override string NameOfThisSubclassForWritingToConfigFile()
         {
             // This is written out to the config file.
             return "UserControlledSprite";

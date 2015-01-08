@@ -178,8 +178,8 @@ namespace OurGame.Sprites
         } // end Draw method
 
         // This will start at the startOffset and read out it's attributes.
-        public abstract void Load(string[] configArray, int startOffset);
-        public abstract string NameOfThisSubclassForWritingToConfigFile();
+        protected abstract void Load(string[] configArray, int startOffset);
+        protected abstract string NameOfThisSubclassForWritingToConfigFile();
 
         // In this method we use fs to write out the subclasses properties.
         public abstract void Write(FileStream fs);

@@ -17,7 +17,7 @@ namespace OurGame.Sprites
         }
 
         // This will start at the startOffset and read out it's attributes.
-        public sealed override void Load(string[] configArray, int startOffset)
+        protected sealed override void Load(string[] configArray, int startOffset)
         {
             Debug.Assert(configArray != null, "configArray can't be null!");
             Debug.Assert(startOffset >= 0, "startOffset must be >= 0!");
@@ -32,7 +32,7 @@ namespace OurGame.Sprites
 
         }
         
-        public override string NameOfThisSubclassForWritingToConfigFile()
+        protected override string NameOfThisSubclassForWritingToConfigFile()
         {
             // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
             return "AutomatedSprite";
