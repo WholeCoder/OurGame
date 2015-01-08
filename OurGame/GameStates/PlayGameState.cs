@@ -53,7 +53,7 @@ namespace OurGame.GameStates
 
         public override void LoadContent(ContentManager Content)
         {
-            TextureCache.setupFileNamesAndcontent(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
+            TextureCache.SetupFileNamesAndContent(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
 
             board = new Board(pathToSavedGambeBoardConfigurationFile);
 

@@ -53,7 +53,7 @@ namespace OurGame.WindowsGameLibrary1
             return TextureCache._TextureCacheInsance;
         }
 
-        public static void setupFileNamesAndcontent(String boardFileNameString, string spriteFileName, ContentManager Content)
+        public static void SetupFileNamesAndContent(String boardFileNameString, string spriteFileName, ContentManager Content)
         {
             TextureCache._boardFileNameString = boardFileNameString;
             TextureCache._spriteFileName = spriteFileName;
