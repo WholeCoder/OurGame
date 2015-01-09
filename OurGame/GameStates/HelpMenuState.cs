@@ -39,10 +39,12 @@ namespace OurGame.GameStates
         {
             this._HelpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
-            this._Menu = this.BuildMenuComponent("Help Menu",100);
-
-            string menuMessage = "Controls - Game Board Edit Mode"   ;
+            string menuMessage = "Game Board Edit Help";
             float offsetY = this._HelpFont.MeasureString(menuMessage).Y;
+            this._Menu= this.BuildMenuComponent(menuMessage, offsetY);
+
+            menuMessage = "Controls - Game Board Edit Mode"   ;
+            offsetY += this._HelpFont.MeasureString(menuMessage).Y;
             MenuComponent editGameBoardTitle = this.BuildMenuComponent(menuMessage,offsetY);
             this._Menu.AddMenuComponents(editGameBoardTitle);
 
@@ -61,7 +63,7 @@ namespace OurGame.GameStates
             MenuComponent leftMouseButtonMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
             this._Menu.AddMenuComponents(leftMouseButtonMenuItem);
 
-            menuMessage = "right mouse button - Change to next texture under the mouse brush cursor."   ;
+            menuMessage = "right mouse button - Change to next texture under the mouse brush cursor.";
             offsetY += _HelpFont.MeasureString(menuMessage).Y;
             MenuComponent rightMouseButtonEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
             this._Menu.AddMenuComponents(rightMouseButtonEditMenuItem);
@@ -81,7 +83,7 @@ namespace OurGame.GameStates
             MenuComponent pressDEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
             this._Menu.AddMenuComponents(pressDEditMenuItem);
 
-            menuMessage = "press PageUp -- increase the size of the mouse's brush."   ;
+            menuMessage = "press PageUp - increase the size of the mouse's brush."   ;
             offsetY += _HelpFont.MeasureString(menuMessage).Y;
             MenuComponent pressPageUpEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
             this._Menu.AddMenuComponents(pressPageUpEditMenuItem);
@@ -124,15 +126,7 @@ namespace OurGame.GameStates
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_HelpFont, this._Menu.GetName(),
-                                   this._Menu.Position, Color.Black, 0, Vector2.Zero,
-                                   1, SpriteEffects.None, 1);
-            foreach (var menuItem in this._Menu.GetMenuComponents())
-            {
-                spriteBatch.DrawString(_HelpFont, menuItem.GetName(),
-                                       menuItem.Position, Color.Black, 0, Vector2.Zero,
-                                       1, SpriteEffects.None, 1);
-            }
+            this._Menu.Draw(spriteBatch,this._HelpFont);
         }
     }
 }

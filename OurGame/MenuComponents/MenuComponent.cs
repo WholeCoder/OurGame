@@ -64,5 +64,18 @@ namespace OurGame.MenuComponents
 
             this._Command.Execute();
         } // end method
+
+        public void Draw(SpriteBatch spriteBatch, SpriteFont HelpFont)
+        {
+            spriteBatch.DrawString(HelpFont, this.GetName(),
+                                   this.Position, Color.Black, 0, Vector2.Zero,
+                                   1, SpriteEffects.None, 1);
+            foreach (var menuItem in this.GetMenuComponents())
+            {
+                spriteBatch.DrawString(HelpFont, menuItem.GetName(),
+                                       menuItem.Position, Color.Black, 0, Vector2.Zero,
+                                       1, SpriteEffects.None, 1);
+            }
+        }
     } // end class
 } // end using
