@@ -1,18 +1,19 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.Commands;
 
-namespace My.MenuComponents
+
+namespace OurGame.MenuComponents
 {
     public class MenuComponent
     {
         private string _Name;
         private ICommand _Command;
+        private Vector2 _Position;
         
         // This instance member is null unless this MenuComponent is a sub-menu;
         private List<MenuComponent> _MenuComponents;
@@ -26,9 +27,10 @@ namespace My.MenuComponents
             return _MenuComponents;
         }
 
-        public MenuComponent(string name)
+        public MenuComponent(string name, Vector2 position)
         {
             this._Name = name;
+            this._Position = position;
         }
 
         public void SetCommand(ICommand command)

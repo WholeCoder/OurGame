@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace My.MenuComponents
+namespace OurGame.MenuComponents
 {
     // Thrown if we didn't call the MenuComponent.SetCommand(ICommand command) method.
     class DidNotSetCommandInMenuComponent: Exception

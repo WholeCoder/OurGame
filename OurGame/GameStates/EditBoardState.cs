@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using OurGame.Commands;
+using OurGame.EditBoard.Commands;
 using OurGame.OurGameLibrary;
 using OurGame.WindowsGame1;
 

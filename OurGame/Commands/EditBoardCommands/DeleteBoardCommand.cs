@@ -3,10 +3,11 @@ using System.IO;
 using System.Diagnostics;
 
 // My usings.
+using OurGame.Commands;
 using OurGame.GameStates;
 using OurGame.OurGameLibrary;
 
-namespace OurGame.Commands
+namespace OurGame.EditBoard.Commands
 {
     public class DeleteBoardCommand : ICommand
     {

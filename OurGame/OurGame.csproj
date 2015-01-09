@@ -125,10 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\DeleteBoardCommand.cs" />
+    <Compile Include="Commands\EditBoardCommands\DeleteBoardCommand.cs" />
     <Compile Include="Commands\DoNothingCommand.cs" />
     <Compile Include="Commands\MacroCommand.cs" />
-    <Compile Include="Commands\PlaceMultiTextureOnBoardCommand.cs" />
+    <Compile Include="Commands\EditBoardCommands\PlaceMultiTextureOnBoardCommand.cs" />
     <Compile Include="GameStates\BlankState.cs" />
     <Compile Include="GameStates\EditBoardState.cs" />
     <Compile Include="GameStates\HelpMenuState.cs" />

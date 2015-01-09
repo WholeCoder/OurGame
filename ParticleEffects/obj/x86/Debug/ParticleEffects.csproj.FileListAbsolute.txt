@@ -36,7 +36,6 @@ C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\bin\x86\Debug\Conte
 C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\bin\x86\Debug\Content\blur.xnb
 C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\bin\x86\Debug\ColorSample.exe
 C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\bin\x86\Debug\ColorSample.pdb
-C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\obj\x86\Debug\ParticleEffects.csprojResolveAssemblyReference.cache
 C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\obj\x86\Debug\ColorSample.exe
 C:\Users\Ruben\Documents\My C# Games\OurGame\ParticleEffects\obj\x86\Debug\ColorSample.pdb
