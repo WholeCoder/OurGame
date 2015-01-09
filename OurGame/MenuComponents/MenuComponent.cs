@@ -13,12 +13,12 @@ namespace OurGame.MenuComponents
     {
         private string _Name;
         private ICommand _Command;
-        private Vector2 _Position;
+        public Vector2 Position;
         
         // This instance member is null unless this MenuComponent is a sub-menu;
         private List<MenuComponent> _MenuComponents;
 
-        public List<MenuComponent> getMenuComponents()
+        public List<MenuComponent> GetMenuComponents()
         {
             if (this._MenuComponents == null)
             {
@@ -30,7 +30,7 @@ namespace OurGame.MenuComponents
         public MenuComponent(string name, Vector2 position)
         {
             this._Name = name;
-            this._Position = position;
+            this.Position = position;
         }
 
         public void SetCommand(ICommand command)

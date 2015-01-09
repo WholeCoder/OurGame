@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
+using OurGame.MenuComponents;
 using OurGame.EditBoard.Commands;
 using OurGame.OurGameLibrary;
 using OurGame.WindowsGame1;
@@ -17,8 +18,9 @@ namespace OurGame.GameStates
 {
     class HelpMenuState : State
     {
-        private KeyboardState _oldKeyboardState;
-        private SpriteFont _helpFont;
+        private KeyboardState _OldKeyboardState;
+        private SpriteFont _HelpFont;
+        private MenuComponent _Menu;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
@@ -35,7 +37,75 @@ namespace OurGame.GameStates
 
         public override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
-            _helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+            this._HelpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+
+            this._Menu = this.BuildMenuComponent("Help Menu",100);
+
+            string menuMessage = "Controls - Game Board Edit Mode"   ;
+            float offsetY = this._HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent editGameBoardTitle = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(editGameBoardTitle);
+
+             menuMessage = "mouse scroll wheel - makes the brush bigger or smaller"   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent mouseScrollEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(mouseScrollEditMenuItem);
+
+             menuMessage = "left keyboard arrow/right keyboard arrow - use to scroll the board"   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent leftRightArrowKeysEditModeMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(leftRightArrowKeysEditModeMenuItem);
+
+             menuMessage = "left mouse button - place a tile on the game board"   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent leftMouseButtonMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(leftMouseButtonMenuItem);
+
+             menuMessage = "right mouse button - change to next texture under the mouse cursor."   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent rightMouseButtonEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(rightMouseButtonEditMenuItem);
+
+             menuMessage = "press Z key - undo placing a tile on the game board grid"   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressZEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(pressZEditMenuItem);
+
+             menuMessage = "press S key - save the game boards' configuration as MyLevel.txt in the location of the .exe executable file";   
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressSEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(pressSEditMenuItem);
+
+             menuMessage = "press D key - reset the game board and write out a 'blank' MyLevel.txt."   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressDEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(pressDEditMenuItem);
+
+             menuMessage = "press PageUp -- increase the size of the tile under the mouse cursor."   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressPageUpEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(pressPageUpEditMenuItem);
+
+             menuMessage = "press PageDown - Decrease the size of the tile under the mouse cursor."   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressPageDownEditMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(pressPageDownEditMenuItem);
+
+             menuMessage = "press Q key - Quit the editor."   ;
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressQEditMenuItem= this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(pressQEditMenuItem);
+
+             menuMessage = "press U key - To undo if the D key was pressed (The whole board was deleted.)"  ; 
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressUMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+            this._Menu.AddMenuComponents(pressUMenuItem);
+
+        }
+
+        private MenuComponent BuildMenuComponent(string title, float y)
+        {
+            return new MenuComponent(title, new Vector2((Board.SCREEN_WIDTH - _HelpFont.MeasureString(title).X) / 2, y));
         }
 
         public override void UnloadContent()
@@ -47,16 +117,22 @@ namespace OurGame.GameStates
         {
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
-            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, this.OurGame, gameTime);
+            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _OldKeyboardState, this.OurGame, gameTime);
 
-            _oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
+            _OldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_helpFont, "Score: ",
-                                   new Vector2(10, 10), Color.White, 0, Vector2.Zero,
+            spriteBatch.DrawString(_HelpFont, this._Menu.GetName(),
+                                   this._Menu.Position, Color.Black, 0, Vector2.Zero,
                                    1, SpriteEffects.None, 1);
+            foreach (var menuItem in this._Menu.GetMenuComponents())
+            {
+                spriteBatch.DrawString(_HelpFont, menuItem.GetName(),
+                                       menuItem.Position, Color.Black, 0, Vector2.Zero,
+                                       1, SpriteEffects.None, 1);
+            }
         }
     }
 }
