@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 // My usings.
 using OurGame.OurGameLibrary;
 
-namespace OurGame.WindowsGameLibrary1
+namespace OurGame.OurGameLibrary
 {
     // *** note *** First Texture is the delete texture!
 

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 // My usings.
 using OurGame.Sprites;
 using OurGame.WindowsGame1;
-using OurGame.WindowsGameLibrary1;
+using OurGame.OurGameLibrary;
 
 // Created by someone else.
 using ParticleEffects;

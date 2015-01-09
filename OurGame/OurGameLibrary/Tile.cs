@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OurGame.WindowsGameLibrary1
+namespace OurGame.OurGameLibrary
 {
     public class Tile
     {

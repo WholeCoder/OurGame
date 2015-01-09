@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.Commands;
-using OurGame.WindowsGameLibrary1;
+using OurGame.OurGameLibrary;
 using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates

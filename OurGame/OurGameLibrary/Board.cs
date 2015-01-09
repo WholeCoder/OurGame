@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 // My usings.
 using OurGame.Sprites;
 
-namespace OurGame.WindowsGameLibrary1
+namespace OurGame.OurGameLibrary
 {
 
     /*

@@ -4,7 +4,7 @@ using System.Text;
 using System.Diagnostics;
 
 // My usings
-using OurGame.WindowsGameLibrary1;
+using OurGame.OurGameLibrary;
 
 namespace OurGame.Sprites
 {

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 // My using statements.
-using OurGame.WindowsGameLibrary1;
+using OurGame.OurGameLibrary;
 
 namespace OurGame.Sprites
 {
