@@ -14,6 +14,25 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 **nuget.exe install -o packages .\packages.config**
 
+---
+**How to setup xUnit in visual studio**
+
+1.  Go to **Tools->External Tools**... menu
+
+2.  Click **Add**
+
+3. **Enter** the **following:**
+
+
+Title:  XUnit Test
+Command:  C:\Users\Ruben\Documents\My C# Games\OurGame\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe
+Arguments:  $(BinDir)$(TargetName)$(TargetExt)
+Initial directory:  $(BinDir)
+
+4.  Check "Use Ouput Window"
+
+5.  Click Ok.
+
 
 
 ---
