@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+
 namespace OurGame.Commands
 {
     public class MacroCommand : ICommand
