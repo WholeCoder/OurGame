@@ -25,9 +25,13 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 
 Title:  XUnit Test
+
 Command:  C:\Users\Ruben\Documents\My C# Games\OurGame\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe
+
 Arguments:  $(BinDir)$(TargetName)$(TargetExt)
+
 Initial directory:  $(BinDir)
+
 
 4.  Check "Use Ouput Window"
 
