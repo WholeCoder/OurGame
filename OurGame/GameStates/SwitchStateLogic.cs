@@ -16,12 +16,14 @@ using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {
+    // This class abstracts out the keyboard keys that are common to all the game's State objects.
     public class SwitchStateLogic
     {
         public static bool flag = true;
 
         public static void DoChangeGameStateFromKeyboardLogic(KeyboardState newKeyboardState, KeyboardState oldKeyboardState, Game1 OurGame, GameTime gameTime)
         {
+            // Press E for edit board state.
             if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
             {
                 if (OurGame.CurrentState != OurGame.editBoardState)
