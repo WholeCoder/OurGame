@@ -1,18 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
-using OurGame.MenuComponents;
-using OurGame.EditBoard.Commands;
-using OurGame.OurGameLibrary;
 using OurGame.WindowsGame1;
+using OurGame.MenuComponents;
+using OurGame.OurGameLibrary;
 
 namespace OurGame.GameStates
 {
