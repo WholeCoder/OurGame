@@ -9,7 +9,7 @@ using OurGame.OurGameLibrary;
 
 namespace OurGame.GameStates
 {
-    class HelpMenuState : State
+    public class HelpMenuState : State
     {
         private KeyboardState _OldKeyboardState;
         private SpriteFont _HelpFont;
