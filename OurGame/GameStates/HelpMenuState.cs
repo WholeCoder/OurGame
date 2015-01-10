@@ -100,6 +100,24 @@ namespace OurGame.GameStates
             MenuComponent pressUMenuItem = this.BuildMenuComponent(menuMessage, "Undo a whole board delete (pressed D previously).", offsetY);
             this._Menu.AddMenuComponents(pressUMenuItem);
 
+            // add these too!
+            /*
+            string menuMessage = "press B key - Go to Blank Screen (Only when on editor grid screen)"   
+offsetY += _HelpFont.MeasureString(menuMessage).Y
+MenuComponent pressBGenaralMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+
+string menuMessage = "press E key - Go to Editor screen (Only when on blank screen)"   
+offsetY += _HelpFont.MeasureString(menuMessage).Y
+MenuComponent pressEGeneralMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+
+string menuMessage = "press P key - Enter mode that scrolls the board by pressing Left/Right arrow keys"   
+offsetY += _HelpFont.MeasureString(menuMessage).Y
+MenuComponent pressPGeneralMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+
+string menuMessage = "press H key - To get help with keyboard and mouse commands"   
+offsetY += _HelpFont.MeasureString(menuMessage).Y
+MenuComponent pressHGeneralMenuItem = this.BuildMenuComponent(menuMessage,offsetY);
+             */
         }
 
         private MenuComponent BuildMenuComponent(string title,string description, float y)
