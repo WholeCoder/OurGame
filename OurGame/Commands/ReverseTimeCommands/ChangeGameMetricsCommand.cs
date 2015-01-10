@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,6 +23,9 @@ namespace OurGame.Commands.ReverseTimeCommands
 
         public SetGameMetricsToPreviousValuesCommand(PlayGameState pGameState, int screenOffset, AnimatedSprite player)
         {
+            Debug.Assert(pGameState != null, "pGameState can't be null!");
+            Debug.Assert(player != null, "player can't be null!");
+
             this._PlayGameState = pGameState;
             this._ScreenOffset = screenOffset;
             this._CurrentPosition = new Vector2(player.CurrentPosition.X, player.CurrentPosition.Y);
@@ -30,7 +34,6 @@ namespace OurGame.Commands.ReverseTimeCommands
 
         public void Execute()
         {
-            Console.WriteLine("-----------------XExecuting ChangGameMetrisCommand.(x,y) == ("+this._CurrentPosition.X+","+this._CurrentPosition.Y+")");
             this._PlayGameState.screenXOffset = this._ScreenOffset;
             this._Player.CurrentPosition.X = this._CurrentPosition.X;
             this._Player.CurrentPosition.Y = this._CurrentPosition.Y;
