@@ -1,18 +1,23 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.Sprites;
+using OurGame.Commands;
 using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
+using OurGame.Commands.ReverseTimeCommands;
 
 // Created by someone else.
 using ParticleEffects;
 
 namespace OurGame.GameStates
 {
-    class PlayGameState : State
+    public class PlayGameState : State
     {
         cEffectManager myEffectsManager;
         int keyboardDelayCounter = 0;
@@ -26,7 +31,7 @@ namespace OurGame.GameStates
         Board board;
         
         // This instance variable lets us scroll the board horizontally.
-        int screenXOffset = 0;
+        public int screenXOffset = 0;
         int scrollAmount = 5;
 
         // This is the name the gameboard is saved to when S is pressed.
@@ -41,6 +46,9 @@ namespace OurGame.GameStates
 
         public AnimatedSprite Player { get; set; }
 
+        private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
+        private Vector2 _PreviousPlayerPosition = new Vector2(-1.0f, -1.0f);
+
         public PlayGameState()
         {
             myEffectsManager = new cEffectManager();
@@ -49,6 +57,7 @@ namespace OurGame.GameStates
         public override void Initialize(Game1 ourGame)
         {
             this.OurGame = ourGame;
+            this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<OurGame.Commands.ICommand>();
         }
 
         public override void LoadContent(ContentManager Content)
@@ -70,6 +79,14 @@ namespace OurGame.GameStates
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             Player.Update(gameTime);
+
+            if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
+            {
+                SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
+                this._PreviousPlayerPosition.X = Player.CurrentPosition.X;
+                this._PreviousPlayerPosition.Y = Player.CurrentPosition.Y;
+            }
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
@@ -119,14 +136,22 @@ namespace OurGame.GameStates
             {
                 if (keyState.IsKeyDown(Keys.Right))
                 {
+                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
+
                     screenXOffset -= scrollAmount;
+                    
                 }
 
                 if (keyState.IsKeyDown(Keys.Left))
                 {
+                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
+
                     screenXOffset += scrollAmount;
                 }
             }
+
 
             if (screenXOffset <= -this.board.BoardWidth)
             {
@@ -137,6 +162,18 @@ namespace OurGame.GameStates
             {
                 screenXOffset = 0;
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                Console.WriteLine("R is down!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
+                {
+                    ICommand sCommand = this._ReversePositionAndScreenOffsetStackOfCommands.Pop();
+                    sCommand.Execute();
+                }
+            }
+
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 

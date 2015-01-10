@@ -129,6 +129,7 @@
     <Compile Include="Commands\DoNothingCommand.cs" />
     <Compile Include="Commands\MacroCommand.cs" />
     <Compile Include="Commands\EditBoardCommands\PlaceMultiTextureOnBoardCommand.cs" />
+    <Compile Include="Commands\ReverseTimeCommands\ChangeGameMetricsCommand.cs" />
     <Compile Include="GameStates\BlankState.cs" />
     <Compile Include="GameStates\EditBoardState.cs" />
     <Compile Include="GameStates\HelpMenuState.cs" />
@@ -202,7 +203,7 @@
     <None Include="WindowsGame1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\MenuComoponentCommands\" />
+    <Folder Include="Commands\MenuComponentCommands\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
