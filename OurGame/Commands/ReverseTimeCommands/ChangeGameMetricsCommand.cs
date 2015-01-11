@@ -16,10 +16,10 @@ namespace OurGame.Commands.ReverseTimeCommands
 {
     public class SetGameMetricsToPreviousValuesCommand : ICommand
     {
-        private PlayGameState _PlayGameState;
-        private int _ScreenOffset;
-        private Vector2 _CurrentPosition;
-        private AnimatedSprite _Player;
+        public PlayGameState _PlayGameState;
+        public int _ScreenOffset;
+        public Vector2 _CurrentPosition;
+        public AnimatedSprite _Player;
 
         public SetGameMetricsToPreviousValuesCommand(PlayGameState pGameState, int screenOffset, AnimatedSprite player)
         {

@@ -83,9 +83,22 @@ namespace OurGame.GameStates
             if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
             {
                 SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
-                this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
-                this._PreviousPlayerPosition.X = Player.CurrentPosition.X;
-                this._PreviousPlayerPosition.Y = Player.CurrentPosition.Y;
+                SetGameMetricsToPreviousValuesCommand topOfStack = null;
+
+                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
+                {
+                    topOfStack = (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
+                }
+
+                if (topOfStack == null ||
+                    topOfStack._CurrentPosition.X != Player.CurrentPosition.X ||
+                    topOfStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
+                    topOfStack._ScreenOffset != screenXOffset)
+                {
+                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
+                    this._PreviousPlayerPosition.X = Player.CurrentPosition.X;
+                    this._PreviousPlayerPosition.Y = Player.CurrentPosition.Y;
+                }
             }
 
             // Move game board.
