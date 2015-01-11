@@ -129,7 +129,7 @@
     <Compile Include="Commands\DoNothingCommand.cs" />
     <Compile Include="Commands\MacroCommand.cs" />
     <Compile Include="Commands\EditBoardCommands\PlaceMultiTextureOnBoardCommand.cs" />
-    <Compile Include="Commands\ReverseTimeCommands\ChangeGameMetricsCommand.cs" />
+    <Compile Include="Commands\ReverseTimeCommands\SetGameMetricsToPreviousValuesCommand.cs" />
     <Compile Include="GameStates\BlankState.cs" />
     <Compile Include="GameStates\EditBoardState.cs" />
     <Compile Include="GameStates\HelpMenuState.cs" />
