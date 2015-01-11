@@ -19,7 +19,7 @@ namespace OurGame.GameStates
 {
     public class PlayGameState : State
     {
-        cEffectManager myEffectsManager;
+        EffectManager myEffectsManager;
         int keyboardDelayCounter = 0;
 
         bool fireIsRunning = false;
@@ -49,7 +49,7 @@ namespace OurGame.GameStates
 
         public PlayGameState()
         {
-            myEffectsManager = new cEffectManager();
+            myEffectsManager = new EffectManager();
         }
 
         public override void Initialize(Game1 ourGame)

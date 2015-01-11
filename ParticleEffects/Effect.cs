@@ -21,7 +21,7 @@ namespace ParticleEffects
         spiral
     }
 
-    public class cEffect
+    public class Effect
     {
         
         public eEffectType m_eType;
@@ -43,13 +43,13 @@ namespace ParticleEffects
 
         public Random myRandom;
 
-        public List<cParticle> m_allParticles;
+        public List<Particle> m_allParticles;
 
 
-        public cEffect()
+        public Effect()
         {
             
-            m_allParticles = new List<cParticle>();
+            m_allParticles = new List<Particle>();
             myRandom = new Random();
         }
 
@@ -219,7 +219,7 @@ namespace ParticleEffects
             //finalColor.A = 0;
             int fadeAge = initAge;
 
-            cParticle tempParticle = new cParticle();
+            Particle tempParticle = new Particle();
             tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
@@ -261,7 +261,7 @@ namespace ParticleEffects
             finalColor.A = 0;
 
 
-            cParticle tempParticle = new cParticle();
+            Particle tempParticle = new Particle();
             tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
@@ -303,7 +303,7 @@ namespace ParticleEffects
             finalColor.A = 0;
 
 
-            cParticle tempParticle = new cParticle();
+            Particle tempParticle = new Particle();
             tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
@@ -342,7 +342,7 @@ namespace ParticleEffects
             Color finalColor = new Color(32, 32, 32);
             finalColor = Color.Black;
 
-            cParticle tempParticle = new cParticle();
+            Particle tempParticle = new Particle();
             tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
@@ -384,7 +384,7 @@ namespace ParticleEffects
             Color finalColor = Color.White;
             finalColor.A = 0;
 
-            cParticle tempParticle = new cParticle();
+            Particle tempParticle = new Particle();
             tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
@@ -415,7 +415,7 @@ namespace ParticleEffects
         public void Draw(SpriteBatch batch)
         {
             //batch.Begin(SpriteSortMode.BackToFront, m_eBlendType);
-            foreach (cParticle p in m_allParticles)
+            foreach (Particle p in m_allParticles)
             {
                 p.Draw(batch);
             }

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ParticleEffects
 {
-    public class cParticle
+    public class Particle
     {
 
         public int m_iAge;
@@ -38,11 +38,11 @@ namespace ParticleEffects
 
         public int m_iFadeAge;
 
-        public cSprite  m_cSprite;
+        public Sprite  m_cSprite;
 
-        public cParticle()
+        public Particle()
         {
-            m_cSprite = new cSprite();
+            m_cSprite = new Sprite();
         }
 
         public void Initialize()

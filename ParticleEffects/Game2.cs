@@ -19,7 +19,7 @@ namespace ParticleEffects
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
-        cEffectManager myEffectsManager;
+        EffectManager myEffectsManager;
         int keyboardDelayCounter = 0;
 
         public Game2()
@@ -27,7 +27,7 @@ namespace ParticleEffects
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            myEffectsManager = new cEffectManager();
+            myEffectsManager = new EffectManager();
        }
 
         /// <summary>

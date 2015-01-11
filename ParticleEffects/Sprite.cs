@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ParticleEffects
 {
-    public class cSprite
+    public class Sprite
     {
         public Texture2D m_tTexture;
         public Vector2 m_vOrigin;
@@ -24,7 +24,7 @@ namespace ParticleEffects
         public float m_fDepth;
         public Color m_cColor;
 
-        public cSprite()
+        public Sprite()
         {
         }
 

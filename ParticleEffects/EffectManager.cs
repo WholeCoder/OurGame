@@ -12,23 +12,23 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ParticleEffects
 {
-    public class cEffectManager
+    public class EffectManager
     {
-        public List<cEffect> m_lAllEffects;
+        public List<Effect> m_lAllEffects;
 
-        public cEffectManager()
+        public EffectManager()
         {
-            m_lAllEffects = new List<cEffect>();
+            m_lAllEffects = new List<Effect>();
         }
 
         public void LoadContent(ContentManager Content)
         {
-            cEffect.LoadContent(Content);
+            Effect.LoadContent(Content);
         }
 
         public void AddEffect(eEffectType type)
         {
-            cEffect tempEffect = new cEffect();
+            Effect tempEffect = new Effect();
             tempEffect.Initialize(type);
             m_lAllEffects.Add(tempEffect);
         }
@@ -46,7 +46,7 @@ namespace ParticleEffects
 
         public void Draw(SpriteBatch batch)
         {
-            foreach (cEffect e in m_lAllEffects)
+            foreach (Effect e in m_lAllEffects)
             {
                 e.Draw(batch);
             }
