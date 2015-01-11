@@ -208,9 +208,6 @@ namespace OurGame.OurGameLibrary
                 this.BoardHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // defaults to 480
                 this.BoardWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);   // defaults to 800
 
-                Console.WriteLine("screenHeight == " + this.BoardHeight);
-                Console.WriteLine("screenWidth == " + this.BoardWidth);
-
                 this.TileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
                 this.TileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);
 

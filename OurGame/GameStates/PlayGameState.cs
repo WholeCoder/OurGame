@@ -201,8 +201,6 @@ namespace OurGame.GameStates
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                Console.WriteLine("R is down!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
                 if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
                 {
                     ICommand sCommand = this._ReversePositionAndScreenOffsetStackOfCommands.Pop();

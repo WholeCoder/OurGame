@@ -284,7 +284,6 @@ namespace OurGame.Sprites
 
                 this._InitialPosition = new Vector2(Convert.ToInt32(configStringSplitRay[1].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[1].Split(',')[1]));
-                Console.Write("----------- InitialPosition == " + this._InitialPosition.X + "," + this._InitialPosition.Y);
 
                 this._leftFrameSize = new Point(Convert.ToInt32(configStringSplitRay[2].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[2].Split(',')[1]));
