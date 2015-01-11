@@ -29,14 +29,22 @@ namespace OurGame.Sprites
         private string _rightTextureFilename;
         private string _atRestTextureFilename;
 
+        private SpriteEffects _RightCurrentEffect = SpriteEffects.None;
+        private SpriteEffects _LeftCurrentEffect = SpriteEffects.FlipHorizontally;
+        private SpriteEffects _AtRestCurrentEffect = SpriteEffects.None;
 
         private Point _CurrentFrame;
         private String _CurrentTextureFilename; // The textures are received from the TextureCache.
         private Point _CurrentSheetSize;
         private Point _CurrentFrameSize;
+        private SpriteEffects _CurrentSpriteEffect;
 
         private int _ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
         private int _TimeBetweenFrames;
+
+        private bool _IsGoingRight = false;
+        private bool _IsGoingLeft = false;
+        private bool _IsAtRest = true;
 
         public Rectangle BoundingRectangle; // For collision detection.
 
@@ -53,6 +61,7 @@ namespace OurGame.Sprites
             this._CurrentFrameSize = this._atRestFrameSize;
             this.CurrentPosition.X = this._InitialPosition.X;
             this.CurrentPosition.Y = this._InitialPosition.Y;
+            this._CurrentSpriteEffect = this._AtRestCurrentEffect;
 
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
@@ -81,21 +90,32 @@ namespace OurGame.Sprites
 
         // this is used in the SwitchToGo...Texture() method to see if we need to switch our texture and attributes
         //    For example, switching to going right texture or at rest.
-        public bool TestIfSameFrameMetrics(string textureFilename, Point sheetSize, Point frameSize)
+        public bool TestIfSameFrameMetrics(string textureFilename, Point sheetSize, Point frameSize, SpriteEffects spriteEffect)
         {
             Debug.Assert(!textureFilename.Equals("") && textureFilename != null, "textureFilename can't be null or blank!");
             Debug.Assert(sheetSize != null, "sheetSize can't be null!");
             Debug.Assert(frameSize != null, "frameSize can't be null!");
 
+
             return this._CurrentTextureFilename == textureFilename &&
                                         this._CurrentSheetSize == sheetSize &&
-                                        this._CurrentFrameSize == frameSize;
+                                        this._CurrentFrameSize == frameSize &&
+                                        this._CurrentSpriteEffect != spriteEffect;
         }
 
         public void SwitchToGoRightTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._rightTextureFilename, this._rightSheetSize, this._rightFrameSize);
-            
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._rightTextureFilename, this._rightSheetSize, this._rightFrameSize, this._RightCurrentEffect);
+            Console.WriteLine("AnimatedSprite.  right called");
+            /*if (!this._IsGoingRight)
+            {
+                this._CurrentFrame = new Point(0, 0);
+                this._IsGoingRight = true;
+                this._IsGoingLeft = false;
+                this._IsAtRest = false;
+                return;
+            }*/
+
             if (allreadyUsingTexture)
             {
                 return;
@@ -105,14 +125,25 @@ namespace OurGame.Sprites
             this._CurrentTextureFilename = this._rightTextureFilename;
             this._CurrentSheetSize = this._rightSheetSize;
             this._CurrentFrameSize = this._rightFrameSize;
+            this._CurrentSpriteEffect = this._RightCurrentEffect;
 
             this._ElapsedGameTime = 0;
         }
 
         public void SwitchToGoLeftTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._leftTextureFilename, this._leftSheetSize, this._leftFrameSize);
-            
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._leftTextureFilename, this._leftSheetSize, this._leftFrameSize, this._LeftCurrentEffect);
+            Console.WriteLine("AnimatedSprite.  left called");
+
+            /*if (!this._IsGoingLeft)
+            {
+                this._CurrentFrame = new Point(0, 0);
+                this._IsGoingLeft = true;
+                this._IsGoingRight = false;
+                this._IsAtRest = false;
+                return;
+            }*/
+
             if (allreadyUsingTexture)
             {
                 return;
@@ -122,14 +153,27 @@ namespace OurGame.Sprites
             this._CurrentTextureFilename = this._leftTextureFilename;
             this._CurrentSheetSize = this._leftSheetSize;
             this._CurrentFrameSize = this._leftFrameSize;
+            this._CurrentSpriteEffect = this._LeftCurrentEffect;
 
             this._ElapsedGameTime = 0; 
         }
 
         public void SwitchToAtRestTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._atRestTextureFilename, this._atRestSheetSize, this._atRestFrameSize);
-            
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._atRestTextureFilename, this._atRestSheetSize, this._atRestFrameSize,this._AtRestCurrentEffect);
+            Console.WriteLine("AnimatedSprite.  at rest called");
+
+
+            /*if (!this._IsAtRest)
+            {
+                this._CurrentFrame = new Point(0, 0);
+                this._IsAtRest = true;
+                this._IsGoingLeft = false;
+                this._IsGoingRight = false;
+                return;
+            }*/
+
+
             if (allreadyUsingTexture)
             {
                 return;
@@ -139,6 +183,7 @@ namespace OurGame.Sprites
             this._CurrentTextureFilename = this._atRestTextureFilename;
             this._CurrentSheetSize = this._atRestSheetSize;
             this._CurrentFrameSize = this._atRestFrameSize;
+            this._CurrentSpriteEffect = this._AtRestCurrentEffect;
 
             this._ElapsedGameTime = 0; 
         }
@@ -173,7 +218,7 @@ namespace OurGame.Sprites
                               0,
                               Vector2.Zero,
                               10, // scale
-                              SpriteEffects.None,
+                              this._CurrentSpriteEffect,
                               0);
         } // end Draw method
 
