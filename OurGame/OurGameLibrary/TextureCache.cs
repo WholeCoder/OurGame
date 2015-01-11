@@ -27,18 +27,16 @@ namespace OurGame.OurGameLibrary
         private string[] spriteTextureFileNames;
 
         private static TextureCache _TextureCacheInsance = null;
-        private static String _boardFileNameString;
-        private static string _spriteFileName;
+        private static String _boardFileNameString = @"BoardTextureCache.txt";
+        private static string _spriteFileName = @"SpriteTextureCache.txt";
         private static ContentManager _Content;
 
         // MUST CALL setupFileNamesAndcontent(...) BEFORE CALLING THIS!
         public static TextureCache getInstance() 
         {
-            if ((TextureCache._boardFileNameString == null || TextureCache._boardFileNameString.Equals(""))
-                || (TextureCache._spriteFileName == null || TextureCache._spriteFileName.Equals(""))
-                || (TextureCache._Content == null))
+            if (TextureCache._Content == null)
             {
-                throw new MustCallsetupFileNameAndContentMethodFirst("setupFileNameAndContentMethod(...) must be called before TextureCache.getInstance() is called!");
+                throw new MustCallSetContentMethodFirst("TextureCache.SetContent(...) must be called before TextureCache.getInstance() is called!");
             }
 
             Debug.Assert(TextureCache._boardFileNameString != null && !TextureCache._boardFileNameString.Equals(""), "static member _boardfileNameString must not be set to null (and not empty) before getting the instance of the Singleton.");
@@ -53,10 +51,8 @@ namespace OurGame.OurGameLibrary
             return TextureCache._TextureCacheInsance;
         }
 
-        public static void SetupFileNamesAndContent(String boardFileNameString, string spriteFileName, ContentManager Content)
+        public static void SetContent(ContentManager Content)
         {
-            TextureCache._boardFileNameString = boardFileNameString;
-            TextureCache._spriteFileName = spriteFileName;
             TextureCache._Content = Content;
         }
 

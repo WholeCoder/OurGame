@@ -72,7 +72,7 @@ namespace OurGame.GameStates
             Debug.Assert(Content != null," Content can't be null!");
 
             // Must call this method before calling TextureCache.getInstance(); 
-            TextureCache.SetupFileNamesAndContent(_pathToTextureCacheConfig, _pathToSpriteTextureCacheConfig, Content);
+            TextureCache.SetContent(Content);
 
             _board = new Board(_pathToSavedGambeBoardConfigurationFile);
 

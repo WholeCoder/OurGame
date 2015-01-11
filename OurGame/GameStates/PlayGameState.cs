@@ -36,8 +36,6 @@ namespace OurGame.GameStates
 
         // This is the name the gameboard is saved to when S is pressed.
         string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
-        string pathToTextureCacheConfig = @"BoardTextureCache.txt";
-        string pathToSpriteTextureCacheConfig = @"SpriteTextureCache.txt";
 
         KeyboardState oldKeyboardState;
 
@@ -62,7 +60,7 @@ namespace OurGame.GameStates
 
         public override void LoadContent(ContentManager Content)
         {
-            TextureCache.SetupFileNamesAndContent(pathToTextureCacheConfig, pathToSpriteTextureCacheConfig, Content);
+            TextureCache.SetContent(Content);
 
             board = new Board(pathToSavedGambeBoardConfigurationFile);
 

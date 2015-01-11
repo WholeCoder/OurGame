@@ -42,10 +42,6 @@ namespace OurGame.Sprites
         private int _ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
         private int _TimeBetweenFrames;
 
-        private bool _IsGoingRight = false;
-        private bool _IsGoingLeft = false;
-        private bool _IsAtRest = true;
-
         public Rectangle BoundingRectangle; // For collision detection.
 
         public AnimatedSprite(string configFilePathAndName)
@@ -106,15 +102,6 @@ namespace OurGame.Sprites
         public void SwitchToGoRightTexture()
         {
             bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._rightTextureFilename, this._rightSheetSize, this._rightFrameSize, this._RightCurrentEffect);
-            Console.WriteLine("AnimatedSprite.  right called");
-            /*if (!this._IsGoingRight)
-            {
-                this._CurrentFrame = new Point(0, 0);
-                this._IsGoingRight = true;
-                this._IsGoingLeft = false;
-                this._IsAtRest = false;
-                return;
-            }*/
 
             if (allreadyUsingTexture)
             {
@@ -133,16 +120,6 @@ namespace OurGame.Sprites
         public void SwitchToGoLeftTexture()
         {
             bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._leftTextureFilename, this._leftSheetSize, this._leftFrameSize, this._LeftCurrentEffect);
-            Console.WriteLine("AnimatedSprite.  left called");
-
-            /*if (!this._IsGoingLeft)
-            {
-                this._CurrentFrame = new Point(0, 0);
-                this._IsGoingLeft = true;
-                this._IsGoingRight = false;
-                this._IsAtRest = false;
-                return;
-            }*/
 
             if (allreadyUsingTexture)
             {
@@ -161,18 +138,6 @@ namespace OurGame.Sprites
         public void SwitchToAtRestTexture()
         {
             bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._atRestTextureFilename, this._atRestSheetSize, this._atRestFrameSize,this._AtRestCurrentEffect);
-            Console.WriteLine("AnimatedSprite.  at rest called");
-
-
-            /*if (!this._IsAtRest)
-            {
-                this._CurrentFrame = new Point(0, 0);
-                this._IsAtRest = true;
-                this._IsGoingLeft = false;
-                this._IsGoingRight = false;
-                return;
-            }*/
-
 
             if (allreadyUsingTexture)
             {
