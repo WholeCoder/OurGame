@@ -26,10 +26,6 @@ namespace OurGame.MenuComponents
 
         public List<MenuComponent> GetMenuComponents()
         {
-            if (this._MenuComponents == null)
-            {
-                throw new DidNotAddAnyMenuItemsToMenucomponent();
-            }
             return _MenuComponents;
         }
 
@@ -42,6 +38,9 @@ namespace OurGame.MenuComponents
             this._CommandDescriptionJustifyPixels = descriptionPixels;
 
             this._YStart = yStart;
+
+            this._MenuComponents = new List<MenuComponent>();
+            this._Command = new DoNothingCommand();
         }
 
         public void SetCommand(ICommand command)
@@ -51,11 +50,6 @@ namespace OurGame.MenuComponents
 
         public void AddMenuComponents(MenuComponent mComponent)
         {
-            if (this._MenuComponents == null)
-            {
-                this._MenuComponents = new List<MenuComponent>();
-            }
-
             this._MenuComponents.Add(mComponent);
         }
 
@@ -71,13 +65,6 @@ namespace OurGame.MenuComponents
 
         public void ExecuteCommand()
         {
-            if (this._Command == null)
-            {
-                throw new DidNotSetCommandInMenuComponent("Did not call MenuComponent.SetCommand(ICommand command) on this MenuComponent!");
-            }
-
-            Debug.Assert(this._Command != null, "MenuComponent._Command can't be null!");
-
             this._Command.Execute();
         } // end method
 

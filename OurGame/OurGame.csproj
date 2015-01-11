@@ -136,8 +136,6 @@
     <Compile Include="GameStates\PlayGameState.cs" />
     <Compile Include="GameStates\State.cs" />
     <Compile Include="GameStates\SwitchStateLogic.cs" />
-    <Compile Include="MenuComponents\DidNotAddAnyMenuItemsToMenucomponent.cs" />
-    <Compile Include="MenuComponents\DidNotSetCommandInMenuComponent.cs" />
     <Compile Include="MenuComponents\MenuComponent.cs" />
     <Compile Include="OurGameLibrary\MustCallsetupFileNameAndContentMethodFirst.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
