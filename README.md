@@ -71,6 +71,8 @@ Initial directory:  **$(BinDir)**
 
 **space bar** - Make character jump.
 
+**press R key** - Reverse time and undo all the movement and jumps you did so far.
+
 ---
 **General Help** - **Any Mode**
 
