@@ -65,7 +65,7 @@ Initial directory:  **$(BinDir)**
 
 ---
 
-**General Help** - **Play Game Mode**
+**Controls** - **Play Game Mode**
 
 **left keyboard arrow/right keyboard arrow** - Scroll the board and move the character.
 
