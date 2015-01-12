@@ -17,17 +17,17 @@ namespace OurGame.Sprites
 
         private int _ScaleUpThisSpriteFactor = 10;
 
-        private Point _leftFrameSize;
-        private Point _rightFrameSize;
-        private Point _atRestFrameSize;
+        private Point _LeftFrameSize;
+        private Point _RightFrameSize;
+        private Point _AtRestFrameSize;
 
-        private Point _leftSheetSize;
-        private Point _rightSheetSize;
-        private Point _atRestSheetSize;
+        private Point _LeftSheetSize;
+        private Point _RightSheetSize;
+        private Point _AtRestSheetSize;
 
-        private string _leftTextureFilename;
-        private string _rightTextureFilename;
-        private string _atRestTextureFilename;
+        private string _LeftTextureFilename;
+        private string _RightTextureFilename;
+        private string _AtRestTextureFilename;
 
         private SpriteEffects _RightCurrentEffect = SpriteEffects.None;
         private SpriteEffects _LeftCurrentEffect = SpriteEffects.FlipHorizontally;
@@ -52,9 +52,9 @@ namespace OurGame.Sprites
             //this.SwitchToAtRestTexture();
 
             this._CurrentFrame = new Point(0, 0);
-            this._CurrentTextureFilename = this._atRestTextureFilename;
-            this._CurrentSheetSize = this._atRestSheetSize;
-            this._CurrentFrameSize = this._atRestFrameSize;
+            this._CurrentTextureFilename = this._AtRestTextureFilename;
+            this._CurrentSheetSize = this._AtRestSheetSize;
+            this._CurrentFrameSize = this._AtRestFrameSize;
             this.CurrentPosition.X = this._InitialPosition.X;
             this.CurrentPosition.Y = this._InitialPosition.Y;
             this._CurrentSpriteEffect = this._AtRestCurrentEffect;
@@ -101,7 +101,7 @@ namespace OurGame.Sprites
 
         public void SwitchToGoRightTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._rightTextureFilename, this._rightSheetSize, this._rightFrameSize, this._RightCurrentEffect);
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._RightTextureFilename, this._RightSheetSize, this._RightFrameSize, this._RightCurrentEffect);
 
             if (allreadyUsingTexture)
             {
@@ -109,9 +109,9 @@ namespace OurGame.Sprites
             }
 
             this._CurrentFrame = new Point(0, 0);
-            this._CurrentTextureFilename = this._rightTextureFilename;
-            this._CurrentSheetSize = this._rightSheetSize;
-            this._CurrentFrameSize = this._rightFrameSize;
+            this._CurrentTextureFilename = this._RightTextureFilename;
+            this._CurrentSheetSize = this._RightSheetSize;
+            this._CurrentFrameSize = this._RightFrameSize;
             this._CurrentSpriteEffect = this._RightCurrentEffect;
 
             this._ElapsedGameTime = 0;
@@ -119,7 +119,7 @@ namespace OurGame.Sprites
 
         public void SwitchToGoLeftTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._leftTextureFilename, this._leftSheetSize, this._leftFrameSize, this._LeftCurrentEffect);
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._LeftTextureFilename, this._LeftSheetSize, this._LeftFrameSize, this._LeftCurrentEffect);
 
             if (allreadyUsingTexture)
             {
@@ -127,9 +127,9 @@ namespace OurGame.Sprites
             }
 
             this._CurrentFrame = new Point(0, 0);
-            this._CurrentTextureFilename = this._leftTextureFilename;
-            this._CurrentSheetSize = this._leftSheetSize;
-            this._CurrentFrameSize = this._leftFrameSize;
+            this._CurrentTextureFilename = this._LeftTextureFilename;
+            this._CurrentSheetSize = this._LeftSheetSize;
+            this._CurrentFrameSize = this._LeftFrameSize;
             this._CurrentSpriteEffect = this._LeftCurrentEffect;
 
             this._ElapsedGameTime = 0; 
@@ -137,7 +137,7 @@ namespace OurGame.Sprites
 
         public void SwitchToAtRestTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._atRestTextureFilename, this._atRestSheetSize, this._atRestFrameSize,this._AtRestCurrentEffect);
+            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._AtRestTextureFilename, this._AtRestSheetSize, this._AtRestFrameSize,this._AtRestCurrentEffect);
 
             if (allreadyUsingTexture)
             {
@@ -145,9 +145,9 @@ namespace OurGame.Sprites
             }
 
             this._CurrentFrame = new Point(0, 0);
-            this._CurrentTextureFilename = this._atRestTextureFilename;
-            this._CurrentSheetSize = this._atRestSheetSize;
-            this._CurrentFrameSize = this._atRestFrameSize;
+            this._CurrentTextureFilename = this._AtRestTextureFilename;
+            this._CurrentSheetSize = this._AtRestSheetSize;
+            this._CurrentFrameSize = this._AtRestFrameSize;
             this._CurrentSpriteEffect = this._AtRestCurrentEffect;
 
             this._ElapsedGameTime = 0; 
@@ -216,42 +216,42 @@ namespace OurGame.Sprites
                     AddText(fs, "\n");
 
 
-                    this._leftFrameSize = new Point(20, 20);
-                    AddText(fs, this._leftFrameSize.X + "," + this._leftFrameSize.Y);
+                    this._LeftFrameSize = new Point(20, 20);
+                    AddText(fs, this._LeftFrameSize.X + "," + this._LeftFrameSize.Y);
                     AddText(fs, "\n");
 
-                    this._rightFrameSize = new Point(20, 20);
-                    AddText(fs, this._rightFrameSize.X + "," + this._rightFrameSize.Y);
+                    this._RightFrameSize = new Point(20, 20);
+                    AddText(fs, this._RightFrameSize.X + "," + this._RightFrameSize.Y);
                     AddText(fs, "\n");
 
-                    this._atRestFrameSize = new Point(20, 20);
-                    AddText(fs, this._atRestFrameSize.X + "," + this._atRestFrameSize.Y);
-                    AddText(fs, "\n");
-
-
-                    this._leftSheetSize = new Point(2, 0);
-                    AddText(fs, this._leftSheetSize.X + "," + this._leftSheetSize.Y);
-                    AddText(fs, "\n");
-
-                    this._rightSheetSize = new Point(2, 0);
-                    AddText(fs, this._rightSheetSize.X + "," + this._rightSheetSize.Y);
-                    AddText(fs, "\n");
-
-                    this._atRestSheetSize = new Point(1, 0);
-                    AddText(fs, this._atRestSheetSize.X + "," + this._atRestSheetSize.Y);
+                    this._AtRestFrameSize = new Point(20, 20);
+                    AddText(fs, this._AtRestFrameSize.X + "," + this._AtRestFrameSize.Y);
                     AddText(fs, "\n");
 
 
-                    this._leftTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this._leftTextureFilename);
+                    this._LeftSheetSize = new Point(2, 0);
+                    AddText(fs, this._LeftSheetSize.X + "," + this._LeftSheetSize.Y);
                     AddText(fs, "\n");
 
-                    this._rightTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this._rightTextureFilename);
+                    this._RightSheetSize = new Point(2, 0);
+                    AddText(fs, this._RightSheetSize.X + "," + this._RightSheetSize.Y);
                     AddText(fs, "\n");
 
-                    this._atRestTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this._atRestTextureFilename);
+                    this._AtRestSheetSize = new Point(1, 0);
+                    AddText(fs, this._AtRestSheetSize.X + "," + this._AtRestSheetSize.Y);
+                    AddText(fs, "\n");
+
+
+                    this._LeftTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this._LeftTextureFilename);
+                    AddText(fs, "\n");
+
+                    this._RightTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this._RightTextureFilename);
+                    AddText(fs, "\n");
+
+                    this._AtRestTextureFilename = "Images/spritesheets/manspritesheet";
+                    AddText(fs, this._AtRestTextureFilename);
                     AddText(fs, "\n");
 
                     
@@ -285,28 +285,28 @@ namespace OurGame.Sprites
                 this._InitialPosition = new Vector2(Convert.ToInt32(configStringSplitRay[1].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[1].Split(',')[1]));
 
-                this._leftFrameSize = new Point(Convert.ToInt32(configStringSplitRay[2].Split(',')[0]),
+                this._LeftFrameSize = new Point(Convert.ToInt32(configStringSplitRay[2].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[2].Split(',')[1]));
 
-                this._rightFrameSize = new Point(Convert.ToInt32(configStringSplitRay[3].Split(',')[0]),
+                this._RightFrameSize = new Point(Convert.ToInt32(configStringSplitRay[3].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[3].Split(',')[1]));
 
 
-                this._atRestFrameSize = new Point(Convert.ToInt32(configStringSplitRay[4].Split(',')[0]),
+                this._AtRestFrameSize = new Point(Convert.ToInt32(configStringSplitRay[4].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[4].Split(',')[1]));
 
-                this._leftSheetSize = new Point(Convert.ToInt32(configStringSplitRay[5].Split(',')[0]),
+                this._LeftSheetSize = new Point(Convert.ToInt32(configStringSplitRay[5].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[5].Split(',')[1]));
 
-                this._rightSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
+                this._RightSheetSize = new Point(Convert.ToInt32(configStringSplitRay[6].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[6].Split(',')[1]));
 
-                this._atRestSheetSize = new Point(Convert.ToInt32(configStringSplitRay[7].Split(',')[0]),
+                this._AtRestSheetSize = new Point(Convert.ToInt32(configStringSplitRay[7].Split(',')[0]),
                                                    Convert.ToInt32(configStringSplitRay[7].Split(',')[1]));
 
-                this._leftTextureFilename = configStringSplitRay[8];
-                this._rightTextureFilename = configStringSplitRay[9];
-                this._atRestTextureFilename = configStringSplitRay[10];
+                this._LeftTextureFilename = configStringSplitRay[8];
+                this._RightTextureFilename = configStringSplitRay[9];
+                this._AtRestTextureFilename = configStringSplitRay[10];
 
                 this._TimeBetweenFrames = Convert.ToInt32(configStringSplitRay[11]);
 
@@ -317,7 +317,7 @@ namespace OurGame.Sprites
             } // end else
 
             this._ElapsedGameTime = 0; 
-            this._CurrentTextureFilename = this._atRestTextureFilename;
+            this._CurrentTextureFilename = this._AtRestTextureFilename;
             this.CurrentPosition = this._InitialPosition;
         }
 

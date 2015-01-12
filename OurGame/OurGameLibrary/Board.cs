@@ -210,8 +210,7 @@ namespace OurGame.OurGameLibrary
 
                 this.TileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
                 this.TileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);
-
-
+                
                 this.NumberOfVerticalTiles = this.BoardHeight / this.TileHeight;
                 this.NumberOfHorizontalTiles = this.BoardWidth / this.TileWidth;
 
