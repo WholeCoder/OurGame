@@ -64,6 +64,14 @@ Initial directory:  **$(BinDir)**
 **press U key** - To undo if the D key was pressed (The whole board was deleted.)
 
 ---
+
+**General Help** - **Play Game Mode**
+
+**left keyboard arrow/right keyboard arrow** - Scroll the board and move the character.
+
+**space bar** - Make character jump.
+
+---
 **General Help** - **Any Mode**
 
 **press B key** - Go to Blank Screen.
