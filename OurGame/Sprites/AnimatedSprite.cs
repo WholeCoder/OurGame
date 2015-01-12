@@ -33,6 +33,10 @@ namespace OurGame.Sprites
         private SpriteEffects _LeftCurrentEffect = SpriteEffects.FlipHorizontally;
         private SpriteEffects _AtRestCurrentEffect = SpriteEffects.None;
 
+        private bool _IsGoingLeft = false;
+        private bool _IsGoingRight = false;
+        private bool _IsAtRest = false;
+
         private Point _CurrentFrame;
         private String _CurrentTextureFilename; // The textures are received from the TextureCache.
         private Point _CurrentSheetSize;
@@ -58,6 +62,9 @@ namespace OurGame.Sprites
             this.CurrentPosition.X = this._InitialPosition.X;
             this.CurrentPosition.Y = this._InitialPosition.Y;
             this._CurrentSpriteEffect = this._AtRestCurrentEffect;
+            this._IsAtRest = true;
+            this._IsGoingLeft = false;
+            this._IsGoingRight = false;
 
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
@@ -84,30 +91,20 @@ namespace OurGame.Sprites
             } // end if
         }
 
-        // this is used in the SwitchToGo...Texture() method to see if we need to switch our texture and attributes
-        //    For example, switching to going right texture or at rest.
-        public bool TestIfSameFrameMetrics(string textureFilename, Point sheetSize, Point frameSize, SpriteEffects spriteEffect)
-        {
-            Debug.Assert(!textureFilename.Equals("") && textureFilename != null, "textureFilename can't be null or blank!");
-            Debug.Assert(sheetSize != null, "sheetSize can't be null!");
-            Debug.Assert(frameSize != null, "frameSize can't be null!");
-
-
-            return this._CurrentTextureFilename == textureFilename &&
-                                        this._CurrentSheetSize == sheetSize &&
-                                        this._CurrentFrameSize == frameSize &&
-                                        this._CurrentSpriteEffect != spriteEffect;
-        }
-
         public void SwitchToGoRightTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._RightTextureFilename, this._RightSheetSize, this._RightFrameSize, this._RightCurrentEffect);
-
-            if (allreadyUsingTexture)
+            // Don't reset everything if we are already going in that direction.
+            if (this._IsGoingRight)
             {
                 return;
             }
-
+            else
+            {
+                this._IsGoingRight = true;
+                this._IsGoingLeft = false;
+                this._IsAtRest = false;
+            }
+            
             this._CurrentFrame = new Point(0, 0);
             this._CurrentTextureFilename = this._RightTextureFilename;
             this._CurrentSheetSize = this._RightSheetSize;
@@ -119,11 +116,16 @@ namespace OurGame.Sprites
 
         public void SwitchToGoLeftTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._LeftTextureFilename, this._LeftSheetSize, this._LeftFrameSize, this._LeftCurrentEffect);
-
-            if (allreadyUsingTexture)
+            // Don't reset everything if we are already going in that direction.
+            if (this._IsGoingLeft)
             {
                 return;
+            }
+            else
+            {
+                this._IsGoingLeft = true;
+                this._IsGoingRight = false;
+                this._IsAtRest = false;
             }
 
             this._CurrentFrame = new Point(0, 0);
@@ -137,11 +139,16 @@ namespace OurGame.Sprites
 
         public void SwitchToAtRestTexture()
         {
-            bool allreadyUsingTexture = this.TestIfSameFrameMetrics(this._AtRestTextureFilename, this._AtRestSheetSize, this._AtRestFrameSize,this._AtRestCurrentEffect);
-
-            if (allreadyUsingTexture)
+            // Don't reset everything if we are already at rest.
+            if (this._IsAtRest)
             {
                 return;
+            }
+            else
+            {
+                this._IsAtRest = true;
+                this._IsGoingRight = false;
+                this._IsGoingLeft = false;
             }
 
             this._CurrentFrame = new Point(0, 0);

@@ -16,10 +16,6 @@ namespace OurGame.Sprites
         private int _JumpDelta = 0;
         private bool _CurrentlyJumpting = false;
 
-        private bool _IsGoingLeft = false;
-        private bool _IsGoingRight = false;
-        private bool _IsAtRest = false;
-
         public UserControlledSprite(string configFilePathAndName)
             : base(configFilePathAndName)
         {
@@ -43,37 +39,20 @@ namespace OurGame.Sprites
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
                 this.CurrentPosition.X = this.CurrentPosition.X + 5;
-                if (!this._IsGoingRight)
-                {
-                    this.SwitchToGoRightTexture();
 
-                    this._IsGoingRight = true;
-                    this._IsGoingLeft = false;
-                    this._IsAtRest = false;
-                }
+                // This method only switches if we didn't call this method on the last Update
+                this.SwitchToGoRightTexture();
             }
             else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
                 this.CurrentPosition.X = this.CurrentPosition.X - 5;
 
-                if (!this._IsGoingLeft)
-                {
-                    this.SwitchToGoLeftTexture();
-
-                    this._IsGoingRight = false;
-                    this._IsGoingLeft = true;
-                    this._IsAtRest = false;
-                }
+                // This method only switches if we didn't call this method on the last Update
+                this.SwitchToGoLeftTexture();
             } else
             {
-                if (!this._IsAtRest)
-                {
-                    this.SwitchToAtRestTexture();
-
-                    this._IsGoingRight = false;
-                    this._IsGoingLeft = false;
-                    this._IsAtRest = true;
-                }
+                // This method only switches if we didn't call this method on the last Update
+                this.SwitchToAtRestTexture();
             } 
 
             if (keyState.IsKeyDown(Keys.Space) && !this._CurrentlyJumpting)
