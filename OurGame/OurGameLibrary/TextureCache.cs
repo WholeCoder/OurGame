@@ -39,8 +39,6 @@ namespace OurGame.OurGameLibrary
                 throw new MustCallSetContentMethodFirst("TextureCache.SetContent(...) must be called before TextureCache.getInstance() is called!");
             }
 
-            Debug.Assert(TextureCache._boardFileNameString != null && !TextureCache._boardFileNameString.Equals(""), "static member _boardfileNameString must not be set to null (and not empty) before getting the instance of the Singleton.");
-            Debug.Assert(TextureCache._spriteFileName != null && !TextureCache._spriteFileName.Equals(""), "static member TextureCache._spriteFileName must not be null and not the empty string.");
             Debug.Assert(TextureCache._Content != null, "TextureCache._Content must not be nulll!");
 
             if (TextureCache._TextureCacheInsance == null)
