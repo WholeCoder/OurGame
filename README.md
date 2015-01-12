@@ -61,14 +61,18 @@ Initial directory:  **$(BinDir)**
 
 **press PageDown** - Decrease the size of the tile under the mouse cursor.
 
-**press Q key** - Quit the editor.
+**press U key** - To undo if the D key was pressed (The whole board was deleted.)
+
+---
+**General Help** - **Any Mode**
 
 **press B key** - Go to Blank Screen (Only when on editor grid screen)
 
 **press E key** - Go to Editor screen (Only when on blank screen)
 
-**press P key** - Enter mode that scrolls the board by pressing Left/Right arrow keys
-
-**press U key** - To undo if the D key was pressed (The whole board was deleted.)
+**press P key** - Enter play game mode that scrolls the board by pressing Left/Right arrow keys
 
 **press H key** - To get help with keyboard and mouse commands
+
+**press Q key** - Quit the editor.
+
