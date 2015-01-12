@@ -69,7 +69,7 @@ Initial directory:  **$(BinDir)**
 
 **left keyboard arrow/right keyboard arrow** - Scroll the board and move the character.
 
-**space bar** - Make character jump.
+**press Space Bar** - Make character jump.
 
 **press R key** - Reverse time and undo all the movement and jumps you did so far.
 
