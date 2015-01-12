@@ -66,9 +66,9 @@ Initial directory:  **$(BinDir)**
 ---
 **General Help** - **Any Mode**
 
-**press B key** - Go to Blank Screen (Only when on editor grid screen)
+**press B key** - Go to Blank Screen.
 
-**press E key** - Go to Editor screen (Only when on blank screen)
+**press E key** - Go to Editor screen.
 
 **press P key** - Enter play game mode that scrolls the board by pressing Left/Right arrow keys
 
