@@ -28,8 +28,6 @@ namespace OurGame.GameStates
 
         // This is the name the gameboard is saved to when S is pressed.
         private string _pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
-        private string _pathToTextureCacheConfig = @"BoardTextureCache.txt";
-        private string _pathToSpriteTextureCacheConfig = @"SpriteTextureCache.txt";
 
         private MultiTexture _multiTexture;
         private int _multiTextureWidthHeight = 1;
