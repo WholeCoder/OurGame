@@ -49,6 +49,7 @@ namespace OurGame.OurGameLibrary
             return TextureCache._TextureCacheInsance;
         }
 
+        // This method needs to be called before the TextureCache.getInstance() is called!
         public static void SetContent(ContentManager Content)
         {
             TextureCache._Content = Content;
