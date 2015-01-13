@@ -60,7 +60,7 @@ namespace OurGame.OurGameLibrary
                 {
                     if (this.TheBoard[i, j].TheTexture != null)
                     {
-                        Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset + this.BoardMarginX, i * this.TileHeight);
+                        Vector2 tilePosition = this.ExtractTilePosition(screenXOffset, i, j);
                         this.TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y, 
                                                                               this.TheBoard[i, j].Width, this.TheBoard[i, j].Height);
                         if (aSprite.BoundingRectangle.Intersects(this.TheBoard[i, j].BoundingRectangle))
@@ -72,6 +72,12 @@ namespace OurGame.OurGameLibrary
             } // End outer for.
             return false;
         } // end method
+
+        private Vector2 ExtractTilePosition(int screenXOffset, int i, int j)
+        {
+            Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset + this.BoardMarginX, i * this.TileHeight);
+            return tilePosition;
+        }
 
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {
@@ -104,7 +110,7 @@ namespace OurGame.OurGameLibrary
                 {
                     if (this.TheBoard[i, j].TheTexture != null)
                     {
-                        Vector2 tilePosition = new Vector2(j * this.TileWidth + screenXOffset + this.BoardMarginX, i * this.TileHeight);
+                        Vector2 tilePosition = this.ExtractTilePosition(screenXOffset, i, j);
                         spriteBatch.Draw(this.TheBoard[i, j].TheTexture, tilePosition, Color.White);
                     }
                 }
