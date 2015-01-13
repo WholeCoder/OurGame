@@ -36,7 +36,7 @@ namespace OurGame.OurGameLibrary
         {
             if (TextureCache._Content == null)
             {
-                throw new MustCallSetContentMethodFirst("TextureCache.SetContent(...) must be called before TextureCache.getInstance() is called!");
+                throw new MustCallSetContentMethodFirst("TextureCache.SetContent(...) must be called (usually in LoadContent(..) method of the State subclass) before TextureCache.getInstance() is called!");
             }
 
             Debug.Assert(TextureCache._Content != null, "TextureCache._Content must not be nulll!");
