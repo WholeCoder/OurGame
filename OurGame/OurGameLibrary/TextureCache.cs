@@ -27,7 +27,7 @@ namespace OurGame.OurGameLibrary
         private string[] spriteTextureFileNames;
 
         private static TextureCache _TextureCacheInsance = null;
-        private static String _boardFileNameString = @"BoardTextureCache.txt";
+        private static String _boardTextureCacheFileNameString = @"BoardTextureCache.txt";
         private static string _spriteFileName = @"SpriteTextureCache.txt";
         private static ContentManager _Content;
 
@@ -43,7 +43,7 @@ namespace OurGame.OurGameLibrary
 
             if (TextureCache._TextureCacheInsance == null)
             {
-                TextureCache._TextureCacheInsance = new TextureCache(_boardFileNameString, _spriteFileName, _Content);
+                TextureCache._TextureCacheInsance = new TextureCache(_boardTextureCacheFileNameString, _spriteFileName, _Content);
             }
 
             return TextureCache._TextureCacheInsance;
