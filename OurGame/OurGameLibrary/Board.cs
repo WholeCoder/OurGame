@@ -52,16 +52,10 @@ namespace OurGame.OurGameLibrary
 
             for (int i = 0; i < this.TheBoard.GetLength(0); i++)
             {
-                int startX = this.CalculateXIndex(this.BoardMarginX, screenXOffset);
-                int endX = Math.Max(startX, this.CalculateXIndex(Board.SCREEN_WIDTH - this.BoardMarginX, screenXOffset));  // this.TheBoard.GetLength(1);
-                if (startX >= this.TheBoard.GetLength(1))
-                {
-                    startX = this.TheBoard.GetLength(1) - 1;
-                }
-                if (endX >= this.TheBoard.GetLength(1))
-                {
-                    endX = this.TheBoard.GetLength(1) - 1;
-                }
+                int startX;
+                int endX;
+                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
+
                 for (int j = startX; j < endX; j++)
                 {
                     if (this.TheBoard[i, j].TheTexture != null)
@@ -102,16 +96,10 @@ namespace OurGame.OurGameLibrary
 
             for (int i = 0; i < this.TheBoard.GetLength(0); i++)
             {
-                int startX = this.CalculateXIndex(this.BoardMarginX, screenXOffset);
-                int endX = Math.Max(startX, this.CalculateXIndex(Board.SCREEN_WIDTH-this.BoardMarginX, screenXOffset));  // this.TheBoard.GetLength(1);
-                if (startX >= this.TheBoard.GetLength(1))
-                {
-                    startX = this.TheBoard.GetLength(1) - 1;
-                }
-                if (endX >= this.TheBoard.GetLength(1))
-                {
-                    endX = this.TheBoard.GetLength(1) - 1;
-                }
+                int startX;
+                int endX;
+                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
+
                 for (int j = startX; j < endX; j++)
                 {
                     if (this.TheBoard[i, j].TheTexture != null)
@@ -123,6 +111,20 @@ namespace OurGame.OurGameLibrary
             } // End outer for.
 
         } // end method DrawBoard
+
+        private void CalculateStartAndEndOfBoardToCheck(int screenXOffset, out int startX, out int endX)
+        {
+            startX = this.CalculateXIndex(this.BoardMarginX, screenXOffset);
+            endX = Math.Max(startX, this.CalculateXIndex(Board.SCREEN_WIDTH - this.BoardMarginX, screenXOffset));  // this.TheBoard.GetLength(1);
+            if (startX >= this.TheBoard.GetLength(1))
+            {
+                startX = this.TheBoard.GetLength(1) - 1;
+            }
+            if (endX >= this.TheBoard.GetLength(1))
+            {
+                endX = this.TheBoard.GetLength(1) - 1;
+            }
+        }
 
         public void PutTextureOntoBoard(Texture2D tTexture, int rowIndex, int columnIndex)
         {
