@@ -2,6 +2,7 @@
 
 // My usings.
 using OurGame.WindowsGame1;
+using OurGame.OurGameLibrary;
 
 namespace OurGame.GameStates
 {
@@ -25,7 +26,7 @@ namespace OurGame.GameStates
 
         public override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
-
+            TextureCache.SetContent(Content);
         }
 
         public override void UnloadContent()
