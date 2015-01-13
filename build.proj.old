@@ -1,0 +1,6 @@
+<Project DefaultTargets = "Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="Test">
+    	<Exec Command=".\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.x86.exe .\Tests\bin\Debug\Tests.dll"/>
+        <Message Text="The output file is"/>
+    </Target>
+</Project>
