@@ -1,5 +1,5 @@
 <Project DefaultTargets="Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-<PropertyGroup>
+    <PropertyGroup>
         <OutputDir>OutPut</OutputDir>
     </PropertyGroup>
     <ItemGroup>

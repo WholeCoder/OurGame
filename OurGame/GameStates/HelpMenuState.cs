@@ -91,11 +91,6 @@ namespace OurGame.GameStates
             MenuComponent pressPageDownEditMenuItem = this.BuildMenuComponent(menuMessage, "Decrease the size of the mouse's brush.", offsetY);
             this._EditScreenHelpMenu.AddMenuComponents(pressPageDownEditMenuItem);
 
-            menuMessage = "press Q key"   ;
-            offsetY += _HelpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressQEditMenuItem = this.BuildMenuComponent(menuMessage, "Quit the editor.", offsetY);
-            this._EditScreenHelpMenu.AddMenuComponents(pressQEditMenuItem);
-
             menuMessage = "press U key"  ; 
             offsetY += _HelpFont.MeasureString(menuMessage).Y;
             MenuComponent pressUMenuItem = this.BuildMenuComponent(menuMessage, "Undo a whole board delete (pressed D previously).", offsetY);
@@ -126,6 +121,12 @@ namespace OurGame.GameStates
             offsetY += _HelpFont.MeasureString(menuMessage).Y;
             MenuComponent pressHGeneralHelpMenuItem = this.BuildMenuComponent(menuMessage, "To get help with keyboard and mouse commands.", offsetY);
             this._GeneralHelpMenu.AddMenuComponents(pressHGeneralHelpMenuItem);
+
+            menuMessage = "press Q key";
+            offsetY += _HelpFont.MeasureString(menuMessage).Y;
+            MenuComponent pressQEditMenuItem = this.BuildMenuComponent(menuMessage, "Quit the editor.", offsetY);
+            this._GeneralHelpMenu.AddMenuComponents(pressQEditMenuItem);
+
         }
 
         private MenuComponent BuildMenuComponent(string title,string description, float y)
