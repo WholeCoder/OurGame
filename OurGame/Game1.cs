@@ -71,10 +71,10 @@ namespace OurGame.WindowsGame1
             this.editBoardState = new EditBoardState();
             this.editBoardState.Initialize(this);
 
+            this.SetStateWhenInitializing(this.editBoardState);
+
             this.blankState = new BlankState();
             this.blankState.Initialize(this);
-
-            this.SetStateWhenInitializing(this.editBoardState);
 
             this.playGameState = new PlayGameState();
             this.playGameState.Initialize(this);
