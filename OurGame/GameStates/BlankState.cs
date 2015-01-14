@@ -24,9 +24,9 @@ namespace OurGame.GameStates
             this.OurGame = ourGame;
         }
 
-        public override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
+        protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
-            TextureCache.SetContent(Content);
+
         }
 
         public override void UnloadContent()

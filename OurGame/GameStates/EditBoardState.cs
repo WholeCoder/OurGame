@@ -65,12 +65,9 @@ namespace OurGame.GameStates
             _previousScrollValue = Mouse.GetState().ScrollWheelValue;
         }
 
-        public override void LoadContent(ContentManager Content)
+        protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
             Debug.Assert(Content != null," Content can't be null!");
-
-            // Must call this method before calling TextureCache.getInstance(); 
-            TextureCache.SetContent(Content);
 
             _board = new Board(_pathToSavedGambeBoardConfigurationFile);
 

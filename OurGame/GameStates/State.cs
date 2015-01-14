@@ -4,15 +4,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.WindowsGame1;
+using OurGame.OurGameLibrary;
 
 namespace OurGame.GameStates
 {
     public abstract class State
     {
         abstract public void Initialize(Game1 ourGame);
-        abstract public void LoadContent(ContentManager Content);
+        public void LoadContent(ContentManager Content)
+        {
+            // This is the reason that this method was implemented - to call TextureCache.SetContent(Content).
+            TextureCache.SetContent(Content);
+
+            this.LoadStatesContent(Content);
+        }
+
+        // Use this next method to load the state's Contend.
+        abstract protected void LoadStatesContent(ContentManager Content);
+        
         abstract public void UnloadContent();
         abstract public void Update(GameTime gameTime);  // NOTE:  This method is called in the Board.setState(...) method!
         abstract public void Draw(GameTime gameTime, SpriteBatch spriteBatch); // NOTE:  spriteBatch.Begin()/End() are already called before and after this method!
+
     }
 }

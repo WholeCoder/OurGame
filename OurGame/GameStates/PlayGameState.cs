@@ -57,10 +57,8 @@ namespace OurGame.GameStates
             this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<OurGame.Commands.ICommand>();
         }
 
-        public override void LoadContent(ContentManager Content)
+        protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
-            TextureCache.SetContent(Content);
-
             board = new Board(pathToSavedGambeBoardConfigurationFile);
 
             // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
