@@ -16,7 +16,7 @@ namespace OurGame.GameStates
         public void LoadContent(ContentManager Content)
         {
             // This is the reason that this method was implemented - to call TextureCache.SetContent(Content).
-            TextureCache.SetContent(Content);
+            TextureCache.SetContent(Content); // Must be called before TextureCache.getInstance() - a Singleton.
 
             this.LoadStatesContent(Content);
         }
