@@ -205,6 +205,19 @@ namespace OurGame.GameStates
                 }
             }
 
+            List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(this.Player, screenXOffset);
+            if (tilesThatHaveCollisionWithSprite.Count != 0)
+            {
+                int leastY = this.board.BoardHeight;
+                foreach (var tile in tilesThatHaveCollisionWithSprite)
+                {
+                    if (tile.BoundingRectangle.Y < leastY)
+                    {
+                        leastY = tile.BoundingRectangle.Y;
+                    }
+                }
+                this.Player.CurrentPosition.Y = leastY-this.Player.BoundingRectangle.Height;
+            }
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 

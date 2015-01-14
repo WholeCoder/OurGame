@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
@@ -43,6 +44,38 @@ namespace OurGame.OurGameLibrary
             this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile);
         } // end constructor
 
+        public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)
+        {
+            Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
+
+            List<Tile> tileList = new List<Tile>();
+
+            // This will make the board only draw the part that is on the screen on the left side.
+            this.BoardMarginX = this.TileWidth * Board.NUMBER_OF_TILES_IN_MARGIN_X;
+
+            for (int i = 0; i < this.TheBoard.GetLength(0); i++)
+            {
+                int startX;
+                int endX;
+                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
+
+                for (int j = startX; j < endX; j++)
+                {
+                    if (this.TheBoard[i, j].TheTexture != null)
+                    {
+                        Vector2 tilePosition = this.ExtractTilePosition(screenXOffset, i, j);
+                        this.TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
+                                                                              this.TheBoard[i, j].Width, this.TheBoard[i, j].Height);
+                        if (aSprite.BoundingRectangle.Intersects(this.TheBoard[i, j].BoundingRectangle))
+                        {
+                            tileList.Add(this.TheBoard[i, j]);
+                        }
+                    }
+                }
+            } // End outer for.
+            return tileList;
+        } // end method
+
         public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
         {
             Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
@@ -61,7 +94,7 @@ namespace OurGame.OurGameLibrary
                     if (this.TheBoard[i, j].TheTexture != null)
                     {
                         Vector2 tilePosition = this.ExtractTilePosition(screenXOffset, i, j);
-                        this.TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y, 
+                        this.TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
                                                                               this.TheBoard[i, j].Width, this.TheBoard[i, j].Height);
                         if (aSprite.BoundingRectangle.Intersects(this.TheBoard[i, j].BoundingRectangle))
                         {
