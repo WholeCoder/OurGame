@@ -11,6 +11,8 @@ namespace OurGame.GameStates
     public abstract class State
     {
         abstract public void Initialize(Game1 ourGame);
+
+        // Don't override this to load the content!  Use the method below!
         public void LoadContent(ContentManager Content)
         {
             // This is the reason that this method was implemented - to call TextureCache.SetContent(Content).
