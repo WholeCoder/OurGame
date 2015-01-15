@@ -44,6 +44,30 @@ namespace OurGame.OurGameLibrary
             this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile);
         } // end constructor
 
+
+        public Tile GetFloorLocation(AnimatedSprite aSprite, int screenXOffset)
+        {
+            List<Tile> tileList = new List<Tile>();
+
+            // This will make the board only draw the part that is on the screen on the left side.
+            this.BoardMarginX = this.TileWidth * Board.NUMBER_OF_TILES_IN_MARGIN_X;
+
+            int startX = (int)((aSprite.CurrentPosition.X - screenXOffset - this.BoardMarginX) / this.TileWidth);
+            Tile currTile = null;
+            for (int i = 0; i < this.TheBoard.GetLength(0); i++)
+            {
+                if (this.TheBoard[i, startX] != null)
+                {
+                    if (currTile == null || this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y)
+                    {
+                        currTile = this.TheBoard[i, startX];
+                    }
+                }
+            } // End for.
+
+            return currTile;
+        }
+
         public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)
         {
             Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 // My using statements.
+using OurGame.GameStates;
 using OurGame.OurGameLibrary;
 
 namespace OurGame.Sprites
@@ -16,10 +17,14 @@ namespace OurGame.Sprites
         private int _JumpDelta = 0;
         private bool _CurrentlyJumpting = false;
 
-        public UserControlledSprite(string configFilePathAndName)
+        private Board _TheBoard;
+        private PlayGameState _PlayGameState;
+
+        public UserControlledSprite(string configFilePathAndName, Board board, PlayGameState pState)
             : base(configFilePathAndName)
         {
-
+            this._TheBoard = board;
+            this._PlayGameState = pState;
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -35,6 +40,8 @@ namespace OurGame.Sprites
         protected override void UpdateAfterNextFrame(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState();
+
+            this.CurrentPosition.Y += 1;
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
@@ -68,11 +75,12 @@ namespace OurGame.Sprites
                 this._JumpDelta += 1;
             }
 
-            if (this.CurrentPosition.Y > this._StartyingYCoordinateForJumping && this._CurrentlyJumpting)
+            
+            if (this.CurrentPosition.Y > this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y)
             {
                 this._CurrentlyJumpting = false;
                 this._JumpDelta = 0;
-                this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
+                //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
             }
         } // end method
 

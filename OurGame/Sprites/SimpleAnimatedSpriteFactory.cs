@@ -29,7 +29,7 @@ namespace OurGame.Sprites
             } else if (typeOfAnimatedSprite.Equals("UserControlledSprite"))
             {
                 // TODO: Remove all arguments to constructor and create the implementation of the load method.
-                spriteWeAreLoading = new UserControlledSprite(filepath);
+                //spriteWeAreLoading = new UserControlledSprite(filepath);
 
                 // TODO: possibly call this later to "Load(Content)"
                 //spriteWeAreLoading.Load(filepath);

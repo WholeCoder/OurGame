@@ -62,7 +62,7 @@ namespace OurGame.GameStates
             board = new Board(pathToSavedGambeBoardConfigurationFile);
 
             // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
-            Player = new UserControlledSprite("UserControlledSpriteConfig.txt");
+            Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
 
             myEffectsManager.LoadContent(Content);
         }
