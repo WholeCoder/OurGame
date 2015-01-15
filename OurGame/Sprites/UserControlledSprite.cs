@@ -41,6 +41,7 @@ namespace OurGame.Sprites
         {
             KeyboardState keyState = Keyboard.GetState();
 
+            // This next operation makes sure the character falls down to a new floor tile when it walks.
             this.CurrentPosition.Y += 1;
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
