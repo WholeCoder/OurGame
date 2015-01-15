@@ -12,13 +12,14 @@ namespace OurGame.Sprites
 {
     public class UserControlledSprite : AnimatedSprite
     {
-        private int STARTING_DELTA = 20;
+        private static int STARTING_DELTA = 20;
         private int _StartyingYCoordinateForJumping;
         private int _JumpDelta = 0;
         private bool _CurrentlyJumping = false;
 
         private Board _TheBoard;
         private PlayGameState _PlayGameState;
+        private static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "preassure" to keep the sprit on the ground;
 
         public UserControlledSprite(string configFilePathAndName, Board board, PlayGameState pState)
             : base(configFilePathAndName)
@@ -42,7 +43,7 @@ namespace OurGame.Sprites
             KeyboardState keyState = Keyboard.GetState();
 
             // This next operation makes sure the character falls down to a new floor tile when it walks.
-            this.CurrentPosition.Y += 1;
+            this.CurrentPosition.Y += UserControlledSprite.GRAVITY_DOWNWARD;
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
@@ -65,7 +66,7 @@ namespace OurGame.Sprites
 
             if (keyState.IsKeyDown(Keys.Space) && !this._CurrentlyJumping)
             {
-                this._JumpDelta = -this.STARTING_DELTA;
+                this._JumpDelta = -UserControlledSprite.STARTING_DELTA;
                 this._CurrentlyJumping = true;
                 this._StartyingYCoordinateForJumping = (int)this.CurrentPosition.Y;
             }
