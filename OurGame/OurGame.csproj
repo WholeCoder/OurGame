@@ -126,12 +126,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameStates\Commands\ICommand.cs" />
-    <Compile Include="GameStates\Commands\EditBoardCommands\DeleteBoardCommand.cs" />
-    <Compile Include="GameStates\Commands\DoNothingCommand.cs" />
-    <Compile Include="GameStates\Commands\MacroCommand.cs" />
-    <Compile Include="GameStates\Commands\EditBoardCommands\PlaceMultiTextureOnBoardCommand.cs" />
-    <Compile Include="GameStates\Commands\ReverseTimeCommands\SetGameMetricsToPreviousValuesCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\EditBoardCommands\DeleteBoardCommand.cs" />
+    <Compile Include="Commands\DoNothingCommand.cs" />
+    <Compile Include="Commands\MacroCommand.cs" />
+    <Compile Include="Commands\EditBoardCommands\PlaceMultiTextureOnBoardCommand.cs" />
+    <Compile Include="Commands\ReverseTimeCommands\SetGameMetricsToPreviousValuesCommand.cs" />
     <Compile Include="GameStates\BlankState.cs" />
     <Compile Include="GameStates\EditBoardState.cs" />
     <Compile Include="GameStates\HelpMenuState.cs" />
@@ -203,7 +203,7 @@
     <None Include="WindowsGame1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GameStates\Commands\MenuComponentCommands\" />
+    <Folder Include="Commands\MenuComponentCommands\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
