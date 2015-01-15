@@ -49,21 +49,22 @@ namespace OurGame.OurGameLibrary
         {
             List<Tile> tileList = new List<Tile>();
 
-            // This will make the board only draw the part that is on the screen on the left side.
-            this.BoardMarginX = this.TileWidth * Board.NUMBER_OF_TILES_IN_MARGIN_X;
-
             int startX = (int)((aSprite.CurrentPosition.X - screenXOffset - this.BoardMarginX) / this.TileWidth);
             Tile currTile = null;
-            for (int i = this.TheBoard.GetLength(0)-1; i >= 0; i--)
+
+            if (startX >= 0 && startX < this.TheBoard.GetLength(1))
             {
-                if (this.TheBoard[i, startX].TheTexture != null)
+                for (int i = this.TheBoard.GetLength(0) - 1; i >= 0; i--)
                 {
-                    if (currTile == null || this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y)
+                    if (this.TheBoard[i, startX].TheTexture != null)
                     {
-                        currTile = this.TheBoard[i, startX];
+                        if (currTile == null || this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y)
+                        {
+                            currTile = this.TheBoard[i, startX];
+                        }
                     }
-                }
-            } // End for.
+                } // End for.
+            } // End if
 
             return currTile;
         }

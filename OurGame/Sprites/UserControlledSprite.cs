@@ -77,14 +77,20 @@ namespace OurGame.Sprites
                 this._JumpDelta += 1;
             }
 
-            
-            if (this._CurrentlyJumping && (this.BoundingRectangle.Height+this.BoundingRectangle.Y) > this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y)
+
+            if (this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset) == null || (this._CurrentlyJumping && (this.BoundingRectangle.Height + this.BoundingRectangle.Y) > this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y))
             {
                 this._CurrentlyJumping = false;
                 this._JumpDelta = 0;
-                Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
+                //Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
                 //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
             }
+
+            if (this.CurrentPosition.Y + this.BoundingRectangle.Height > this._TheBoard.BoardHeight)
+            {
+                this.CurrentPosition.Y = this._TheBoard.BoardHeight - this.BoundingRectangle.Height;
+            }
+
         } // end method
 
         protected override string NameOfThisSubclassForWritingToConfigFile()
