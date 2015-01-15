@@ -15,7 +15,7 @@ namespace OurGame.Sprites
         private int STARTING_DELTA = 20;
         private int _StartyingYCoordinateForJumping;
         private int _JumpDelta = 0;
-        private bool _CurrentlyJumpting = false;
+        private bool _CurrentlyJumping = false;
 
         private Board _TheBoard;
         private PlayGameState _PlayGameState;
@@ -62,24 +62,25 @@ namespace OurGame.Sprites
                 this.SwitchToAtRestTexture();
             } 
 
-            if (keyState.IsKeyDown(Keys.Space) && !this._CurrentlyJumpting)
+            if (keyState.IsKeyDown(Keys.Space) && !this._CurrentlyJumping)
             {
                 this._JumpDelta = -this.STARTING_DELTA;
-                this._CurrentlyJumpting = true;
+                this._CurrentlyJumping = true;
                 this._StartyingYCoordinateForJumping = (int)this.CurrentPosition.Y;
             }
 
-            if (this._CurrentlyJumpting && this.CurrentPosition.Y <= this._StartyingYCoordinateForJumping)
+            if (this._CurrentlyJumping)
             {
                 this.CurrentPosition.Y += this._JumpDelta;
                 this._JumpDelta += 1;
             }
 
             
-            if (this.CurrentPosition.Y > this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y)
+            if (this._CurrentlyJumping && (this.BoundingRectangle.Height+this.BoundingRectangle.Y) > this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y)
             {
-                this._CurrentlyJumpting = false;
+                this._CurrentlyJumping = false;
                 this._JumpDelta = 0;
+                Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
                 //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
             }
         } // end method

@@ -54,9 +54,9 @@ namespace OurGame.OurGameLibrary
 
             int startX = (int)((aSprite.CurrentPosition.X - screenXOffset - this.BoardMarginX) / this.TileWidth);
             Tile currTile = null;
-            for (int i = 0; i < this.TheBoard.GetLength(0); i++)
+            for (int i = this.TheBoard.GetLength(0)-1; i >= 0; i--)
             {
-                if (this.TheBoard[i, startX] != null)
+                if (this.TheBoard[i, startX].TheTexture != null)
                 {
                     if (currTile == null || this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y)
                     {
