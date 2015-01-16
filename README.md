@@ -12,7 +12,9 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 2.  Run the following command:
 
-**nuget.exe install -o packages .\packages.config**
+**msbuild build.proj /t:Build /p:Platform="x86"**
+
+This will download XUnit automatically and put it into the 'packages' directory.
 
 ---
 **How to setup xUnit in visual studio**
