@@ -136,7 +136,7 @@
     <Compile Include="GameStates\EditBoardState.cs" />
     <Compile Include="GameStates\HelpMenuState.cs" />
     <Compile Include="GameStates\PlayGameState.cs" />
-    <Compile Include="MenuComponents\State.cs" />
+    <Compile Include="GameStates\State.cs" />
     <Compile Include="GameStates\SwitchStateLogic.cs" />
     <Compile Include="MenuComponents\MenuComponent.cs" />
     <Compile Include="OurGameLibrary\MustCallSetContentMethodFirst.cs" />

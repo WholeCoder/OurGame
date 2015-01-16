@@ -4,13 +4,14 @@ using System.Text;
 using System.Diagnostics;
 
 // My usings
+using OurGame.GameStates;
 using OurGame.OurGameLibrary;
 
 namespace OurGame.Sprites
 {
     class SimpleAnimatedSpriteFactory
     {
-        public static AnimatedSprite CreateAnimatedSprite(String filepath)
+        public static AnimatedSprite CreateAnimatedSprite(String filepath, Board board, PlayGameState pState)
         {
             Debug.Assert( filepath != null && !filepath.Equals(""),"filepath must not be null or empty!");
 
@@ -29,7 +30,7 @@ namespace OurGame.Sprites
             } else if (typeOfAnimatedSprite.Equals("UserControlledSprite"))
             {
                 // TODO: Remove all arguments to constructor and create the implementation of the load method.
-                //spriteWeAreLoading = new UserControlledSprite(filepath);
+                spriteWeAreLoading = new UserControlledSprite(filepath, board, pState);
 
                 // TODO: possibly call this later to "Load(Content)"
                 //spriteWeAreLoading.Load(filepath);

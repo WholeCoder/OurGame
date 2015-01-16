@@ -1,17 +1,30 @@
 <Project DefaultTargets="Test" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup>
-        <OutputDir>OutPut</OutputDir>
-    </PropertyGroup>
-    <ItemGroup>
-        <ProjectToBuild Include="WindowsGame1.sln">
-            <Properties>OutputPath=$(OutputDir);Configuration=Debug</Properties>
-        </ProjectToBuild>
-    </ItemGroup>
-    <Target Name="Build">
+    <Target Name="Restore">
+        <Message Text="Restore packages"/>
+        <Exec Command="nuget.exe restore packages.config -o packages"/>
+    </Target>
+    <Target Name="Build" DependsOnTargets="Restore">
+        <Message Text="Build OurGame Project"/>
+        <ItemGroup>
+            <ProjectToBuild Include="OurGame\OurGame.csproj">
+                <Properties>Configuration=Debug;</Properties>
+            </ProjectToBuild>
+        </ItemGroup>
         <MSBuild Projects="@(ProjectToBuild)"/>
     </Target>
-    <Target Name="Test">
-    	<Exec Command=".\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.x86.exe .\Tests\bin\Debug\Tests.dll"/>
-        <Message Text="The output file is"/>
+    <Target Name="Test" DependsOnTargets="Build">
+        <Message Text="Build Test Projects"/>
+        <ItemGroup>
+            <TestProjectToBuild Include="Tests\Tests.csproj">
+                <Properties>Configuration=Debug;</Properties>
+            </TestProjectToBuild>
+        </ItemGroup>
+        <MSBuild Projects="@(TestProjectToBuild)"/>
+            <Message Text="$(OutputPath)"/>
+            <Exec Command=".\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.x86.exe .\Tests\bin\x86\Debug\Tests.dll"/>
+    </Target>
+    <Target Name="HelloWorld">
+        <Message Text="Hello"></Message> 
+        <Message Text="World"></Message>
     </Target>
 </Project>
