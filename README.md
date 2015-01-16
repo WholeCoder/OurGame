@@ -8,11 +8,13 @@ This is a 2D video game level editor created with the XNA framework.
 **Building**
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
 
-1.  Go to the **OurGame** directory with **packages.config** in it.
+1.  Go to the **OurGame** directory with **build.proj** in it.
 
 2.  Run the following command:
 
-**nuget.exe install -o packages .\packages.config**
+**msbuild build.proj /t:Build /p:Platform="x86"**
+
+This will download XUnit automatically and put it into the 'packages' directory.
 
 ---
 **How to setup xUnit in visual studio**
