@@ -23,7 +23,8 @@ namespace OurGame.Sprites
         public AutomatedSprite(string configFilePathAndName, PlayGameState pState)
             : base(configFilePathAndName)
         {
-            //            this.Load(pathWithFile);  // Will write defaults to disk if the file isn't found.
+            Debug.Assert(pState != null, "pState can't be null!");
+            
             this._PlayGameState = pState;
             this._StartXOffset = pState.screenXOffset;
         }
