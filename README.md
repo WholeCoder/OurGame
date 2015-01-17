@@ -11,11 +11,9 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 1.  Go to Tools-> NuGet package manager -> package manager console.
 
-Enter
-2.  Install-Package xunit -Version 1.9.2
+2.  Enter:  **Install-Package xunit -Version 1.9.2**
 
-Enter
-3.  Install-Package xunit.runner.visualstudio -Pre
+3.  Enter:  **Install-Package xunit.runner.visualstudio -Pre**
 
 ---
 
