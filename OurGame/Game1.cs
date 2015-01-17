@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,8 +39,8 @@ namespace OurGame.WindowsGame1
         // This version is called when we change state in an update() call.
         public void SetStateWhenUpdating(State state, GameTime gameTime)
         {
-            Debug.Assert(state != null,"state can't be null!");
-            Debug.Assert(gameTime != null,"gameTime can't be null!");
+            Debug.Assert(state != null, "state can't be null!");
+            Debug.Assert(gameTime != null, "gameTime can't be null!");
 
             this.CurrentState = state;
             this.CurrentState.Update(gameTime);
@@ -79,7 +79,7 @@ namespace OurGame.WindowsGame1
             this.playGameState = new PlayGameState();
             this.playGameState.Initialize(this);
 
-            this.helpMenuState= new HelpMenuState();
+            this.helpMenuState = new HelpMenuState();
             this.helpMenuState.Initialize(this);
 
             base.Initialize();
@@ -144,7 +144,7 @@ namespace OurGame.WindowsGame1
             this.CurrentState.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
-            
+
             base.Draw(gameTime);
         }
     }

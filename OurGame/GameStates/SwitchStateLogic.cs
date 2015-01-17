@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+// Our usings.
+using OurGame;
 using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
@@ -10,54 +12,54 @@ namespace OurGame.GameStates
     {
         public static bool flag = true;
 
-        public static void DoChangeGameStateFromKeyboardLogic(KeyboardState newKeyboardState, KeyboardState oldKeyboardState, Game1 OurGame, GameTime gameTime)
+        public static void DoChangeGameStateFromKeyboardLogic(KeyboardState newKeyboardState, KeyboardState oldKeyboardState, Game1 ourGame, GameTime gameTime)
         {
             // Press E for edit board state.
             if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
             {
-                if (OurGame.CurrentState != OurGame.editBoardState)
+                if (ourGame.CurrentState != ourGame.editBoardState)
                 {
 
-                    OurGame.SetStateWhenUpdating(OurGame.editBoardState, gameTime);
+                    ourGame.SetStateWhenUpdating(ourGame.editBoardState, gameTime);
                 }
             }
 
             // Press P for play game state.
             if (newKeyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
-                if (OurGame.CurrentState != OurGame.playGameState)
+                if (ourGame.CurrentState != ourGame.playGameState)
                 {
-                    ((EditBoardState)OurGame.editBoardState).SaveBoardToDiskAndReloadPlayGameState(gameTime);
-                    OurGame.SetStateWhenUpdating(OurGame.playGameState, gameTime);
+                    ((EditBoardState)ourGame.editBoardState).SaveBoardToDiskAndReloadPlayGameState(gameTime);
+                    ourGame.SetStateWhenUpdating(ourGame.playGameState, gameTime);
                 }
             }
             if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
             {
-                OurGame.Exit();
+                ourGame.Exit();
             }
 
             // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
             {
-                if (OurGame.CurrentState != OurGame.blankState)
+                if (ourGame.CurrentState != ourGame.blankState)
                 {
 
-                    OurGame.SetStateWhenUpdating(OurGame.blankState, gameTime);
+                    ourGame.SetStateWhenUpdating(ourGame.blankState, gameTime);
                 }
             }
 
             if (newKeyboardState.IsKeyDown(Keys.H) && oldKeyboardState.IsKeyUp(Keys.H))
             {
-                if (OurGame.CurrentState != OurGame.helpMenuState)
+                if (ourGame.CurrentState != ourGame.helpMenuState)
                 {
 
-                    OurGame.SetStateWhenUpdating(OurGame.helpMenuState, gameTime);
+                    ourGame.SetStateWhenUpdating(ourGame.helpMenuState, gameTime);
                 }
             }
 
             if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
             {
-                OurGame.Exit();
+                ourGame.Exit();
             }
         } // end method
     } // end class

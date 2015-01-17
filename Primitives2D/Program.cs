@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 #endregion
 
-// Our usings.
-using OurGame.WindowsGame1;
-
-namespace OurGame
+namespace Primitives2D
 {
 #if WINDOWS || LINUX
     /// <summary>
