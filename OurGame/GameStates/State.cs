@@ -21,7 +21,7 @@ namespace OurGame.GameStates
             this.LoadStatesContent(Content);
         }
 
-        // Use this next method to load the state's Contend.
+        // Use this next method to load the state's Content.
         abstract protected void LoadStatesContent(ContentManager Content);
         
         abstract public void UnloadContent();
