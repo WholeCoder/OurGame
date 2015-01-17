@@ -19,7 +19,7 @@ namespace OurGame.Sprites
 
         private Board _TheBoard;
         private PlayGameState _PlayGameState;
-        private static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "preassure" to keep the sprit on the ground;
+        public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "preassure" to keep the sprit on the ground;
 
         public UserControlledSprite(string configFilePathAndName, Board board, PlayGameState pState)
             : base(configFilePathAndName)
@@ -41,9 +41,6 @@ namespace OurGame.Sprites
         protected override void UpdateAfterNextFrame(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState();
-
-            // This next operation makes sure the character falls down to a new floor tile when it walks.
-            this.CurrentPosition.Y += UserControlledSprite.GRAVITY_DOWNWARD;
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {

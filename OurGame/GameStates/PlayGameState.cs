@@ -74,6 +74,20 @@ namespace OurGame.GameStates
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             Player.Update(gameTime);
+            
+            List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(this.Player, screenXOffset);
+            if (tilesThatHaveCollisionWithSprite.Count != 0)
+            {
+                int leastY = this.board.BoardHeight;
+                foreach (var tile in tilesThatHaveCollisionWithSprite)
+                {
+                    if (tile.BoundingRectangle.Y < leastY)
+                    {
+                        leastY = tile.BoundingRectangle.Y;
+                    }
+                }
+                this.Player.CurrentPosition.Y = leastY - this.Player.BoundingRectangle.Height;
+            }
 
             if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
             {
@@ -204,19 +218,10 @@ namespace OurGame.GameStates
                     sCommand.Execute();
                 }
             }
-
-            List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(this.Player, screenXOffset);
-            if (tilesThatHaveCollisionWithSprite.Count != 0)
+            else
             {
-                int leastY = this.board.BoardHeight;
-                foreach (var tile in tilesThatHaveCollisionWithSprite)
-                {
-                    if (tile.BoundingRectangle.Y < leastY)
-                    {
-                        leastY = tile.BoundingRectangle.Y;
-                    }
-                }
-                this.Player.CurrentPosition.Y = leastY-this.Player.BoundingRectangle.Height;
+                // This next operation makes sure the character falls down to a new floor tile when it walks.
+                Player.CurrentPosition.Y += UserControlledSprite.GRAVITY_DOWNWARD;
             }
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
