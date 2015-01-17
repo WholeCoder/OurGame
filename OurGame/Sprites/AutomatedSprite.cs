@@ -18,6 +18,9 @@ namespace OurGame.Sprites
         private PlayGameState _PlayGameState;
         private int _StartXOffset;
 
+        private int _MoveRightLength;
+        private int _MoveLeftLength;
+
         public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "pressure" to keep the sprit on the ground;
 
         public AutomatedSprite(string configFilePathAndName, PlayGameState pState)
@@ -39,14 +42,21 @@ namespace OurGame.Sprites
             // TODO: Read properties starting at startOffset.
             this._HowFarToWalkInOneDirection = Convert.ToInt32(configArray[startOffset]);
             this._IsGoingRight = configArray[startOffset + 1].Equals("True");
+            this._MoveLeftLength = this._HowFarToWalkInOneDirection;
+            this._MoveRightLength = this._HowFarToWalkInOneDirection;
         }
 
         private bool _FirstTime = true;
 
         protected override void UpdateAfterNextFrame(GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can't be null!");
+
             if (this._FirstTime || this._PlayGameState.screenXOffset != this._StartXOffset)
             {
+                this._MoveRightLength = Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+                this._MoveLeftLength = Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+
                 this._StartingX = (int)this._InitialPosition.X+this._PlayGameState.screenXOffset;
                 this._StartXOffset = this._PlayGameState.screenXOffset;
                 this._FirstTime = false;
@@ -55,20 +65,25 @@ namespace OurGame.Sprites
             if (this._IsGoingRight)
             {
                 this.SwitchToGoRightTexture();
-                if (this.CurrentPosition.X + this._PlayGameState.screenXOffset > this._StartingX + this._PlayGameState.screenXOffset + this._HowFarToWalkInOneDirection)
+                if (this.CurrentPosition.X > this._InitialPosition.X+this._PlayGameState.screenXOffset  + this._MoveRightLength)
                  {
                      this._IsGoingRight = false;
-                 }
-                this.CurrentPosition.X += 5;
+                 } else
+                {
+                    this.CurrentPosition.X += 5;
+                }
             }
             else
             {
                 this.SwitchToGoLeftTexture();
-                if (this.CurrentPosition.X + this._PlayGameState.screenXOffset < this._StartingX + this._PlayGameState.screenXOffset - this._HowFarToWalkInOneDirection)
+                if (this.CurrentPosition.X < this._InitialPosition.X + this._PlayGameState.screenXOffset - this._MoveLeftLength)
                 {
                     this._IsGoingRight = true;
                 }
-                this.CurrentPosition.X -= 5;
+                else
+                {
+                    this.CurrentPosition.X -= 5;
+                }
             }
 
 
