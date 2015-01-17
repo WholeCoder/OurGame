@@ -51,6 +51,7 @@ namespace OurGame.Sprites
 
             if (this._IsGoingRight)
             {
+                this.SwitchToGoRightTexture();
                 if (this.CurrentPosition.X + this._PlayGameState.screenXOffset > this._StartingX + this._PlayGameState.screenXOffset + this._HowFarToWalkInOneDirection)
                  {
                      this._IsGoingRight = false;
@@ -59,6 +60,7 @@ namespace OurGame.Sprites
             }
             else
             {
+                this.SwitchToGoLeftTexture();
                 if (this.CurrentPosition.X + this._PlayGameState.screenXOffset < this._StartingX + this._PlayGameState.screenXOffset - this._HowFarToWalkInOneDirection)
                 {
                     this._IsGoingRight = true;
