@@ -77,6 +77,7 @@ namespace OurGame.GameStates
             Player.Update(gameTime);
             Enemy.Update(gameTime);
 
+            // These next 2 statements make sure, if they hit the ground, that they will not go through the ground.
             SetSpritePositionIfIntersectingWithGround(Player);
             SetSpritePositionIfIntersectingWithGround(Enemy);
 
