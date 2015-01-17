@@ -7,7 +7,7 @@ This is a 2D video game level editor created with the XNA framework.
 
 **Building**
 
-** These instructions are for Visual Studio 2010 Express and the XNA Studio Framework. **
+**These instructions are for Visual Studio 2010 Express and the XNA Studio Framework.**
 
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
 
