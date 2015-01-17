@@ -42,6 +42,7 @@ namespace OurGame.GameStates
         public Game1 OurGame { get; set; }
 
         public AnimatedSprite Player { get; set; }
+        public AnimatedSprite Enemy { get; set; }
 
         private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
         private Vector2 _PreviousPlayerPosition = new Vector2(-1.0f, -1.0f);
@@ -63,6 +64,7 @@ namespace OurGame.GameStates
 
             // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
+            Enemy = new AutomatedSprite("AutomatedSpriteConfig.txt", this);
 
             myEffectsManager.LoadContent(Content);
         }
@@ -74,7 +76,8 @@ namespace OurGame.GameStates
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             Player.Update(gameTime);
-            
+            Enemy.Update(gameTime);
+
             List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(this.Player, screenXOffset);
             if (tilesThatHaveCollisionWithSprite.Count != 0)
             {
@@ -236,6 +239,7 @@ namespace OurGame.GameStates
         {
             this.board.DrawBoard(spriteBatch, screenXOffset, false);  // screenXOffset scrolls the board left and right!
             Player.Draw(spriteBatch);
+            Enemy.Draw(spriteBatch);
             myEffectsManager.Draw(spriteBatch);
         }
     }

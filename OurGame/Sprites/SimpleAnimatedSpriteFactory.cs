@@ -23,7 +23,7 @@ namespace OurGame.Sprites
             if (typeOfAnimatedSprite.Equals("AutomatedSprite"))
             {
                 // TODO: Remove all arguments to constructor and create the implementation of the load method.
-                spriteWeAreLoading = new AutomatedSprite(filepath);
+                spriteWeAreLoading = new AutomatedSprite(filepath, pState);
                 
                 // TODO: possibly call this later to "Load(Content)"
                 //spriteWeAreLoading.Load(filepath);

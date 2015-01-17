@@ -13,7 +13,7 @@ namespace OurGame.Sprites
     public abstract class AnimatedSprite
     {
         public Vector2 CurrentPosition;
-        private Vector2 _InitialPosition { get; set; }
+        public Vector2 _InitialPosition { get; set; }
 
         private int _ScaleUpThisSpriteFactor = 10;
 
@@ -329,7 +329,7 @@ namespace OurGame.Sprites
         }
 
         // Useful in sub-classes.
-        private static void AddText(FileStream fs, string value)
+        public static void AddText(FileStream fs, string value)
         {
             Debug.Assert(fs != null, "FileStream fs can't be null!");
             Debug.Assert(value != null, "value can't be null!");
