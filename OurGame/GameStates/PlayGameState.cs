@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
@@ -78,19 +77,8 @@ namespace OurGame.GameStates
             Player.Update(gameTime);
             Enemy.Update(gameTime);
 
-            List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(this.Player, screenXOffset);
-            if (tilesThatHaveCollisionWithSprite.Count != 0)
-            {
-                int leastY = this.board.BoardHeight;
-                foreach (var tile in tilesThatHaveCollisionWithSprite)
-                {
-                    if (tile.BoundingRectangle.Y < leastY)
-                    {
-                        leastY = tile.BoundingRectangle.Y;
-                    }
-                }
-                this.Player.CurrentPosition.Y = leastY - this.Player.BoundingRectangle.Height;
-            }
+            SetSpritePositionIfIntersectingWithGround(Player);
+            SetSpritePositionIfIntersectingWithGround(Enemy);
 
             if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
             {
@@ -227,12 +215,32 @@ namespace OurGame.GameStates
                 Player.CurrentPosition.Y += UserControlledSprite.GRAVITY_DOWNWARD;
             }
 
+            // "Gravity" to pull down the Enemy.
+            Enemy.CurrentPosition.Y += AutomatedSprite.GRAVITY_DOWNWARD;
+
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, oldKeyboardState, this.OurGame, gameTime);
 
             oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
+        }
+
+        private void SetSpritePositionIfIntersectingWithGround(AnimatedSprite sSprite)
+        {
+            List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(sSprite, screenXOffset);
+            if (tilesThatHaveCollisionWithSprite.Count != 0)
+            {
+                int leastY = this.board.BoardHeight;
+                foreach (var tile in tilesThatHaveCollisionWithSprite)
+                {
+                    if (tile.BoundingRectangle.Y < leastY)
+                    {
+                        leastY = tile.BoundingRectangle.Y;
+                    }
+                }
+                sSprite.CurrentPosition.Y = leastY - sSprite.BoundingRectangle.Height;
+            }
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)

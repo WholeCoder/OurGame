@@ -19,7 +19,7 @@ namespace OurGame.Sprites
 
         private Board _TheBoard;
         private PlayGameState _PlayGameState;
-        public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "preassure" to keep the sprit on the ground;
+        public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "pressure" to keep the sprit on the ground;
 
         public UserControlledSprite(string configFilePathAndName, Board board, PlayGameState pState)
             : base(configFilePathAndName)

@@ -18,6 +18,8 @@ namespace OurGame.Sprites
         private PlayGameState _PlayGameState;
         private int _StartXOffset;
 
+        public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "pressure" to keep the sprit on the ground;
+
         public AutomatedSprite(string configFilePathAndName, PlayGameState pState)
             : base(configFilePathAndName)
         {
