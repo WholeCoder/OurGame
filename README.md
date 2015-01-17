@@ -6,6 +6,7 @@ This is a 2D video game level editor created with the XNA framework.
 ---
 
 **Building on Visual Studio 2013 Community Edition**
+
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
 
 1.  Go to Tools-> NuGet package manager -> package manager console.
