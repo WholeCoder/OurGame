@@ -5,41 +5,16 @@ This is a 2D video game level editor created with the XNA framework.
 
 ---
 
-**Building**
+**Building on Visual Studio 2013 Community Edition**
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
 
-1.  Go to the **OurGame** directory with **build.proj** in it.
+1.  Go to Tools-> NuGet package manager -> package manager console.
 
-2.  Run the following command:
+Enter
+2.  Install-Package xunit -Version 1.9.2
 
-**msbuild build.proj /t:Build /p:Platform="x86"**
-
-This will download XUnit automatically and put it into the 'packages' directory.
-
----
-**How to setup xUnit in visual studio**
-
-1.  Go to **Tools->External Tools**... menu
-
-2.  Click **Add**
-
-3. **Enter** the **following:**
-
-
-Title:  **XUnit Test**
-
-Command:  **Path to OurGame\OurGame\packages\xunit.runners.1.9.2\tools\xunit.console.clr4.exe**
-
-Arguments:  **$(BinDir)$(TargetName)$(TargetExt)**
-
-Initial directory:  **$(BinDir)**
-
-
-4.  Check **"Use Ouput Window"**
-
-5.  Click **Ok**.
-
-
+Enter
+3.  Install-Package xunit.runner.visualstudio -Pre
 
 ---
 
