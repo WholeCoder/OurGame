@@ -63,7 +63,7 @@ namespace OurGame.GameStates
 
             // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
-            Enemy = new AutomatedSprite("AutomatedSpriteConfig.txt", this);
+            Enemy = new AutomatedSprite("AutomatedSpriteConfig.txt", board, this);
 
             myEffectsManager.LoadContent(Content);
         }

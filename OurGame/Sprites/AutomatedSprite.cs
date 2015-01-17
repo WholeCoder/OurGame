@@ -21,15 +21,19 @@ namespace OurGame.Sprites
         private int _MoveRightLength;
         private int _MoveLeftLength;
 
+        private Board _TheBoard;
+
         public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "pressure" to keep the sprit on the ground;
 
-        public AutomatedSprite(string configFilePathAndName, PlayGameState pState)
+        public AutomatedSprite(string configFilePathAndName, Board board, PlayGameState pState)
             : base(configFilePathAndName)
         {
             Debug.Assert(pState != null, "pState can't be null!");
+            Debug.Assert(board != null, "board can't be null!");
             
             this._PlayGameState = pState;
             this._StartXOffset = pState.screenXOffset;
+            this._TheBoard = board;
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -86,6 +90,10 @@ namespace OurGame.Sprites
                 }
             }
 
+            if (this.CurrentPosition.Y + this.BoundingRectangle.Height > this._TheBoard.BoardHeight)
+            {
+                this.CurrentPosition.Y = this._TheBoard.BoardHeight - this.BoundingRectangle.Height;
+            }
 
         }
         

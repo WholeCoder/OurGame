@@ -75,9 +75,6 @@ namespace OurGame.OurGameLibrary
 
             List<Tile> tileList = new List<Tile>();
 
-            // This will make the board only draw the part that is on the screen on the left side.
-            this.BoardMarginX = this.TileWidth * Board.NUMBER_OF_TILES_IN_MARGIN_X;
-
             for (int i = 0; i < this.TheBoard.GetLength(0); i++)
             {
                 int startX;
