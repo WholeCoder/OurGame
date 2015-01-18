@@ -36,16 +36,19 @@ namespace OurGame.Sprites
             {
                 using (FileStream fs = File.Create(this.SpritesFileName))
                 {
-                    AddText(fs, "AutomatedSpriteConfig.txt"); // ex) "UserControlledSprite"
+                    AddText(fs, "numberOfSprites:1"); // ex) "UserControlledSprite"
                     AddText(fs, "\n");
 
+                    AddText(fs, "AutomatedSpriteConfig.txt"); // ex) "UserControlledSprite"
+                    AddText(fs, "\n");
                 }
-                if (!File.Exists("AutomatedSpriteConfig.txt"))
-                {
-                    // This will create the AutomatedSpriteConfig.txt file
-                    AnimatedSprite aAnimatedSprite = new AutomatedSprite("AutomatedSpriteConfig.txt", board, pState);
-                }
-            } 
+            }
+            if (!File.Exists("AutomatedSpriteConfig.txt"))
+            {
+                // This will create the AutomatedSpriteConfig.txt file
+                AnimatedSprite aAnimatedSprite = new AutomatedSprite("AutomatedSpriteConfig.txt", board, pState);
+            }
+
             String[] configStringSplitRay = File.ReadAllLines(this.SpritesFileName);
 
             int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // numberOfSprites:10
@@ -85,5 +88,12 @@ namespace OurGame.Sprites
             fs.Write(info, 0, info.Length);
         } // end method
 
+        public void ApplyDownwordGravity()
+        {
+            for (int i = 0; i < this.Sprites.Length; i++)
+            {
+                this.Sprites[i].ApplyDownwardGravity();
+            } // end for
+        }
     } // end class
 } // end using

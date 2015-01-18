@@ -46,6 +46,8 @@ namespace OurGame.Sprites
         private int _ElapsedGameTime;  // Used to slow down the animaiton of this AnimatedSprite.
         private int _TimeBetweenFrames;
 
+        public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "pressure" to keep the sprit on the ground;
+
         public Rectangle BoundingRectangle; // For collision detection.
 
         public AnimatedSprite(string configFilePathAndName)
@@ -69,6 +71,11 @@ namespace OurGame.Sprites
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
                                                          this._CurrentFrameSize.X * this._ScaleUpThisSpriteFactor, this._CurrentFrameSize.Y * this._ScaleUpThisSpriteFactor);
+        }
+
+        public void ApplyDownwardGravity()
+        {
+            this.CurrentPosition.Y += AnimatedSprite.GRAVITY_DOWNWARD;
         }
 
         private void NextFrame(GameTime gameTime)

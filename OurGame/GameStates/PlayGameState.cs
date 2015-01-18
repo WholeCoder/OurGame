@@ -41,10 +41,12 @@ namespace OurGame.GameStates
         public Game1 OurGame { get; set; }
 
         public AnimatedSprite Player { get; set; }
-        public AnimatedSprite Enemy { get; set; }
+        //public AnimatedSprite Enemy { get; set; }
 
         private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
         private Vector2 _PreviousPlayerPosition = new Vector2(-1.0f, -1.0f);
+
+        private SpriteManager _SpriteManager;
 
         public PlayGameState()
         {
@@ -61,9 +63,10 @@ namespace OurGame.GameStates
         {
             board = new Board(pathToSavedGambeBoardConfigurationFile);
 
-            // TODO:  Create the "UserControlledSpriteConfig.txt" file or make the class create it if not found.
+            this._SpriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", board, this);
+
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
-            Enemy = new AutomatedSprite("AutomatedSpriteConfig.txt", board, this);
+            //Enemy = new AutomatedSprite("AutomatedSpriteConfig.txt", board, this);
 
             myEffectsManager.LoadContent(Content);
         }
@@ -75,11 +78,15 @@ namespace OurGame.GameStates
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             Player.Update(gameTime);
-            Enemy.Update(gameTime);
+            //Enemy.Update(gameTime);
+            this._SpriteManager.Update(gameTime);
 
             // These next 2 statements make sure, if they hit the ground, that they will not go through the ground.
             SetSpritePositionIfIntersectingWithGround(Player);
-            SetSpritePositionIfIntersectingWithGround(Enemy);
+            for (int i = 0; i < this._SpriteManager.Sprites.Length; i++)
+            {
+                SetSpritePositionIfIntersectingWithGround(this._SpriteManager.Sprites[i]);
+            }
 
             if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
             {
@@ -211,11 +218,11 @@ namespace OurGame.GameStates
             else
             {
                 // This next operation makes sure the character falls down to a new floor tile when it walks.
-                Player.CurrentPosition.Y += UserControlledSprite.GRAVITY_DOWNWARD;
+                Player.ApplyDownwardGravity();
             }
 
             // "Gravity" to pull down the Enemy.
-            Enemy.CurrentPosition.Y += AutomatedSprite.GRAVITY_DOWNWARD;
+            this._SpriteManager.ApplyDownwordGravity();
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
@@ -246,7 +253,7 @@ namespace OurGame.GameStates
         {
             this.board.DrawBoard(spriteBatch, screenXOffset, false);  // screenXOffset scrolls the board left and right!
             Player.Draw(spriteBatch);
-            Enemy.Draw(spriteBatch);
+            this._SpriteManager.Draw(spriteBatch);
             myEffectsManager.Draw(spriteBatch);
         }
     }
