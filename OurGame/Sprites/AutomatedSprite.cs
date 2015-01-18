@@ -108,7 +108,7 @@ namespace OurGame.Sprites
 
             // Nothing to write yet!
             // TODO: Write out attributes if they exist for UserControlledSprite
-            this._HowFarToWalkInOneDirection = 100;
+            this._HowFarToWalkInOneDirection = 50;
             AnimatedSprite.AddText(fs, this._HowFarToWalkInOneDirection+"");
             AnimatedSprite.AddText(fs, "\n");
 
