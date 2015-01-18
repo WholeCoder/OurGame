@@ -146,50 +146,48 @@ namespace OurGame.GameStates
             myEffectsManager.Update(gameTime);
 
 
-            //if (!this.board.IsThereACollisionWith(Player, screenXOffset))
+            if (keyState.IsKeyDown(Keys.Right))
             {
-                if (keyState.IsKeyDown(Keys.Right))
+                SetGameMetricsToPreviousValuesCommand topStack = null;
+                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
                 {
-                    SetGameMetricsToPreviousValuesCommand topStack = null;
-                    if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
-                    {
-                        topStack= (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
+                    topStack= (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
 
-                    }
-
-                    if (topStack== null ||
-                        topStack._CurrentPosition.X != Player.CurrentPosition.X ||
-                        topStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
-                        topStack._ScreenOffset != screenXOffset)
-                    {
-                        SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
-                        this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
-
-                    }
-                    screenXOffset -= scrollAmount;
                 }
 
-                if (keyState.IsKeyDown(Keys.Left))
+                if (topStack== null ||
+                    topStack._CurrentPosition.X != Player.CurrentPosition.X ||
+                    topStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
+                    topStack._ScreenOffset != screenXOffset)
                 {
-                    SetGameMetricsToPreviousValuesCommand topStack = null;
-                    if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
-                    {
-                        topStack = (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
+                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
 
-                    }
-
-                    if (topStack == null ||
-                        topStack._CurrentPosition.X != Player.CurrentPosition.X ||
-                        topStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
-                        topStack._ScreenOffset != screenXOffset)
-                    {
-                        SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
-                        this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
-
-                    }
-                    screenXOffset += scrollAmount;
                 }
+                screenXOffset -= scrollAmount;
             }
+
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                SetGameMetricsToPreviousValuesCommand topStack = null;
+                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
+                {
+                    topStack = (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
+
+                }
+
+                if (topStack == null ||
+                    topStack._CurrentPosition.X != Player.CurrentPosition.X ||
+                    topStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
+                    topStack._ScreenOffset != screenXOffset)
+                {
+                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
+
+                }
+                screenXOffset += scrollAmount;
+            }
+            
 
 
             if (screenXOffset <= -this.board.BoardWidth)

@@ -58,8 +58,8 @@ namespace OurGame.Sprites
 
             if (this._FirstTime || this._PlayGameState.screenXOffset != this._StartXOffset)
             {
-                this._MoveRightLength = Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
-                this._MoveLeftLength = Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+                this._MoveRightLength = (int)this._InitialPosition.X + this._PlayGameState.screenXOffset+this._HowFarToWalkInOneDirection;// Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+                this._MoveLeftLength = (int)this._InitialPosition.X + this._PlayGameState.screenXOffset- this._HowFarToWalkInOneDirection;// Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
 
                 this._StartingX = (int)this._InitialPosition.X+this._PlayGameState.screenXOffset;
                 this._StartXOffset = this._PlayGameState.screenXOffset;
@@ -69,10 +69,10 @@ namespace OurGame.Sprites
             if (this._IsGoingRight)
             {
                 this.SwitchToGoRightTexture();
-                if (this.CurrentPosition.X > this._InitialPosition.X+this._PlayGameState.screenXOffset  + this._MoveRightLength)
-                 {
-                     this._IsGoingRight = false;
-                 } else
+                if (this.CurrentPosition.X > this._MoveRightLength)
+                {
+                    this._IsGoingRight = false;
+                } else
                 {
                     this.CurrentPosition.X += 5;
                 }
@@ -80,7 +80,7 @@ namespace OurGame.Sprites
             else
             {
                 this.SwitchToGoLeftTexture();
-                if (this.CurrentPosition.X < this._InitialPosition.X + this._PlayGameState.screenXOffset - this._MoveLeftLength)
+                if (this.CurrentPosition.X < this._MoveLeftLength)
                 {
                     this._IsGoingRight = true;
                 }
