@@ -146,7 +146,7 @@ namespace OurGame.GameStates
             myEffectsManager.Update(gameTime);
 
 
-            if (!this.board.IsThereACollisionWith(Player, screenXOffset))
+            //if (!this.board.IsThereACollisionWith(Player, screenXOffset))
             {
                 if (keyState.IsKeyDown(Keys.Right))
                 {
