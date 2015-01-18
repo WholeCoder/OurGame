@@ -14,7 +14,6 @@ namespace OurGame.Sprites
     {
         private int _HowFarToWalkInOneDirection;
         private bool _IsGoingRight;
-        private int _StartingX;
         private PlayGameState _PlayGameState;
         private int _StartXOffset;
 
@@ -61,7 +60,6 @@ namespace OurGame.Sprites
                 this._MoveRightLength = (int)this._InitialPosition.X + this._PlayGameState.screenXOffset+this._HowFarToWalkInOneDirection;// Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
                 this._MoveLeftLength = (int)this._InitialPosition.X + this._PlayGameState.screenXOffset- this._HowFarToWalkInOneDirection;// Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
 
-                this._StartingX = (int)this._InitialPosition.X+this._PlayGameState.screenXOffset;
                 this._StartXOffset = this._PlayGameState.screenXOffset;
                 this._FirstTime = false;
             }
