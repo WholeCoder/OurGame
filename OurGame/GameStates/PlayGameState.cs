@@ -41,12 +41,11 @@ namespace OurGame.GameStates
         public Game1 OurGame { get; set; }
 
         public AnimatedSprite Player { get; set; }
-        //public AnimatedSprite Enemy { get; set; }
+        private SpriteManager _SpriteManager;
 
         private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
         private Vector2 _PreviousPlayerPosition = new Vector2(-1.0f, -1.0f);
 
-        private SpriteManager _SpriteManager;
 
         public PlayGameState()
         {
@@ -66,7 +65,6 @@ namespace OurGame.GameStates
             this._SpriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", board, this);
 
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
-            //Enemy = new AutomatedSprite("AutomatedSpriteConfig.txt", board, this);
 
             myEffectsManager.LoadContent(Content);
         }
@@ -78,7 +76,6 @@ namespace OurGame.GameStates
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             Player.Update(gameTime);
-            //Enemy.Update(gameTime);
             this._SpriteManager.Update(gameTime);
 
             // These next 2 statements make sure, if they hit the ground, that they will not go through the ground.
@@ -221,7 +218,7 @@ namespace OurGame.GameStates
                 Player.ApplyDownwardGravity();
             }
 
-            // "Gravity" to pull down the Enemy.
+            // "Gravity" to pull down the enemies.
             this._SpriteManager.ApplyDownwordGravity();
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state

@@ -11,6 +11,7 @@ using OurGame.OurGameLibrary;
 
 namespace OurGame.Sprites
 {
+    // This class manages all the sprites.  Mainly enemy sprites but could use it for the UserControlledSprite too.
     class SpriteManager
     {
         public AnimatedSprite[] Sprites;
