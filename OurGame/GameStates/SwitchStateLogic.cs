@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 // Our usings.
@@ -14,6 +15,11 @@ namespace OurGame.GameStates
 
         public static void DoChangeGameStateFromKeyboardLogic(KeyboardState newKeyboardState, KeyboardState oldKeyboardState, Game1 ourGame, GameTime gameTime)
         {
+            Debug.Assert(newKeyboardState != null, "newKeyboardState can not be null!");
+            Debug.Assert(oldKeyboardState != null, "oldKeyBoardState can not be null!");
+            Debug.Assert(ourGame != null, "ourGame can not be null!");
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             // Press E for edit board state.
             if (newKeyboardState.IsKeyDown(Keys.E) && oldKeyboardState.IsKeyUp(Keys.E))
             {

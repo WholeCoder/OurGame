@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
@@ -54,12 +55,16 @@ namespace OurGame.GameStates
 
         public override void Initialize(Game1 ourGame)
         {
+            Debug.Assert(ourGame != null, "ourGame can not be null!");
+
             this.OurGame = ourGame;
             this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<OurGame.Commands.ICommand>();
         }
 
         protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
+            Debug.Assert(Content != null, "Content can not be null!");
+
             board = new Board(pathToSavedGambeBoardConfigurationFile);
 
             this._SpriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", board, this);
@@ -75,6 +80,8 @@ namespace OurGame.GameStates
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             Player.Update(gameTime);
             this._SpriteManager.Update(gameTime);
 
@@ -231,6 +238,8 @@ namespace OurGame.GameStates
 
         private void SetSpritePositionIfIntersectingWithGround(AnimatedSprite sSprite)
         {
+            Debug.Assert(sSprite != null, "sSprite can not be null!");
+
             List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(sSprite, screenXOffset);
             if (tilesThatHaveCollisionWithSprite.Count != 0)
             {
@@ -248,6 +257,9 @@ namespace OurGame.GameStates
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+
             this.board.DrawBoard(spriteBatch, screenXOffset, false);  // screenXOffset scrolls the board left and right!
             Player.Draw(spriteBatch);
             this._SpriteManager.Draw(spriteBatch);

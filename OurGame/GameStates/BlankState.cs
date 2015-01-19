@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework.Input;
 
 // My usings.
 using OurGame.WindowsGame1;
-using OurGame.OurGameLibrary;
 
 namespace OurGame.GameStates
 {
@@ -21,6 +21,8 @@ namespace OurGame.GameStates
 
         public override void Initialize(Game1 ourGame)
         {
+            Debug.Assert(ourGame != null, "ourGame can not be null!");
+
             this.OurGame = ourGame;
         }
 
@@ -36,6 +38,8 @@ namespace OurGame.GameStates
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be equal to null!");
+
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, this.OurGame, gameTime);

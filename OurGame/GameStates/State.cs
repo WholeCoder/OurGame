@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +16,8 @@ namespace OurGame.GameStates
         // Don't override this to load the content!  Use the method below!
         public void LoadContent(ContentManager Content)
         {
+            Debug.Assert(Content != null, "Content can not be null!");
+
             // This is the reason that this method was implemented - to call TextureCache.SetContent(Content).
             TextureCache.SetContent(Content); // Must be called before TextureCache.getInstance() - a Singleton.
 

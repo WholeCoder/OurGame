@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -35,6 +36,8 @@ namespace OurGame.GameStates
 
         protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
+            Debug.Assert(Content != null, "Content can not be null!");
+
             this._HelpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
             string menuMessage = "Game Board Edit Help";
@@ -141,6 +144,8 @@ namespace OurGame.GameStates
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _OldKeyboardState, this.OurGame, gameTime);
@@ -150,6 +155,9 @@ namespace OurGame.GameStates
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+
             this._EditScreenHelpMenu.Draw(spriteBatch,this._HelpFont);
             this._GeneralHelpMenu.Draw(spriteBatch, this._HelpFont);
         }

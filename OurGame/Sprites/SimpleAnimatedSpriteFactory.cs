@@ -13,7 +13,9 @@ namespace OurGame.Sprites
     {
         public static AnimatedSprite CreateAnimatedSprite(String filepath, Board board, PlayGameState pState)
         {
-            Debug.Assert( filepath != null && !filepath.Equals(""),"filepath must not be null or empty!");
+            Debug.Assert(filepath != null && !filepath.Equals(""),"filepath must not be null or empty!");
+            Debug.Assert(board != null, "board can not be null!");
+            Debug.Assert(pState != null, "pState can not be null!");
 
             string[] configStringSplitRay = File.ReadAllLines(filepath);
 

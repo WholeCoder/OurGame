@@ -241,6 +241,8 @@ namespace OurGame.GameStates
 
         public void SaveBoardToDiskAndReloadPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             this.SaveCurrentBoard();
             this.OurGame.playGameState.LoadContent(Content);
             this.OurGame.SetStateWhenUpdating(this.OurGame.playGameState, gameTime);
