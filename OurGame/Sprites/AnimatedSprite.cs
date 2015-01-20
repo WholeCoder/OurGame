@@ -3,14 +3,16 @@ using System.IO;
 using System.Text;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.OurGameLibrary;
+using OurGame.Sprites.Observer;
 
 namespace OurGame.Sprites
 {
-    public abstract class AnimatedSprite
+    public abstract class AnimatedSprite : SpriteSubject
     {
         public Vector2 CurrentPosition;
         public Vector2 _InitialPosition { get; set; }
@@ -50,6 +52,9 @@ namespace OurGame.Sprites
 
         public Rectangle BoundingRectangle; // For collision detection.
 
+        public List<SpriteObserver> _Observers;
+        public int LifeLeft;
+
         public AnimatedSprite(string configFilePathAndName)
         {
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null, "configFilePathAndName can't be null or blank!");
@@ -68,9 +73,43 @@ namespace OurGame.Sprites
             this._IsGoingLeft = false;
             this._IsGoingRight = false;
 
+            this._Observers = new List<SpriteObserver>();
+            this.LifeLeft = 1000;
+
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
                                                          this._CurrentFrameSize.X * this._ScaleUpThisSpriteFactor, this._CurrentFrameSize.Y * this._ScaleUpThisSpriteFactor);
+        }
+
+
+        // Observer Pattern
+        public void registerObserver(SpriteObserver aObserver)
+        {
+            this._Observers.Add(aObserver);
+        }
+
+        public void removeObserver(SpriteObserver aObserver)
+        {
+            int i = this._Observers.IndexOf(aObserver);
+            if (i >= 0)
+            {
+                this._Observers.Remove(aObserver);
+            }
+        }
+
+        public void notifyObservers()
+        {
+            for (int i = 0; i < this._Observers.Count; i++)
+            {
+                this._Observers[i].update(this.LifeLeft);
+            }
+        }
+
+        public void DecreaseSpriteLife(int delta)
+        {
+            this.LifeLeft -= delta;
+
+            notifyObservers();
         }
 
         public void ApplyDownwardGravity()

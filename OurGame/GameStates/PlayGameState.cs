@@ -9,6 +9,7 @@ using OurGame.Sprites;
 using OurGame.Commands;
 using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
+using OurGame.Sprites.Observer;
 using OurGame.Commands.ReverseTimeCommands;
 
 // Created by someone else.
@@ -16,7 +17,7 @@ using ParticleEffects;
 
 namespace OurGame.GameStates
 {
-    public class PlayGameState : State
+    public class PlayGameState : State, SpriteObserver
     {
         EffectManager myEffectsManager;
         int keyboardDelayCounter = 0;
@@ -47,10 +48,16 @@ namespace OurGame.GameStates
         private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
         private Vector2 _PreviousPlayerPosition = new Vector2(-1.0f, -1.0f);
 
+        private int _PlayerLife;
 
         public PlayGameState()
         {
             myEffectsManager = new EffectManager();
+        }
+
+        public void update(int life)
+        {
+            this._PlayerLife = life;
         }
 
         public override void Initialize(Game1 ourGame)
@@ -70,6 +77,8 @@ namespace OurGame.GameStates
             this._SpriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", board, this);
 
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
+
+            this._PlayerLife = Player.LifeLeft;
 
             myEffectsManager.LoadContent(Content);
         }
