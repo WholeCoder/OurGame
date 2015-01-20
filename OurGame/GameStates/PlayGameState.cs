@@ -49,6 +49,7 @@ namespace OurGame.GameStates
         private Vector2 _PreviousPlayerPosition = new Vector2(-1.0f, -1.0f);
 
         private int _PlayerLife;
+        private SpriteFont _HelpFont;
 
         public PlayGameState()
         {
@@ -79,6 +80,7 @@ namespace OurGame.GameStates
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
 
             this._PlayerLife = Player.LifeLeft;
+            this._HelpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
             myEffectsManager.LoadContent(Content);
         }
@@ -273,6 +275,10 @@ namespace OurGame.GameStates
             Player.Draw(spriteBatch);
             this._SpriteManager.Draw(spriteBatch);
             myEffectsManager.Draw(spriteBatch);
+            spriteBatch.DrawString(this._HelpFont, "Life:  "+this._PlayerLife,
+                       new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
+                       1, SpriteEffects.None, 1);
+
         }
     }
 }
