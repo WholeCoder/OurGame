@@ -61,12 +61,13 @@ namespace OurGame.OurGameLibrary
                         if (currTile == null || this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y)
                         {
                             currTile = this.TheBoard[i, startX];
+                            goto end_of_method;
                         }
                     }
                 } // End for.
             } // End if
 
-            return currTile;
+            end_of_method: return currTile;
         }
 
         public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)

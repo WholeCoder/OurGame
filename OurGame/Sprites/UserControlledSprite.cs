@@ -12,8 +12,7 @@ namespace OurGame.Sprites
 {
     public class UserControlledSprite : AnimatedSprite
     {
-        private static int STARTING_DELTA = 20;
-        private int _StartyingYCoordinateForJumping;
+        private static int STARTING_DELTA = 30;
         private int _JumpDelta = 0;
         private bool _CurrentlyJumping = false;
 
@@ -39,6 +38,8 @@ namespace OurGame.Sprites
 
         protected override void UpdateAfterNextFrame(GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             KeyboardState keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
@@ -64,7 +65,7 @@ namespace OurGame.Sprites
             {
                 this._JumpDelta = -UserControlledSprite.STARTING_DELTA;
                 this._CurrentlyJumping = true;
-                this._StartyingYCoordinateForJumping = (int)this.CurrentPosition.Y;
+                Console.WriteLine("SPACE pressed and not currently jumpting!");
             }
 
             if (this._CurrentlyJumping)
@@ -73,12 +74,11 @@ namespace OurGame.Sprites
                 this._JumpDelta += 1;
             }
 
-
             if (this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset) == null || (this._CurrentlyJumping && (this.BoundingRectangle.Height + this.BoundingRectangle.Y) > this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y))
             {
                 this._CurrentlyJumping = false;
                 this._JumpDelta = 0;
-                //Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
+                Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
                 //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
             }
 
