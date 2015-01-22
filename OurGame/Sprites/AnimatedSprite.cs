@@ -116,6 +116,7 @@ namespace OurGame.Sprites
         public void ApplyDownwardGravity()
         {
             this.CurrentPosition.Y += AnimatedSprite.GRAVITY_DOWNWARD;
+            this.BoundingRectangle.Y = (int)this.CurrentPosition.Y;
         }
 
         private void NextFrame(GameTime gameTime)

@@ -97,7 +97,7 @@ namespace OurGame.GameStates
             this._SpriteManager.Update(gameTime);
 
             // These next 2 statements make sure, if they hit the ground, that they will not go through the ground.
-            SetSpritePositionIfIntersectingWithGround(Player);
+            //SetSpritePositionIfIntersectingWithGround(Player);
             for (int i = 0; i < this._SpriteManager.Sprites.Length; i++)
             {
                 SetSpritePositionIfIntersectingWithGround(this._SpriteManager.Sprites[i]);
@@ -230,9 +230,14 @@ namespace OurGame.GameStates
                     sCommand.Execute();
                 }
             }
-            else
+            else if (Player.BoundingRectangle.Intersects(this.board.GetFloorLocation(Player, screenXOffset).BoundingRectangle))
             {
                 // This next operation makes sure the character falls down to a new floor tile when it walks.
+                Player.CurrentPosition.Y = this.board.GetFloorLocation(Player, screenXOffset).BoundingRectangle.Y-Player.BoundingRectangle.Height;
+                Player.BoundingRectangle.Y = (int)Player.CurrentPosition.Y;
+            }
+            else
+            {
                 Player.ApplyDownwardGravity();
             }
 
