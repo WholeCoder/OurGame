@@ -78,7 +78,7 @@ namespace OurGame.Sprites
             {
                 this._CurrentlyJumping = false;
                 this._JumpDelta = 0;
-                Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
+                //Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
                 //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
             }
 

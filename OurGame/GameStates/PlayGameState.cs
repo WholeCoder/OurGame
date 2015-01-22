@@ -231,7 +231,7 @@ namespace OurGame.GameStates
                     sCommand.Execute();
                 }
             }
-            else if (Player.BoundingRectangle.Intersects(this.board.GetFloorLocation(Player, screenXOffset).BoundingRectangle))
+            else if (this.board.GetFloorLocation(Player, screenXOffset) != null && Player.BoundingRectangle.Intersects(this.board.GetFloorLocation(Player, screenXOffset).BoundingRectangle))
             {
                 // This next operation makes sure the character falls down to a new floor tile when it walks.
                 Player.CurrentPosition.Y = this.board.GetFloorLocation(Player, screenXOffset).BoundingRectangle.Y-Player.BoundingRectangle.Height;
