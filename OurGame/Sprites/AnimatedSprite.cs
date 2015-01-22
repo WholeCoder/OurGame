@@ -17,7 +17,7 @@ namespace OurGame.Sprites
         public Vector2 CurrentPosition;
         public Vector2 _InitialPosition { get; set; }
 
-        private int _ScaleUpThisSpriteFactor = 10;
+        private int _ScaleUpThisSpriteFactor = 1;
 
         private Point _LeftFrameSize;
         private Point _RightFrameSize;
@@ -235,7 +235,7 @@ namespace OurGame.Sprites
                               Color.White,
                               0,
                               Vector2.Zero,
-                              10, // scale
+                              this._ScaleUpThisSpriteFactor, // scale
                               this._CurrentSpriteEffect,
                               0);
         } // end Draw method
