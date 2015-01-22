@@ -17,7 +17,8 @@ namespace OurGame.Sprites
         public Vector2 CurrentPosition;
         public Vector2 _InitialPosition { get; set; }
 
-        private int _ScaleUpThisSpriteFactor = 1;
+        // This scales our characters and enemies up or down.
+        private int _ScaleUpThisSpriteFactor = 2;
 
         private Point _LeftFrameSize;
         private Point _RightFrameSize;
