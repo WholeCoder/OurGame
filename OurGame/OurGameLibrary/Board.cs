@@ -31,7 +31,7 @@ namespace OurGame.OurGameLibrary
         public int TileWidth { get; set; }
         public int TileHeight { get; set; }
 
-        // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - use dto speed up the game by not drawing.
+        // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - used to speed up the game by not drawing
         // all the game board every cycle.
         public int BoardMarginX { get; set; }
         public const int SCREEN_WIDTH = 800;
