@@ -176,6 +176,8 @@ namespace OurGame.OurGameLibrary
 
         } // end method DrawBoard
 
+        // This will calculate the start and end of the board's indicies that are visible on the screen
+        // at the time of the call.
         private void CalculateStartAndEndOfBoardToCheck(int screenXOffset, out int startX, out int endX)
         {
             // Transform BoardMargin on screen coordinate into an index into this Board object's 2D array of Tiles.
