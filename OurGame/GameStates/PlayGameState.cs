@@ -97,12 +97,12 @@ namespace OurGame.GameStates
             Player.Update(gameTime);
             this._SpriteManager.Update(gameTime);
 
-            // These next 2 statements make sure, if they hit the ground, that they will not go through the ground.
+            // These next 2 statements make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
-            SetSpritePositionIfIntersectingWithGround(Player);
+            SetSpritePositionIfIntersectingWithGroundOrPlatform(Player);
             for (int i = 0; i < this._SpriteManager.Sprites.Length; i++)
             {
-                SetSpritePositionIfIntersectingWithGround(this._SpriteManager.Sprites[i]);
+                SetSpritePositionIfIntersectingWithGroundOrPlatform(this._SpriteManager.Sprites[i]);
             }
             
             if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
@@ -249,7 +249,7 @@ namespace OurGame.GameStates
 
         }
 
-        private void SetSpritePositionIfIntersectingWithGround(AnimatedSprite sSprite)
+        private void SetSpritePositionIfIntersectingWithGroundOrPlatform(AnimatedSprite sSprite)
         {
             Debug.Assert(sSprite != null, "sSprite can not be null!");
 
