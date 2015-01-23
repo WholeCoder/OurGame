@@ -98,6 +98,7 @@ namespace OurGame.GameStates
             this._SpriteManager.Update(gameTime);
 
             // These next 2 statements make sure, if they hit the ground, that they will not go through the ground.
+            // (On the closest tile that is below the sprite).
             SetSpritePositionIfIntersectingWithGround(Player);
             for (int i = 0; i < this._SpriteManager.Sprites.Length; i++)
             {
@@ -233,10 +234,11 @@ namespace OurGame.GameStates
             }
             else
             {
+                // "Gravity" to pull down the Player if it is in mid-air.
                 Player.ApplyDownwardGravity();
             }
 
-            // "Gravity" to pull down the enemies.
+            // "Gravity" to pull down the enemies if they are in mid-air.
             this._SpriteManager.ApplyDownwordGravity();
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
@@ -251,7 +253,11 @@ namespace OurGame.GameStates
         {
             Debug.Assert(sSprite != null, "sSprite can not be null!");
 
+            
+            // Get all tiles, on the screen, that intersect with our sprite.
             List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(sSprite, screenXOffset);
+            
+            // if we are not in mid air then find the tile that interesects our sprite with the least Y co-ordinate.
             if (tilesThatHaveCollisionWithSprite.Count != 0)
             {
                 int leastY = this.board.BoardHeight;
@@ -262,6 +268,8 @@ namespace OurGame.GameStates
                         leastY = tile.BoundingRectangle.Y;
                     }
                 }
+
+                // Now make the sprite stay on that tile that was found.
                 sSprite.CurrentPosition.Y = leastY - sSprite.BoundingRectangle.Height;
             }
         }

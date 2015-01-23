@@ -69,6 +69,7 @@ namespace OurGame.OurGameLibrary
             return currTile;
         }
 
+        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aSprite.
         public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)
         {
             Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
@@ -79,6 +80,8 @@ namespace OurGame.OurGameLibrary
             {
                 int startX;
                 int endX;
+
+                // This next method gets the array indices of the board for only the visible portion of this Board's 2D array.
                 CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
 
                 for (int j = startX; j < endX; j++)
@@ -175,8 +178,13 @@ namespace OurGame.OurGameLibrary
 
         private void CalculateStartAndEndOfBoardToCheck(int screenXOffset, out int startX, out int endX)
         {
+            // Transform BoardMargin on screen coordinate into an index into this Board object's 2D array of Tiles.
             startX = this.CalculateXIndex(this.BoardMarginX, screenXOffset);
+
+            // Transform the end of the visible board on the screen into an index into this Board object's 2D array.
             endX = Math.Max(startX, this.CalculateXIndex(Board.SCREEN_WIDTH - this.BoardMarginX, screenXOffset));  // this.TheBoard.GetLength(1);
+            
+            // Make sure the board indicies are not greater than the column width oft he board.
             if (startX >= this.TheBoard.GetLength(1))
             {
                 startX = this.TheBoard.GetLength(1) - 1;
@@ -200,9 +208,11 @@ namespace OurGame.OurGameLibrary
             return putInGameArrayY;
         }
 
-        public int CalculateXIndex(int mouseX, int screenXOffset)
+        // This method takes a onScreenXCoordinate from the screen and transforms it into an index
+        // into an instance of the this Board class.
+        public int CalculateXIndex(int onScreenXCoordinate, int screenXOffset)
         {
-            int putInGameArrayX = (mouseX - screenXOffset - this.BoardMarginX) / this.TileWidth;
+            int putInGameArrayX = (onScreenXCoordinate - screenXOffset - this.BoardMarginX) / this.TileWidth;
             return putInGameArrayX;
         }
 
