@@ -103,7 +103,7 @@ namespace OurGame.GameStates
             {
                 SetSpritePositionIfIntersectingWithGround(this._SpriteManager.Sprites[i]);
             }
-
+            
             if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
             {
                 SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
