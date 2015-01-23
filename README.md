@@ -7,13 +7,19 @@ This is a 2D video game level editor created with the MonoGame framework.
 
 **Building on Visual Studio 2013 Community Edition**
 
-After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment):
+1.  Download and install **Visual Studio 2013 Community Edition** <a href="http://www.visualstudio.com/products/free-developer-offers-vs?wt.mc_id=p~CO~COMMUNITY~SEARCH~FY15~11Nov~GOOGLE~visual%20studio%20free%20download&WT.srch=1&WT.mc_id=SEM_GOO_USEvergreenSearch_Unassigned&CR_CC=300219949">here</a>
 
-1.  Go to **Tools -> NuGet Package Manager -> Package Manager Console.**
+2.  Download and install the **MonoGame** <a href="http://www.monogame.net/">Here</a>
 
-2.  Enter:  **Install-Package xunit -Version 1.9.2**
+After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment).  
 
-3.  Enter:  **Install-Package xunit.runner.visualstudio -Pre**
+3.  Open up the solution in the ./OurGame directory.
+
+4.  Go to **Tools -> NuGet Package Manager -> Package Manager Console.**
+
+5.  Enter:  **Install-Package xunit -Version 1.9.2**
+
+6.  Enter:  **Install-Package xunit.runner.visualstudio -Pre**
 
 ---
 
