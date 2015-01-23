@@ -13,7 +13,7 @@ This is a 2D video game level editor created with the MonoGame framework.
 
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment).  
 
-3.  Open up the solution in the ./OurGame directory.
+3.  Open up the solution with **Visual Studio** 2013 in the ./OurGame directory.
 
 4.  Go to **Tools -> NuGet Package Manager -> Package Manager Console.**
 
