@@ -9,7 +9,7 @@ using OurGame.WindowsGame1;
 namespace OurGame.GameStates
 {
     // This class abstracts out the keyboard keys that are common to all the game's State objects.
-    public class SwitchStateLogic
+    public static class SwitchStateLogic
     {
         public static void DoChangeGameStateFromKeyboardLogic(KeyboardState newKeyboardState, KeyboardState oldKeyboardState, Game1 ourGame, GameTime gameTime)
         {
