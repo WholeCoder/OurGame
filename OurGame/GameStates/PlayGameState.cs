@@ -99,6 +99,7 @@ namespace OurGame.GameStates
 
             // These next 2 statements make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
+            // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
             SetSpritePositionIfIntersectingWithGroundOrPlatform(Player);
             for (int i = 0; i < this._SpriteManager.Sprites.Length; i++)
             {
