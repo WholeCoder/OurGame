@@ -15,44 +15,44 @@ namespace OurGame.OurGameLibrary
     public class TextureCache
     {
         // These are all for the board.
-        private Texture2D[] boardTextures;
-        private String[] boardTextureFileNames;
+        private Texture2D[] _boardTextures;
+        private String[] _boardTextureFileNames;
 
         // This instance method is used in Board Editing mode to get the current "brush" under the mouse cursor.
-        private int currentTextureIndex;
+        private int _currentTextureIndex;
 
         
         // These are for the player and non-player characters
-        private Texture2D[] spriteTextures;
-        private string[] spriteTextureFileNames;
+        private Texture2D[] _spriteTextures;
+        private string[] _spriteTextureFileNames;
 
-        private static TextureCache _TextureCacheInsance = null;
-        private static String _boardTextureCacheFileNameString = @"BoardTextureCache.txt";
-        private static string _spriteFileName = @"SpriteTextureCache.txt";
-        private static ContentManager _Content;
+        private static TextureCache _textureCacheInsance = null;
+        private const String BoardTextureCacheFileNameString = @"BoardTextureCache.txt";
+        private const string SpriteFileName = @"SpriteTextureCache.txt";
+        private static ContentManager _content;
 
         // MUST CALL setupFileNamesAndcontent(...) BEFORE CALLING THIS!
         public static TextureCache getInstance() 
         {
-            if (TextureCache._Content == null)
+            if (TextureCache._content == null)
             {
                 throw new MustCallSetContentMethodFirst("TextureCache.SetContent(...) must be called (usually in LoadContent(..) method of the State subclass) before TextureCache.getInstance() is called!");
             }
 
-            Debug.Assert(TextureCache._Content != null, "TextureCache._Content must not be nulll!");
+            Debug.Assert(TextureCache._content != null, "TextureCache._Content must not be nulll!");
 
-            if (TextureCache._TextureCacheInsance == null)
+            if (TextureCache._textureCacheInsance == null)
             {
-                TextureCache._TextureCacheInsance = new TextureCache(_boardTextureCacheFileNameString, _spriteFileName, _Content);
+                TextureCache._textureCacheInsance = new TextureCache(BoardTextureCacheFileNameString, SpriteFileName, _content);
             }
 
-            return TextureCache._TextureCacheInsance;
+            return TextureCache._textureCacheInsance;
         }
 
         // This method needs to be called before the TextureCache.getInstance() is called!
         public static void SetContent(ContentManager Content)
         {
-            TextureCache._Content = Content;
+            TextureCache._content = Content;
         }
 
         private TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
@@ -89,59 +89,59 @@ namespace OurGame.OurGameLibrary
         {
             if (forBoard)
             {
-                boardTextures = new Texture2D[texStringRay.Length];
-                boardTextureFileNames = new String[texStringRay.Length];
+                _boardTextures = new Texture2D[texStringRay.Length];
+                _boardTextureFileNames = new String[texStringRay.Length];
 
-                for (int i = 0; i < boardTextureFileNames.Length; i++)
+                for (int i = 0; i < _boardTextureFileNames.Length; i++)
                 {
-                    boardTextureFileNames[i] = texStringRay[i];
+                    _boardTextureFileNames[i] = texStringRay[i];
                 }
 
-                for (int i = 0; i < boardTextures.Length; i++)
+                for (int i = 0; i < _boardTextures.Length; i++)
                 {
-                    boardTextures[i] = Content.Load<Texture2D>(boardTextureFileNames[i]);
+                    _boardTextures[i] = Content.Load<Texture2D>(_boardTextureFileNames[i]);
                 }
             }
             else
             {
                 // Load sprite sheets for player and non-player characters.
-                spriteTextures = new Texture2D[texStringRay.Length] ;
-                spriteTextureFileNames = new String[texStringRay.Length];
+                _spriteTextures = new Texture2D[texStringRay.Length] ;
+                _spriteTextureFileNames = new String[texStringRay.Length];
 
-                for (int i = 0; i < spriteTextureFileNames.Length; i++)
+                for (int i = 0; i < _spriteTextureFileNames.Length; i++)
                 {
-                    spriteTextureFileNames[i] = texStringRay[i];
+                    _spriteTextureFileNames[i] = texStringRay[i];
                 }
 
-                for (int i = 0; i < spriteTextures.Length; i++)
+                for (int i = 0; i < _spriteTextures.Length; i++)
                 {
-                    spriteTextures[i] = Content.Load<Texture2D>(spriteTextureFileNames[i]);
+                    _spriteTextures[i] = Content.Load<Texture2D>(_spriteTextureFileNames[i]);
                 }
             }
         }
 
         public int GetLengthOfBoardTextureArray()
         {
-            return boardTextures.Length;
+            return _boardTextures.Length;
         }
 
         public Texture2D GetFromTexture2DBoardArray(int index)
         {
-            return boardTextures[index];
+            return _boardTextures[index];
         }
 
         public String GetFromTextureBoardStringArray(int index)
         {
-            return boardTextureFileNames[index];
+            return _boardTextureFileNames[index];
         }
 
         public Texture2D GetTexture2DFromStringBoardArray(String str)
         {
-            for (int i = 0; i < boardTextureFileNames.Length; i++)
+            for (int i = 0; i < _boardTextureFileNames.Length; i++)
             {
-                if (boardTextureFileNames[i].Equals(str))
+                if (_boardTextureFileNames[i].Equals(str))
                 {
-                    return boardTextures[i];
+                    return _boardTextures[i];
                 }
             }
             return null;
@@ -149,11 +149,11 @@ namespace OurGame.OurGameLibrary
 
         public String GetStringFilenameFromTexture2DForBoard(Texture2D text)
         {
-            for (int i = 0; i < boardTextures.Length; i++)
+            for (int i = 0; i < _boardTextures.Length; i++)
             {
-                if (boardTextures[i] == text)
+                if (_boardTextures[i] == text)
                 {
-                    return boardTextureFileNames[i];
+                    return _boardTextureFileNames[i];
                 }
             }
             return "null";
@@ -161,11 +161,11 @@ namespace OurGame.OurGameLibrary
 
         public Texture2D GetTexture2DFromStringSpriteArray(String str)
         {
-            for (int i = 0; i < spriteTextureFileNames.Length; i++)
+            for (int i = 0; i < _spriteTextureFileNames.Length; i++)
             {
-                if (spriteTextureFileNames[i].Equals(str))
+                if (_spriteTextureFileNames[i].Equals(str))
                 {
-                    return spriteTextures[i];
+                    return _spriteTextures[i];
                 }
             }
             return null;
@@ -173,11 +173,11 @@ namespace OurGame.OurGameLibrary
 
         public String GetStringFilenameFromTexture2DForSprite(Texture2D text)
         {
-            for (int i = 0; i < spriteTextures.Length; i++)
+            for (int i = 0; i < _spriteTextures.Length; i++)
             {
-                if (spriteTextures[i] == text)
+                if (_spriteTextures[i] == text)
                 {
-                    return spriteTextureFileNames[i];
+                    return _spriteTextureFileNames[i];
                 }
             }
             return "null";
@@ -186,23 +186,23 @@ namespace OurGame.OurGameLibrary
         // This method is called by the EditBoardState class to change to the next "brush" under the mouse cursor.
         public void NextTexture()
         {
-            currentTextureIndex = (currentTextureIndex + 1) % boardTextures.Length;
+            _currentTextureIndex = (_currentTextureIndex + 1) % _boardTextures.Length;
         }
 
         public Texture2D GetCurrentTexture()
         {
             // This is the DeleteBrush texture to delete what is under the mouse cursor brush.
-            if (this.boardTextureFileNames[currentTextureIndex].Equals("Images/DeleteBrush"))
+            if (this._boardTextureFileNames[_currentTextureIndex].Equals("Images/DeleteBrush"))
             {
                 return null;
             }
-            return boardTextures[currentTextureIndex];
+            return _boardTextures[_currentTextureIndex];
         }
 
         // Use this called from the main Game Class.
         public void LoadBoardTextures(String boardsFileNameString, ContentManager Content)
         {
-            currentTextureIndex = 0;
+            _currentTextureIndex = 0;
 
             if (File.Exists(boardsFileNameString))
             {
@@ -214,6 +214,7 @@ namespace OurGame.OurGameLibrary
             else
             {
                 // Write out our default texture file for the board.
+                // ReSharper disable once SuggestVarOrType_Elsewhere
                 String[] texStringRay = new String[3];
                 texStringRay[0] = "Images/DeleteBrush";
                 texStringRay[1] = "Images/tile";
@@ -230,6 +231,7 @@ namespace OurGame.OurGameLibrary
                 String[] configStringSplitRay = File.ReadAllLines(textureFileNameString);
 
                 int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
+                // ReSharper disable once SuggestVarOrType_Elsewhere
                 String[] texStringRay = new String[numberOfTileTextures];
                 for (int i = 0; i < texStringRay.Length; i++)
                 {
@@ -247,6 +249,7 @@ namespace OurGame.OurGameLibrary
                 AddText(fs, "numberOfTileTextures:" + texStringRay.Length);
                 AddText(fs, "\n");
 
+                // ReSharper disable once ForCanBeConvertedToForeach
                 for (int i = 0; i < texStringRay.Length; i++)
                 {
                     AddText(fs, texStringRay[i]);

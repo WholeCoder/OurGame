@@ -12,15 +12,15 @@ namespace OurGame.Sprites
 {
     public class AutomatedSprite : AnimatedSprite
     {
-        private int _HowFarToWalkInOneDirection;
-        private bool _IsGoingRight;
-        private PlayGameState _PlayGameState;
-        private int _StartXOffset;
+        private int _howFarToWalkInOneDirection;
+        private bool IsGoingRight { get; set; }
+        private readonly PlayGameState _playGameState;
+        private int _startXOffset;
 
-        private int _MoveRightLength;
-        private int _MoveLeftLength;
+        private int _moveRightLength;
+        private int _moveLeftLength;
 
-        private Board _TheBoard;
+        private readonly Board _theBoard;
 
         public AutomatedSprite(string configFilePathAndName, Board board, PlayGameState pState)
             : base(configFilePathAndName)
@@ -28,9 +28,9 @@ namespace OurGame.Sprites
             Debug.Assert(pState != null, "pState can't be null!");
             Debug.Assert(board != null, "board can't be null!");
             
-            this._PlayGameState = pState;
-            this._StartXOffset = pState.screenXOffset;
-            this._TheBoard = board;
+            this._playGameState = pState;
+            this._startXOffset = pState.ScreenXOffset;
+            this._theBoard = board;
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -41,33 +41,33 @@ namespace OurGame.Sprites
 
             // Nothing to Load yet!
             // TODO: Read properties starting at startOffset.
-            this._HowFarToWalkInOneDirection = Convert.ToInt32(configArray[startOffset]);
-            this._IsGoingRight = configArray[startOffset + 1].Equals("True");
-            this._MoveLeftLength = this._HowFarToWalkInOneDirection;
-            this._MoveRightLength = this._HowFarToWalkInOneDirection;
+            this._howFarToWalkInOneDirection = Convert.ToInt32(configArray[startOffset]);
+            this.IsGoingRight = configArray[startOffset + 1].Equals("True");
+            this._moveLeftLength = this._howFarToWalkInOneDirection;
+            this._moveRightLength = this._howFarToWalkInOneDirection;
         }
 
-        private bool _FirstTime = true;
+        private bool _firstTime = true;
 
         protected override void UpdateAfterNextFrame(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
-            if (this._FirstTime || this._PlayGameState.screenXOffset != this._StartXOffset)
+            if (this._firstTime || this._playGameState.ScreenXOffset != this._startXOffset)
             {
-                this._MoveRightLength = (int)this._InitialPosition.X + this._PlayGameState.screenXOffset+this._HowFarToWalkInOneDirection;// Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
-                this._MoveLeftLength = (int)this._InitialPosition.X + this._PlayGameState.screenXOffset- this._HowFarToWalkInOneDirection;// Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+                this._moveRightLength = (int)this.InitialPosition.X + this._playGameState.ScreenXOffset+this._howFarToWalkInOneDirection;// Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+                this._moveLeftLength = (int)this.InitialPosition.X + this._playGameState.ScreenXOffset- this._howFarToWalkInOneDirection;// Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
 
-                this._StartXOffset = this._PlayGameState.screenXOffset;
-                this._FirstTime = false;
+                this._startXOffset = this._playGameState.ScreenXOffset;
+                this._firstTime = false;
             }
 
-            if (this._IsGoingRight)
+            if (this.IsGoingRight)
             {
                 this.SwitchToGoRightTexture();
-                if (this.CurrentPosition.X > this._MoveRightLength)
+                if (this.CurrentPosition.X > this._moveRightLength)
                 {
-                    this._IsGoingRight = false;
+                    this.IsGoingRight = false;
                 } else
                 {
                     this.CurrentPosition.X += 5;
@@ -76,9 +76,9 @@ namespace OurGame.Sprites
             else
             {
                 this.SwitchToGoLeftTexture();
-                if (this.CurrentPosition.X < this._MoveLeftLength)
+                if (this.CurrentPosition.X < this._moveLeftLength)
                 {
-                    this._IsGoingRight = true;
+                    this.IsGoingRight = true;
                 }
                 else
                 {
@@ -86,9 +86,9 @@ namespace OurGame.Sprites
                 }
             }
 
-            if (this.CurrentPosition.Y + this.BoundingRectangle.Height > this._TheBoard.BoardHeight)
+            if (this.CurrentPosition.Y + this.BoundingRectangle.Height > this._theBoard.BoardHeight)
             {
-                this.CurrentPosition.Y = this._TheBoard.BoardHeight - this.BoundingRectangle.Height;
+                this.CurrentPosition.Y = this._theBoard.BoardHeight - this.BoundingRectangle.Height;
             }
 
         }
@@ -106,12 +106,12 @@ namespace OurGame.Sprites
 
             // Nothing to write yet!
             // TODO: Write out attributes if they exist for UserControlledSprite
-            this._HowFarToWalkInOneDirection = 50;
-            AnimatedSprite.AddText(fs, this._HowFarToWalkInOneDirection+"");
+            this._howFarToWalkInOneDirection = 50;
+            AnimatedSprite.AddText(fs, this._howFarToWalkInOneDirection+"");
             AnimatedSprite.AddText(fs, "\n");
 
-            this._IsGoingRight = true;
-            AnimatedSprite.AddText(fs, this._IsGoingRight + "");
+            this.IsGoingRight = true;
+            AnimatedSprite.AddText(fs, this.IsGoingRight + "");
 
         } // end method
 

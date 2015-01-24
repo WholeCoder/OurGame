@@ -22,20 +22,20 @@ namespace OurGame.OurGameLibrary
         public int BoardWidth { get; set; }
         public int BoardHeight { get; set; }
 
-        public int NumberOfHorizontalTiles { get; set; }
-        public int NumberOfVerticalTiles { get; set; }
+        private int NumberOfHorizontalTiles { get; set; }
+        private int NumberOfVerticalTiles { get; set; }
 
         public Tile[,] TheBoard { get; set; }
 
         // The width and height of the individual tiles.
-        public int TileWidth { get; set; }
-        public int TileHeight { get; set; }
+        private int TileWidth { get; set; }
+        private int TileHeight { get; set; }
 
         // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - used to speed up the game by not drawing
         // all the game board every cycle.
-        public int BoardMarginX { get; set; }
+        private int BoardMarginX { get; set; }
         public const int SCREEN_WIDTH = 800;
-        public const int NUMBER_OF_TILES_IN_MARGIN_X = 1;
+        private const int NUMBER_OF_TILES_IN_MARGIN_X = 1;
 
         public Board(String pathToConfigFile)
         {
@@ -166,6 +166,7 @@ namespace OurGame.OurGameLibrary
 
                 for (int j = startX; j < endX; j++)
                 {
+                    // ReSharper disable once InvertIf
                     if (this.TheBoard[i, j].TheTexture != null)
                     {
                         Vector2 tilePosition = this.ExtractTilePosition(screenXOffset, i, j);

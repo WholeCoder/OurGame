@@ -12,7 +12,7 @@ namespace OurGame.GameStates
         private KeyboardState _oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
-        public Game1 OurGame { get; set; }
+        private Game1 OurGame { get; set; }
 
         public BlankState()
         {

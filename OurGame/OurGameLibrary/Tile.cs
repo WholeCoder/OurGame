@@ -12,14 +12,14 @@ namespace OurGame.OurGameLibrary
         public int Height { get; set; }
 
         // These are the co-ordinates in the board's array;
-        public int ArrayX {get; set;}
-        public int ArrayY { get; set; }
+        private int ArrayX {get; set;}
+        private int ArrayY { get; set; }
 
         // These next co-ordinates specify a line that the character will stand on.  Right now
         // it will just be a straight horizontal line but in the future we mihgt give it an
         // incline or decline.
-        public int StartBoundaryX { get; set; }
-        public int StartBoundaryY { get; set; }
+        private int StartBoundaryX { get; set; }
+        private int StartBoundaryY { get; set; }
 
         public int EndBoundaryX { get; set; }
         public int EndBoundaryY { get; set; }

@@ -1,29 +1,27 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
-
-// My usings.
 using OurGame.OurGameLibrary;
-using OurGame.Commands;
+// My usings.
 
-namespace OurGame.EditBoard.Commands
+namespace OurGame.Commands.EditBoardCommands
 {
     public class PlaceMultiTextureOnBoardCommand : ICommand
     {
-        private Board _gameBoard;
+        private readonly Board _gameBoard;
 
         // these co-ordinates are array indices
-        private int _putX;
-        private int _putY;
-        private Texture2D _putTexture;
+        private readonly int _putX;
+        private readonly int _putY;
+        private readonly Texture2D _putTexture;
 
         // these co-ordinates are array indices
         private int _undoX;
         private int _undoY;
-        private Texture2D[,] _undoTextures;
+        private readonly Texture2D[,] _undoTextures;
 
         // these variables are the how may textures that should be put down onto the game board array
-        private int _numberOfHorizontalTiles;
-        private int _numberOfVerticalTiles;
+        private readonly int _numberOfHorizontalTiles;
+        private readonly int _numberOfVerticalTiles;
 
         public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset, int numberOfHorizontalTiles, int numberOfVerticalTiles)
         {

@@ -12,18 +12,19 @@ namespace OurGame.Sprites
 {
     public class UserControlledSprite : AnimatedSprite
     {
-        private static int STARTING_DELTA = 30;
-        private int _JumpDelta = 0;
-        private bool _CurrentlyJumping = false;
+        // ReSharper disable once InconsistentNaming
+        private const int STARTING_DELTA = 30;
+        private int _jumpDelta = 0;
+        private bool _currentlyJumping = false;
 
-        private Board _TheBoard;
-        private PlayGameState _PlayGameState;
+        private readonly Board _theBoard;
+        private readonly PlayGameState _playGameState;
 
         public UserControlledSprite(string configFilePathAndName, Board board, PlayGameState pState)
             : base(configFilePathAndName)
         {
-            this._TheBoard = board;
-            this._PlayGameState = pState;
+            this._theBoard = board;
+            this._playGameState = pState;
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -61,30 +62,30 @@ namespace OurGame.Sprites
                 this.SwitchToAtRestTexture();
             } 
 
-            if (keyState.IsKeyDown(Keys.Space) && !this._CurrentlyJumping)
+            if (keyState.IsKeyDown(Keys.Space) && !this._currentlyJumping)
             {
-                this._JumpDelta = -UserControlledSprite.STARTING_DELTA;
-                this._CurrentlyJumping = true;
+                this._jumpDelta = -UserControlledSprite.STARTING_DELTA;
+                this._currentlyJumping = true;
                 Console.WriteLine("SPACE pressed and not currently jumpting!");
             }
 
-            if (this._CurrentlyJumping)
+            if (this._currentlyJumping)
             {
-                this.CurrentPosition.Y += this._JumpDelta;
-                this._JumpDelta += 1;
+                this.CurrentPosition.Y += this._jumpDelta;
+                this._jumpDelta += 1;
             }
 
-            if (this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset) == null || (this._CurrentlyJumping && (this.BoundingRectangle.Height + this.BoundingRectangle.Y) > this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y))
+            if (this._theBoard.GetFloorLocation(this, this._playGameState.ScreenXOffset) == null || (this._currentlyJumping && (this.BoundingRectangle.Height + this.BoundingRectangle.Y) > this._theBoard.GetFloorLocation(this, this._playGameState.ScreenXOffset).BoundingRectangle.Y))
             {
-                this._CurrentlyJumping = false;
-                this._JumpDelta = 0;
+                this._currentlyJumping = false;
+                this._jumpDelta = 0;
                 //Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
                 //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
             }
 
-            if (this.CurrentPosition.Y + this.BoundingRectangle.Height > this._TheBoard.BoardHeight)
+            if (this.CurrentPosition.Y + this.BoundingRectangle.Height > this._theBoard.BoardHeight)
             {
-                this.CurrentPosition.Y = this._TheBoard.BoardHeight - this.BoundingRectangle.Height;
+                this.CurrentPosition.Y = this._theBoard.BoardHeight - this.BoundingRectangle.Height;
             }
 
         } // end method

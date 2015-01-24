@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace OurGame.Sprites.Observer
+﻿namespace OurGame.Sprites.SpriteObserver
 {
     public interface SpriteSubject
     {
-        void registerObserver(SpriteObserver sObserver);
-        void removeObserver(SpriteObserver aObserver);
-        void notifyObservers();
+        void RegisterObserver(Sprites.SpriteObserver.SpriteObserver sObserver);
+        void RemoveObserver(Sprites.SpriteObserver.SpriteObserver aObserver);
+        void NotifyObservers();
     }
 }

@@ -15,7 +15,7 @@ namespace OurGame.Sprites
     class SpriteManager
     {
         public AnimatedSprite[] Sprites;
-        public string SpritesFileName;
+        private readonly string _spritesFileName;
 
         public SpriteManager(String spritesFileName, Board board, PlayGameState pState)
         {
@@ -23,7 +23,7 @@ namespace OurGame.Sprites
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
-            this.SpritesFileName = spritesFileName;
+            this._spritesFileName = spritesFileName;
 
             this.LoadSpritesFromAfile(board, pState);
         }
@@ -33,9 +33,9 @@ namespace OurGame.Sprites
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
-            if (!File.Exists(this.SpritesFileName))
+            if (!File.Exists(this._spritesFileName))
             {
-                using (FileStream fs = File.Create(this.SpritesFileName))
+                using (FileStream fs = File.Create(this._spritesFileName))
                 {
                     AddText(fs, "numberOfSprites:1"); // ex) "UserControlledSprite"
                     AddText(fs, "\n");
@@ -50,7 +50,7 @@ namespace OurGame.Sprites
                 AnimatedSprite aAnimatedSprite = new AutomatedSprite("AutomatedSpriteConfig.txt", board, pState);
             }
 
-            String[] configStringSplitRay = File.ReadAllLines(this.SpritesFileName);
+            String[] configStringSplitRay = File.ReadAllLines(this._spritesFileName);
 
             int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // numberOfSprites:10
             this.Sprites = new AnimatedSprite[numberOfSprites];

@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using OurGame.Commands.EditBoardCommands;
 
 // My usings.
 using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
-using OurGame.EditBoard.Commands;
 
 namespace OurGame.GameStates
 {
@@ -24,10 +24,10 @@ namespace OurGame.GameStates
 
         // This instance variable lets us scroll the board horizontally.
         private int _screenXOffset = 0;
-        private int _scrollAmount = 5;
+        private const int ScrollAmount = 5;
 
         // This is the name the gameboard is saved to when S is pressed.
-        private string _pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
+        private const string PathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
 
         private MultiTexture _multiTexture;
         private int _multiTextureWidthHeight = 1;
@@ -49,7 +49,7 @@ namespace OurGame.GameStates
         public Game1 OurGame { get; set; }
 
         // Used to reload the contend in the board for the playGameState
-        public ContentManager Content { get; set; }
+        private ContentManager Content { get; set; }
         
         public EditBoardState()
         {
@@ -69,7 +69,7 @@ namespace OurGame.GameStates
         {
             Debug.Assert(Content != null," Content can't be null!");
 
-            _board = new Board(_pathToSavedGambeBoardConfigurationFile);
+            _board = new Board(PathToSavedGambeBoardConfigurationFile);
 
             this.Content = Content;
 
@@ -149,12 +149,12 @@ namespace OurGame.GameStates
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.Right))
             {
-                _screenXOffset -= _scrollAmount;
+                _screenXOffset -= ScrollAmount;
             }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
-                _screenXOffset += _scrollAmount;
+                _screenXOffset += ScrollAmount;
             }
 
             if (_screenXOffset <= -this._board.BoardWidth)
@@ -205,7 +205,7 @@ namespace OurGame.GameStates
             // Delete MyLevel.txt.
             if (newKeyboardState.IsKeyDown(Keys.D) && _oldKeyboardState.IsKeyUp(Keys.D))
             {
-                OurGame.Commands.ICommand dbCommand = new DeleteBoardCommand(_pathToSavedGambeBoardConfigurationFile, this._board, this);
+                OurGame.Commands.ICommand dbCommand = new DeleteBoardCommand(PathToSavedGambeBoardConfigurationFile, this._board, this);
                 dbCommand.Execute();                
                 
                 // Add this delete to the undo history.
@@ -244,20 +244,20 @@ namespace OurGame.GameStates
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
             this.SaveCurrentBoard();
-            this.OurGame.playGameState.LoadContent(Content);
-            this.OurGame.SetStateWhenUpdating(this.OurGame.playGameState, gameTime);
+            this.OurGame.PlayGameState.LoadContent(Content);
+            this.OurGame.SetStateWhenUpdating(this.OurGame.PlayGameState, gameTime);
         }
 
         public void SaveCurrentBoard()
         {
-            if (File.Exists(_pathToSavedGambeBoardConfigurationFile))
+            if (File.Exists(PathToSavedGambeBoardConfigurationFile))
             {
-                File.Delete(_pathToSavedGambeBoardConfigurationFile);
+                File.Delete(PathToSavedGambeBoardConfigurationFile);
             }
 
-            Console.WriteLine("Saving to " + _pathToSavedGambeBoardConfigurationFile);
+            Console.WriteLine("Saving to " + PathToSavedGambeBoardConfigurationFile);
 
-            this._board.WriteOutDimensionsOfTheGameBoard(_pathToSavedGambeBoardConfigurationFile);
+            this._board.WriteOutDimensionsOfTheGameBoard(PathToSavedGambeBoardConfigurationFile);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)

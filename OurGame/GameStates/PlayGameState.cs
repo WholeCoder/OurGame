@@ -10,8 +10,8 @@ using OurGame.Sprites;
 using OurGame.Commands;
 using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
-using OurGame.Sprites.Observer;
 using OurGame.Commands.ReverseTimeCommands;
+using OurGame.Sprites.SpriteObserver;
 
 // Created by someone else.
 using ParticleEffects;
@@ -20,37 +20,37 @@ namespace OurGame.GameStates
 {
     public class PlayGameState : State, SpriteObserver
     {
-        EffectManager myEffectsManager;
-        int keyboardDelayCounter = 0;
+        readonly EffectManager myEffectsManager;
+        int _keyboardDelayCounter = 0;
 
-        bool fireIsRunning = false;
-        bool fireworksAreRunning = false;
-        bool snowIsFalling = false;
-        bool smokeIsRunning = false;
-        bool spiralIsRunning = false;
+        bool _fireIsRunning = false;
+        bool _fireworksAreRunning = false;
+        bool _snowIsFalling = false;
+        bool _smokeIsRunning = false;
+        bool _spiralIsRunning = false;
 
-        Board board;
+        Board _board;
         
         // This instance variable lets us scroll the board horizontally.
-        public int screenXOffset = 0;
-        int scrollAmount = 5;
+        public int ScreenXOffset = 0;
+        readonly int scrollAmount = 5;
 
         // This is the name the gameboard is saved to when S is pressed.
-        string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
+        readonly string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
 
-        KeyboardState oldKeyboardState;
+        KeyboardState _oldKeyboardState;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
-        public Game1 OurGame { get; set; }
+        private Game1 OurGame { get; set; }
 
-        public AnimatedSprite Player { get; set; }
-        private SpriteManager _SpriteManager;
+        private AnimatedSprite Player { get; set; }
+        private SpriteManager _spriteManager;
 
         private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
-        private Vector2 _PreviousPlayerPosition = new Vector2(-1.0f, -1.0f);
+        private Vector2 _previousPlayerPosition = new Vector2(-1.0f, -1.0f);
 
-        private int _PlayerLife;
-        private SpriteFont _HelpFont;
+        private int _playerLife;
+        private SpriteFont _helpFont;
 
         public PlayGameState()
         {
@@ -59,7 +59,7 @@ namespace OurGame.GameStates
 
         public void update(int life)
         {
-            this._PlayerLife = life;
+            this._playerLife = life;
         }
 
         public override void Initialize(Game1 ourGame)
@@ -74,14 +74,14 @@ namespace OurGame.GameStates
         {
             Debug.Assert(Content != null, "Content can not be null!");
 
-            board = new Board(pathToSavedGambeBoardConfigurationFile);
+            _board = new Board(pathToSavedGambeBoardConfigurationFile);
 
-            this._SpriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", board, this);
+            this._spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
 
-            Player = new UserControlledSprite("UserControlledSpriteConfig.txt", board, this);
+            Player = new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
 
-            this._PlayerLife = Player.LifeLeft;
-            this._HelpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+            this._playerLife = Player.LifeLeft;
+            this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
             myEffectsManager.LoadContent(Content);
         }
@@ -95,20 +95,20 @@ namespace OurGame.GameStates
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
             Player.Update(gameTime);
-            this._SpriteManager.Update(gameTime);
+            this._spriteManager.Update(gameTime);
 
             // These next 2 statements make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
             SetSpritePositionIfIntersectingWithGroundOrPlatform(Player);
-            for (int i = 0; i < this._SpriteManager.Sprites.Length; i++)
+            for (int i = 0; i < this._spriteManager.Sprites.Length; i++)
             {
-                SetSpritePositionIfIntersectingWithGroundOrPlatform(this._SpriteManager.Sprites[i]);
+                SetSpritePositionIfIntersectingWithGroundOrPlatform(this._spriteManager.Sprites[i]);
             }
             
-            if (this._PreviousPlayerPosition.X != Player.CurrentPosition.X || this._PreviousPlayerPosition.Y != Player.CurrentPosition.Y)
+            if (this._previousPlayerPosition.X != Player.CurrentPosition.X || this._previousPlayerPosition.Y != Player.CurrentPosition.Y)
             {
-                SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, ScreenXOffset, Player);
                 SetGameMetricsToPreviousValuesCommand topOfStack = null;
 
                 if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
@@ -117,54 +117,54 @@ namespace OurGame.GameStates
                 }
 
                 if (topOfStack == null ||
-                    topOfStack._CurrentPosition.X != Player.CurrentPosition.X ||
-                    topOfStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
-                    topOfStack._ScreenOffset != screenXOffset)
+                    topOfStack.CurrentPosition.X != Player.CurrentPosition.X ||
+                    topOfStack.CurrentPosition.Y != Player.CurrentPosition.Y ||
+                    topOfStack.ScreenOffset != ScreenXOffset)
                 {
                     this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
-                    this._PreviousPlayerPosition.X = Player.CurrentPosition.X;
-                    this._PreviousPlayerPosition.Y = Player.CurrentPosition.Y;
+                    this._previousPlayerPosition.X = Player.CurrentPosition.X;
+                    this._previousPlayerPosition.Y = Player.CurrentPosition.Y;
                 }
             }
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
 
-            if (keyboardDelayCounter > 0)
+            if (_keyboardDelayCounter > 0)
             {
-                keyboardDelayCounter -= gameTime.ElapsedGameTime.Milliseconds;
+                _keyboardDelayCounter -= gameTime.ElapsedGameTime.Milliseconds;
             }
             else
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Up) && !fireworksAreRunning)
+                if (Keyboard.GetState().IsKeyDown(Keys.Up) && !_fireworksAreRunning)
                 {
                     //myEffectsManager.AddEffect(eEffectType.explosion);
-                    keyboardDelayCounter = 300;
-                    fireworksAreRunning = true;
+                    _keyboardDelayCounter = 300;
+                    _fireworksAreRunning = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Down) && !fireIsRunning)
+                if (Keyboard.GetState().IsKeyDown(Keys.Down) && !_fireIsRunning)
                 {
                     //myEffectsManager.AddEffect(eEffectType.fire);
-                    keyboardDelayCounter = 300;
-                    fireIsRunning = true;
+                    _keyboardDelayCounter = 300;
+                    _fireIsRunning = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Left) && !snowIsFalling)
+                if (Keyboard.GetState().IsKeyDown(Keys.Left) && !_snowIsFalling)
                 {
                     //myEffectsManager.AddEffect(eEffectType.snow);
-                    keyboardDelayCounter = 300;
-                    snowIsFalling = true;
+                    _keyboardDelayCounter = 300;
+                    _snowIsFalling = true;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Right) && !smokeIsRunning)
+                if (Keyboard.GetState().IsKeyDown(Keys.Right) && !_smokeIsRunning)
                 {
                     //myEffectsManager.AddEffect(eEffectType.smoke);
-                    keyboardDelayCounter = 300;
-                    smokeIsRunning = false;
+                    _keyboardDelayCounter = 300;
+                    _smokeIsRunning = false;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !spiralIsRunning)
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !_spiralIsRunning)
                 {
                     //myEffectsManager.AddEffect(eEffectType.spiral);
-                    keyboardDelayCounter = 300;
-                    spiralIsRunning = true;
+                    _keyboardDelayCounter = 300;
+                    _spiralIsRunning = true;
                 }
             }
 
@@ -181,15 +181,15 @@ namespace OurGame.GameStates
                 }
 
                 if (topStack== null ||
-                    topStack._CurrentPosition.X != Player.CurrentPosition.X ||
-                    topStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
-                    topStack._ScreenOffset != screenXOffset)
+                    topStack.CurrentPosition.X != Player.CurrentPosition.X ||
+                    topStack.CurrentPosition.Y != Player.CurrentPosition.Y ||
+                    topStack.ScreenOffset != ScreenXOffset)
                 {
-                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, ScreenXOffset, Player);
                     this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
 
                 }
-                screenXOffset -= scrollAmount;
+                ScreenXOffset -= scrollAmount;
             }
 
             if (keyState.IsKeyDown(Keys.Left))
@@ -202,27 +202,27 @@ namespace OurGame.GameStates
                 }
 
                 if (topStack == null ||
-                    topStack._CurrentPosition.X != Player.CurrentPosition.X ||
-                    topStack._CurrentPosition.Y != Player.CurrentPosition.Y ||
-                    topStack._ScreenOffset != screenXOffset)
+                    topStack.CurrentPosition.X != Player.CurrentPosition.X ||
+                    topStack.CurrentPosition.Y != Player.CurrentPosition.Y ||
+                    topStack.ScreenOffset != ScreenXOffset)
                 {
-                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, screenXOffset, Player);
+                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, ScreenXOffset, Player);
                     this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
 
                 }
-                screenXOffset += scrollAmount;
+                ScreenXOffset += scrollAmount;
             }
             
 
 
-            if (screenXOffset <= -this.board.BoardWidth)
+            if (ScreenXOffset <= -this._board.BoardWidth)
             {
-                screenXOffset = -this.board.BoardWidth;
+                ScreenXOffset = -this._board.BoardWidth;
             }
 
-            if (screenXOffset >= 0)
+            if (ScreenXOffset >= 0)
             {
-                screenXOffset = 0;
+                ScreenXOffset = 0;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
@@ -240,13 +240,13 @@ namespace OurGame.GameStates
             }
 
             // "Gravity" to pull down the enemies if they are in mid-air.
-            this._SpriteManager.ApplyDownwordGravity();
+            this._spriteManager.ApplyDownwordGravity();
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
-            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, oldKeyboardState, this.OurGame, gameTime);
+            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, this.OurGame, gameTime);
 
-            oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
+            _oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
 
         }
 
@@ -256,12 +256,12 @@ namespace OurGame.GameStates
 
             
             // Get all tiles, on the screen, that intersect with our sprite.
-            List<Tile> tilesThatHaveCollisionWithSprite = this.board.RetrieveTilesThatIntersectWithThisSprite(sSprite, screenXOffset);
+            List<Tile> tilesThatHaveCollisionWithSprite = this._board.RetrieveTilesThatIntersectWithThisSprite(sSprite, ScreenXOffset);
             
             // if we are not in mid air then find the tile that interesects our sprite with the least Y co-ordinate.
             if (tilesThatHaveCollisionWithSprite.Count != 0)
             {
-                int leastY = this.board.BoardHeight;
+                int leastY = this._board.BoardHeight;
                 foreach (var tile in tilesThatHaveCollisionWithSprite)
                 {
                     if (tile.BoundingRectangle.Y < leastY)
@@ -280,11 +280,11 @@ namespace OurGame.GameStates
             Debug.Assert(gameTime != null, "gameTime can not be null!");
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
-            this.board.DrawBoard(spriteBatch, screenXOffset, false);  // screenXOffset scrolls the board left and right!
+            this._board.DrawBoard(spriteBatch, ScreenXOffset, false);  // screenXOffset scrolls the board left and right!
             Player.Draw(spriteBatch);
-            this._SpriteManager.Draw(spriteBatch);
+            this._spriteManager.Draw(spriteBatch);
             myEffectsManager.Draw(spriteBatch);
-            spriteBatch.DrawString(this._HelpFont, "Life:  "+this._PlayerLife,
+            spriteBatch.DrawString(this._helpFont, "Life:  "+this._playerLife,
                        new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
                        1, SpriteEffects.None, 1);
 

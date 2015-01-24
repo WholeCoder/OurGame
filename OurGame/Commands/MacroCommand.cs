@@ -4,7 +4,7 @@ namespace OurGame.Commands
 {
     public class MacroCommand : ICommand
     {
-        private ICommand[] _commands;
+        private readonly ICommand[] _commands;
 
         public MacroCommand(params ICommand[] com)
         {
@@ -20,6 +20,8 @@ namespace OurGame.Commands
 
         public void Execute()
         {
+            // I want to make sure these are called in order.
+            // ReSharper disable once ForCanBeConvertedToForeach
             for (int i = 0; i < this._commands.Length; i++)
             {
                 this._commands[i].Execute();

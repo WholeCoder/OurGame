@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace OurGame.Sprites.Observer
+﻿namespace OurGame.Sprites.SpriteObserver
 {
     public interface SpriteObserver
     {

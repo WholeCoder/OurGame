@@ -13,12 +13,11 @@ namespace OurGame.WindowsGame1
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        SpriteBatch _spriteBatch;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -28,10 +27,10 @@ namespace OurGame.WindowsGame1
 
         // Create one instance variable for each oft the different States that this game will have!
         // Create them in the Initialize method as well.
-        public State editBoardState { get; set; }
-        public State blankState { get; set; }
-        public State playGameState { get; set; }
-        public State helpMenuState { get; set; }
+        public State EditBoardState { get; set; }
+        public State BlankState { get; set; }
+        public State PlayGameState { get; set; }
+        public State HelpMenuState { get; set; }
 
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
@@ -68,19 +67,19 @@ namespace OurGame.WindowsGame1
             this.IsMouseVisible = true;
 
             // Create all states that this game will go through here! And initialize them!
-            this.editBoardState = new EditBoardState();
-            this.editBoardState.Initialize(this);
+            this.EditBoardState = new EditBoardState();
+            this.EditBoardState.Initialize(this);
 
-            this.SetStateWhenInitializing(this.editBoardState);
+            this.SetStateWhenInitializing(this.EditBoardState);
 
-            this.blankState = new BlankState();
-            this.blankState.Initialize(this);
+            this.BlankState = new BlankState();
+            this.BlankState.Initialize(this);
 
-            this.playGameState = new PlayGameState();
-            this.playGameState.Initialize(this);
+            this.PlayGameState = new PlayGameState();
+            this.PlayGameState.Initialize(this);
 
-            this.helpMenuState = new HelpMenuState();
-            this.helpMenuState.Initialize(this);
+            this.HelpMenuState = new HelpMenuState();
+            this.HelpMenuState.Initialize(this);
 
             base.Initialize();
         }
@@ -92,12 +91,12 @@ namespace OurGame.WindowsGame1
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            this.editBoardState.LoadContent(Content);
-            this.blankState.LoadContent(Content);
-            this.playGameState.LoadContent(Content);
-            this.helpMenuState.LoadContent(Content);
+            this.EditBoardState.LoadContent(Content);
+            this.BlankState.LoadContent(Content);
+            this.PlayGameState.LoadContent(Content);
+            this.HelpMenuState.LoadContent(Content);
         }
 
         /// <summary>
@@ -109,10 +108,10 @@ namespace OurGame.WindowsGame1
             // Unload any non ContentManager content here
 
             // Call UnloadContent for every State you create!
-            this.editBoardState.UnloadContent();
-            this.blankState.UnloadContent();
-            this.playGameState.UnloadContent();
-            this.helpMenuState.UnloadContent();
+            this.EditBoardState.UnloadContent();
+            this.BlankState.UnloadContent();
+            this.PlayGameState.UnloadContent();
+            this.HelpMenuState.UnloadContent();
         }
 
         /// <summary>
@@ -139,11 +138,11 @@ namespace OurGame.WindowsGame1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            _spriteBatch.Begin();
 
-            this.CurrentState.Draw(gameTime, spriteBatch);
+            this.CurrentState.Draw(gameTime, _spriteBatch);
 
-            spriteBatch.End();
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

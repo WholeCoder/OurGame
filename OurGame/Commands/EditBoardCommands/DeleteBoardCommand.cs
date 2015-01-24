@@ -1,22 +1,20 @@
 ﻿using System;
-using System.IO;
 using System.Diagnostics;
-
-// My usings.
-using OurGame.Commands;
+using System.IO;
 using OurGame.GameStates;
 using OurGame.OurGameLibrary;
+// My usings.
 
-namespace OurGame.EditBoard.Commands
+namespace OurGame.Commands.EditBoardCommands
 {
     public class DeleteBoardCommand : ICommand
     {
-        private String _pathToSavedGambeBoardConfigurationFile;
-        private Board _board;
+        private readonly String _pathToSavedGambeBoardConfigurationFile;
+        private readonly Board _board;
 
         public Tile[,] TheUndoBoard { get; set; }
 
-        private EditBoardState _editBoardState;
+        private readonly EditBoardState _editBoardState;
 
         public DeleteBoardCommand(String pathToSavedGameBoardConfigurationFile, Board board, EditBoardState editBoardState)
         {

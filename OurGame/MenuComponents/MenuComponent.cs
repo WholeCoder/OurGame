@@ -11,77 +11,77 @@ namespace OurGame.MenuComponents
 {
     public class MenuComponent
     {
-        private int _CommandNameLeftJustifyPixels;
-        private string _CommandName;
+        private readonly int _commandNameLeftJustifyPixels;
+        private readonly string _commandName;
 
-        private int _CommandDescriptionJustifyPixels;
-        private string _CommandDescription;
+        private readonly int _commandDescriptionJustifyPixels;
+        private readonly string _commandDescription;
 
-        private int _YStart;
+        private readonly int _yStart;
 
-        private ICommand _Command;
+        private ICommand _command;
         
         // This instance member is null unless this MenuComponent is a sub-menu;
-        private List<MenuComponent> _MenuComponents;
+        private readonly List<MenuComponent> _menuComponents;
 
-        public List<MenuComponent> GetMenuComponents()
+        private IEnumerable<MenuComponent> GetMenuComponents()
         {
-            return _MenuComponents;
+            return _menuComponents;
         }
 
         public MenuComponent(string name, int nameJustifyPixels, string description, int descriptionPixels, int yStart)
         {
-            this._CommandName = name;
-            this._CommandNameLeftJustifyPixels = nameJustifyPixels;
+            this._commandName = name;
+            this._commandNameLeftJustifyPixels = nameJustifyPixels;
 
-            this._CommandDescription = description;
-            this._CommandDescriptionJustifyPixels = descriptionPixels;
+            this._commandDescription = description;
+            this._commandDescriptionJustifyPixels = descriptionPixels;
 
-            this._YStart = yStart;
+            this._yStart = yStart;
 
-            this._MenuComponents = new List<MenuComponent>();
-            this._Command = new DoNothingCommand();
+            this._menuComponents = new List<MenuComponent>();
+            this._command = new DoNothingCommand();
         }
 
         public void SetCommand(ICommand command)
         {
-            this._Command = command;
+            this._command = command;
         }
 
         public void AddMenuComponents(MenuComponent mComponent)
         {
-            this._MenuComponents.Add(mComponent);
+            this._menuComponents.Add(mComponent);
         }
 
-        public string GetName()
+        private string GetName()
         {
-            return this._CommandName;
+            return this._commandName;
         }
 
-        public string GetDescription()
+        private string GetDescription()
         {
-            return this._CommandDescription;
+            return this._commandDescription;
         }
 
         public void ExecuteCommand()
         {
-            this._Command.Execute();
+            this._command.Execute();
         } // end method
 
         public void Draw(SpriteBatch spriteBatch, SpriteFont HelpFont)
         {
-            float offsetY = this._YStart;
+            float offsetY = this._yStart;
             spriteBatch.DrawString(HelpFont, this.GetName(),
-                                   new Vector2((Board.SCREEN_WIDTH - HelpFont.MeasureString(this._CommandName).X) / 2, offsetY), Color.Black, 0, Vector2.Zero,
+                                   new Vector2((Board.SCREEN_WIDTH - HelpFont.MeasureString(this._commandName).X) / 2, offsetY), Color.Black, 0, Vector2.Zero,
                                    1, SpriteEffects.None, 1);
             offsetY += 2*HelpFont.MeasureString(this.GetName()).Y;
             foreach (var menuItem in this.GetMenuComponents())
             {
 
                 spriteBatch.DrawString(HelpFont, menuItem.GetName(),
-                                       new Vector2(this._CommandNameLeftJustifyPixels, offsetY), Color.Black, 0, Vector2.Zero,
+                                       new Vector2(this._commandNameLeftJustifyPixels, offsetY), Color.Black, 0, Vector2.Zero,
                                        1, SpriteEffects.None, 1);
-                int xoffset = (int)(Board.SCREEN_WIDTH-HelpFont.MeasureString(this._CommandDescription).X- this._CommandDescriptionJustifyPixels);
+                int xoffset = (int)(Board.SCREEN_WIDTH-HelpFont.MeasureString(this._commandDescription).X- this._commandDescriptionJustifyPixels);
                 spriteBatch.DrawString(HelpFont, menuItem.GetDescription(),
                                        new Vector2(xoffset, offsetY), Color.Black, 0, Vector2.Zero,
                                        1, SpriteEffects.None, 1);
