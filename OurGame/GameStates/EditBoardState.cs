@@ -256,7 +256,7 @@ namespace OurGame.GameStates
 
             Console.WriteLine("Saving to " + PathToSavedGambeBoardConfigurationFile);
 
-            this._board.WriteOutDimensionsOfTheGameBoard(PathToSavedGambeBoardConfigurationFile);
+            this._board.WriteOutTheGameBoard(PathToSavedGambeBoardConfigurationFile);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)

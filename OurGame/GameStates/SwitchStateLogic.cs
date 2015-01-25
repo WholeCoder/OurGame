@@ -33,7 +33,7 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.PlayGameState)
                 {
-                    ((EditBoardState)ourGame.EditBoardState).SaveBoardToDiskAndReloadPlayGameState(gameTime);
+                    ((EditBoardState)ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
                     ourGame.SetStateWhenUpdating(ourGame.PlayGameState, gameTime);
                 }
             }

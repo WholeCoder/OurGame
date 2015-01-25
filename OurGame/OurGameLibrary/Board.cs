@@ -274,7 +274,7 @@ namespace OurGame.OurGameLibrary
                     }
                 }
                 // Write out the default config of the board
-                WriteOutDimensionsOfTheGameBoard(path);
+                WriteOutTheGameBoard(path);
             }
             else
             {
@@ -319,7 +319,7 @@ namespace OurGame.OurGameLibrary
             } // end else
         }
 
-        public void WriteOutDimensionsOfTheGameBoard(String path)
+        public void WriteOutTheGameBoard(String path)
         {
             Debug.Assert(path != null && !path.Equals(""), "path can not be null or empty!");
 
