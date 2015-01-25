@@ -46,7 +46,7 @@ namespace OurGame.WindowsGame1
         }
 
         // This version is called in the Game1.Initilize() method.
-        public void SetStateWhenInitializing(State state)
+        private void SetStateWhenInitializing(State state)
         {
             Debug.Assert(state != null, "state can't be null!");
 
