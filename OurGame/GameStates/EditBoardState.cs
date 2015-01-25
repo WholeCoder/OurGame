@@ -228,7 +228,7 @@ namespace OurGame.GameStates
 /*            // Press B for the blank state.  Just for testing.
             if (newKeyboardState.IsKeyDown(Keys.B) && _oldKeyboardState.IsKeyUp(Keys.B))
             {
-                this.SaveBoardToDiskAndReloadPlayGameState(gameTime);
+                this.SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
                 this.OurGame.SetStateWhenUpdating(this.OurGame.blankState, gameTime);
             }
 */
@@ -239,13 +239,12 @@ namespace OurGame.GameStates
 
         }
 
-        public void SaveBoardToDiskAndReloadPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
+        public void SaveBoardToDiskAndLoadItIntoPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
             this.SaveCurrentBoard();
             this.OurGame.PlayGameState.LoadContent(Content);
-            this.OurGame.SetStateWhenUpdating(this.OurGame.PlayGameState, gameTime);
         }
 
         public void SaveCurrentBoard()
