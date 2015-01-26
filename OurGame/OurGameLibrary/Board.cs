@@ -44,47 +44,6 @@ namespace OurGame.OurGameLibrary
             this.ReadInBoardConfigurationOrUseDefault(pathToConfigFile);
         } // end constructor
 
-
-        public Tile GetFloorLocation(AnimatedSprite aSprite, int screenXOffset)
-        {
-            List<Tile> tileList = new List<Tile>();
-
-            int startX = (int)((aSprite.CurrentPosition.X - screenXOffset - this.BoardMarginX) / this.TileWidth);
-            Tile currTile = null;
-
-            if (startX >= 0 && startX < this.TheBoard.GetLength(1))
-            {
-                for (int i = this.TheBoard.GetLength(0) - 1; i >= 0; i--)
-                {
-                    if (this.TheBoard[i, startX].TheTexture != null)
-                    {
-                        if (currTile == null || (this.TheBoard[i,startX].BoundingRectangle.Intersects(aSprite.BoundingRectangle) && this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y))
-                        {
-                            currTile = this.TheBoard[i, startX];
-                        }
-                    }
-                } // End for.
-            } // End if            
-
-            if (currTile != null)
-            {
-                if (!currTile.BoundingRectangle.Intersects(aSprite.BoundingRectangle))
-                {
-                    currTile = null;
-                }
-            }
-            Console.Write("currTile == ");
-            if (currTile == null)
-            {
-                Console.WriteLine("null");
-            }
-            else
-            {
-                Console.WriteLine(currTile);
-            }
-            return currTile;
-        }
-
         // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aSprite.
         public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)
         {

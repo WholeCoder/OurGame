@@ -112,7 +112,7 @@ namespace OurGame.Sprites
 //                //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
 //            }
 
-            if (this._theBoard.GetFloorLocation(this, this._playGameState.ScreenXOffset) != null)
+            if (this._theBoard.RetrieveTilesThatIntersectWithThisSprite(this, this._playGameState.ScreenXOffset).Count != 0)
             {
                 this.CanJump = true;
                 this._currentlyJumping = false;
