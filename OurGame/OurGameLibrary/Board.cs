@@ -58,7 +58,7 @@ namespace OurGame.OurGameLibrary
                 {
                     if (this.TheBoard[i, startX].TheTexture != null)
                     {
-                        if (currTile == null || this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y)
+                        if (currTile == null || (this.TheBoard[i,startX].BoundingRectangle.Intersects(aSprite.BoundingRectangle) && this.TheBoard[i, startX].BoundingRectangle.Y < currTile.BoundingRectangle.Y))
                         {
                             currTile = this.TheBoard[i, startX];
                         }
