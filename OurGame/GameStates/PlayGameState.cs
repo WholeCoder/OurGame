@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -263,13 +264,7 @@ namespace OurGame.GameStates
             if (tilesThatHaveCollisionWithSprite.Count != 0)
             {
                 int leastY = this._board.BoardHeight;
-                foreach (var tile in tilesThatHaveCollisionWithSprite)
-                {
-                    if (tile.BoundingRectangle.Y < leastY)
-                    {
-                        leastY = tile.BoundingRectangle.Y;
-                    }
-                }
+                leastY = tilesThatHaveCollisionWithSprite.Select(tile => tile.BoundingRectangle.Y).Concat(new[] {leastY}).Min();
 
                 // Now make the sprite stay on that tile that was found.
                 sSprite.CurrentPosition.Y = leastY - sSprite.BoundingRectangle.Height;
