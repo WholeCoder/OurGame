@@ -157,9 +157,9 @@ namespace OurGame.GameStates
                 _screenXOffset += ScrollAmount;
             }
 
-            if (_screenXOffset <= -this._board.BoardWidth)
+            if (_screenXOffset <= -this._board.BoardWidth+Board.SCREEN_WIDTH)
             {
-                _screenXOffset = -this._board.BoardWidth;
+                _screenXOffset = -this._board.BoardWidth+Board.SCREEN_WIDTH;
             }
 
             if (_screenXOffset >= 0)

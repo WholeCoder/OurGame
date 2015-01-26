@@ -57,6 +57,7 @@ namespace OurGame.GameStates
             myEffectsManager = new EffectManager();
         }
 
+        // this is to implement the SpriteObserver interface.
         public void update(int life)
         {
             this._playerLife = life;
@@ -215,9 +216,9 @@ namespace OurGame.GameStates
             
 
 
-            if (ScreenXOffset <= -this._board.BoardWidth)
+            if (ScreenXOffset <= -this._board.BoardWidth+Board.SCREEN_WIDTH)
             {
-                ScreenXOffset = -this._board.BoardWidth;
+                ScreenXOffset = -this._board.BoardWidth+Board.SCREEN_WIDTH;
             }
 
             if (ScreenXOffset >= 0)
