@@ -64,8 +64,24 @@ namespace OurGame.OurGameLibrary
                         }
                     }
                 } // End for.
-            } // End if
+            } // End if            
 
+            if (currTile != null)
+            {
+                if (!currTile.BoundingRectangle.Intersects(aSprite.BoundingRectangle))
+                {
+                    currTile = null;
+                }
+            }
+            Console.Write("currTile == ");
+            if (currTile == null)
+            {
+                Console.WriteLine("null");
+            }
+            else
+            {
+                Console.WriteLine(currTile);
+            }
             return currTile;
         }
 
