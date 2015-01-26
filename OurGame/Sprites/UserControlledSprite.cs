@@ -75,7 +75,7 @@ namespace OurGame.Sprites
                 this.IsGoingDown = false;
                 this.CanJump = false;
 
-                ComputQuadraticFormulaAndAssineBiggestRootToCurrentJumpIncrement();
+                this._currentJumpIncrement = ComputeJumpIncremnet();
 
                 Console.WriteLine("this._currentJumpIncrement == " + this._currentJumpIncrement);
             }
@@ -126,7 +126,7 @@ namespace OurGame.Sprites
 
         }
 
-        private void ComputQuadraticFormulaAndAssineBiggestRootToCurrentJumpIncrement()
+        private int ComputeJumpIncremnet()
         {
             double a = 1;
             double b = 1;
@@ -137,14 +137,17 @@ namespace OurGame.Sprites
             double answer1 = ((-1)*b + Math.Sqrt(sqrtpart))/(2*a);
             double answer2 = ((-1)*b - Math.Sqrt(sqrtpart))/(2*a);
 
+            int inc = -1;
             if (answer1 > answer2)
             {
-                _currentJumpIncrement = (int) answer1;
+                inc = (int) answer1;
             }
             else
             {
-                _currentJumpIncrement = (int) answer2;
+                inc= (int) answer2;
             }
+
+            return inc;
         }
 
         public bool IsGoingDown { get; set; }
