@@ -12,8 +12,7 @@ namespace OurGame.Sprites
 {
     public class UserControlledSprite : AnimatedSprite
     {
-        // ReSharper disable once InconsistentNaming
-        private const int JUMP_INCREMENT = 10;
+        private int _currentJumpIncrement = 1;
         private const int JUMP_TO_THIS_RELATIVE = 200;
 
         private int _jumpStart;
@@ -75,6 +74,10 @@ namespace OurGame.Sprites
                 this.IsGoingUp = true;
                 this.IsGoingDown = false;
                 this.CanJump = false;
+
+                ComputQuadraticFormulaAndAssineBiggestRootToCurrentJumpIncrement();
+
+                Console.WriteLine("this._currentJumpIncrement == " + this._currentJumpIncrement);
             }
 
             if (this._currentlyJumping)
@@ -84,16 +87,18 @@ namespace OurGame.Sprites
                 {
                     this.IsGoingDown = true;
                     this.IsGoingUp = false;
-                    //this.CurrentPosition.Y += UserControlledSprite.JUMP_INCREMENT;
+                    //this.CurrentPosition.Y += UserControlledSprite.JUMP_DELTA;
                 }
                 
                 if (this.CurrentPosition.Y < this._jumpStart && this.IsGoingDown)
                 {
-                    this.CurrentPosition.Y += UserControlledSprite.JUMP_INCREMENT;
+                    this.CurrentPosition.Y += _currentJumpIncrement - AnimatedSprite.GRAVITY_DOWNWARD;
+                    this._currentJumpIncrement++;
                 }
                 else if (this.CurrentPosition.Y <= this._jumpStart && this.IsGoingUp)
                 {
-                    this.CurrentPosition.Y += -UserControlledSprite.JUMP_INCREMENT;
+                    this.CurrentPosition.Y += -_currentJumpIncrement- AnimatedSprite.GRAVITY_DOWNWARD;
+                    this._currentJumpIncrement--;
                 }
                 else
                 {
@@ -101,16 +106,8 @@ namespace OurGame.Sprites
                     this.IsGoingUp = false;
                     this._currentlyJumping = false;
                 }
-        }
+            }
 
-//            if (this._theBoard.GetFloorLocation(this, this._playGameState.ScreenXOffset) == null || (this._currentlyJumping && (this.BoundingRectangle.Height + this.BoundingRectangle.Y) > this._theBoard.GetFloorLocation(this, this._playGameState.ScreenXOffset).BoundingRectangle.Y))
-//            {
-//                this._currentlyJumping = false;
-//
-//
-//                //Console.WriteLine("--------LANDED!---------- this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y == "+this._TheBoard.GetFloorLocation(this, this._PlayGameState.screenXOffset).BoundingRectangle.Y);
-//                //this.CurrentPosition.Y = this._StartyingYCoordinateForJumping;
-//            }
 
             if (this._theBoard.RetrieveTilesThatIntersectWithThisSprite(this, this._playGameState.ScreenXOffset).Count != 0)
             {
@@ -127,6 +124,27 @@ namespace OurGame.Sprites
                 this.CurrentPosition.Y = this._theBoard.BoardHeight - this.BoundingRectangle.Height;
             }
 
+        }
+
+        private void ComputQuadraticFormulaAndAssineBiggestRootToCurrentJumpIncrement()
+        {
+            double a = 1;
+            double b = 1;
+            double c = -2*UserControlledSprite.JUMP_TO_THIS_RELATIVE;
+
+            double sqrtpart = (b*b) - (4*a*c);
+
+            double answer1 = ((-1)*b + Math.Sqrt(sqrtpart))/(2*a);
+            double answer2 = ((-1)*b - Math.Sqrt(sqrtpart))/(2*a);
+
+            if (answer1 > answer2)
+            {
+                _currentJumpIncrement = (int) answer1;
+            }
+            else
+            {
+                _currentJumpIncrement = (int) answer2;
+            }
         }
 
         public bool IsGoingDown { get; set; }
