@@ -81,6 +81,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates\BlankState.cs" />
     <Compile Include="GameStates\EditBoardState.cs" />
+    <Compile Include="GameStates\EditSpritesState.cs" />
     <Compile Include="GameStates\HelpMenuState.cs" />
     <Compile Include="GameStates\PlayGameState.cs" />
     <Compile Include="GameStates\State.cs" />

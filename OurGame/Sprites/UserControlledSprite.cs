@@ -20,11 +20,11 @@ namespace OurGame.Sprites
         private bool _currentlyJumping = false;
 
         private readonly Board _theBoard;
-        private readonly PlayGameState _playGameState;
+        private readonly State _playGameState;
 
         public bool CanJump { get; set; }
 
-        public UserControlledSprite(string configFilePathAndName, Board board, PlayGameState pState)
+        public UserControlledSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
         {
             this._theBoard = board;

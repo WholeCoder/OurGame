@@ -11,6 +11,10 @@ namespace OurGame.GameStates
 {
     public abstract class State
     {
+
+        // This instance variable lets us scroll the board horizontally.
+        public int ScreenXOffset = 0;
+
         abstract public void Initialize(Game1 ourGame);
 
         // Don't override this to load the content!  Use the method below!

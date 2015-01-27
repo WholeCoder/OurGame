@@ -61,6 +61,15 @@ namespace OurGame.GameStates
                 }
             }
 
+            if (newKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S))
+            {
+                if (ourGame.CurrentState != ourGame.EditSpritesState)
+                {
+
+                    ourGame.SetStateWhenUpdating(ourGame.EditSpritesState, gameTime);
+                }
+            }
+
             if (newKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
             {
                 ourGame.Exit();

@@ -31,9 +31,8 @@ namespace OurGame.GameStates
         bool _spiralIsRunning = false;
 
         Board _board;
-        
-        // This instance variable lets us scroll the board horizontally.
-        public int ScreenXOffset = 0;
+
+        // Scroll amount lef tand right.
         private const int ScrollAmount = 5;
 
         // This is the name the gameboard is saved to when S is pressed.

@@ -31,6 +31,7 @@ namespace OurGame.WindowsGame1
         public State BlankState { get; set; }
         public State PlayGameState { get; set; }
         public State HelpMenuState { get; set; }
+        public State EditSpritesState { get; set; }
 
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
@@ -70,8 +71,6 @@ namespace OurGame.WindowsGame1
             this.EditBoardState = new EditBoardState();
             this.EditBoardState.Initialize(this);
 
-            this.SetStateWhenInitializing(this.EditBoardState);
-
             this.BlankState = new BlankState();
             this.BlankState.Initialize(this);
 
@@ -80,6 +79,11 @@ namespace OurGame.WindowsGame1
 
             this.HelpMenuState = new HelpMenuState();
             this.HelpMenuState.Initialize(this);
+
+            this.EditSpritesState = new EditSpritesState();
+            this.EditSpritesState.Initialize(this);
+
+            this.SetStateWhenInitializing(this.EditSpritesState);
 
             base.Initialize();
         }
@@ -97,6 +101,7 @@ namespace OurGame.WindowsGame1
             this.BlankState.LoadContent(Content);
             this.PlayGameState.LoadContent(Content);
             this.HelpMenuState.LoadContent(Content);
+            this.EditSpritesState.LoadContent(Content);
         }
 
         /// <summary>
@@ -112,6 +117,7 @@ namespace OurGame.WindowsGame1
             this.BlankState.UnloadContent();
             this.PlayGameState.UnloadContent();
             this.HelpMenuState.UnloadContent();
+            this.EditSpritesState.UnloadContent();
         }
 
         /// <summary>

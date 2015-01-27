@@ -229,7 +229,6 @@ namespace OurGame.Sprites
 
         protected abstract void UpdateAfterNextFrame(GameTime gameTime);
 
-
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
@@ -245,6 +244,13 @@ namespace OurGame.Sprites
                               this._currentSpriteEffect,
                               0);
         } // end Draw method
+
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner )
+        {
+            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename), 
+                             mouseCursorUpperLeftCorner, 
+                             Color.White);
+        }
 
         // This will start at the startOffset and read out it's attributes.
         protected abstract void Load(string[] configArray, int startOffset);
