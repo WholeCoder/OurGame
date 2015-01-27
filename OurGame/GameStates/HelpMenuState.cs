@@ -107,9 +107,9 @@ namespace OurGame.GameStates
             offsetY += this._helpFont.MeasureString(menuMessage).Y*3;
             this._generalHelpMenu = this.BuildMenuComponent(menuMessage, menuMessage, offsetY);
 
-            menuMessage = "press B key";
+            menuMessage = "press N key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressBGeneralHelpMenuItem = this.BuildMenuComponent(menuMessage, "Go to Blank Screen.", offsetY);
+            MenuComponent pressBGeneralHelpMenuItem = this.BuildMenuComponent(menuMessage, "Go to the Sprite Editor screen.", offsetY);
             this._generalHelpMenu.AddMenuComponents(pressBGeneralHelpMenuItem);
 
             menuMessage = "press E key";
