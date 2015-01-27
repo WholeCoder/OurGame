@@ -60,6 +60,15 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 **press R key** - Reverse time and undo all the movement and jumps you did so far.
 
 ---
+
+**Controls** - **Edit Sprites Mode**
+
+**moust left click** - Place a sprite on the game board.
+
+**press S key** - Save the sprite positions.
+
+---
+
 **General Help** - **Any Mode**
 
 **press B key** - Go to Blank Screen.
