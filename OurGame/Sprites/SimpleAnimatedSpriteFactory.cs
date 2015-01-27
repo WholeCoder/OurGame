@@ -9,9 +9,9 @@ using OurGame.OurGameLibrary;
 
 namespace OurGame.Sprites
 {
-    class SimpleAnimatedSpriteFactory
+    static class SimpleAnimatedSpriteFactory
     {
-        public static AnimatedSprite CreateAnimatedSprite(String filepath, Board board, PlayGameState pState)
+        public static AnimatedSprite CreateAnimatedSprite(String filepath, Board board, State pState)
         {
             Debug.Assert(filepath != null && !filepath.Equals(""),"filepath must not be null or empty!");
             Debug.Assert(board != null, "board can not be null!");

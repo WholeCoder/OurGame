@@ -14,7 +14,7 @@ namespace OurGame.Sprites
     {
         private int _howFarToWalkInOneDirection;
         private bool IsGoingRight { get; set; }
-        private readonly PlayGameState _playGameState;
+        private readonly State _playGameState;
         private int _startXOffset;
 
         private int _moveRightLength;
@@ -22,7 +22,7 @@ namespace OurGame.Sprites
 
         private readonly Board _theBoard;
 
-        public AutomatedSprite(string configFilePathAndName, Board board, PlayGameState pState)
+        public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
         {
             Debug.Assert(pState != null, "pState can't be null!");

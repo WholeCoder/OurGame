@@ -25,7 +25,7 @@ namespace OurGame.GameStates
 
 
         private AnimatedSprite Player { get; set; }
-
+        private SpriteManager _spriteManager;
 
         // This instance variable lets us scroll the board horizontally.
         private int _screenXOffset = 0;
@@ -81,6 +81,7 @@ namespace OurGame.GameStates
             //_multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, TextureCache.getInstance().GetCurrentTexture());
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
 
+            this._spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
         }
 
         public override void UnloadContent()

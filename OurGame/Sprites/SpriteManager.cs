@@ -19,7 +19,7 @@ namespace OurGame.Sprites
         public AnimatedSprite[] Sprites;
         private readonly string _spritesFileName;
 
-        public SpriteManager(String spritesFileName, Board board, PlayGameState pState)
+        public SpriteManager(String spritesFileName, Board board, State pState)
         {
             Debug.Assert(spritesFileName != null && !spritesFileName.Equals(""),
                 "spritesFileName can not be null or empty!");
@@ -31,7 +31,7 @@ namespace OurGame.Sprites
             this.LoadSpritesFromAfile(board, pState);
         }
 
-        private void LoadSpritesFromAfile(Board board, PlayGameState pState)
+        private void LoadSpritesFromAfile(Board board, State pState)
         {
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");

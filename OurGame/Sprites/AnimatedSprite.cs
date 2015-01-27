@@ -245,7 +245,7 @@ namespace OurGame.Sprites
                               0);
         } // end Draw method
 
-        public virtual void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner )
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)
         {
 
             spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
