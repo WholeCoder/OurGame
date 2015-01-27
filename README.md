@@ -79,5 +79,7 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 **press H key** - To get help with keyboard and mouse commands
 
+**press N key** - Enter Edit Sprite mode.
+
 **press Q key** - Quit the editor.
 
