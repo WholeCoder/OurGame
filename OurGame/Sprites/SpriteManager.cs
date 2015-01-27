@@ -16,9 +16,20 @@ namespace OurGame.Sprites
     // This class manages all the sprites.  Mainly enemy sprites but could use it for the UserControlledSprite too.
     internal class SpriteManager
     {
-        public AnimatedSprite[] Sprites;
+        public List<AnimatedSprite> Sprites;
         private readonly string _spritesFileName;
 
+        public void AddSprite(AnimatedSprite aSprite)
+        {
+            this.Sprites.Add(aSprite);
+        }
+
+        public void RemoveSprite(AnimatedSprite aSprite)
+        {
+            this.Sprites.Remove(aSprite);
+        }
+
+        // THis constructor will read in the spritesFileName or create it with default values if it doesn't exist.
         public SpriteManager(String spritesFileName, Board board, State pState)
         {
             Debug.Assert(spritesFileName != null && !spritesFileName.Equals(""),
@@ -27,56 +38,64 @@ namespace OurGame.Sprites
             Debug.Assert(pState != null, "pState can not be null!");
 
             this._spritesFileName = spritesFileName;
-
+            Console.WriteLine("this.LoadSpritesFromAfile(board, pState); - this._spritesFileName == "+this._spritesFileName);
             this.LoadSpritesFromAfile(board, pState);
         }
 
-        private void LoadSpritesFromAfile(Board board, State pState)
+        public void LoadSpritesFromAfile(Board board, State pState)
         {
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
-            if (!File.Exists(this._spritesFileName))
+            if (!File.Exists(this._spritesFileName)) // This file, if not empty, would contain the list of sprite filenames.
             {
                 using (FileStream fs = File.Create(this._spritesFileName))
                 {
-                    AddText(fs, "numberOfSprites:1"); // ex) "UserControlledSprite"
-                    AddText(fs, "\n");
-
-                    AddText(fs, "AutomatedSpriteConfig.txt"); // ex) "UserControlledSprite"
-                    AddText(fs, "\n");
+                    // Create empty file.
+                    Console.WriteLine("         craeting a new "+this._spritesFileName);
                 }
-            }
-            if (!File.Exists("AutomatedSpriteConfig.txt"))
-            {
-                // This will create the AutomatedSpriteConfig.txt file
-                AnimatedSprite aAnimatedSprite = new AutomatedSprite("AutomatedSpriteConfig.txt", board, pState);
             }
 
             String[] configStringSplitRay = File.ReadAllLines(this._spritesFileName);
 
-            int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]); // numberOfSprites:10
-            this.Sprites = new AnimatedSprite[numberOfSprites];
-
-            for (int i = 0; i < this.Sprites.Length; i++)
+            //int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]); // numberOfSprites:10
+            this.Sprites = new List<AnimatedSprite>();
+            for (int i = 0; i < configStringSplitRay.Length; i++)
             {
-                string currentSpriteFileName = configStringSplitRay[i + 1];
-                this.Sprites[i] = SimpleAnimatedSpriteFactory.CreateAnimatedSprite(currentSpriteFileName, board, pState);
+                string currentSpriteFileName = configStringSplitRay[i];
+                this.Sprites.Add(SimpleAnimatedSpriteFactory.CreateAnimatedSprite(currentSpriteFileName, board, pState));
+                Console.WriteLine("     loaded - "+currentSpriteFileName);
             } // end for
 
         } // end method
 
+        public void WriteOutSpritesToAfile()
+        {
+            using (FileStream fs = File.Create(this._spritesFileName))
+            {
+                for (int i = 0; i < this.Sprites.Count; i++)
+                {
+                    string filename = this.Sprites[i].NameOfThisSubclassForWritingToConfigFile() + i + ".txt";
+                    this.Sprites[i].WritePropertiesToFile(filename);
+
+                    AddText(fs, filename);
+                    AddText(fs, "\n");
+                }
+            }
+        }
+
         public void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            for (int i = 0; i < this.Sprites.Length; i++)
+            for (int i = 0; i < this.Sprites.Count; i++)
             {
                 this.Sprites[i].Update(gameTime);
+                Console.WriteLine("updating in SpriteManager.");
             } // end for
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this.Sprites.Length; i++)
+            for (int i = 0; i < this.Sprites.Count; i++)
             {
                 this.Sprites[i].Draw(spriteBatch);
             } // end for
@@ -94,7 +113,7 @@ namespace OurGame.Sprites
 
         public void ApplyDownwordGravity()
         {
-            for (int i = 0; i < this.Sprites.Length; i++)
+            for (int i = 0; i < this.Sprites.Count; i++)
             {
                 this.Sprites[i].ApplyDownwardGravity();
             } // end for

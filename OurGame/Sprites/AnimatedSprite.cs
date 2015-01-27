@@ -264,10 +264,10 @@ namespace OurGame.Sprites
 
         // This will start at the startOffset and read out it's attributes.
         protected abstract void Load(string[] configArray, int startOffset);
-        protected abstract string NameOfThisSubclassForWritingToConfigFile();
+        public abstract string NameOfThisSubclassForWritingToConfigFile();
 
         // In this method we use fs to write out the subclasses properties.
-        public abstract void Write(FileStream fs);
+        protected abstract void Write(FileStream fs);
 
 
         // This is the template method pattern.
@@ -277,66 +277,36 @@ namespace OurGame.Sprites
 
             if (!File.Exists(filepath))
             {
-                using (FileStream fs = File.Create(filepath))
-                {
-                    // Set defaults
+                // Set defaults
 
-                    // Write "AutomatedSprite" to file and a \n.
-                    Debug.Assert(!this.NameOfThisSubclassForWritingToConfigFile().Equals(""), "AnimatedSprite.NameOfThisSubclassForWritingToConfigFile() must return the name of the subclass that is being loaded!");
-                    AddText(fs, this.NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
-                    AddText(fs, "\n");
+                // Write "AutomatedSprite" to file and a \n.
+                Debug.Assert(!this.NameOfThisSubclassForWritingToConfigFile().Equals(""), "AnimatedSprite.NameOfThisSubclassForWritingToConfigFile() must return the name of the subclass that is being loaded!");
 
-                    this.InitialPosition = new Vector2(200, 200);
-                    AddText(fs, this.InitialPosition.X + "," + this.InitialPosition.Y);
-                    AddText(fs, "\n");
+                this.InitialPosition = new Vector2(200, 200);
 
 
-                    this._leftFrameSize = new Point(20, 20);
-                    AddText(fs, this._leftFrameSize.X + "," + this._leftFrameSize.Y);
-                    AddText(fs, "\n");
-
-                    this._rightFrameSize = new Point(20, 20);
-                    AddText(fs, this._rightFrameSize.X + "," + this._rightFrameSize.Y);
-                    AddText(fs, "\n");
-
-                    this._atRestFrameSize = new Point(20, 20);
-                    AddText(fs, this._atRestFrameSize.X + "," + this._atRestFrameSize.Y);
-                    AddText(fs, "\n");
+                this._leftFrameSize = new Point(20, 20);
+                this._rightFrameSize = new Point(20, 20);
+                this._atRestFrameSize = new Point(20, 20);
 
 
-                    this._leftSheetSize = new Point(2, 0);
-                    AddText(fs, this._leftSheetSize.X + "," + this._leftSheetSize.Y);
-                    AddText(fs, "\n");
+                this._leftSheetSize = new Point(2, 0);
 
-                    this._rightSheetSize = new Point(2, 0);
-                    AddText(fs, this._rightSheetSize.X + "," + this._rightSheetSize.Y);
-                    AddText(fs, "\n");
+                this._rightSheetSize = new Point(2, 0);
 
-                    this._atRestSheetSize = new Point(1, 0);
-                    AddText(fs, this._atRestSheetSize.X + "," + this._atRestSheetSize.Y);
-                    AddText(fs, "\n");
+                this._atRestSheetSize = new Point(1, 0);
 
 
-                    this._leftTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this._leftTextureFilename);
-                    AddText(fs, "\n");
+                this._leftTextureFilename = "Images/spritesheets/manspritesheet";
 
-                    this._rightTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this._rightTextureFilename);
-                    AddText(fs, "\n");
+                this._rightTextureFilename = "Images/spritesheets/manspritesheet";
 
-                    this._atRestTextureFilename = "Images/spritesheets/manspritesheet";
-                    AddText(fs, this._atRestTextureFilename);
-                    AddText(fs, "\n");
+                this._atRestTextureFilename = "Images/spritesheets/manspritesheet";
 
-                    
-                    this._timeBetweenFrames = 100;
-                    AddText(fs, this._timeBetweenFrames + "");
-                    AddText(fs, "\n");
 
-                    // Write out the subclass's properties.
-                    this.Write(fs);
-                }
+                this._timeBetweenFrames = 100;
+
+                WritePropertiesToFile(filepath);
             }
             else
             {
@@ -394,6 +364,51 @@ namespace OurGame.Sprites
             this._elapsedGameTime = 0; 
             this._currentTextureFilename = this._atRestTextureFilename;
             this.CurrentPosition = this.InitialPosition;
+        }
+
+        public void WritePropertiesToFile(string filepath)
+        {
+            using (FileStream fs = File.Create(filepath))
+            {
+                AddText(fs, this.NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
+                AddText(fs, "\n");
+
+                AddText(fs, this.InitialPosition.X + "," + this.InitialPosition.Y);
+                AddText(fs, "\n");
+
+                AddText(fs, this._leftFrameSize.X + "," + this._leftFrameSize.Y);
+                AddText(fs, "\n");
+
+                AddText(fs, this._rightFrameSize.X + "," + this._rightFrameSize.Y);
+                AddText(fs, "\n");
+
+                AddText(fs, this._atRestFrameSize.X + "," + this._atRestFrameSize.Y);
+                AddText(fs, "\n");
+
+                AddText(fs, this._leftSheetSize.X + "," + this._leftSheetSize.Y);
+                AddText(fs, "\n");
+
+                AddText(fs, this._rightSheetSize.X + "," + this._rightSheetSize.Y);
+                AddText(fs, "\n");
+
+                AddText(fs, this._atRestSheetSize.X + "," + this._atRestSheetSize.Y);
+                AddText(fs, "\n");
+
+                AddText(fs, this._leftTextureFilename);
+                AddText(fs, "\n");
+
+                AddText(fs, this._rightTextureFilename);
+                AddText(fs, "\n");
+
+                AddText(fs, this._atRestTextureFilename);
+                AddText(fs, "\n");
+
+                AddText(fs, this._timeBetweenFrames + "");
+                AddText(fs, "\n");
+
+                // Write out the subclass's properties.
+                this.Write(fs);
+            }
         }
 
         // Useful in sub-classes.

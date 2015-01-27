@@ -121,8 +121,9 @@ namespace OurGame.GameStates
             if (_rightMouseClickOccurred)
             {
                 // Flip to the next texture under the mouse pointer.
-                TextureCache.getInstance().NextTexture();
+                /*TextureCache.getInstance().NextTexture();
                 _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, TextureCache.getInstance().GetCurrentTexture());
+                 */
                 _rightMouseClickOccurred = false;
             }
 
@@ -134,24 +135,31 @@ namespace OurGame.GameStates
                 _leftMouseClickOccurred = true;
             }
 
+            int putX = this._board.CalculateScreenCoordinateXFromMousePosition(ms.X, _screenXOffset);
+            int putY = this._board.CalculateScreenCoordinateYFromMousePosition(ms.Y);
+
+            _mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
+
             if (_leftMouseClickOccurred)
             {
                 if (this._board.CalculateYIndex(ms.Y) < this._board.TheBoard.GetLength(0) && this._board.CalculateXIndex(ms.X, _screenXOffset) < this._board.TheBoard.GetLength(1)
                     && this._board.CalculateYIndex(ms.Y) >= 0 && this._board.CalculateXIndex(ms.X, _screenXOffset) >= 0)
                 {
-                    OurGame.Commands.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this._board, ms.X, ms.Y, this._multiTexture.TextureToRepeat, _screenXOffset, this._multiTexture.NumberOfHorizontalTiles, this._multiTexture.NumberOfVerticalTiles);
+                   /* OurGame.Commands.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this._board, ms.X, ms.Y, this._multiTexture.TextureToRepeat, _screenXOffset, this._multiTexture.NumberOfHorizontalTiles, this._multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.Execute();
 
                     this._undoStack.Push(ptMultiOnBoardCommand);
+                    */
+                    this.Player.CurrentPosition.X = putX;
+                    this.Player.CurrentPosition.Y = putY;
+                    this.Player.BoundingRectangle.X = putX;
+                    this.Player.BoundingRectangle.Y = putY;
+
+                    this._spriteManager.AddSprite(this.Player);
                 }
 
                 _leftMouseClickOccurred = false;
             }
-
-            int putX = this._board.CalculateScreenCoordinateXFromMousePosition(ms.X, _screenXOffset);
-            int putY = this._board.CalculateScreenCoordinateYFromMousePosition(ms.Y);
-
-            _mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
@@ -176,6 +184,12 @@ namespace OurGame.GameStates
             }
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
+
+            if (newKeyboardState.IsKeyDown(Keys.S) && _oldKeyboardState.IsKeyUp(Keys.S))
+            {
+                this._spriteManager.WriteOutSpritesToAfile();
+                Console.WriteLine(("Writing out SPRITES to config fiile"));
+            }
 
             if (newKeyboardState.IsKeyDown(Keys.PageUp) && _oldKeyboardState.IsKeyUp(Keys.PageUp))
             {
@@ -202,12 +216,6 @@ namespace OurGame.GameStates
                     OurGame.Commands.ICommand ptoBoardCommandUndo = this._undoStack.Pop();
                     ptoBoardCommandUndo.Undo();
                 }
-            }
-
-            // Save to MyLevel.txt.
-            if (newKeyboardState.IsKeyDown(Keys.S) && _oldKeyboardState.IsKeyUp(Keys.S))
-            {
-                SaveCurrentBoard();
             }
 
             // Delete MyLevel.txt.
@@ -277,6 +285,7 @@ namespace OurGame.GameStates
 
             this.Player.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
 
+            this._spriteManager.Draw(spriteBatch);
             //this._multiTexture.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
         } // end method
     } // end class

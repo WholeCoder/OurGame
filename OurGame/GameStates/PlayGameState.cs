@@ -104,7 +104,7 @@ namespace OurGame.GameStates
             // (On the closest tile that is below the sprite).
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
             SetSpritePositionIfIntersectingWithGroundOrPlatform(Player);
-            for (int i = 0; i < this._spriteManager.Sprites.Length; i++)
+            for (int i = 0; i < this._spriteManager.Sprites.Count; i++)
             {
                 SetSpritePositionIfIntersectingWithGroundOrPlatform(this._spriteManager.Sprites[i]);
             }
@@ -285,7 +285,7 @@ namespace OurGame.GameStates
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
             this._board.DrawBoard(spriteBatch, ScreenXOffset, false);  // screenXOffset scrolls the board left and right!
-            Player.Draw(spriteBatch);
+            //Player.Draw(spriteBatch);
             this._spriteManager.Draw(spriteBatch);
             _myEffectsManager.Draw(spriteBatch);
             spriteBatch.DrawString(this._helpFont, "Life:  "+this._playerLife,

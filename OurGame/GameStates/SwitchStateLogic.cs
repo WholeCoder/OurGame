@@ -61,7 +61,7 @@ namespace OurGame.GameStates
                 }
             }
 
-            if (newKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S))
+            if (newKeyboardState.IsKeyDown(Keys.N) && oldKeyboardState.IsKeyUp(Keys.N))
             {
                 if (ourGame.CurrentState != ourGame.EditSpritesState)
                 {
