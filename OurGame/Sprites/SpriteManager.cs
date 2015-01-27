@@ -55,7 +55,7 @@ namespace OurGame.Sprites
                     Console.WriteLine("         craeting a new "+this._spritesFileName);
                 }
             }
-
+            Console.WriteLine("***loading file "+this._spritesFileName);
             String[] configStringSplitRay = File.ReadAllLines(this._spritesFileName);
 
             //int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]); // numberOfSprites:10
@@ -64,7 +64,7 @@ namespace OurGame.Sprites
             {
                 string currentSpriteFileName = configStringSplitRay[i];
                 this.Sprites.Add(SimpleAnimatedSpriteFactory.CreateAnimatedSprite(currentSpriteFileName, board, pState));
-                Console.WriteLine("     loaded - "+currentSpriteFileName);
+                Console.WriteLine("*********************loaded - "+currentSpriteFileName);
             } // end for
 
         } // end method
@@ -89,7 +89,6 @@ namespace OurGame.Sprites
             for (int i = 0; i < this.Sprites.Count; i++)
             {
                 this.Sprites[i].Update(gameTime);
-                Console.WriteLine("updating in SpriteManager.");
             } // end for
         }
 
