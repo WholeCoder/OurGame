@@ -21,8 +21,8 @@ namespace OurGame.GameStates
 {
     public class PlayGameState : State, SpriteObserver
     {
-        readonly EffectManager myEffectsManager;
-        int _keyboardDelayCounter = 0;
+        readonly EffectManager _myEffectsManager;
+        int _keyboardDelayCounter;
 
         bool _fireIsRunning = false;
         bool _fireworksAreRunning = false;
@@ -55,7 +55,7 @@ namespace OurGame.GameStates
 
         public PlayGameState()
         {
-            myEffectsManager = new EffectManager();
+            _myEffectsManager = new EffectManager();
         }
 
         // this is to implement the SpriteObserver interface.
@@ -87,7 +87,7 @@ namespace OurGame.GameStates
 
             this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
-            myEffectsManager.LoadContent(Content);
+            _myEffectsManager.LoadContent(Content);
         }
 
         public override void UnloadContent()
@@ -172,7 +172,7 @@ namespace OurGame.GameStates
                 }
             }
 
-            myEffectsManager.Update(gameTime);
+            _myEffectsManager.Update(gameTime);
 
 
             if (keyState.IsKeyDown(Keys.Right))
@@ -288,7 +288,7 @@ namespace OurGame.GameStates
             this._board.DrawBoard(spriteBatch, ScreenXOffset, false);  // screenXOffset scrolls the board left and right!
             Player.Draw(spriteBatch);
             this._spriteManager.Draw(spriteBatch);
-            myEffectsManager.Draw(spriteBatch);
+            _myEffectsManager.Draw(spriteBatch);
             spriteBatch.DrawString(this._helpFont, "Life:  "+this._playerLife,
                        new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
                        1, SpriteEffects.None, 1);
