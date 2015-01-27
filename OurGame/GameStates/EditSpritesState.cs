@@ -161,10 +161,13 @@ namespace OurGame.GameStates
                     */
                     this.Player.CurrentPosition.X = putX;
                     this.Player.CurrentPosition.Y = putY;
+                    this.Player.InitialPosition.X = putX;
+                    this.Player.InitialPosition.Y = putY;
                     this.Player.BoundingRectangle.X = putX;
                     this.Player.BoundingRectangle.Y = putY;
 
                     this._spriteManager.AddSprite(this.Player);
+                    this.Player = new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
                 }
 
                 _leftMouseClickOccurred = false;

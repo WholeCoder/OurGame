@@ -15,7 +15,7 @@ namespace OurGame.Sprites
     public abstract class AnimatedSprite : SpriteSubject
     {
         public Vector2 CurrentPosition;
-        protected Vector2 InitialPosition { get; set; }
+        public Vector2 InitialPosition;
 
         // This scales our characters and enemies up or down.
         private const int _ScaleUpThisSpriteFactor = 2;
@@ -306,7 +306,7 @@ namespace OurGame.Sprites
 
                 this._timeBetweenFrames = 100;
 
-                WritePropertiesToFile(filepath);
+                //WritePropertiesToFile(filepath);
             }
             else
             {
