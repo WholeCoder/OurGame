@@ -84,6 +84,15 @@ namespace OurGame.GameStates
             this._spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
         }
 
+        public void SaveSpritesToDiskAndLoadItIntoPlayGameState(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
+            this.SaveCurrentSprites();
+            this.OurGame.PlayGameState.LoadContent(Content);
+        }
+
+
         public override void UnloadContent()
         {
         }
@@ -260,20 +269,13 @@ namespace OurGame.GameStates
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
-            this.SaveCurrentBoard();
+            this.SaveCurrentSprites();
             this.OurGame.PlayGameState.LoadContent(Content);
         }
 
-        public void SaveCurrentBoard()
+        public void SaveCurrentSprites()
         {
-            if (File.Exists(PathToSavedGambeBoardConfigurationFile))
-            {
-                File.Delete(PathToSavedGambeBoardConfigurationFile);
-            }
-
-            Console.WriteLine("Saving to " + PathToSavedGambeBoardConfigurationFile);
-
-            this._board.WriteOutTheGameBoard(PathToSavedGambeBoardConfigurationFile);
+            this._spriteManager.WriteOutSpritesToAfile();
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)

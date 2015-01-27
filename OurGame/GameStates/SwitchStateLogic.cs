@@ -34,6 +34,7 @@ namespace OurGame.GameStates
                 if (ourGame.CurrentState != ourGame.PlayGameState)
                 {
                     ((EditBoardState)ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
+                    ((EditSpritesState)ourGame.EditSpritesState).SaveCurrentSprites();
                     ourGame.SetStateWhenUpdating(ourGame.PlayGameState, gameTime);
                 }
             }
