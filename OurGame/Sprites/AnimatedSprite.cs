@@ -247,9 +247,19 @@ namespace OurGame.Sprites
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner )
         {
-            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename), 
-                             mouseCursorUpperLeftCorner, 
-                             Color.White);
+
+            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
+                               mouseCursorUpperLeftCorner,
+                               new Rectangle(_currentFrame.X * _currentFrameSize.X + _currentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
+                               _currentFrame.Y * _currentFrameSize.Y,
+                               _currentFrameSize.X,
+                               _currentFrameSize.Y),
+                               Color.White,
+                               0,
+                               Vector2.Zero,
+                               _ScaleUpThisSpriteFactor, // scale
+                               this._currentSpriteEffect,
+                               0);
         }
 
         // This will start at the startOffset and read out it's attributes.
