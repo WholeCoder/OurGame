@@ -34,7 +34,7 @@ namespace OurGame.GameStates
         
         // This instance variable lets us scroll the board horizontally.
         public int ScreenXOffset = 0;
-        readonly int scrollAmount = 5;
+        private const int ScrollAmount = 5;
 
         // This is the name the gameboard is saved to when S is pressed.
         readonly string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
@@ -193,7 +193,7 @@ namespace OurGame.GameStates
                     this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
 
                 }
-                ScreenXOffset -= scrollAmount;
+                ScreenXOffset -= ScrollAmount;
             }
 
             if (keyState.IsKeyDown(Keys.Left))
@@ -214,7 +214,7 @@ namespace OurGame.GameStates
                     this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
 
                 }
-                ScreenXOffset += scrollAmount;
+                ScreenXOffset += ScrollAmount;
             }
             
 
@@ -246,6 +246,7 @@ namespace OurGame.GameStates
             // "Gravity" to pull down the enemies if they are in mid-air.
             this._spriteManager.ApplyDownwordGravity();
 
+            // See if any enemies have collided with the Player and update the Plaer's life.
             List<AnimatedSprite> enemiesTouchingPlayer = this._spriteManager.GetSpritesThatPlayerCollidedWith(Player);
             if (enemiesTouchingPlayer.Count > 0)
             {
