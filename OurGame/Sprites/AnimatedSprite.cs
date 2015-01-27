@@ -110,7 +110,10 @@ namespace OurGame.Sprites
         public void DecreaseSpriteLife(int delta)
         {
             this.LifeLeft -= delta;
-
+            if (this.LifeLeft < 0)
+            {
+                this.LifeLeft = 0;
+            }
             NotifyObservers();
         }
 
