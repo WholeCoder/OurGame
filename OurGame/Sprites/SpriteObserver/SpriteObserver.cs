@@ -2,6 +2,6 @@
 {
     public interface SpriteObserver
     {
-        void update(int life);
+        void updateObserver(int life);
     }
 }

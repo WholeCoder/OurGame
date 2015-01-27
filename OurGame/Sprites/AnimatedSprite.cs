@@ -103,7 +103,7 @@ namespace OurGame.Sprites
         {
             for (int i = 0; i < this._observers.Count; i++)
             {
-                this._observers[i].update(this.LifeLeft);
+                this._observers[i].updateObserver(this.LifeLeft);
             }
         }
 

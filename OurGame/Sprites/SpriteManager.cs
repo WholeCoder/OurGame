@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,14 +14,15 @@ using OurGame.OurGameLibrary;
 namespace OurGame.Sprites
 {
     // This class manages all the sprites.  Mainly enemy sprites but could use it for the UserControlledSprite too.
-    class SpriteManager
+    internal class SpriteManager
     {
         public AnimatedSprite[] Sprites;
         private readonly string _spritesFileName;
 
         public SpriteManager(String spritesFileName, Board board, PlayGameState pState)
         {
-            Debug.Assert(spritesFileName != null && !spritesFileName.Equals(""),"spritesFileName can not be null or empty!");
+            Debug.Assert(spritesFileName != null && !spritesFileName.Equals(""),
+                "spritesFileName can not be null or empty!");
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
@@ -52,7 +55,7 @@ namespace OurGame.Sprites
 
             String[] configStringSplitRay = File.ReadAllLines(this._spritesFileName);
 
-            int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);  // numberOfSprites:10
+            int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]); // numberOfSprites:10
             this.Sprites = new AnimatedSprite[numberOfSprites];
 
             for (int i = 0; i < this.Sprites.Length; i++)
@@ -96,5 +99,20 @@ namespace OurGame.Sprites
                 this.Sprites[i].ApplyDownwardGravity();
             } // end for
         }
+
+        public List<AnimatedSprite> GetSpritesThatPlayerCollidedWith(AnimatedSprite aSprite)
+        {
+            List<AnimatedSprite> sList = new List<AnimatedSprite>();
+
+            foreach (AnimatedSprite animatedSprite in this.Sprites)
+            {
+                if (animatedSprite.BoundingRectangle.Intersects((aSprite.BoundingRectangle)))
+                {
+                    sList.Add(animatedSprite);
+                }
+            }
+
+            return sList;
+        } // end method
     } // end class
 } // end using

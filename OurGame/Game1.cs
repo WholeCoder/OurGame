@@ -35,7 +35,7 @@ namespace OurGame.WindowsGame1
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
 
-        // This version is called when we change state in an update() call.
+        // This version is called when we change state in an updateObserver() call.
         public void SetStateWhenUpdating(State state, GameTime gameTime)
         {
             Debug.Assert(state != null, "state can't be null!");

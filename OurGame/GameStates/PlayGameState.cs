@@ -59,7 +59,7 @@ namespace OurGame.GameStates
         }
 
         // this is to implement the SpriteObserver interface.
-        public void update(int life)
+        public void updateObserver(int life)
         {
             this._playerLife = life;
         }
@@ -83,6 +83,8 @@ namespace OurGame.GameStates
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
 
             this._playerLife = Player.LifeLeft;
+            this.Player.RegisterObserver(this);
+
             this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
             myEffectsManager.LoadContent(Content);
@@ -243,6 +245,12 @@ namespace OurGame.GameStates
 
             // "Gravity" to pull down the enemies if they are in mid-air.
             this._spriteManager.ApplyDownwordGravity();
+
+            List<AnimatedSprite> enemiesTouchingPlayer = this._spriteManager.GetSpritesThatPlayerCollidedWith(Player);
+            if (enemiesTouchingPlayer.Count > 0)
+            {
+                Player.DecreaseSpriteLife(1);
+            }
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
