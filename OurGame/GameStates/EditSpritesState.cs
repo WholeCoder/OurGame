@@ -190,7 +190,6 @@ namespace OurGame.GameStates
             this._player.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
 
             this._spriteManager.Draw(spriteBatch);
-            //this._multiTexture.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
         } // end method
     } // end class
 } // end namespace
