@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.Commands;
-using OurGame.Commands.ReverseTimeCommands;
 using OurGame.GameStates;
 using OurGame.OurGameLibrary;
+using OurGame.Commands.ReverseTimeCommands;
 
 namespace OurGame.Sprites
 {
@@ -56,7 +56,7 @@ namespace OurGame.Sprites
 
         public Rectangle BoundingRectangle; // For collision detection.
 
-        private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
+        private Stack<ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
 
         protected AnimatedSprite(string configFilePathAndName)
         {
@@ -80,12 +80,12 @@ namespace OurGame.Sprites
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
                                                          this._currentFrameSize.X * _ScaleUpThisSpriteFactor, this._currentFrameSize.Y * _ScaleUpThisSpriteFactor);
 
-            this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<OurGame.Commands.ICommand>();
+            this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<ICommand>();
         }
 
         public void SavePositionToReverseTimeStack(PlayGameState pState)
         {
-            OurGame.Commands.ICommand reverseTimeCommand = new SetGameMetricsToPreviousValuesCommand(pState,pState.ScreenXOffset,this);
+            ICommand reverseTimeCommand = new SetGameMetricsToPreviousValuesCommand(pState,pState.ScreenXOffset,this);
             this._ReversePositionAndScreenOffsetStackOfCommands.Push(reverseTimeCommand);
         }
 
@@ -93,14 +93,14 @@ namespace OurGame.Sprites
         {
             if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
             {
-                OurGame.Commands.ICommand reverseTimeCommand = this._ReversePositionAndScreenOffsetStackOfCommands.Pop();
+                ICommand reverseTimeCommand = this._ReversePositionAndScreenOffsetStackOfCommands.Pop();
                 reverseTimeCommand.Execute();
             }
         }
 
         public void ApplyDownwardGravity()
         {
-            this.CurrentPosition.Y += AnimatedSprite.GRAVITY_DOWNWARD;
+            this.CurrentPosition.Y += GRAVITY_DOWNWARD;
             this.BoundingRectangle.Y = (int)this.CurrentPosition.Y;
         }
 
