@@ -114,6 +114,22 @@ namespace OurGame.Sprites
             } // end for
         }
 
+        public void ReverseTimeForSprites()
+        {
+            for (int i = 0; i < this.Sprites.Count; i++)
+            {
+                this.Sprites[i].ReverseTimeForThisSprite();
+            }
+        }
+
+        public void SavePositionForReverseTime(PlayGameState pState)
+        {
+            for (int i = 0; i < this.Sprites.Count; i++)
+            {
+                this.Sprites[i].SavePositionToReverseTimeStack(pState);
+            }
+        }
+
         public List<AnimatedSprite> GetSpritesThatPlayerCollidedWith(AnimatedSprite aSprite)
         {
             List<AnimatedSprite> sList = new List<AnimatedSprite>();

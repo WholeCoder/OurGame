@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
+using OurGame.Commands;
+using OurGame.Commands.ReverseTimeCommands;
+using OurGame.GameStates;
 using OurGame.OurGameLibrary;
 
 namespace OurGame.Sprites
@@ -53,8 +56,8 @@ namespace OurGame.Sprites
 
         public Rectangle BoundingRectangle; // For collision detection.
 
-        public int LifeLeft;
-
+        private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
+        
         protected AnimatedSprite(string configFilePathAndName)
         {
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null, "configFilePathAndName can't be null or blank!");
@@ -76,6 +79,23 @@ namespace OurGame.Sprites
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
                                                          this._currentFrameSize.X * _ScaleUpThisSpriteFactor, this._currentFrameSize.Y * _ScaleUpThisSpriteFactor);
+
+            this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<OurGame.Commands.ICommand>();
+        }
+
+        public void SavePositionToReverseTimeStack(PlayGameState pState)
+        {
+            OurGame.Commands.ICommand reverseTimeCommand = new SetGameMetricsToPreviousValuesCommand(pState,pState.ScreenXOffset,this);
+            this._ReversePositionAndScreenOffsetStackOfCommands.Push(reverseTimeCommand);
+        }
+
+        public void ReverseTimeForThisSprite()
+        {
+            if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
+            {
+                OurGame.Commands.ICommand reverseTimeCommand = this._ReversePositionAndScreenOffsetStackOfCommands.Pop();
+                reverseTimeCommand.Execute();
+            }
         }
 
         public void ApplyDownwardGravity()

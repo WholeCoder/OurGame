@@ -31,9 +31,6 @@ namespace OurGame.GameStates
 
         Board _board;
 
-        // Scroll amount lef tand right.
-        private const int ScrollAmount = 5;
-
         // This is the name the gameboard is saved to when S is pressed.
         readonly string pathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
 
@@ -42,11 +39,7 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
 
-        private AnimatedSprite Player { get; set; }
         private SpriteManager _spriteManager;
-
-        private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
-        private Vector2 _previousPlayerPosition = new Vector2(-1.0f, -1.0f);
 
         private SpriteFont _helpFont;
 
@@ -60,7 +53,6 @@ namespace OurGame.GameStates
             Debug.Assert(ourGame != null, "ourGame can not be null!");
 
             this.OurGame = ourGame;
-            this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<OurGame.Commands.ICommand>();
         }
 
         protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
@@ -71,7 +63,7 @@ namespace OurGame.GameStates
 
             this._spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
 
-            Player = new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
+            new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
 
             this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
@@ -86,39 +78,16 @@ namespace OurGame.GameStates
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
-            Player.Update(gameTime);
             this._spriteManager.Update(gameTime);
 
-            // These next 2 statements make sure, if the sprite hits the ground, it will not go through the ground.
+            // This next loop make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
-            SetSpritePositionIfIntersectingWithGroundOrPlatform(Player);
             for (int i = 0; i < this._spriteManager.Sprites.Count; i++)
             {
                 SetSpritePositionIfIntersectingWithGroundOrPlatform(this._spriteManager.Sprites[i]);
             }
             
-            if (this._previousPlayerPosition.X != Player.CurrentPosition.X || this._previousPlayerPosition.Y != Player.CurrentPosition.Y)
-            {
-                SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, ScreenXOffset, Player);
-                SetGameMetricsToPreviousValuesCommand topOfStack = null;
-
-                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
-                {
-                    topOfStack = (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
-                }
-
-                if (topOfStack == null ||
-                    topOfStack.CurrentPosition.X != Player.CurrentPosition.X ||
-                    topOfStack.CurrentPosition.Y != Player.CurrentPosition.Y ||
-                    topOfStack.ScreenOffset != ScreenXOffset)
-                {
-                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
-                    this._previousPlayerPosition.X = Player.CurrentPosition.X;
-                    this._previousPlayerPosition.Y = Player.CurrentPosition.Y;
-                }
-            }
-
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
 
@@ -165,44 +134,12 @@ namespace OurGame.GameStates
 
             if (keyState.IsKeyDown(Keys.Right))
             {
-                SetGameMetricsToPreviousValuesCommand topStack = null;
-                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
-                {
-                    topStack= (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
-
-                }
-
-                if (topStack== null ||
-                    topStack.CurrentPosition.X != Player.CurrentPosition.X ||
-                    topStack.CurrentPosition.Y != Player.CurrentPosition.Y ||
-                    topStack.ScreenOffset != ScreenXOffset)
-                {
-                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, ScreenXOffset, Player);
-                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
-
-                }
-                ScreenXOffset -= ScrollAmount;
+                ScreenXOffset -= SCROLL_AMOUNT;
             }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
-                SetGameMetricsToPreviousValuesCommand topStack = null;
-                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
-                {
-                    topStack = (SetGameMetricsToPreviousValuesCommand)this._ReversePositionAndScreenOffsetStackOfCommands.Peek();
-
-                }
-
-                if (topStack == null ||
-                    topStack.CurrentPosition.X != Player.CurrentPosition.X ||
-                    topStack.CurrentPosition.Y != Player.CurrentPosition.Y ||
-                    topStack.ScreenOffset != ScreenXOffset)
-                {
-                    SetGameMetricsToPreviousValuesCommand sCommand = new SetGameMetricsToPreviousValuesCommand(this, ScreenXOffset, Player);
-                    this._ReversePositionAndScreenOffsetStackOfCommands.Push(sCommand);
-
-                }
-                ScreenXOffset += ScrollAmount;
+                ScreenXOffset += SCROLL_AMOUNT;
             }
             
 
@@ -219,20 +156,15 @@ namespace OurGame.GameStates
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                if (this._ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
-                {
-                    ICommand sCommand = this._ReversePositionAndScreenOffsetStackOfCommands.Pop();
-                    sCommand.Execute();
-                }
+                this._spriteManager.ReverseTimeForSprites();
             }
             else
             {
-                // "Gravity" to pull down the Player if it is in mid-air.
-                Player.ApplyDownwardGravity();
+                // "Gravity" to pull down the player or enemies if they are in mid-air.
+                this._spriteManager.ApplyDownwordGravity();
+                this._spriteManager.SavePositionForReverseTime(this);
             }
 
-            // "Gravity" to pull down the enemies if they are in mid-air.
-            this._spriteManager.ApplyDownwordGravity();
 
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
@@ -267,7 +199,7 @@ namespace OurGame.GameStates
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
             this._board.DrawBoard(spriteBatch, ScreenXOffset, false);  // screenXOffset scrolls the board left and right!
-            //Player.Draw(spriteBatch);
+
             this._spriteManager.Draw(spriteBatch);
             _myEffectsManager.Draw(spriteBatch);
 
