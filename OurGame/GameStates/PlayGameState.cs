@@ -270,6 +270,10 @@ namespace OurGame.GameStates
             //Player.Draw(spriteBatch);
             this._spriteManager.Draw(spriteBatch);
             _myEffectsManager.Draw(spriteBatch);
+
+            spriteBatch.DrawString(this._helpFont, "Play Game Mode",
+                            new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
+                            1, SpriteEffects.None, 1);
         }
     }
 }

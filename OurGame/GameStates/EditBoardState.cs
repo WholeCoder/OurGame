@@ -50,7 +50,9 @@ namespace OurGame.GameStates
 
         // Used to reload the contend in the board for the playGameState
         private ContentManager Content { get; set; }
-        
+
+        private SpriteFont _helpFont;
+
         public EditBoardState()
         {
         }
@@ -74,6 +76,9 @@ namespace OurGame.GameStates
             this.Content = Content;
 
             _multiTexture = new MultiTexture(_multiTextureWidthHeight, _multiTextureWidthHeight, TextureCache.getInstance().GetCurrentTexture());
+
+            this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+
         }
 
         public override void UnloadContent()
@@ -267,6 +272,10 @@ namespace OurGame.GameStates
             this._board.DrawBoard(spriteBatch, _screenXOffset, true);  // screenXOffset scrolls the board left and right!
 
             this._multiTexture.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
+
+            spriteBatch.DrawString(this._helpFont, "Edit Board Mode",
+                        new Vector2(20, 10), Color.Black, 0, Vector2.Zero,
+                        1, SpriteEffects.None, 1);
         }
     } // end class
 } // end namespace

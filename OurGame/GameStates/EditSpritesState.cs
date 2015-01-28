@@ -40,6 +40,8 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
+        private SpriteFont _helpFont;
+
         // Used to reload the contend in the board for the playGameState
         private ContentManager Content { get; set; }
 
@@ -64,6 +66,8 @@ namespace OurGame.GameStates
 
             this._player = new UserControlledSprite("ignorthethisspritefile.txt", _board, this);
             this._spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
+
+            this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
         }
 
         public void SaveSpritesToDiskAndLoadItIntoPlayGameState(GameTime gameTime)
@@ -190,6 +194,11 @@ namespace OurGame.GameStates
             this._player.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
 
             this._spriteManager.Draw(spriteBatch);
+
+            spriteBatch.DrawString(this._helpFont, "Edit Sprites Mode",
+                                   new Vector2(20, 10), Color.Black, 0, Vector2.Zero,
+                                   1, SpriteEffects.None, 1);
+
         } // end method
     } // end class
 } // end namespace

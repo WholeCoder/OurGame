@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
-// My usings.
 using OurGame.WindowsGame1;
+// My usings.
 
 namespace OurGame.GameStates
 {
@@ -10,6 +12,8 @@ namespace OurGame.GameStates
     public class BlankState : State
     {
         private KeyboardState _oldKeyboardState;
+
+        private SpriteFont _helpFont;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
@@ -26,8 +30,10 @@ namespace OurGame.GameStates
             this.OurGame = ourGame;
         }
 
-        protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
+        protected override void LoadStatesContent(ContentManager Content)
         {
+
+            this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
         }
 
@@ -36,7 +42,7 @@ namespace OurGame.GameStates
 
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be equal to null!");
 
@@ -47,9 +53,11 @@ namespace OurGame.GameStates
             _oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
         }
 
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
+            spriteBatch.DrawString(this._helpFont, "Blank Mode",
+                                    new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
+                                    1, SpriteEffects.None, 1);
         }
     }
 }
