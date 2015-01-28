@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -127,6 +128,22 @@ namespace OurGame.Sprites
             for (int i = 0; i < this.Sprites.Count; i++)
             {
                 this.Sprites[i].SavePositionToReverseTimeStack(pState);
+            }
+        }
+
+        public void DrawSubclassName(SpriteBatch sBatch, EditSpritesState pState)
+        {
+            for (int i = 0; i < this.Sprites.Count; i++)
+            {
+                this.Sprites[i].DrawSubclassName(sBatch, pState);
+            }
+        }
+
+        public void DrawSubclassName(SpriteBatch sBatch, Vector2 mouseCursorUpperLeftCorner, EditSpritesState pState)
+        {
+            for (int i = 0; i < this.Sprites.Count; i++)
+            {
+                this.Sprites[i].DrawSubclassName(sBatch, mouseCursorUpperLeftCorner, pState);
             }
         }
 

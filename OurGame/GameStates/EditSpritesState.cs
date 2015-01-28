@@ -40,7 +40,7 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
-        private SpriteFont _helpFont;
+        public SpriteFont _helpFont;
 
         // Used to reload the contend in the board for the playGameState
         private ContentManager Content { get; set; }
@@ -198,7 +198,8 @@ namespace OurGame.GameStates
             spriteBatch.DrawString(this._helpFont, "Edit Sprites Mode",
                                    new Vector2(20, 10), Color.Black, 0, Vector2.Zero,
                                    1, SpriteEffects.None, 1);
-
+            this._spriteManager.DrawSubclassName(spriteBatch, this);
+            this._player.DrawSubclassName(spriteBatch, _mouseCursorLockedToNearestGridPositionVector, this);
         } // end method
     } // end class
 } // end namespace

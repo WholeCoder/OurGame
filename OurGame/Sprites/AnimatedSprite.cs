@@ -57,7 +57,7 @@ namespace OurGame.Sprites
         public Rectangle BoundingRectangle; // For collision detection.
 
         private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
-        
+
         protected AnimatedSprite(string configFilePathAndName)
         {
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null, "configFilePathAndName can't be null or blank!");
@@ -241,6 +241,30 @@ namespace OurGame.Sprites
                                _ScaleUpThisSpriteFactor, // scale
                                this._currentSpriteEffect,
                                0);
+
+        }
+
+        public void DrawSubclassName(SpriteBatch spriteBatch, EditSpritesState pState)
+        {
+            string subClassName = this.NameOfThisSubclassForWritingToConfigFile();
+            float posAboveSprite = this.CurrentPosition.Y - pState._helpFont.MeasureString(subClassName).Y;
+
+            //Vector2 posAboveSprite = new Vector2(this.CurrentPosition.X, this.CurrentPosition.Y-Boa);
+            spriteBatch.DrawString(pState._helpFont, this.NameOfThisSubclassForWritingToConfigFile(),
+                new Vector2(this.CurrentPosition.X, posAboveSprite), Color.Black, 0, Vector2.Zero,
+                1, SpriteEffects.None, 1);
+
+        }
+
+        public void DrawSubclassName(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner, EditSpritesState pState)
+        {
+            string subClassName = this.NameOfThisSubclassForWritingToConfigFile();
+            float posAboveSprite = mouseCursorUpperLeftCorner.Y - pState._helpFont.MeasureString(subClassName).Y;
+
+            spriteBatch.DrawString(pState._helpFont, this.NameOfThisSubclassForWritingToConfigFile(),
+                new Vector2( mouseCursorUpperLeftCorner.X, posAboveSprite), Color.Black, 0, Vector2.Zero,
+                1, SpriteEffects.None, 1);
+
         }
 
         // This will start at the startOffset and read out it's attributes.
