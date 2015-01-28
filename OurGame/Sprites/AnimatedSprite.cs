@@ -244,6 +244,7 @@ namespace OurGame.Sprites
 
         }
 
+        // Used when drawing a sprite through the SpriteManager.
         public void DrawSubclassName(SpriteBatch spriteBatch, EditSpritesState pState)
         {
             string subClassName = this.NameOfThisSubclassForWritingToConfigFile();
@@ -256,6 +257,7 @@ namespace OurGame.Sprites
 
         }
 
+        // Called when must draw on mouse cursor position.
         public void DrawSubclassName(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner, EditSpritesState pState)
         {
             string subClassName = this.NameOfThisSubclassForWritingToConfigFile();
