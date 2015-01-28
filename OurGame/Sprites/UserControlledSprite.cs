@@ -76,8 +76,6 @@ namespace OurGame.Sprites
                 this.CanJump = false;
 
                 this._currentJumpIncrement = ComputeJumpIncremnet();
-
-                Console.WriteLine("this._currentJumpIncrement == " + this._currentJumpIncrement);
             }
 
             if (this._currentlyJumping)

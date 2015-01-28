@@ -98,8 +98,6 @@
     <Compile Include="Sprites\AutomatedSprite.cs" />
     <Compile Include="Sprites\SimpleAnimatedSpriteFactory.cs" />
     <Compile Include="Sprites\SpriteManager.cs" />
-    <Compile Include="Sprites\SpriteObserver\SpriteObserver.cs" />
-    <Compile Include="Sprites\SpriteObserver\SpriteSubject.cs" />
     <Compile Include="Sprites\UserControlledSprite.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\MenuComponentCommands\" />
+    <Folder Include="Sprites\SpriteObserver\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\fonts\helpfont.spritefont" />

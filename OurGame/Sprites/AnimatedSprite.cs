@@ -8,11 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.OurGameLibrary;
-using OurGame.Sprites.SpriteObserver;
 
 namespace OurGame.Sprites
 {
-    public abstract class AnimatedSprite : SpriteSubject
+    public abstract class AnimatedSprite
     {
         public Vector2 CurrentPosition;
         public Vector2 InitialPosition;
@@ -54,7 +53,6 @@ namespace OurGame.Sprites
 
         public Rectangle BoundingRectangle; // For collision detection.
 
-        private readonly List<SpriteObserver.SpriteObserver> _observers;
         public int LifeLeft;
 
         protected AnimatedSprite(string configFilePathAndName)
@@ -75,46 +73,9 @@ namespace OurGame.Sprites
             this._isGoingLeft = false;
             this._isGoingRight = false;
 
-            this._observers = new List<SpriteObserver.SpriteObserver>();
-            this.LifeLeft = 1000;
-
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
                                                          this._currentFrameSize.X * _ScaleUpThisSpriteFactor, this._currentFrameSize.Y * _ScaleUpThisSpriteFactor);
-        }
-
-
-        // Observer Pattern
-        public void RegisterObserver(SpriteObserver.SpriteObserver aObserver)
-        {
-            this._observers.Add(aObserver);
-        }
-
-        public void RemoveObserver(SpriteObserver.SpriteObserver aObserver)
-        {
-            int i = this._observers.IndexOf(aObserver);
-            if (i >= 0)
-            {
-                this._observers.Remove(aObserver);
-            }
-        }
-
-        public void NotifyObservers()
-        {
-            for (int i = 0; i < this._observers.Count; i++)
-            {
-                this._observers[i].updateObserver(this.LifeLeft);
-            }
-        }
-
-        public void DecreaseSpriteLife(int delta)
-        {
-            this.LifeLeft -= delta;
-            if (this.LifeLeft < 0)
-            {
-                this.LifeLeft = 0;
-            }
-            NotifyObservers();
         }
 
         public void ApplyDownwardGravity()

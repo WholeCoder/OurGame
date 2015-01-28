@@ -38,7 +38,6 @@ namespace OurGame.Sprites
             Debug.Assert(pState != null, "pState can not be null!");
 
             this._spritesFileName = spritesFileName;
-            Console.WriteLine("this.LoadSpritesFromAfile(board, pState); - this._spritesFileName == "+this._spritesFileName);
             this.LoadSpritesFromAfile(board, pState);
         }
 
@@ -52,10 +51,8 @@ namespace OurGame.Sprites
                 using (FileStream fs = File.Create(this._spritesFileName))
                 {
                     // Create empty file.
-                    Console.WriteLine("         craeting a new "+this._spritesFileName);
                 }
             }
-            Console.WriteLine("***loading file "+this._spritesFileName);
             String[] configStringSplitRay = File.ReadAllLines(this._spritesFileName);
 
             //int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]); // numberOfSprites:10
@@ -64,7 +61,6 @@ namespace OurGame.Sprites
             {
                 string currentSpriteFileName = configStringSplitRay[i];
                 this.Sprites.Add(SimpleAnimatedSpriteFactory.CreateAnimatedSprite(currentSpriteFileName, board, pState));
-                Console.WriteLine("*********************loaded - "+currentSpriteFileName);
             } // end for
 
         } // end method

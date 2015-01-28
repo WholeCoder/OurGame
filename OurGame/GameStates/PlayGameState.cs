@@ -12,14 +12,13 @@ using OurGame.Commands;
 using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
 using OurGame.Commands.ReverseTimeCommands;
-using OurGame.Sprites.SpriteObserver;
 
 // Created by someone else.
 using ParticleEffects;
 
 namespace OurGame.GameStates
 {
-    public class PlayGameState : State, SpriteObserver
+    public class PlayGameState : State
     {
         readonly EffectManager _myEffectsManager;
         int _keyboardDelayCounter;
@@ -49,18 +48,11 @@ namespace OurGame.GameStates
         private Stack<OurGame.Commands.ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
         private Vector2 _previousPlayerPosition = new Vector2(-1.0f, -1.0f);
 
-        private int _playerLife;
         private SpriteFont _helpFont;
 
         public PlayGameState()
         {
             _myEffectsManager = new EffectManager();
-        }
-
-        // this is to implement the SpriteObserver interface.
-        public void updateObserver(int life)
-        {
-            this._playerLife = life;
         }
 
         public override void Initialize(Game1 ourGame)
@@ -80,9 +72,6 @@ namespace OurGame.GameStates
             this._spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
 
             Player = new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
-
-            this._playerLife = Player.LifeLeft;
-            this.Player.RegisterObserver(this);
 
             this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
@@ -245,13 +234,6 @@ namespace OurGame.GameStates
             // "Gravity" to pull down the enemies if they are in mid-air.
             this._spriteManager.ApplyDownwordGravity();
 
-            // See if any enemies have collided with the Player and update the Plaer's life.
-            List<AnimatedSprite> enemiesTouchingPlayer = this._spriteManager.GetSpritesThatPlayerCollidedWith(Player);
-            if (enemiesTouchingPlayer.Count > 0)
-            {
-                Player.DecreaseSpriteLife(1);
-            }
-
             KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
 
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, this.OurGame, gameTime);
@@ -288,10 +270,6 @@ namespace OurGame.GameStates
             //Player.Draw(spriteBatch);
             this._spriteManager.Draw(spriteBatch);
             _myEffectsManager.Draw(spriteBatch);
-            spriteBatch.DrawString(this._helpFont, "Life:  "+this._playerLife,
-                       new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
-                       1, SpriteEffects.None, 1);
-
         }
     }
 }
