@@ -9,7 +9,7 @@ This is a 2D video game level editor created with the MonoGame framework.
 
 1.  Download and install **Visual Studio 2013 Community Edition** <a href="http://www.visualstudio.com/products/free-developer-offers-vs?wt.mc_id=p~CO~COMMUNITY~SEARCH~FY15~11Nov~GOOGLE~visual%20studio%20free%20download&WT.srch=1&WT.mc_id=SEM_GOO_USEvergreenSearch_Unassigned&CR_CC=300219949">here</a>
 
-2.  Download and install the **MonoGame** <a href="http://www.monogame.net/">Here</a>
+2.  Download and install the **MonoGame** framework <a href="http://www.monogame.net/">Here</a>
 
 After a fresh clone you must do the following to get nuget to fetch the dependencies (XUnit at the moment).  
 
