@@ -40,6 +40,8 @@ namespace OurGame.GameStates
 
         private int _screenXOffset = 0;
 
+        private int _previousScrollValue;
+
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
@@ -57,6 +59,7 @@ namespace OurGame.GameStates
             Debug.Assert(ourGame != null, "ourGame can't be null!");
 
             this.OurGame = ourGame;
+            _previousScrollValue = Mouse.GetState().ScrollWheelValue;
         }
 
         protected override void LoadStatesContent(ContentManager Content)
@@ -99,6 +102,16 @@ namespace OurGame.GameStates
 
             // Get the mouse state relevant for this frame
             _currentMouseState = Mouse.GetState();
+
+            if (_currentMouseState.ScrollWheelValue < _previousScrollValue)
+            {
+                this._player.DecrementScaleFactor();
+            }
+            else if (_currentMouseState.ScrollWheelValue > _previousScrollValue)
+            {
+                this._player.IncrementScaleFactor();
+            }
+            _previousScrollValue = _currentMouseState.ScrollWheelValue;
 
 
             // Recognize a single click of the leftmouse button

@@ -20,7 +20,7 @@ namespace OurGame.Sprites
         public Vector2 InitialPosition;
 
         // This scales our characters and enemies up or down.
-        private const int _ScaleUpThisSpriteFactor = 2;
+        private int _scaleUpThisSpriteFactor;
 
         private Point _leftFrameSize;
         private Point _rightFrameSize;
@@ -78,9 +78,23 @@ namespace OurGame.Sprites
 
             // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
-                                                         this._currentFrameSize.X * _ScaleUpThisSpriteFactor, this._currentFrameSize.Y * _ScaleUpThisSpriteFactor);
+                                                         this._currentFrameSize.X * _scaleUpThisSpriteFactor, this._currentFrameSize.Y * _scaleUpThisSpriteFactor);
 
             this._ReversePositionAndScreenOffsetStackOfCommands = new Stack<ICommand>();
+        }
+
+        public void IncrementScaleFactor()
+        {
+            this._scaleUpThisSpriteFactor++;
+        }
+
+        public void DecrementScaleFactor()
+        {
+            this._scaleUpThisSpriteFactor--;
+            if (this._scaleUpThisSpriteFactor <= 0)
+            {
+                this._scaleUpThisSpriteFactor = 1;
+            }
         }
 
         public void SavePositionToReverseTimeStack(PlayGameState pState)
@@ -204,7 +218,7 @@ namespace OurGame.Sprites
 
             // Update the bounding rectangle of this sprite
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
-                                             this._currentFrameSize.X * _ScaleUpThisSpriteFactor, this._currentFrameSize.Y * _ScaleUpThisSpriteFactor);
+                                             this._currentFrameSize.X * _scaleUpThisSpriteFactor, this._currentFrameSize.Y * _scaleUpThisSpriteFactor);
 
         } // end method
 
@@ -221,7 +235,7 @@ namespace OurGame.Sprites
                               Color.White,
                               0,
                               Vector2.Zero,
-                              _ScaleUpThisSpriteFactor, // scale
+                              _scaleUpThisSpriteFactor, // scale
                               this._currentSpriteEffect,
                               0);
         } // end Draw method
@@ -238,7 +252,7 @@ namespace OurGame.Sprites
                                Color.White,
                                0,
                                Vector2.Zero,
-                               _ScaleUpThisSpriteFactor, // scale
+                               _scaleUpThisSpriteFactor, // scale
                                this._currentSpriteEffect,
                                0);
 
@@ -267,6 +281,11 @@ namespace OurGame.Sprites
                 new Vector2( mouseCursorUpperLeftCorner.X, posAboveSprite), Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
 
+        }
+
+        public int GetSpriteScaleFactor()
+        {
+            return this._scaleUpThisSpriteFactor;
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -313,6 +332,8 @@ namespace OurGame.Sprites
 
                 this._timeBetweenFrames = 100;
 
+                this._scaleUpThisSpriteFactor = 2;
+
                 //WritePropertiesToFile(filepath);
             }
             else
@@ -330,6 +351,7 @@ namespace OurGame.Sprites
                     Images/spritesheets/manspritesheet
                     Images/spritesheets/manspritesheet
                     100
+                    2
                 */
 
                 string[] configStringSplitRay = File.ReadAllLines(filepath);
@@ -362,9 +384,11 @@ namespace OurGame.Sprites
 
                 this._timeBetweenFrames = Convert.ToInt32(configStringSplitRay[11]);
 
+                this._scaleUpThisSpriteFactor= Convert.ToInt32(configStringSplitRay[12]);
+
 
                 // This next call reads in the properties of the sub-class. (template method)
-                this.Load(configStringSplitRay, 12);
+                this.Load(configStringSplitRay, 13);
 
             } // end else
 
@@ -411,6 +435,9 @@ namespace OurGame.Sprites
                 AddText(fs, "\n");
 
                 AddText(fs, this._timeBetweenFrames + "");
+                AddText(fs, "\n");
+
+                AddText(fs, this._scaleUpThisSpriteFactor + "");
                 AddText(fs, "\n");
 
                 // Write out the subclass's properties.
