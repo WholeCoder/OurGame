@@ -288,6 +288,11 @@ namespace OurGame.Sprites
             return this._scaleUpThisSpriteFactor;
         }
 
+        public void SetSpriteScaleFactor(int sf)
+        {
+            this._scaleUpThisSpriteFactor = sf;
+        }
+
         // This will start at the startOffset and read out it's attributes.
         protected abstract void Load(string[] configArray, int startOffset);
         public abstract string NameOfThisSubclassForWritingToConfigFile();

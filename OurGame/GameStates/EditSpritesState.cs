@@ -146,6 +146,7 @@ namespace OurGame.GameStates
 
                     this._spriteManager.AddSprite(this._player);
 
+                    int savedSpriteScale = this._player.GetSpriteScaleFactor();
                     if (this._isUserSprite)
                     {
                         this._player = new UserControlledSprite("IgnoreThisSpriteConfig.txt", _board, this);
@@ -154,6 +155,8 @@ namespace OurGame.GameStates
                     {
                         this._player = new AutomatedSprite("IgnoreThisSpriteConfig.txt", _board, this);
                     }
+
+                    this._player.SetSpriteScaleFactor(savedSpriteScale);
                 } // end if
 
                 _leftMouseClickOccurred = false;
