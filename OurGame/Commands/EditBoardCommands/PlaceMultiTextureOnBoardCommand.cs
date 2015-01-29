@@ -15,9 +15,6 @@ namespace OurGame.Commands.EditBoardCommands
         private readonly int _putY;
         private readonly Texture2D _putTexture;
 
-        // these co-ordinates are array indices
-        private int _undoX;
-        private int _undoY;
         private readonly Texture2D[,] _undoTextures;
 
         // these variables are the how may textures that should be put down onto the game board array
@@ -53,9 +50,6 @@ namespace OurGame.Commands.EditBoardCommands
                     }
                 }
             }
-
-            this._undoX = _putX;
-            this._undoY = _putY;
         }
 
         public void Execute()

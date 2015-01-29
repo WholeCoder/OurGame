@@ -52,18 +52,17 @@ namespace OurGame.Sprites
         private int _timeBetweenFrames;
 
         // ReSharper disable once InconsistentNaming
-        public static int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "pressure" to keep the sprit on the ground;
+        protected const int GRAVITY_DOWNWARD = 5; // This makes sure there is always downward "pressure" to keep the sprit on the ground;
 
         public Rectangle BoundingRectangle; // For collision detection.
 
-        private Stack<ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
+        private readonly Stack<ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
 
         protected AnimatedSprite(string configFilePathAndName)
         {
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null, "configFilePathAndName can't be null or blank!");
 
             this.Load(configFilePathAndName);
-            //this.SwitchToAtRestTexture();
 
             this._currentFrame = new Point(0, 0);
             this._currentTextureFilename = this._atRestTextureFilename;
@@ -76,7 +75,7 @@ namespace OurGame.Sprites
             this._isGoingLeft = false;
             this._isGoingRight = false;
 
-            // _scaleUpThisSpriteFactor is the scall factor used in Draw.  Change this to be an instance member!
+            // _scaleUpThisSpriteFactor is the scale factor used in Draw.
             this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
                                                          this._currentFrameSize.X * _scaleUpThisSpriteFactor, this._currentFrameSize.Y * _scaleUpThisSpriteFactor);
 
@@ -86,6 +85,8 @@ namespace OurGame.Sprites
         public void IncrementScaleFactor()
         {
             this._scaleUpThisSpriteFactor++;
+            this.BoundingRectangle.Width = this._scaleUpThisSpriteFactor * this._currentFrameSize.X;
+            this.BoundingRectangle.Height = this._scaleUpThisSpriteFactor * this._currentFrameSize.Y;
         }
 
         public void DecrementScaleFactor()
@@ -95,6 +96,8 @@ namespace OurGame.Sprites
             {
                 this._scaleUpThisSpriteFactor = 1;
             }
+            this.BoundingRectangle.Width = this._scaleUpThisSpriteFactor * this._currentFrameSize.X;
+            this.BoundingRectangle.Height= this._scaleUpThisSpriteFactor * this._currentFrameSize.Y;
         }
 
         public void SavePositionToReverseTimeStack(PlayGameState pState)
@@ -214,12 +217,14 @@ namespace OurGame.Sprites
         {
             this.NextFrame(gameTime);
 
-            this.UpdateAfterNextFrame(gameTime);
+            //******************************** DO NOT CHANGE THE ORDER OF THIS CODE!!!!!!!!!!!!!!!
+                // MUST KEEP THIS ORDER SO USERCONTROLLED SPRITE CAN JUMP - THIS MUST BE AFTER THE this.UpdateAfterNextFrame(gameTime)!!!!!
+                this.UpdateAfterNextFrame(gameTime);
 
-            // Update the bounding rectangle of this sprite
-            this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
-                                             this._currentFrameSize.X * _scaleUpThisSpriteFactor, this._currentFrameSize.Y * _scaleUpThisSpriteFactor);
-
+                // Update the bounding rectangle of this sprite
+                this.BoundingRectangle = new Rectangle((int)this.CurrentPosition.X, (int)this.CurrentPosition.Y,
+                                                 this._currentFrameSize.X * _scaleUpThisSpriteFactor, this._currentFrameSize.Y * _scaleUpThisSpriteFactor);
+            //******************************** DO NOT CHANGE THE ORDER OF THIS CODE!!!!!!!!!!!!!!!
         } // end method
 
         protected abstract void UpdateAfterNextFrame(GameTime gameTime);
@@ -291,6 +296,8 @@ namespace OurGame.Sprites
         public void SetSpriteScaleFactor(int sf)
         {
             this._scaleUpThisSpriteFactor = sf;
+            this.BoundingRectangle.Width = this._scaleUpThisSpriteFactor * this._currentFrameSize.X;
+            this.BoundingRectangle.Height = this._scaleUpThisSpriteFactor * this._currentFrameSize.Y;
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -339,7 +346,6 @@ namespace OurGame.Sprites
 
                 this._scaleUpThisSpriteFactor = 2;
 
-                //WritePropertiesToFile(filepath);
             }
             else
             {

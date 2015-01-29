@@ -4,6 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
@@ -54,13 +55,11 @@ namespace OurGame.Sprites
             }
             String[] configStringSplitRay = File.ReadAllLines(this._spritesFileName);
 
-            //int numberOfSprites = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]); // numberOfSprites:10
             this.Sprites = new List<AnimatedSprite>();
-            for (int i = 0; i < configStringSplitRay.Length; i++)
+            foreach (string currentSpriteFileName in configStringSplitRay)
             {
-                string currentSpriteFileName = configStringSplitRay[i];
                 this.Sprites.Add(SimpleAnimatedSpriteFactory.CreateAnimatedSprite(currentSpriteFileName, board, pState));
-            } // end for
+            }
 
         } // end method
 
@@ -81,21 +80,21 @@ namespace OurGame.Sprites
 
         public void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            for (int i = 0; i < this.Sprites.Count; i++)
+            foreach (AnimatedSprite theSprite in this.Sprites)
             {
-                this.Sprites[i].Update(gameTime);
-            } // end for
+                theSprite.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this.Sprites.Count; i++)
+            foreach (AnimatedSprite theSprite in this.Sprites)
             {
-                this.Sprites[i].Draw(spriteBatch);
-            } // end for
+                theSprite.Draw(spriteBatch);
+            }
         }
 
-        public static void AddText(FileStream fs, string value)
+        private static void AddText(FileStream fs, string value)
         {
             Debug.Assert(fs != null, "FileStream fs can't be null!");
             Debug.Assert(value != null, "value can't be null!");
@@ -107,57 +106,47 @@ namespace OurGame.Sprites
 
         public void ApplyDownwordGravity()
         {
-            for (int i = 0; i < this.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in this.Sprites)
             {
-                this.Sprites[i].ApplyDownwardGravity();
-            } // end for
+                aSprite.ApplyDownwardGravity();
+            }
         }
 
         public void ReverseTimeForSprites()
         {
-            for (int i = 0; i < this.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in this.Sprites)
             {
-                this.Sprites[i].ReverseTimeForThisSprite();
+                aSprite.ReverseTimeForThisSprite();
             }
         }
 
         public void SavePositionForReverseTime(PlayGameState pState)
         {
-            for (int i = 0; i < this.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in this.Sprites)
             {
-                this.Sprites[i].SavePositionToReverseTimeStack(pState);
+                aSprite.SavePositionToReverseTimeStack(pState);
             }
         }
 
         public void DrawSubclassName(SpriteBatch sBatch, EditSpritesState pState)
         {
-            for (int i = 0; i < this.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in this.Sprites)
             {
-                this.Sprites[i].DrawSubclassName(sBatch, pState);
+                aSprite.DrawSubclassName(sBatch, pState);
             }
         }
 
         public void DrawSubclassName(SpriteBatch sBatch, Vector2 mouseCursorUpperLeftCorner, EditSpritesState pState)
         {
-            for (int i = 0; i < this.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in this.Sprites)
             {
-                this.Sprites[i].DrawSubclassName(sBatch, mouseCursorUpperLeftCorner, pState);
+                aSprite.DrawSubclassName(sBatch, mouseCursorUpperLeftCorner, pState);
             }
         }
 
         public List<AnimatedSprite> GetSpritesThatPlayerCollidedWith(AnimatedSprite aSprite)
         {
-            List<AnimatedSprite> sList = new List<AnimatedSprite>();
-
-            foreach (AnimatedSprite animatedSprite in this.Sprites)
-            {
-                if (animatedSprite.BoundingRectangle.Intersects((aSprite.BoundingRectangle)))
-                {
-                    sList.Add(animatedSprite);
-                }
-            }
-
-            return sList;
+            return this.Sprites.Where(animatedSprite => animatedSprite.BoundingRectangle.Intersects((aSprite.BoundingRectangle))).ToList();
         } // end method
     } // end class
 } // end using

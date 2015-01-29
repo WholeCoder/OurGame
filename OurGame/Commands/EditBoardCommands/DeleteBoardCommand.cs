@@ -13,7 +13,7 @@ namespace OurGame.Commands.EditBoardCommands
         private readonly String _pathToSavedGambeBoardConfigurationFile;
         private readonly Board _board;
 
-        public Tile[,] TheUndoBoard { get; set; }
+        private Tile[,] TheUndoBoard { get; set; }
 
         private readonly EditBoardState _editBoardState;
 

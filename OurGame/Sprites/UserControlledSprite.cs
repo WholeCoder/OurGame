@@ -13,6 +13,7 @@ namespace OurGame.Sprites
     public class UserControlledSprite : AnimatedSprite
     {
         private int _currentJumpIncrement = 1;
+        // ReSharper disable once InconsistentNaming
         private const int JUMP_TO_THIS_RELATIVE = 200;
 
         private int _jumpStart;
@@ -22,7 +23,7 @@ namespace OurGame.Sprites
         private readonly Board _theBoard;
         private readonly State _playGameState;
 
-        public bool CanJump { get; set; }
+        private bool CanJump { get; set; }
 
         public UserControlledSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
@@ -124,7 +125,7 @@ namespace OurGame.Sprites
 
         }
 
-        private int ComputeJumpIncremnet()
+        private static int ComputeJumpIncremnet()
         {
             double a = 1;
             double b = 1;
@@ -148,9 +149,9 @@ namespace OurGame.Sprites
             return inc;
         }
 
-        public bool IsGoingDown { get; set; }
+        private bool IsGoingDown { get; set; }
 
-        public bool IsGoingUp { get; set; }
+        private bool IsGoingUp { get; set; }
 
 // end method
 

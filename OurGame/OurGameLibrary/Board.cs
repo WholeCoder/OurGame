@@ -28,14 +28,19 @@ namespace OurGame.OurGameLibrary
         public Tile[,] TheBoard { get; set; }
 
         // The width and height of the individual tiles.
-        private int TileWidth { get; set; }
-        private int TileHeight { get; set; }
+        public int TileWidth { get; set; }
+        public int TileHeight { get; set; }
 
         // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - used to speed up the game by not drawing
         // all the game board every cycle.
         private int BoardMarginX { get; set; }
+        // ReSharper disable once InconsistentNaming
         public const int SCREEN_WIDTH = 800;
+        // ReSharper disable once InconsistentNaming
         private const int NUMBER_OF_TILES_IN_MARGIN_X = 1;
+
+        public const int DEFAULT_TILE_WIDTH = 20;
+        public const int DEFAULT_TILE_HEIGHT = 20;
 
         public Board(String pathToConfigFile)
         {
@@ -220,8 +225,8 @@ namespace OurGame.OurGameLibrary
                 this.BoardHeight = 20*24;  // Screen's height is 480 BoardHeight and Tile Height will be used to calc the number of tiles across array will be
                 this.BoardWidth = 29*80;   // Screen's width is 800 BoardWidth and Tile Height will be used to calc the # of tiles across the array will be
 
-                this.TileHeight = 20;
-                this.TileWidth = 20;
+                this.TileHeight = Board.DEFAULT_TILE_WIDTH;
+                this.TileWidth = Board.DEFAULT_TILE_HEIGHT;
 
                 this.NumberOfVerticalTiles = this.BoardHeight / this.TileHeight;
                 this.NumberOfHorizontalTiles = this.BoardWidth / this.TileWidth;

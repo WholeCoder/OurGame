@@ -10,8 +10,8 @@ namespace OurGame.Commands.ReverseTimeCommands
 {
     public class SetGameMetricsToPreviousValuesCommand : ICommand
     {
-        public readonly int ScreenOffset;
-        public Vector2 CurrentPosition;
+        private readonly int _screenOffset;
+        private Vector2 _currentPosition;
 
         private readonly PlayGameState _playGameState;
         private readonly AnimatedSprite _player;
@@ -22,16 +22,16 @@ namespace OurGame.Commands.ReverseTimeCommands
             Debug.Assert(player != null, "player can't be null!");
 
             this._playGameState = pGameState;
-            this.ScreenOffset = screenOffset;
-            this.CurrentPosition = new Vector2(player.CurrentPosition.X, player.CurrentPosition.Y);
+            this._screenOffset = screenOffset;
+            this._currentPosition = new Vector2(player.CurrentPosition.X, player.CurrentPosition.Y);
             this._player = player;
         }
 
         public void Execute()
         {
-            this._playGameState.ScreenXOffset = this.ScreenOffset;
-            this._player.CurrentPosition.X = this.CurrentPosition.X;
-            this._player.CurrentPosition.Y = this.CurrentPosition.Y;
+            this._playGameState.ScreenXOffset = this._screenOffset;
+            this._player.CurrentPosition.X = this._currentPosition.X;
+            this._player.CurrentPosition.Y = this._currentPosition.Y;
         }
 
         public void Undo()
