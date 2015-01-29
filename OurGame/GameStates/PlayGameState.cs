@@ -1,20 +1,16 @@
-﻿using System;
+﻿using System.Linq;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 // My usings.
 using OurGame.Sprites;
-using OurGame.Commands;
 using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
-using OurGame.Commands.ReverseTimeCommands;
 
-// Created by someone else.
-using ParticleEffects;
 
 namespace OurGame.GameStates
 {
@@ -45,7 +41,7 @@ namespace OurGame.GameStates
             this.OurGame = ourGame;
         }
 
-        protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
+        protected override void LoadStatesContent(ContentManager Content)
         {
             Debug.Assert(Content != null, "Content can not be null!");
 
@@ -62,7 +58,7 @@ namespace OurGame.GameStates
         {
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
@@ -140,7 +136,7 @@ namespace OurGame.GameStates
             }
         }
 
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");

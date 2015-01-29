@@ -5,9 +5,6 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-// My usings.
-using OurGame.OurGameLibrary;
-
 namespace OurGame.OurGameLibrary
 {
     // *** note *** First Texture is the delete texture!

@@ -1,12 +1,10 @@
 ﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
 using OurGame.WindowsGame1;
 using OurGame.MenuComponents;
-using OurGame.OurGameLibrary;
 
 namespace OurGame.GameStates
 {

@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using OurGame.Commands.EditBoardCommands;
 
 // My usings.
 using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
+using OurGame.Commands.EditBoardCommands;
 
 namespace OurGame.GameStates
 {

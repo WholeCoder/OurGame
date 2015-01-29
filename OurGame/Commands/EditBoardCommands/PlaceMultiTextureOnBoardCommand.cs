@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
-using OurGame.OurGameLibrary;
+
 // My usings.
+using OurGame.OurGameLibrary;
 
 namespace OurGame.Commands.EditBoardCommands
 {

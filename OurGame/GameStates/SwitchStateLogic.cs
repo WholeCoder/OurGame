@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 // Our usings.
-using OurGame;
 using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates

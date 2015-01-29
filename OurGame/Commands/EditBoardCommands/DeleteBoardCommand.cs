@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+
+// My usings.
 using OurGame.GameStates;
 using OurGame.OurGameLibrary;
-// My usings.
 
 namespace OurGame.Commands.EditBoardCommands
 {

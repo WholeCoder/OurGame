@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-
 // My usings.
 using OurGame.Sprites;
 using OurGame.GameStates;

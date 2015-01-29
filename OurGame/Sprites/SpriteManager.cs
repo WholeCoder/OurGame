@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
