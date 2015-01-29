@@ -20,15 +20,6 @@ namespace OurGame.GameStates
 {
     public class PlayGameState : State
     {
-        readonly EffectManager _myEffectsManager;
-        int _keyboardDelayCounter;
-
-        bool _fireIsRunning = false;
-        bool _fireworksAreRunning = false;
-        bool _snowIsFalling = false;
-        bool _smokeIsRunning = false;
-        bool _spiralIsRunning = false;
-
         Board _board;
 
         // This is the name the gameboard is saved to when S is pressed.
@@ -45,7 +36,6 @@ namespace OurGame.GameStates
 
         public PlayGameState()
         {
-            _myEffectsManager = new EffectManager();
         }
 
         public override void Initialize(Game1 ourGame)
@@ -66,8 +56,6 @@ namespace OurGame.GameStates
             new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
 
             this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
-
-            _myEffectsManager.LoadContent(Content);
         }
 
         public override void UnloadContent()
@@ -90,47 +78,6 @@ namespace OurGame.GameStates
             
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
-
-            if (_keyboardDelayCounter > 0)
-            {
-                _keyboardDelayCounter -= gameTime.ElapsedGameTime.Milliseconds;
-            }
-            else
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.Up) && !_fireworksAreRunning)
-                {
-                    //myEffectsManager.AddEffect(eEffectType.explosion);
-                    _keyboardDelayCounter = 300;
-                    _fireworksAreRunning = true;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Down) && !_fireIsRunning)
-                {
-                    //myEffectsManager.AddEffect(eEffectType.fire);
-                    _keyboardDelayCounter = 300;
-                    _fireIsRunning = true;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Left) && !_snowIsFalling)
-                {
-                    //myEffectsManager.AddEffect(eEffectType.snow);
-                    _keyboardDelayCounter = 300;
-                    _snowIsFalling = true;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Right) && !_smokeIsRunning)
-                {
-                    //myEffectsManager.AddEffect(eEffectType.smoke);
-                    _keyboardDelayCounter = 300;
-                    _smokeIsRunning = false;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Space) && !_spiralIsRunning)
-                {
-                    //myEffectsManager.AddEffect(eEffectType.spiral);
-                    _keyboardDelayCounter = 300;
-                    _spiralIsRunning = true;
-                }
-            }
-
-            _myEffectsManager.Update(gameTime);
-
 
             if (keyState.IsKeyDown(Keys.Right))
             {
@@ -201,7 +148,6 @@ namespace OurGame.GameStates
             this._board.DrawBoard(spriteBatch, ScreenXOffset, false);  // screenXOffset scrolls the board left and right!
 
             this._spriteManager.Draw(spriteBatch);
-            _myEffectsManager.Draw(spriteBatch);
 
             spriteBatch.DrawString(this._helpFont, "Play Game Mode",
                             new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
