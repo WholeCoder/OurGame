@@ -63,6 +63,8 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 **Controls** - **Edit Sprites Mode**
 
+**mose scroll wheel** - Scale up/down the sprite.
+
 **mouse left click** - Place a sprite on the game board.
 
 **mouse right click** - Switch between User sprite and Enemy sprite "brush."
