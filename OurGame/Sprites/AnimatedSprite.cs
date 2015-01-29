@@ -123,6 +123,8 @@ namespace OurGame.Sprites
 
         private void NextFrame(GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             this._elapsedGameTime += gameTime.ElapsedGameTime.Milliseconds;
 
             if (this._elapsedGameTime >= this._timeBetweenFrames) // 100 milliseconds
@@ -215,6 +217,8 @@ namespace OurGame.Sprites
         // A template method.
         public virtual void Update(GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             this.NextFrame(gameTime);
 
             //******************************** DO NOT CHANGE THE ORDER OF THIS CODE!!!!!!!!!!!!!!!
@@ -231,6 +235,8 @@ namespace OurGame.Sprites
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+
             spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
                               this.CurrentPosition,
                               new Rectangle(_currentFrame.X * _currentFrameSize.X + _currentFrame.X + 1,// CurrentFrame.X+1 is an offset for pixel boundaries in image
@@ -247,6 +253,8 @@ namespace OurGame.Sprites
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)
         {
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+            Debug.Assert(mouseCursorUpperLeftCorner != null, "mouseCursorUpperLeftCorner can not be null!");
 
             spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
                                mouseCursorUpperLeftCorner,
@@ -266,6 +274,9 @@ namespace OurGame.Sprites
         // Used when drawing a sprite through the SpriteManager.
         public void DrawSubclassName(SpriteBatch spriteBatch, EditSpritesState pState)
         {
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+            Debug.Assert(pState != null, "pState can not be null!");
+
             string subClassName = this.NameOfThisSubclassForWritingToConfigFile();
             float posAboveSprite = this.CurrentPosition.Y - pState._helpFont.MeasureString(subClassName).Y;
 
@@ -279,6 +290,10 @@ namespace OurGame.Sprites
         // Called when must draw on mouse cursor position.
         public void DrawSubclassName(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner, EditSpritesState pState)
         {
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+            Debug.Assert(mouseCursorUpperLeftCorner != null, "mouseCursorUpperLeftCorner can not be null!");
+            Debug.Assert(pState != null, "pState can not be null!");
+
             string subClassName = this.NameOfThisSubclassForWritingToConfigFile();
             float posAboveSprite = mouseCursorUpperLeftCorner.Y - pState._helpFont.MeasureString(subClassName).Y;
 
@@ -295,6 +310,11 @@ namespace OurGame.Sprites
 
         public void SetSpriteScaleFactor(int sf)
         {
+            if (sf <= 0)
+            {
+                sf = 1;
+            }
+            
             this._scaleUpThisSpriteFactor = sf;
             this.BoundingRectangle.Width = this._scaleUpThisSpriteFactor * this._currentFrameSize.X;
             this.BoundingRectangle.Height = this._scaleUpThisSpriteFactor * this._currentFrameSize.Y;
@@ -410,6 +430,8 @@ namespace OurGame.Sprites
 
         public void WritePropertiesToFile(string filepath)
         {
+            Debug.Assert(filepath != null && !filepath.Equals(""), "filepath can not be null and can not be the empty string!");
+
             using (FileStream fs = File.Create(filepath))
             {
                 AddText(fs, this.NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"

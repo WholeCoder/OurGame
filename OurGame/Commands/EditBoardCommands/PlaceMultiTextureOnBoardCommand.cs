@@ -24,6 +24,7 @@ namespace OurGame.Commands.EditBoardCommands
         public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset, int numberOfHorizontalTiles, int numberOfVerticalTiles)
         {
             Debug.Assert(pBoard != null, "pBoard can't be null!");
+            // tex can be null!
 
             // Do some calcs with board.
             this._gameBoard = pBoard;

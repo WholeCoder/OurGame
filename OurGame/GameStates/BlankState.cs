@@ -33,7 +33,8 @@ namespace OurGame.GameStates
 
         protected override void LoadStatesContent(ContentManager Content)
         {
-
+            Debug.Assert(Content != null, "Content can not be null!");
+            
             this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
         }
@@ -56,6 +57,9 @@ namespace OurGame.GameStates
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+
             spriteBatch.DrawString(this._helpFont, "Blank Mode",
                                     new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
                                     1, SpriteEffects.None, 1);

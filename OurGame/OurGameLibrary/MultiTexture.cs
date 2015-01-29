@@ -15,6 +15,8 @@ namespace OurGame.OurGameLibrary
 
         public MultiTexture(int numberOfHorizontalTiles, int numberOfVirticalTiles, Texture2D tileToRepeat)
         {
+            // tileToRepeat can be null!
+
             this.NumberOfHorizontalTiles = numberOfHorizontalTiles;
             this.NumberOfVerticalTiles = numberOfVirticalTiles;
 
@@ -50,6 +52,8 @@ namespace OurGame.OurGameLibrary
 
         public Texture2D SelectDeleteBrushPossibly(Texture2D t)
         {
+            // t can be null!
+
             if (this.TextureToRepeat == null)
             {
                 return TextureCache.getInstance().GetTexture2DFromStringBoardArray("Images/DeleteBrush");

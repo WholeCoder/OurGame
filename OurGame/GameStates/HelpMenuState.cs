@@ -31,6 +31,8 @@ namespace OurGame.GameStates
 
         public override void Initialize(Game1 ourGame)
         {
+            Debug.Assert(ourGame != null, "ourGame can not be null!");
+
             this.OurGame = ourGame;
         }
 
@@ -134,6 +136,9 @@ namespace OurGame.GameStates
 
         private MenuComponent BuildMenuComponent(string title,string description, float y)
         {
+            Debug.Assert(title != null, "title can not be null!");
+            Debug.Assert(description != null, "description can not be null");
+
             return new MenuComponent(title,HelpMenuState.COMMAND_NAME_OFFSET,description,HelpMenuState.COMMAND_DESCRIPTION_OFFSET,(int)y);
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 
 // My usings.
@@ -30,6 +31,9 @@ namespace OurGame.MenuComponents
 
         public MenuComponent(string name, int nameJustifyPixels, string description, int descriptionPixels, int yStart)
         {
+            Debug.Assert(name != null, "name can not be null!");
+            Debug.Assert(description != null, "description can not be null!");
+
             this._commandName = name;
             this._commandNameLeftJustifyPixels = nameJustifyPixels;
 
@@ -44,11 +48,15 @@ namespace OurGame.MenuComponents
 
         public void SetCommand(ICommand command)
         {
+            Debug.Assert(command != null, "command can not be null!");
+
             this._command = command;
         }
 
         public void AddMenuComponents(MenuComponent mComponent)
         {
+            Debug.Assert(mComponent != null, "mComponent can not be null!");
+
             this._menuComponents.Add(mComponent);
         }
 
@@ -69,6 +77,9 @@ namespace OurGame.MenuComponents
 
         public void Draw(SpriteBatch spriteBatch, SpriteFont HelpFont)
         {
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+            Debug.Assert(HelpFont != null, "HelpFont can not be null!");
+
             float offsetY = this._yStart;
             spriteBatch.DrawString(HelpFont, this.GetName(),
                                    new Vector2((Board.SCREEN_WIDTH - HelpFont.MeasureString(this._commandName).X) / 2, offsetY), Color.Black, 0, Vector2.Zero,

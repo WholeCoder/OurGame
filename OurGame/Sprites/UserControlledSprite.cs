@@ -28,6 +28,10 @@ namespace OurGame.Sprites
         public UserControlledSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
         {
+            Debug.Assert(configFilePathAndName != null && !configFilePathAndName.Equals(""), "configFilePathAndName can't be null and can't be the empty string!");
+            Debug.Assert(board != null, "board can not be null!");
+            Debug.Assert(pState != null, "pState can not be null!");
+
             this._theBoard = board;
             this._playGameState = pState;
             this.CanJump = true;
@@ -133,6 +137,8 @@ namespace OurGame.Sprites
 
             double sqrtpart = (b*b) - (4*a*c);
 
+            Debug.Assert(sqrtpart >= 0, "the discriminant, sqrtpart, can not be less than 0!");
+
             double answer1 = ((-1)*b + Math.Sqrt(sqrtpart))/(2*a);
             double answer2 = ((-1)*b - Math.Sqrt(sqrtpart))/(2*a);
 
@@ -173,6 +179,8 @@ namespace OurGame.Sprites
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
+            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+
             base.Draw(spriteBatch);
             C3.XNA.Primitives2D.DrawRectangle(spriteBatch, this.BoundingRectangle, Color.Red);
         }

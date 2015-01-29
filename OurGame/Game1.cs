@@ -127,6 +127,8 @@ namespace OurGame.WindowsGame1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -142,6 +144,8 @@ namespace OurGame.WindowsGame1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            Debug.Assert(gameTime != null, "gameTime can not be null!");
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();

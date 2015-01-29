@@ -180,6 +180,8 @@ namespace OurGame.OurGameLibrary
 
         public void PutTextureOntoBoard(Texture2D tTexture, int rowIndex, int columnIndex)
         {
+            // tTexture can be null!
+
             Tile t = this.TheBoard[rowIndex, columnIndex];
             t.TheTexture = tTexture;
         }
@@ -342,7 +344,7 @@ namespace OurGame.OurGameLibrary
 
         private static void AddText(FileStream fs, string value)
         {
-            Debug.Assert(fs.CanWrite, "FileStream fs nust be writable1");
+            Debug.Assert(fs.CanWrite, "FileStream fs nust be writable!");
             Debug.Assert(value != null, "value being written can not be null!");
 
             byte[] info = new UTF8Encoding(true).GetBytes(value);
