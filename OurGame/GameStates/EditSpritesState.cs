@@ -31,10 +31,13 @@ namespace OurGame.GameStates
         private MouseState _currentMouseState;
 
         private bool _leftMouseClickOccurred = false;
+        private bool _rightMouseClickOccurred = false;
 
         private KeyboardState _oldKeyboardState;
 
         private AnimatedSprite _player;
+        private bool _isUserSprite;
+
         private int _screenXOffset = 0;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
@@ -64,7 +67,9 @@ namespace OurGame.GameStates
 
             this.Content = Content;
 
-            this._player = new UserControlledSprite("ignorthethisspritefile.txt", _board, this);
+            //this._player = new UserControlledSprite("ignorthethisspritefile.txt", _board, this);
+            this._player = new AutomatedSprite("ignorthethisspritefile.txt", _board, this);
+            this._isUserSprite = false;
             this._spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
 
             this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
@@ -127,11 +132,45 @@ namespace OurGame.GameStates
                     this._player.BoundingRectangle.Y = putY;
 
                     this._spriteManager.AddSprite(this._player);
-                    this._player = new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
-                }
+
+                    if (this._isUserSprite)
+                    {
+                        this._player = new UserControlledSprite("IgnoreThisSpriteConfig.txt", _board, this);
+                    }
+                    else
+                    {
+                        this._player = new AutomatedSprite("IgnoreThisSpriteConfig.txt", _board, this);
+                    }
+                } // end if
 
                 _leftMouseClickOccurred = false;
             }
+
+
+            if (_lastMouseState.RightButton == ButtonState.Released && _currentMouseState.RightButton == ButtonState.Pressed)
+            {
+                // React to the click
+                // ...
+                _rightMouseClickOccurred = true;
+            }
+
+
+           if (_rightMouseClickOccurred)
+            {
+                this._isUserSprite = !this._isUserSprite;
+
+                if (this._isUserSprite)
+                {
+                    this._player = new UserControlledSprite("IgnoreThisSpriteConfig.txt", _board, this);
+                }
+                else
+                {
+                    this._player = new AutomatedSprite("IgnoreThisSpriteConfig.txt", _board, this);
+
+                }
+               _rightMouseClickOccurred = false;
+            }
+
 
             // Move game board.
             KeyboardState keyState = Keyboard.GetState();
