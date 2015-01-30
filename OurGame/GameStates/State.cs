@@ -2,10 +2,8 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-// My usings.
-using OurGame.WindowsGame1;
 using OurGame.OurGameLibrary;
+using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {
@@ -13,12 +11,9 @@ namespace OurGame.GameStates
     {
         // Scroll amount lef tand right.0.
         protected const int SCROLL_AMOUNT = 5;
-
         // This instance variable lets us scroll the board horizontally.
         public int ScreenXOffset = 0;
-
-        abstract public void Initialize(Game1 ourGame);
-
+        public abstract void Initialize(Game1 ourGame);
         // Don't override this to load the content!  Use the method below!
         public void LoadContent(ContentManager Content)
         {
@@ -27,15 +22,14 @@ namespace OurGame.GameStates
             // This is the reason that this method was implemented - to call TextureCache.SetContent(Content).
             TextureCache.SetContent(Content); // Must be called before TextureCache.getInstance() - a Singleton.
 
-            this.LoadStatesContent(Content);
+            LoadStatesContent(Content);
         }
 
         // Use this next method to load the state's Content.
-        abstract protected void LoadStatesContent(ContentManager Content);
-        
-        abstract public void UnloadContent();
-        abstract public void Update(GameTime gameTime);  // NOTE:  This method is called in the Board.setState(...) method!
-        abstract public void Draw(GameTime gameTime, SpriteBatch spriteBatch); // NOTE:  spriteBatch.Begin()/End() are already called before and after this method!
-
+        protected abstract void LoadStatesContent(ContentManager Content);
+        public abstract void UnloadContent();
+        public abstract void Update(GameTime gameTime);
+        // NOTE:  This method is called in the Board.setState(...) method!
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
     }
 }

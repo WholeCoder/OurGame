@@ -1,26 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace ParticleEffects
 {
     /// <summary>
-    /// This is the main type for your game
+    ///     This is the main type for your game
     /// </summary>
-    public class Game2 : Microsoft.Xna.Framework.Game
+    public class Game2 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        
-        EffectManager myEffectsManager;
-        int keyboardDelayCounter = 0;
+        private readonly GraphicsDeviceManager graphics;
+        private readonly EffectManager myEffectsManager;
+        private int keyboardDelayCounter;
+        private SpriteBatch spriteBatch;
 
         public Game2()
         {
@@ -28,13 +20,13 @@ namespace ParticleEffects
             Content.RootDirectory = "Content";
 
             myEffectsManager = new EffectManager();
-       }
+        }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        ///     Allows the game to perform any initialization it needs to before starting to run.
+        ///     This is where it can query for any required services and load any non-graphic
+        ///     related content.  Calling base.Initialize will enumerate through any components
+        ///     and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
@@ -46,8 +38,8 @@ namespace ParticleEffects
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        ///     LoadContent will be called once per game and is the place to load
+        ///     all of your content.
         /// </summary>
         protected override void LoadContent()
         {
@@ -56,32 +48,29 @@ namespace ParticleEffects
 
             myEffectsManager.LoadContent(Content);
             // TODO: use this.Content to load your game content here
-            
         }
 
         /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
+        ///     UnloadContent will be called once per game and is the place to unload
+        ///     all content.
         /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
-
-
         /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
+        ///     Allows the game to run logic such as updating the world,
+        ///     checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+                Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
+                Exit();
 
             if (keyboardDelayCounter > 0)
             {
@@ -122,18 +111,18 @@ namespace ParticleEffects
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        ///     This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            Color clearColor = Color.Black;
+            var clearColor = Color.Black;
             //clearColor.A = 0;
             GraphicsDevice.Clear(clearColor);
 
             myEffectsManager.Draw(spriteBatch);
 
-            
+
             base.Draw(gameTime);
         }
     }

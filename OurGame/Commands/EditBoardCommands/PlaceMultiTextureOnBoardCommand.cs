@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
-
-// My usings.
 using OurGame.OurGameLibrary;
 
 namespace OurGame.Commands.EditBoardCommands
@@ -9,45 +7,44 @@ namespace OurGame.Commands.EditBoardCommands
     public class PlaceMultiTextureOnBoardCommand : ICommand
     {
         private readonly Board _gameBoard;
-
-        // these co-ordinates are array indices
-        private readonly int _putX;
-        private readonly int _putY;
-        private readonly Texture2D _putTexture;
-
-        private readonly Texture2D[,] _undoTextures;
-
         // these variables are the how may textures that should be put down onto the game board array
         private readonly int _numberOfHorizontalTiles;
         private readonly int _numberOfVerticalTiles;
+        private readonly Texture2D _putTexture;
+        // these co-ordinates are array indices
+        private readonly int _putX;
+        private readonly int _putY;
+        private readonly Texture2D[,] _undoTextures;
 
-        public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset, int numberOfHorizontalTiles, int numberOfVerticalTiles)
+        public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset,
+            int numberOfHorizontalTiles, int numberOfVerticalTiles)
         {
             Debug.Assert(pBoard != null, "pBoard can't be null!");
             // tex can be null!
 
             // Do some calcs with board.
-            this._gameBoard = pBoard;
-            this._putY = this._gameBoard.CalculateYIndex(mouseY);
-            this._putX = this._gameBoard.CalculateXIndex(mouseX, screenXOffset);
-            this._putTexture = tex;
+            _gameBoard = pBoard;
+            _putY = _gameBoard.CalculateYIndex(mouseY);
+            _putX = _gameBoard.CalculateXIndex(mouseX, screenXOffset);
+            _putTexture = tex;
 
-            this._numberOfHorizontalTiles = numberOfHorizontalTiles;
-            this._numberOfVerticalTiles = numberOfVerticalTiles;
+            _numberOfHorizontalTiles = numberOfHorizontalTiles;
+            _numberOfVerticalTiles = numberOfVerticalTiles;
 
             // Save all the textures that we are about to blow away.
-            this._undoTextures = new Texture2D[this._numberOfVerticalTiles, this._numberOfHorizontalTiles];
-            for (int i = 0; i < this._undoTextures.GetLength(0); i++)
+            _undoTextures = new Texture2D[_numberOfVerticalTiles, _numberOfHorizontalTiles];
+            for (var i = 0; i < _undoTextures.GetLength(0); i++)
             {
-                for (int j = 0; j < this._undoTextures.GetLength(1); j++)
+                for (var j = 0; j < _undoTextures.GetLength(1); j++)
                 {
-                    int rowIndex = i + _putY;
-                    int columnIndex = j + _putX;
+                    var rowIndex = i + _putY;
+                    var columnIndex = j + _putX;
 
-                    this._undoTextures[i,j] = null;
-                    if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < this._gameBoard.TheBoard.GetLength(0) && columnIndex < this._gameBoard.TheBoard.GetLength(1))
+                    _undoTextures[i, j] = null;
+                    if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < _gameBoard.TheBoard.GetLength(0) &&
+                        columnIndex < _gameBoard.TheBoard.GetLength(1))
                     {
-                        this._undoTextures[i,j] = this._gameBoard.GetTextureAt(rowIndex, columnIndex);
+                        _undoTextures[i, j] = _gameBoard.GetTextureAt(rowIndex, columnIndex);
                     }
                 }
             }
@@ -55,15 +52,16 @@ namespace OurGame.Commands.EditBoardCommands
 
         public void Execute()
         {
-            for (int i = 0; i < this._numberOfVerticalTiles; i++)
+            for (var i = 0; i < _numberOfVerticalTiles; i++)
             {
-                for (int j = 0; j < this._numberOfHorizontalTiles; j++)
+                for (var j = 0; j < _numberOfHorizontalTiles; j++)
                 {
-                    int columnIndex= _putX + j;
-                    int rowIndex = _putY + i;
-                    if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < this._gameBoard.TheBoard.GetLength(0) && columnIndex < this._gameBoard.TheBoard.GetLength(1))
+                    var columnIndex = _putX + j;
+                    var rowIndex = _putY + i;
+                    if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < _gameBoard.TheBoard.GetLength(0) &&
+                        columnIndex < _gameBoard.TheBoard.GetLength(1))
                     {
-                        this._gameBoard.PutTextureOntoBoard(this._putTexture, rowIndex, columnIndex);
+                        _gameBoard.PutTextureOntoBoard(_putTexture, rowIndex, columnIndex);
                     } // end if
                 } // end for
             } // end outer for
@@ -71,20 +69,20 @@ namespace OurGame.Commands.EditBoardCommands
 
         public void Undo()
         {
-            for (int i = 0; i < this._undoTextures.GetLength(0); i++)
+            for (var i = 0; i < _undoTextures.GetLength(0); i++)
             {
-                for (int j = 0; j < this._undoTextures.GetLength(1); j++)
+                for (var j = 0; j < _undoTextures.GetLength(1); j++)
                 {
-                    int rowIndex = i + _putY;
-                    int columnIndex = j + _putX;
+                    var rowIndex = i + _putY;
+                    var columnIndex = j + _putX;
 
-                    if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < this._gameBoard.TheBoard.GetLength(0) && columnIndex < this._gameBoard.TheBoard.GetLength(1))
+                    if (rowIndex + i >= 0 && columnIndex >= 0 && rowIndex < _gameBoard.TheBoard.GetLength(0) &&
+                        columnIndex < _gameBoard.TheBoard.GetLength(1))
                     {
-                        this._gameBoard.PutTextureOntoBoard(this._undoTextures[i,j], rowIndex, columnIndex);
+                        _gameBoard.PutTextureOntoBoard(_undoTextures[i, j], rowIndex, columnIndex);
                     }
                 }
             } // end outer for
-            
         } // end method
     } // end class
 } // end namespace

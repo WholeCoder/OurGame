@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Diagnostics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,39 +11,48 @@ namespace OurGame.OurGameLibrary
 
     public class TextureCache
     {
-        // These are all for the board.
-        private Texture2D[] _boardTextures;
-        private String[] _boardTextureFileNames;
-
-        // This instance method is used in Board Editing mode to get the current "brush" under the mouse cursor.
-        private int _currentTextureIndex;
-
-        
-        // These are for the player and non-player characters
-        private Texture2D[] _spriteTextures;
-        private string[] _spriteTextureFileNames;
-
-        private static TextureCache _textureCacheInsance = null;
         private const String BoardTextureCacheFileNameString = @"BoardTextureCache.txt";
         private const string SpriteFileName = @"SpriteTextureCache.txt";
+        private static TextureCache _textureCacheInsance;
         private static ContentManager _content;
+        private String[] _boardTextureFileNames;
+        // These are all for the board.
+        private Texture2D[] _boardTextures;
+        // This instance method is used in Board Editing mode to get the current "brush" under the mouse cursor.
+        private int _currentTextureIndex;
+        private string[] _spriteTextureFileNames;
+        // These are for the player and non-player characters
+        private Texture2D[] _spriteTextures;
+
+        private TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
+        {
+            Debug.Assert(boardFileNameString != null && !boardFileNameString.Equals(""),
+                "boardFileNameString can not be null or empty");
+            Debug.Assert(spriteFileName != null && !spriteFileName.Equals(""),
+                "spriteFileName can not be null or empty!");
+            Debug.Assert(Content != null, "Content can not be null");
+
+            LoadBoardTextures(boardFileNameString, Content);
+            LoadSpriteTextures(spriteFileName, Content);
+        }
 
         // MUST CALL setupFileNamesAndcontent(...) BEFORE CALLING THIS!
-        public static TextureCache getInstance() 
+        public static TextureCache getInstance()
         {
-            if (TextureCache._content == null)
+            if (_content == null)
             {
-                throw new MustCallSetContentMethodFirst("TextureCache.SetContent(...) must be called (usually in LoadContent(..) method of the State subclass) before TextureCache.getInstance() is called!");
+                throw new MustCallSetContentMethodFirst(
+                    "TextureCache.SetContent(...) must be called (usually in LoadContent(..) method of the State subclass) before TextureCache.getInstance() is called!");
             }
 
-            Debug.Assert(TextureCache._content != null, "TextureCache._Content must not be nulll!");
+            Debug.Assert(_content != null, "TextureCache._Content must not be nulll!");
 
-            if (TextureCache._textureCacheInsance == null)
+            if (_textureCacheInsance == null)
             {
-                TextureCache._textureCacheInsance = new TextureCache(BoardTextureCacheFileNameString, SpriteFileName, _content);
+                _textureCacheInsance = new TextureCache(BoardTextureCacheFileNameString, SpriteFileName, _content);
             }
 
-            return TextureCache._textureCacheInsance;
+            return _textureCacheInsance;
         }
 
         // This method needs to be called before the TextureCache.getInstance() is called!
@@ -51,33 +60,24 @@ namespace OurGame.OurGameLibrary
         {
             Debug.Assert(Content != null, "Content can not be null!");
 
-            TextureCache._content = Content;
-        }
-
-        private TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
-        {
-            Debug.Assert(boardFileNameString != null && !boardFileNameString.Equals(""), "boardFileNameString can not be null or empty");
-            Debug.Assert(spriteFileName != null && !spriteFileName.Equals(""), "spriteFileName can not be null or empty!");
-            Debug.Assert(Content != null, "Content can not be null");
-
-            this.LoadBoardTextures(boardFileNameString, Content);
-            this.LoadSpriteTextures(spriteFileName, Content);
+            _content = Content;
         }
 
         private void LoadSpriteTextures(string spriteFileName, ContentManager Content)
         {
-            Debug.Assert(spriteFileName != null && !spriteFileName.Equals(""), "spriteFileName can not be null or empty string!");
+            Debug.Assert(spriteFileName != null && !spriteFileName.Equals(""),
+                "spriteFileName can not be null or empty string!");
 
             if (File.Exists(spriteFileName))
             {
                 // The next call also calls this.loadTheseTextures(Content, texStringRay, false)
-                string[] texStringRay = ReadInTextureArrayFromAFile(spriteFileName, Content); // end using
-                this.LoadTheseTextures(Content, texStringRay, false);
+                var texStringRay = ReadInTextureArrayFromAFile(spriteFileName, Content); // end using
+                LoadTheseTextures(Content, texStringRay, false);
             }
             else
             {
                 // Write out our default texture file for the board.
-                String[] texStringRay = new String[2];
+                var texStringRay = new String[2];
 
                 texStringRay[0] = "Images/spritesheets/manspritesheet";
                 texStringRay[1] = "Images/spritesheets/testspritesheet";
@@ -85,7 +85,7 @@ namespace OurGame.OurGameLibrary
 
                 WriteOutStringRayAndLengthToFile(spriteFileName, texStringRay);
 
-                this.LoadTheseTextures(Content, texStringRay, false);
+                LoadTheseTextures(Content, texStringRay, false);
             } // end else
         }
 
@@ -100,12 +100,12 @@ namespace OurGame.OurGameLibrary
                 _boardTextures = new Texture2D[texStringRay.Length];
                 _boardTextureFileNames = new String[texStringRay.Length];
 
-                for (int i = 0; i < _boardTextureFileNames.Length; i++)
+                for (var i = 0; i < _boardTextureFileNames.Length; i++)
                 {
                     _boardTextureFileNames[i] = texStringRay[i];
                 }
 
-                for (int i = 0; i < _boardTextures.Length; i++)
+                for (var i = 0; i < _boardTextures.Length; i++)
                 {
                     _boardTextures[i] = Content.Load<Texture2D>(_boardTextureFileNames[i]);
                 }
@@ -113,15 +113,15 @@ namespace OurGame.OurGameLibrary
             else
             {
                 // Load sprite sheets for player and non-player characters.
-                _spriteTextures = new Texture2D[texStringRay.Length] ;
+                _spriteTextures = new Texture2D[texStringRay.Length];
                 _spriteTextureFileNames = new String[texStringRay.Length];
 
-                for (int i = 0; i < _spriteTextureFileNames.Length; i++)
+                for (var i = 0; i < _spriteTextureFileNames.Length; i++)
                 {
                     _spriteTextureFileNames[i] = texStringRay[i];
                 }
 
-                for (int i = 0; i < _spriteTextures.Length; i++)
+                for (var i = 0; i < _spriteTextures.Length; i++)
                 {
                     _spriteTextures[i] = Content.Load<Texture2D>(_spriteTextureFileNames[i]);
                 }
@@ -135,7 +135,7 @@ namespace OurGame.OurGameLibrary
 
         public Texture2D GetFromTexture2DBoardArray(int index)
         {
-            Debug.Assert(index >=0, "index must by >= 0!");
+            Debug.Assert(index >= 0, "index must by >= 0!");
 
             return _boardTextures[index];
         }
@@ -151,7 +151,7 @@ namespace OurGame.OurGameLibrary
         {
             Debug.Assert(str != null, "str can not be null!");
 
-            for (int i = 0; i < _boardTextureFileNames.Length; i++)
+            for (var i = 0; i < _boardTextureFileNames.Length; i++)
             {
                 if (_boardTextureFileNames[i].Equals(str))
                 {
@@ -163,7 +163,7 @@ namespace OurGame.OurGameLibrary
 
         public String GetStringFilenameFromTexture2DForBoard(Texture2D text)
         {
-            for (int i = 0; i < _boardTextures.Length; i++)
+            for (var i = 0; i < _boardTextures.Length; i++)
             {
                 if (_boardTextures[i] == text)
                 {
@@ -175,7 +175,7 @@ namespace OurGame.OurGameLibrary
 
         public Texture2D GetTexture2DFromStringSpriteArray(String str)
         {
-            for (int i = 0; i < _spriteTextureFileNames.Length; i++)
+            for (var i = 0; i < _spriteTextureFileNames.Length; i++)
             {
                 if (_spriteTextureFileNames[i].Equals(str))
                 {
@@ -187,7 +187,7 @@ namespace OurGame.OurGameLibrary
 
         public String GetStringFilenameFromTexture2DForSprite(Texture2D text)
         {
-            for (int i = 0; i < _spriteTextures.Length; i++)
+            for (var i = 0; i < _spriteTextures.Length; i++)
             {
                 if (_spriteTextures[i] == text)
                 {
@@ -200,13 +200,13 @@ namespace OurGame.OurGameLibrary
         // This method is called by the EditBoardState class to change to the next "brush" under the mouse cursor.
         public void NextTexture()
         {
-            _currentTextureIndex = (_currentTextureIndex + 1) % _boardTextures.Length;
+            _currentTextureIndex = (_currentTextureIndex + 1)%_boardTextures.Length;
         }
 
         public Texture2D GetCurrentTexture()
         {
             // This is the DeleteBrush texture to delete what is under the mouse cursor brush.
-            if (this._boardTextureFileNames[_currentTextureIndex].Equals("Images/DeleteBrush"))
+            if (_boardTextureFileNames[_currentTextureIndex].Equals("Images/DeleteBrush"))
             {
                 return null;
             }
@@ -216,7 +216,8 @@ namespace OurGame.OurGameLibrary
         // Use this called from the main Game Class.
         public void LoadBoardTextures(String boardsFileNameString, ContentManager Content)
         {
-            Debug.Assert(boardsFileNameString != null && !boardsFileNameString.Equals(""), "boardsFileNameString can not be null or empty!");
+            Debug.Assert(boardsFileNameString != null && !boardsFileNameString.Equals(""),
+                "boardsFileNameString can not be null or empty!");
             Debug.Assert(Content != null, "Content can not be null!");
 
             _currentTextureIndex = 0;
@@ -224,56 +225,57 @@ namespace OurGame.OurGameLibrary
             if (File.Exists(boardsFileNameString))
             {
                 // The next call also calls this.loadTheseTextures(Content, texStringRay, true)
-                string[] texArray = ReadInTextureArrayFromAFile(boardsFileNameString, Content); // end using
+                var texArray = ReadInTextureArrayFromAFile(boardsFileNameString, Content); // end using
 
-                this.LoadTheseTextures(Content, texArray, true);
+                LoadTheseTextures(Content, texArray, true);
             }
             else
             {
                 // Write out our default texture file for the board.
                 // ReSharper disable once SuggestVarOrType_Elsewhere
-                String[] texStringRay = new String[3];
+                var texStringRay = new String[3];
                 texStringRay[0] = "Images/DeleteBrush";
                 texStringRay[1] = "Images/tile";
                 texStringRay[2] = "Images/tile2";
 
                 WriteOutStringRayAndLengthToFile(boardsFileNameString, texStringRay);
 
-                this.LoadTheseTextures(Content, texStringRay, true);
+                LoadTheseTextures(Content, texStringRay, true);
             } // end else
         } // end method
 
         private string[] ReadInTextureArrayFromAFile(String textureFileNameString, ContentManager Content)
         {
-                Debug.Assert(textureFileNameString != null && !textureFileNameString.Equals(""), "textureFileNameString can not be null or equal the empty string!");
-                Debug.Assert(Content != null, "Content can not equal null!");
+            Debug.Assert(textureFileNameString != null && !textureFileNameString.Equals(""),
+                "textureFileNameString can not be null or equal the empty string!");
+            Debug.Assert(Content != null, "Content can not equal null!");
 
-                String[] configStringSplitRay = File.ReadAllLines(textureFileNameString);
+            var configStringSplitRay = File.ReadAllLines(textureFileNameString);
 
-                int numberOfTileTextures = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
-                // ReSharper disable once SuggestVarOrType_Elsewhere
-                String[] texStringRay = new String[numberOfTileTextures];
-                for (int i = 0; i < texStringRay.Length; i++)
-                {
-                    texStringRay[i] = configStringSplitRay[1 + i];
-                }
+            var numberOfTileTextures = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
+            // ReSharper disable once SuggestVarOrType_Elsewhere
+            var texStringRay = new String[numberOfTileTextures];
+            for (var i = 0; i < texStringRay.Length; i++)
+            {
+                texStringRay[i] = configStringSplitRay[1 + i];
+            }
 
-                return texStringRay;
-            
+            return texStringRay;
         }
 
         private static void WriteOutStringRayAndLengthToFile(String textureFileName, String[] texStringRay)
         {
-            Debug.Assert(textureFileName != null && !textureFileName.Equals(""), "textureFileName can not be null or an empty string!");
+            Debug.Assert(textureFileName != null && !textureFileName.Equals(""),
+                "textureFileName can not be null or an empty string!");
             Debug.Assert(texStringRay != null, "textStringRay can not be null!");
 
-            using (FileStream fs = File.Create(textureFileName))
+            using (var fs = File.Create(textureFileName))
             {
                 AddText(fs, "numberOfTileTextures:" + texStringRay.Length);
                 AddText(fs, "\n");
 
                 // ReSharper disable once ForCanBeConvertedToForeach
-                for (int i = 0; i < texStringRay.Length; i++)
+                for (var i = 0; i < texStringRay.Length; i++)
                 {
                     AddText(fs, texStringRay[i]);
                     AddText(fs, "\n");
@@ -286,10 +288,8 @@ namespace OurGame.OurGameLibrary
             Debug.Assert(fs.CanWrite, "FileStream fs nust be writable!");
             Debug.Assert(value != null, "value being written can not be null!");
 
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            var info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
         } // End method.
-
     } // End class.
-
 }

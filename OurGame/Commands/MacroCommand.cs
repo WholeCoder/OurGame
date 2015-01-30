@@ -10,11 +10,11 @@ namespace OurGame.Commands
         {
             Debug.Assert(com != null, "Command list, com, can't be null!");
 
-            this._commands = new ICommand[com.Length];
+            _commands = new ICommand[com.Length];
 
-            for (int i = 0; i < com.Length; i++)
+            for (var i = 0; i < com.Length; i++)
             {
-                this._commands[i] = com[i];
+                _commands[i] = com[i];
             }
         }
 
@@ -22,17 +22,17 @@ namespace OurGame.Commands
         {
             // I want to make sure these are called in order.
             // ReSharper disable once ForCanBeConvertedToForeach
-            for (int i = 0; i < this._commands.Length; i++)
+            for (var i = 0; i < _commands.Length; i++)
             {
-                this._commands[i].Execute();
+                _commands[i].Execute();
             }
         }
 
         public void Undo()
         {
-            for (int i = this._commands.Length - 1; i >= 0 ; i--)
+            for (var i = _commands.Length - 1; i >= 0; i--)
             {
-                this._commands[i].Undo();
+                _commands[i].Undo();
             }
         }
     }

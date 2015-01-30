@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace ParticleEffects
 {
@@ -28,14 +22,14 @@ namespace ParticleEffects
 
         public void AddEffect(eEffectType type)
         {
-            Effect tempEffect = new Effect();
+            var tempEffect = new Effect();
             tempEffect.Initialize(type);
             m_lAllEffects.Add(tempEffect);
         }
 
         public void Update(GameTime gameTime)
         {
-            for (int i = m_lAllEffects.Count() - 1; i >= 0; i--)
+            for (var i = m_lAllEffects.Count() - 1; i >= 0; i--)
             {
                 m_lAllEffects[i].Update(gameTime);
 
@@ -46,11 +40,10 @@ namespace ParticleEffects
 
         public void Draw(SpriteBatch batch)
         {
-            foreach (Effect e in m_lAllEffects)
+            foreach (var e in m_lAllEffects)
             {
                 e.Draw(batch);
             }
         }
-
     }
 }

@@ -2,9 +2,8 @@
 
 namespace OurGame.OurGameLibrary
 {
-
     // This exception is thrown when you fail to call TextureCache.SetContent(...) with valid parameters before calling Texture.getInstance();
-    class MustCallSetContentMethodFirst : Exception
+    internal class MustCallSetContentMethodFirst : Exception
     {
         public MustCallSetContentMethodFirst()
         {
@@ -21,4 +20,3 @@ namespace OurGame.OurGameLibrary
         }
     }
 }
-

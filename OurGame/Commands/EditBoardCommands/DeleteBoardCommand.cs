@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-
-// My usings.
 using OurGame.GameStates;
 using OurGame.OurGameLibrary;
 
@@ -10,34 +8,36 @@ namespace OurGame.Commands.EditBoardCommands
 {
     public class DeleteBoardCommand : ICommand
     {
-        private readonly String _pathToSavedGambeBoardConfigurationFile;
         private readonly Board _board;
-
-        private Tile[,] TheUndoBoard { get; set; }
-
         private readonly EditBoardState _editBoardState;
+        private readonly String _pathToSavedGambeBoardConfigurationFile;
 
-        public DeleteBoardCommand(String pathToSavedGameBoardConfigurationFile, Board board, EditBoardState editBoardState)
+        public DeleteBoardCommand(String pathToSavedGameBoardConfigurationFile, Board board,
+            EditBoardState editBoardState)
         {
-            Debug.Assert(!pathToSavedGameBoardConfigurationFile.Equals("") && pathToSavedGameBoardConfigurationFile != null, "pathToSavedGameBoardConfigurationFile is null or empty string!");
+            Debug.Assert(
+                !pathToSavedGameBoardConfigurationFile.Equals("") && pathToSavedGameBoardConfigurationFile != null,
+                "pathToSavedGameBoardConfigurationFile is null or empty string!");
             Debug.Assert(board != null, "board is NULL!");
             Debug.Assert(editBoardState != null, "editBoardState is NULL!");
 
-            this._pathToSavedGambeBoardConfigurationFile = pathToSavedGameBoardConfigurationFile;
-            this._board = board;
+            _pathToSavedGambeBoardConfigurationFile = pathToSavedGameBoardConfigurationFile;
+            _board = board;
 
-            this._editBoardState = editBoardState;
+            _editBoardState = editBoardState;
         }
+
+        private Tile[,] TheUndoBoard { get; set; }
 
         public void Execute()
         {
-            this.TheUndoBoard = new Tile[this._board.TheBoard.GetLength(0), this._board.TheBoard.GetLength(1)];
-            for (int i = 0; i < this.TheUndoBoard.GetLength(0); i++)
+            TheUndoBoard = new Tile[_board.TheBoard.GetLength(0), _board.TheBoard.GetLength(1)];
+            for (var i = 0; i < TheUndoBoard.GetLength(0); i++)
             {
-                for (int j = 0; j < this.TheUndoBoard.GetLength(1); j++)
+                for (var j = 0; j < TheUndoBoard.GetLength(1); j++)
                 {
-                    this.TheUndoBoard[i, j] = this._board.TheBoard[i, j];
-                    this._board.TheBoard[i, j] = null;
+                    TheUndoBoard[i, j] = _board.TheBoard[i, j];
+                    _board.TheBoard[i, j] = null;
                 }
             }
 
@@ -46,20 +46,20 @@ namespace OurGame.Commands.EditBoardCommands
                 File.Delete(_pathToSavedGambeBoardConfigurationFile);
             }
 
-            this._board.ReadInBoardConfigurationOrUseDefault(_pathToSavedGambeBoardConfigurationFile);
+            _board.ReadInBoardConfigurationOrUseDefault(_pathToSavedGambeBoardConfigurationFile);
         }
 
         public void Undo()
         {
-            for (int i = 0; i < this.TheUndoBoard.GetLength(0); i++)
+            for (var i = 0; i < TheUndoBoard.GetLength(0); i++)
             {
-                for (int j = 0; j < this.TheUndoBoard.GetLength(1); j++)
+                for (var j = 0; j < TheUndoBoard.GetLength(1); j++)
                 {
-                    this._board.TheBoard[i, j] = this.TheUndoBoard[i, j];
+                    _board.TheBoard[i, j] = TheUndoBoard[i, j];
                 }
             }
 
-            this._editBoardState.SaveCurrentBoard();
+            _editBoardState.SaveCurrentBoard();
         }
     }
 }

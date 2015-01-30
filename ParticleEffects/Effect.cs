@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace ParticleEffects
 {
@@ -23,37 +18,28 @@ namespace ParticleEffects
 
     public class Effect
     {
-        
+        public static Texture2D snowflakeTexture;
+        public static Texture2D circleTexture;
+        public static Texture2D starTexture;
+        public List<Particle> m_allParticles;
+        public BlendState m_eBlendType;
         public eEffectType m_eType;
-
-        public Texture2D particleTexture;
-        static public Texture2D snowflakeTexture;
-        static public Texture2D circleTexture;
-        static public Texture2D starTexture;
-        
-        public Vector2 m_vOrigin;
-        public int m_iRadius;
-
-        public BlendState   m_eBlendType;
-        
+        public int m_iBurstCountdownMS;
+        public int m_iBurstFrequencyMS;
         public int m_iEffectDuration;
         public int m_iNewParticleAmmount;
-        public int m_iBurstFrequencyMS;
-        public int m_iBurstCountdownMS;
-
+        public int m_iRadius;
+        public Vector2 m_vOrigin;
         public Random myRandom;
-
-        public List<Particle> m_allParticles;
-
+        public Texture2D particleTexture;
 
         public Effect()
         {
-            
             m_allParticles = new List<Particle>();
             myRandom = new Random();
         }
 
-        static public void LoadContent(ContentManager content)
+        public static void LoadContent(ContentManager content)
         {
             snowflakeTexture = content.Load<Texture2D>("snowFlake");
             circleTexture = content.Load<Texture2D>("whiteCircle");
@@ -105,8 +91,8 @@ namespace ParticleEffects
             m_vOrigin = new Vector2(640, 100);
             m_iRadius = 50;
             m_eBlendType = BlendState.NonPremultiplied;
-
         }
+
         public void SnowInitialize()
         {
             //Explosion
@@ -119,7 +105,6 @@ namespace ParticleEffects
             m_vOrigin = new Vector2(640, -50);
             m_iRadius = 50;
             m_eBlendType = BlendState.NonPremultiplied;
-
         }
 
         public void FireInitialize()
@@ -134,8 +119,8 @@ namespace ParticleEffects
             m_vOrigin = new Vector2(640, 400);
             m_iRadius = 15;
             m_eBlendType = BlendState.Additive;
-
         }
+
         public void SmokeInitialize()
         {
             //Smoke
@@ -148,9 +133,8 @@ namespace ParticleEffects
             m_vOrigin = new Vector2(640, 640);
             m_iRadius = 50;
             m_eBlendType = BlendState.Additive;
-
-
         }
+
         public void ExplosionInitialize()
         {
             //Explosion
@@ -163,10 +147,7 @@ namespace ParticleEffects
             m_vOrigin = new Vector2(200, 720);
             m_iRadius = 20;
             m_eBlendType = BlendState.NonPremultiplied;
-
         }
-
-
 
         public void createParticle()
         {
@@ -190,237 +171,240 @@ namespace ParticleEffects
             }
         }
 
-
         public void createSpiralParticle()
         {
-            int initAge = 3000; //3 seconds
+            var initAge = 3000; //3 seconds
 
-            Vector2 initPos = m_vOrigin;
+            var initPos = m_vOrigin;
 
 
-            Vector2 initVel = new Vector2(((float)(100.0f * Math.Cos(m_iEffectDuration))),
-                                          ((float)(100.0f * Math.Sin(m_iEffectDuration))));
+            var initVel = new Vector2(((float) (100.0f*Math.Cos(m_iEffectDuration))),
+                ((float) (100.0f*Math.Sin(m_iEffectDuration))));
 
-            Vector2 initAcc = new Vector2(0, 75);
-            float initDamp = 1.0f;
+            var initAcc = new Vector2(0, 75);
+            var initDamp = 1.0f;
 
-            float initRot = 0.0f;
-            float initRotVel = 2.0f;
-            float initRotDamp = 0.99f;
+            var initRot = 0.0f;
+            var initRotVel = 2.0f;
+            var initRotDamp = 0.99f;
 
-            float initScale = 0.2f;
-            float initScaleVel = 0.2f;
-            float initScaleAcc = -0.1f;
-            float maxScale = 1.0f;
+            var initScale = 0.2f;
+            var initScaleVel = 0.2f;
+            var initScaleAcc = -0.1f;
+            var maxScale = 1.0f;
 
-            Color initColor = Color.DarkRed;
-            Color finalColor = Color.DarkRed;
+            var initColor = Color.DarkRed;
+            var finalColor = Color.DarkRed;
             finalColor *= 0;
             //finalColor.A = 0;
-            int fadeAge = initAge;
+            var fadeAge = initAge;
 
-            Particle tempParticle = new Particle();
-            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
+            var tempParticle = new Particle();
+            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel,
+                initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
 
         public void createFireParticle()
         {
-            int initAge = 500 + (int)myRandom.Next(500); //3 seconds
-            int fadeAge = initAge - (int)myRandom.Next(100);
+            var initAge = 500 + myRandom.Next(500); //3 seconds
+            var fadeAge = initAge - myRandom.Next(100);
 
-            Vector2 initPos = m_vOrigin;
+            var initPos = m_vOrigin;
             Vector2 offset;
-            offset.X = ((float)(myRandom.Next(m_iRadius) * Math.Cos(myRandom.Next(360))));
-            offset.Y = ((float)(myRandom.Next(m_iRadius) * Math.Sin(myRandom.Next(360))));
+            offset.X = ((float) (myRandom.Next(m_iRadius)*Math.Cos(myRandom.Next(360))));
+            offset.Y = ((float) (myRandom.Next(m_iRadius)*Math.Sin(myRandom.Next(360))));
             initPos += offset;
 
-            Vector2 offset2 = Vector2.Zero;
-            offset2.X += (float)(200 * Math.Cos(m_iEffectDuration / 500.0f));
+            var offset2 = Vector2.Zero;
+            offset2.X += (float) (200*Math.Cos(m_iEffectDuration/500.0f));
             initPos += offset2;
 
-            Vector2 initVel = Vector2.Zero;
+            var initVel = Vector2.Zero;
             initVel.X = -(offset.X);
             initVel.Y = -500;
 
-            Vector2 initAcc = new Vector2(0, -myRandom.Next(300));
+            var initAcc = new Vector2(0, -myRandom.Next(300));
 
-            float initDamp = 0.96f;
+            var initDamp = 0.96f;
 
-            float initRot = 0.0f;
-            float initRotVel = 2.0f;
-            float initRotDamp = 0.99f;
+            var initRot = 0.0f;
+            var initRotVel = 2.0f;
+            var initRotDamp = 0.99f;
 
-            float initScale = 0.5f;
-            float initScaleVel = -0.1f;
-            float initScaleAcc = 0.0f;
-            float maxScale = 1.0f;
+            var initScale = 0.5f;
+            var initScaleVel = -0.1f;
+            var initScaleAcc = 0.0f;
+            var maxScale = 1.0f;
 
-            Color initColor = Color.DarkBlue;
-            Color finalColor = Color.DarkOrange;
+            var initColor = Color.DarkBlue;
+            var finalColor = Color.DarkOrange;
             finalColor.A = 0;
 
 
-            Particle tempParticle = new Particle();
-            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
+            var tempParticle = new Particle();
+            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel,
+                initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
+
         public void createSmokeParticle()
         {
-            int initAge = 5000 + (int)myRandom.Next(5000);
-            int fadeAge = initAge - (int)myRandom.Next(5000);
+            var initAge = 5000 + myRandom.Next(5000);
+            var fadeAge = initAge - myRandom.Next(5000);
 
-            Vector2 initPos = m_vOrigin;
+            var initPos = m_vOrigin;
             Vector2 offset;
-            offset.X = ((float)(myRandom.Next(m_iRadius) * Math.Cos(myRandom.Next(360))));
-            offset.Y = ((float)(myRandom.Next(m_iRadius) * Math.Sin(myRandom.Next(360))));
+            offset.X = ((float) (myRandom.Next(m_iRadius)*Math.Cos(myRandom.Next(360))));
+            offset.Y = ((float) (myRandom.Next(m_iRadius)*Math.Sin(myRandom.Next(360))));
             initPos += offset;
 
-            Vector2 offset2 = Vector2.Zero;
-            offset2.X += (float)(400 * Math.Cos(m_iEffectDuration / 500.0f));
+            var offset2 = Vector2.Zero;
+            offset2.X += (float) (400*Math.Cos(m_iEffectDuration/500.0f));
             initPos += offset2;
 
-            Vector2 initVel = Vector2.Zero;
-            initVel.X = 0;//
+            var initVel = Vector2.Zero;
+            initVel.X = 0; //
             initVel.Y = -30 - myRandom.Next(30);
 
-            Vector2 initAcc = new Vector2(10 + myRandom.Next(10), 0);
+            var initAcc = new Vector2(10 + myRandom.Next(10), 0);
 
-            float initDamp = 1.0f;
+            var initDamp = 1.0f;
 
-            float initRot = 0.0f;
-            float initRotVel = 0.0f;
-            float initRotDamp = 1.0f;
+            var initRot = 0.0f;
+            var initRotVel = 0.0f;
+            var initRotDamp = 1.0f;
 
-            float initScale = 0.6f;
-            float initScaleVel = ((float)myRandom.Next(10)) / 50.0f;
-            float initScaleAcc = 0.0f;
-            float maxScale = 3.0f;
+            var initScale = 0.6f;
+            var initScaleVel = myRandom.Next(10)/50.0f;
+            var initScaleAcc = 0.0f;
+            var maxScale = 3.0f;
 
-            Color initColor = Color.Black;
+            var initColor = Color.Black;
             initColor.A = 128;
-            Color finalColor = new Color(32, 32, 32);
+            var finalColor = new Color(32, 32, 32);
             finalColor.A = 0;
 
 
-            Particle tempParticle = new Particle();
-            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
+            var tempParticle = new Particle();
+            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel,
+                initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
 
         public void createExplosionParticle()
         {
-            int initAge = 3000 + (int)myRandom.Next(5000);
-            int fadeAge = initAge / 2;
+            var initAge = 3000 + myRandom.Next(5000);
+            var fadeAge = initAge/2;
 
-            Vector2 initPos = m_vOrigin;
+            var initPos = m_vOrigin;
             Vector2 offset;
-            offset.X = ((float)(myRandom.Next(m_iRadius) * Math.Cos(myRandom.Next(360))));
-            offset.Y = ((float)(myRandom.Next(m_iRadius) * Math.Sin(myRandom.Next(360))));
+            offset.X = ((float) (myRandom.Next(m_iRadius)*Math.Cos(myRandom.Next(360))));
+            offset.Y = ((float) (myRandom.Next(m_iRadius)*Math.Sin(myRandom.Next(360))));
             initPos += offset;
 
-            Vector2 initVel = Vector2.Zero;
-            initVel.X = myRandom.Next(500) + (offset.X * 30);
-            initVel.Y = -60 * Math.Abs(offset.Y);
+            var initVel = Vector2.Zero;
+            initVel.X = myRandom.Next(500) + (offset.X*30);
+            initVel.Y = -60*Math.Abs(offset.Y);
 
-            Vector2 initAcc = new Vector2(0, 400);
+            var initAcc = new Vector2(0, 400);
 
-            float initDamp = 1.0f;
+            var initDamp = 1.0f;
 
-            float initRot = 0.0f;
-            float initRotVel = initVel.X / 50.0f;
-            float initRotDamp = 0.97f;
+            var initRot = 0.0f;
+            var initRotVel = initVel.X/50.0f;
+            var initRotDamp = 0.97f;
 
-            float initScale = 0.1f + ((float)myRandom.Next(10)) / 50.0f;
-            float initScaleVel = ((float)myRandom.Next(10) - 5) / 50.0f;
-            float initScaleAcc = 0.0f;
-            float maxScale = 1.0f;
+            var initScale = 0.1f + myRandom.Next(10)/50.0f;
+            var initScaleVel = ((float) myRandom.Next(10) - 5)/50.0f;
+            var initScaleAcc = 0.0f;
+            var maxScale = 1.0f;
 
-            byte randomGray = (byte)(myRandom.Next(128) + 128);
-            Color initColor = new Color(randomGray, 0, 0);
+            var randomGray = (byte) (myRandom.Next(128) + 128);
+            var initColor = new Color(randomGray, 0, 0);
 
-            Color finalColor = new Color(32, 32, 32);
+            var finalColor = new Color(32, 32, 32);
             finalColor = Color.Black;
 
-            Particle tempParticle = new Particle();
-            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
+            var tempParticle = new Particle();
+            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel,
+                initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
 
         public void createSnowParticle()
         {
-            float initScale = 0.1f + ((float)myRandom.Next(10)) / 20.0f;
-            float initScaleVel = 0.0f;
-            float initScaleAcc = 0.0f;
-            float maxScale = 1.0f;
+            var initScale = 0.1f + myRandom.Next(10)/20.0f;
+            var initScaleVel = 0.0f;
+            var initScaleAcc = 0.0f;
+            var maxScale = 1.0f;
 
-            int initAge = (int)(10000/initScale);
-            int fadeAge = initAge;
+            var initAge = (int) (10000/initScale);
+            var fadeAge = initAge;
 
-            Vector2 initPos = m_vOrigin;
+            var initPos = m_vOrigin;
             Vector2 offset;
-            offset.X = ((float)(myRandom.Next(m_iRadius) * Math.Cos(myRandom.Next(360))));
-            offset.Y = ((float)(myRandom.Next(m_iRadius) * Math.Sin(myRandom.Next(360))));
+            offset.X = ((float) (myRandom.Next(m_iRadius)*Math.Cos(myRandom.Next(360))));
+            offset.Y = ((float) (myRandom.Next(m_iRadius)*Math.Sin(myRandom.Next(360))));
             initPos += offset;
 
-            Vector2 offset2 = Vector2.Zero;
-            offset2.X += (float)(600 * Math.Cos(m_iEffectDuration/500.0));
+            var offset2 = Vector2.Zero;
+            offset2.X += (float) (600*Math.Cos(m_iEffectDuration/500.0));
             initPos += offset2;
 
 
-            Vector2 initVel = Vector2.Zero;
+            var initVel = Vector2.Zero;
             initVel.X = myRandom.Next(10) - 5;
-            initVel.Y = 100 * initScale;
+            initVel.Y = 100*initScale;
 
-            Vector2 initAcc = new Vector2(0, 0);
+            var initAcc = new Vector2(0, 0);
 
-            float initDamp = 1.0f;
+            var initDamp = 1.0f;
 
-            float initRot = 0.0f;
-            float initRotVel = initVel.X / 5.0f; ;
-            float initRotDamp = 1.0f;
+            var initRot = 0.0f;
+            var initRotVel = initVel.X/5.0f;
+            ;
+            var initRotDamp = 1.0f;
 
-            Color initColor = Color.White;
-            Color finalColor = Color.White;
+            var initColor = Color.White;
+            var finalColor = Color.White;
             finalColor.A = 0;
 
-            Particle tempParticle = new Particle();
-            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel, initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
+            var tempParticle = new Particle();
+            tempParticle.Create(particleTexture, initAge, initPos, initVel, initAcc, initDamp, initRot, initRotVel,
+                initRotDamp, initScale, initScaleVel, initScaleAcc, maxScale, initColor, finalColor, fadeAge);
             m_allParticles.Add(tempParticle);
         }
 
         public void Update(GameTime gameTime)
         {
-            
-
             m_iEffectDuration -= gameTime.ElapsedGameTime.Milliseconds;
             m_iBurstCountdownMS -= gameTime.ElapsedGameTime.Milliseconds;
 
             if ((m_iBurstCountdownMS <= 0) && (m_iEffectDuration >= 0))
             {
-                for (int i = 0; i < m_iNewParticleAmmount; i++)
+                for (var i = 0; i < m_iNewParticleAmmount; i++)
                     createParticle();
                 m_iBurstCountdownMS = m_iBurstFrequencyMS;
             }
 
-            for (int i = m_allParticles.Count()-1; i>=0; i--)
+            for (var i = m_allParticles.Count() - 1; i >= 0; i--)
             {
                 m_allParticles[i].Update(gameTime);
 
                 if (m_allParticles[i].m_iAge <= 0)
-                    m_allParticles.RemoveAt(i);     
+                    m_allParticles.RemoveAt(i);
             }
         }
 
         public void Draw(SpriteBatch batch)
         {
             //batch.Begin(SpriteSortMode.BackToFront, m_eBlendType);
-            foreach (Particle p in m_allParticles)
+            foreach (var p in m_allParticles)
             {
                 p.Draw(batch);
             }
             //batch.End();
-
         }
     }
 }

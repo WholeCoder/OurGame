@@ -1,13 +1,11 @@
 ﻿using System;
-using System.IO;
-using System.Text;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-// My usings.
 using OurGame.GameStates;
 using OurGame.OurGameLibrary;
 
@@ -16,23 +14,8 @@ namespace OurGame.Sprites
     // This class manages all the sprites.  Mainly enemy sprites but could use it for the UserControlledSprite too.
     internal class SpriteManager
     {
-        public List<AnimatedSprite> Sprites;
         private readonly string _spritesFileName;
-
-        public void AddSprite(AnimatedSprite aSprite)
-        {
-            Debug.Assert(aSprite != null, "aSprite can not be null!");
-
-            this.Sprites.Add(aSprite);
-        }
-
-        public void RemoveSprite(AnimatedSprite aSprite)
-        {
-            Debug.Assert(aSprite != null, "aSprite can not be null!");
-
-            this.Sprites.Remove(aSprite);
-        }
-
+        public List<AnimatedSprite> Sprites;
         // THis constructor will read in the spritesFileName or create it with default values if it doesn't exist.
         public SpriteManager(String spritesFileName, Board board, State pState)
         {
@@ -41,8 +24,22 @@ namespace OurGame.Sprites
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
-            this._spritesFileName = spritesFileName;
-            this.LoadSpritesFromAfile(board, pState);
+            _spritesFileName = spritesFileName;
+            LoadSpritesFromAfile(board, pState);
+        }
+
+        public void AddSprite(AnimatedSprite aSprite)
+        {
+            Debug.Assert(aSprite != null, "aSprite can not be null!");
+
+            Sprites.Add(aSprite);
+        }
+
+        public void RemoveSprite(AnimatedSprite aSprite)
+        {
+            Debug.Assert(aSprite != null, "aSprite can not be null!");
+
+            Sprites.Remove(aSprite);
         }
 
         public void LoadSpritesFromAfile(Board board, State pState)
@@ -50,31 +47,30 @@ namespace OurGame.Sprites
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
-            if (!File.Exists(this._spritesFileName)) // This file, if not empty, would contain the list of sprite filenames.
+            if (!File.Exists(_spritesFileName)) // This file, if not empty, would contain the list of sprite filenames.
             {
-                using (FileStream fs = File.Create(this._spritesFileName))
+                using (var fs = File.Create(_spritesFileName))
                 {
                     // Create empty file.
                 }
             }
-            String[] configStringSplitRay = File.ReadAllLines(this._spritesFileName);
+            var configStringSplitRay = File.ReadAllLines(_spritesFileName);
 
-            this.Sprites = new List<AnimatedSprite>();
-            foreach (string currentSpriteFileName in configStringSplitRay)
+            Sprites = new List<AnimatedSprite>();
+            foreach (var currentSpriteFileName in configStringSplitRay)
             {
-                this.Sprites.Add(SimpleAnimatedSpriteFactory.CreateAnimatedSprite(currentSpriteFileName, board, pState));
+                Sprites.Add(SimpleAnimatedSpriteFactory.CreateAnimatedSprite(currentSpriteFileName, board, pState));
             }
-
         } // end method
 
         public void WriteOutSpritesToAfile()
         {
-            using (FileStream fs = File.Create(this._spritesFileName))
+            using (var fs = File.Create(_spritesFileName))
             {
-                for (int i = 0; i < this.Sprites.Count; i++)
+                for (var i = 0; i < Sprites.Count; i++)
                 {
-                    string filename = this.Sprites[i].NameOfThisSubclassForWritingToConfigFile() + i + ".txt";
-                    this.Sprites[i].WritePropertiesToFile(filename);
+                    var filename = Sprites[i].NameOfThisSubclassForWritingToConfigFile() + i + ".txt";
+                    Sprites[i].WritePropertiesToFile(filename);
 
                     AddText(fs, filename);
                     AddText(fs, "\n");
@@ -82,11 +78,11 @@ namespace OurGame.Sprites
             }
         }
 
-        public void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
-            foreach (AnimatedSprite theSprite in this.Sprites)
+            foreach (var theSprite in Sprites)
             {
                 theSprite.Update(gameTime);
             }
@@ -96,7 +92,7 @@ namespace OurGame.Sprites
         {
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
-            foreach (AnimatedSprite theSprite in this.Sprites)
+            foreach (var theSprite in Sprites)
             {
                 theSprite.Draw(spriteBatch);
             }
@@ -108,13 +104,13 @@ namespace OurGame.Sprites
             Debug.Assert(value != null, "value can't be null!");
             Debug.Assert(fs.CanWrite, "FileStream fs must be open for writing!");
 
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            var info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
         } // end method
 
         public void ApplyDownwordGravity()
         {
-            foreach (AnimatedSprite aSprite in this.Sprites)
+            foreach (var aSprite in Sprites)
             {
                 aSprite.ApplyDownwardGravity();
             }
@@ -122,7 +118,7 @@ namespace OurGame.Sprites
 
         public void ReverseTimeForSprites()
         {
-            foreach (AnimatedSprite aSprite in this.Sprites)
+            foreach (var aSprite in Sprites)
             {
                 aSprite.ReverseTimeForThisSprite();
             }
@@ -132,7 +128,7 @@ namespace OurGame.Sprites
         {
             Debug.Assert(pState != null, "pState can not equal null!");
 
-            foreach (AnimatedSprite aSprite in this.Sprites)
+            foreach (var aSprite in Sprites)
             {
                 aSprite.SavePositionToReverseTimeStack(pState);
             }
@@ -143,7 +139,7 @@ namespace OurGame.Sprites
             Debug.Assert(sBatch != null, "sBatch can not be null!");
             Debug.Assert(pState != null, "pState can not be nul!");
 
-            foreach (AnimatedSprite aSprite in this.Sprites)
+            foreach (var aSprite in Sprites)
             {
                 aSprite.DrawSubclassName(sBatch, pState);
             }
@@ -154,8 +150,8 @@ namespace OurGame.Sprites
             Debug.Assert(sBatch != null, "sBatch can not be null!");
             Debug.Assert(mouseCursorUpperLeftCorner != null, "mouseCursorUpperLeftCorner can not be null!");
             Debug.Assert(pState != null, "pState can not be nul!");
-            
-            foreach (AnimatedSprite aSprite in this.Sprites)
+
+            foreach (var aSprite in Sprites)
             {
                 aSprite.DrawSubclassName(sBatch, mouseCursorUpperLeftCorner, pState);
             }
@@ -165,7 +161,9 @@ namespace OurGame.Sprites
         {
             Debug.Assert(aSprite != null, "aSprite can not be null!");
 
-            return this.Sprites.Where(animatedSprite => animatedSprite.BoundingRectangle.Intersects((aSprite.BoundingRectangle))).ToList();
+            return
+                Sprites.Where(animatedSprite => animatedSprite.BoundingRectangle.Intersects((aSprite.BoundingRectangle)))
+                    .ToList();
         } // end method
     } // end class
 } // end using

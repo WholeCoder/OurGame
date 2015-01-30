@@ -1,20 +1,19 @@
 ﻿using System.Diagnostics;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-// My usings.
-using OurGame.WindowsGame1;
+using Microsoft.Xna.Framework.Input;
 using OurGame.MenuComponents;
+using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {
     public class HelpMenuState : State
     {
-        private KeyboardState _oldKeyboardState;
-        private SpriteFont _helpFont;
         private MenuComponent _editScreenHelpMenu;
         private MenuComponent _generalHelpMenu;
-
+        private SpriteFont _helpFont;
+        private KeyboardState _oldKeyboardState;
         // These two constants control the way the command name and description line up on the screen.
         // ReSharper disable once InconsistentNaming
         private const int COMMAND_NAME_OFFSET = 100;
@@ -24,147 +23,148 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
 
-        public HelpMenuState()
-        {
-
-        }
-
         public override void Initialize(Game1 ourGame)
         {
             Debug.Assert(ourGame != null, "ourGame can not be null!");
 
-            this.OurGame = ourGame;
+            OurGame = ourGame;
         }
 
-        protected override void LoadStatesContent(Microsoft.Xna.Framework.Content.ContentManager Content)
+        protected override void LoadStatesContent(ContentManager Content)
         {
             Debug.Assert(Content != null, "Content can not be null!");
 
-            this._helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+            _helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
 
-            string menuMessage = "Game Board Edit Help";
-            float offsetY = this._helpFont.MeasureString(menuMessage).Y;
-            this._editScreenHelpMenu= this.BuildMenuComponent(menuMessage,"", offsetY);
+            var menuMessage = "Game Board Edit Help";
+            var offsetY = _helpFont.MeasureString(menuMessage).Y;
+            _editScreenHelpMenu = BuildMenuComponent(menuMessage, "", offsetY);
 
-            menuMessage = "Controls"   ;
-            offsetY += this._helpFont.MeasureString(menuMessage).Y;
-            MenuComponent editGameBoardTitle = this.BuildMenuComponent(menuMessage, "Game Board Edit Mode", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(editGameBoardTitle);
-
-            menuMessage = "mouse scroll wheel"   ;
+            menuMessage = "Controls";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent mouseScrollEditMenuItem = this.BuildMenuComponent(menuMessage, "Makes the brush bigger or smaller.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(mouseScrollEditMenuItem);
+            var editGameBoardTitle = BuildMenuComponent(menuMessage, "Game Board Edit Mode", offsetY);
+            _editScreenHelpMenu.AddMenuComponents(editGameBoardTitle);
 
-            menuMessage = "left/right keyboard arrow"   ;
+            menuMessage = "mouse scroll wheel";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent leftRightArrowKeysEditModeMenuItem = this.BuildMenuComponent(menuMessage, "Use to scroll the board.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(leftRightArrowKeysEditModeMenuItem);
+            var mouseScrollEditMenuItem = BuildMenuComponent(menuMessage, "Makes the brush bigger or smaller.", offsetY);
+            _editScreenHelpMenu.AddMenuComponents(mouseScrollEditMenuItem);
 
-            menuMessage = "left mouse button"   ;
+            menuMessage = "left/right keyboard arrow";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent leftMouseButtonMenuItem = this.BuildMenuComponent(menuMessage, "Place a tile on the game board.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(leftMouseButtonMenuItem);
+            var leftRightArrowKeysEditModeMenuItem = BuildMenuComponent(menuMessage, "Use to scroll the board.", offsetY);
+            _editScreenHelpMenu.AddMenuComponents(leftRightArrowKeysEditModeMenuItem);
+
+            menuMessage = "left mouse button";
+            offsetY += _helpFont.MeasureString(menuMessage).Y;
+            var leftMouseButtonMenuItem = BuildMenuComponent(menuMessage, "Place a tile on the game board.", offsetY);
+            _editScreenHelpMenu.AddMenuComponents(leftMouseButtonMenuItem);
 
             menuMessage = "right mouse button";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent rightMouseButtonEditMenuItem = this.BuildMenuComponent(menuMessage, "Change to next texture under the mouse brush cursor.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(rightMouseButtonEditMenuItem);
+            var rightMouseButtonEditMenuItem = BuildMenuComponent(menuMessage,
+                "Change to next texture under the mouse brush cursor.", offsetY);
+            _editScreenHelpMenu.AddMenuComponents(rightMouseButtonEditMenuItem);
 
-            menuMessage = "press Z key"   ;
+            menuMessage = "press Z key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressZEditMenuItem = this.BuildMenuComponent(menuMessage, "Undo placing a tile on the game board grid.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(pressZEditMenuItem);
+            var pressZEditMenuItem = BuildMenuComponent(menuMessage, "Undo placing a tile on the game board grid.",
+                offsetY);
+            _editScreenHelpMenu.AddMenuComponents(pressZEditMenuItem);
 
-            menuMessage = "press S key";   
+            menuMessage = "press S key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressSEditMenuItem = this.BuildMenuComponent(menuMessage, "Save the game board's configuration (MyLevel.txt).", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(pressSEditMenuItem);
+            var pressSEditMenuItem = BuildMenuComponent(menuMessage,
+                "Save the game board's configuration (MyLevel.txt).", offsetY);
+            _editScreenHelpMenu.AddMenuComponents(pressSEditMenuItem);
 
-            menuMessage = "press D key"   ;
+            menuMessage = "press D key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressDEditMenuItem = this.BuildMenuComponent(menuMessage, "Reset the game board and write out a 'blank' MyLevel.txt.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(pressDEditMenuItem);
+            var pressDEditMenuItem = BuildMenuComponent(menuMessage,
+                "Reset the game board and write out a 'blank' MyLevel.txt.", offsetY);
+            _editScreenHelpMenu.AddMenuComponents(pressDEditMenuItem);
 
-            menuMessage = "press PageUp"   ;
+            menuMessage = "press PageUp";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressPageUpEditMenuItem = this.BuildMenuComponent(menuMessage, "increase the size of the mouse's brush.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(pressPageUpEditMenuItem);
+            var pressPageUpEditMenuItem = BuildMenuComponent(menuMessage, "increase the size of the mouse's brush.",
+                offsetY);
+            _editScreenHelpMenu.AddMenuComponents(pressPageUpEditMenuItem);
 
-            menuMessage = "press PageDown"   ;
+            menuMessage = "press PageDown";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressPageDownEditMenuItem = this.BuildMenuComponent(menuMessage, "Decrease the size of the mouse's brush.", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(pressPageDownEditMenuItem);
+            var pressPageDownEditMenuItem = BuildMenuComponent(menuMessage, "Decrease the size of the mouse's brush.",
+                offsetY);
+            _editScreenHelpMenu.AddMenuComponents(pressPageDownEditMenuItem);
 
-            menuMessage = "press U key"  ; 
+            menuMessage = "press U key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressUMenuItem = this.BuildMenuComponent(menuMessage, "Undo a whole board delete (pressed D previously).", offsetY);
-            this._editScreenHelpMenu.AddMenuComponents(pressUMenuItem);
+            var pressUMenuItem = BuildMenuComponent(menuMessage, "Undo a whole board delete (pressed D previously).",
+                offsetY);
+            _editScreenHelpMenu.AddMenuComponents(pressUMenuItem);
 
 
             // General Help Menu
             menuMessage = "General Help";
-            offsetY += this._helpFont.MeasureString(menuMessage).Y*3;
-            this._generalHelpMenu = this.BuildMenuComponent(menuMessage, menuMessage, offsetY);
+            offsetY += _helpFont.MeasureString(menuMessage).Y*3;
+            _generalHelpMenu = BuildMenuComponent(menuMessage, menuMessage, offsetY);
 
             menuMessage = "press N key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressBGeneralHelpMenuItem = this.BuildMenuComponent(menuMessage, "Go to the Sprite Editor screen.", offsetY);
-            this._generalHelpMenu.AddMenuComponents(pressBGeneralHelpMenuItem);
+            var pressBGeneralHelpMenuItem = BuildMenuComponent(menuMessage, "Go to the Sprite Editor screen.", offsetY);
+            _generalHelpMenu.AddMenuComponents(pressBGeneralHelpMenuItem);
 
             menuMessage = "press E key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressEGeneralHelpMenuItem = this.BuildMenuComponent(menuMessage, "Go to Editor screen.", offsetY);
-            this._generalHelpMenu.AddMenuComponents(pressEGeneralHelpMenuItem);
+            var pressEGeneralHelpMenuItem = BuildMenuComponent(menuMessage, "Go to Editor screen.", offsetY);
+            _generalHelpMenu.AddMenuComponents(pressEGeneralHelpMenuItem);
 
             menuMessage = "press P key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressPHelpMenuItem = this.BuildMenuComponent(menuMessage, "Enter play game mode.", offsetY);
-            this._generalHelpMenu.AddMenuComponents(pressPHelpMenuItem);
+            var pressPHelpMenuItem = BuildMenuComponent(menuMessage, "Enter play game mode.", offsetY);
+            _generalHelpMenu.AddMenuComponents(pressPHelpMenuItem);
 
             menuMessage = "press H key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressHGeneralHelpMenuItem = this.BuildMenuComponent(menuMessage, "To get help with keyboard and mouse commands.", offsetY);
-            this._generalHelpMenu.AddMenuComponents(pressHGeneralHelpMenuItem);
+            var pressHGeneralHelpMenuItem = BuildMenuComponent(menuMessage,
+                "To get help with keyboard and mouse commands.", offsetY);
+            _generalHelpMenu.AddMenuComponents(pressHGeneralHelpMenuItem);
 
             menuMessage = "press Q key";
             offsetY += _helpFont.MeasureString(menuMessage).Y;
-            MenuComponent pressQEditMenuItem = this.BuildMenuComponent(menuMessage, "Quit the editor.", offsetY);
-            this._generalHelpMenu.AddMenuComponents(pressQEditMenuItem);
-
+            var pressQEditMenuItem = BuildMenuComponent(menuMessage, "Quit the editor.", offsetY);
+            _generalHelpMenu.AddMenuComponents(pressQEditMenuItem);
         }
 
-        private MenuComponent BuildMenuComponent(string title,string description, float y)
+        private MenuComponent BuildMenuComponent(string title, string description, float y)
         {
             Debug.Assert(title != null, "title can not be null!");
             Debug.Assert(description != null, "description can not be null");
 
-            return new MenuComponent(title,HelpMenuState.COMMAND_NAME_OFFSET,description,HelpMenuState.COMMAND_DESCRIPTION_OFFSET,(int)y);
+            return new MenuComponent(title, COMMAND_NAME_OFFSET, description, COMMAND_DESCRIPTION_OFFSET, (int) y);
         }
 
         public override void UnloadContent()
         {
-
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
-            KeyboardState newKeyboardState = Keyboard.GetState();  // get the newest state
+            var newKeyboardState = Keyboard.GetState(); // get the newest state
 
-            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, this.OurGame, gameTime);
+            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame, gameTime);
 
-            _oldKeyboardState = newKeyboardState;  // set the new state as the old state for next time
+            _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
         }
 
-        public override void Draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
-            this._editScreenHelpMenu.Draw(spriteBatch,this._helpFont);
-            this._generalHelpMenu.Draw(spriteBatch, this._helpFont);
+            _editScreenHelpMenu.Draw(spriteBatch, _helpFont);
+            _generalHelpMenu.Draw(spriteBatch, _helpFont);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-
-// Our usings.
 using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
@@ -10,7 +8,8 @@ namespace OurGame.GameStates
     // This class abstracts out the keyboard keys that are common to all the game's State objects.
     public static class SwitchStateLogic
     {
-        public static void DoChangeGameStateFromKeyboardLogic(KeyboardState newKeyboardState, KeyboardState oldKeyboardState, Game1 ourGame, GameTime gameTime)
+        public static void DoChangeGameStateFromKeyboardLogic(KeyboardState newKeyboardState,
+            KeyboardState oldKeyboardState, Game1 ourGame, GameTime gameTime)
         {
             Debug.Assert(newKeyboardState != null, "newKeyboardState can not be null!");
             Debug.Assert(oldKeyboardState != null, "oldKeyBoardState can not be null!");
@@ -22,7 +21,6 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.EditBoardState)
                 {
-
                     ourGame.SetStateWhenUpdating(ourGame.EditBoardState, gameTime);
                 }
             }
@@ -32,8 +30,8 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.PlayGameState)
                 {
-                    ((EditBoardState)ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
-                    ((EditSpritesState)ourGame.EditSpritesState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
+                    ((EditBoardState) ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
+                    ((EditSpritesState) ourGame.EditSpritesState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
                     ourGame.SetStateWhenUpdating(ourGame.PlayGameState, gameTime);
                 }
             }
@@ -47,7 +45,6 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.BlankState)
                 {
-
                     ourGame.SetStateWhenUpdating(ourGame.BlankState, gameTime);
                 }
             }
@@ -56,7 +53,6 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.HelpMenuState)
                 {
-
                     ourGame.SetStateWhenUpdating(ourGame.HelpMenuState, gameTime);
                 }
             }
@@ -65,7 +61,6 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.EditSpritesState)
                 {
-
                     ourGame.SetStateWhenUpdating(ourGame.EditSpritesState, gameTime);
                 }
             }

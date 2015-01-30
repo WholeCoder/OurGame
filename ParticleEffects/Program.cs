@@ -1,16 +1,14 @@
-using System;
-
 namespace ParticleEffects
 {
 #if WINDOWS || XBOX
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            using (Game2 game = new Game2())
+            using (var game = new Game2())
             {
                 game.Run();
             }
@@ -18,4 +16,3 @@ namespace ParticleEffects
     }
 #endif
 }
-

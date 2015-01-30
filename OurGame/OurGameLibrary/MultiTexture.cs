@@ -7,45 +7,43 @@ namespace OurGame.OurGameLibrary
     // This class will hold 1-many Tile classes so that the user can place more tiles at the same time onto the game board.
     public class MultiTexture
     {
-        public int NumberOfHorizontalTiles { get; set; }
-        public int NumberOfVerticalTiles { get; set; }
-
-        public Texture2D TextureToRepeat { get; set; }
-
-
         public MultiTexture(int numberOfHorizontalTiles, int numberOfVirticalTiles, Texture2D tileToRepeat)
         {
             // tileToRepeat can be null!
 
-            this.NumberOfHorizontalTiles = numberOfHorizontalTiles;
-            this.NumberOfVerticalTiles = numberOfVirticalTiles;
+            NumberOfHorizontalTiles = numberOfHorizontalTiles;
+            NumberOfVerticalTiles = numberOfVirticalTiles;
 
-            this.TextureToRepeat = tileToRepeat;
+            TextureToRepeat = tileToRepeat;
         }
+
+        public int NumberOfHorizontalTiles { get; set; }
+        public int NumberOfVerticalTiles { get; set; }
+        public Texture2D TextureToRepeat { get; set; }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)
         {
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
             Debug.Assert(mouseCursorUpperLeftCorner != null, "mouseCursorUpperLeftCorner can not be null!");
 
-            for (int i = 0; i < this.NumberOfVerticalTiles; i++)
+            for (var i = 0; i < NumberOfVerticalTiles; i++)
             {
-                for (int j = 0; j < this.NumberOfHorizontalTiles; j++)
+                for (var j = 0; j < NumberOfHorizontalTiles; j++)
                 {
-                    int width = TextureCache.getInstance().GetFromTexture2DBoardArray(0).Width;
-                    int height = TextureCache.getInstance().GetFromTexture2DBoardArray(0).Height;
+                    var width = TextureCache.getInstance().GetFromTexture2DBoardArray(0).Width;
+                    var height = TextureCache.getInstance().GetFromTexture2DBoardArray(0).Height;
 
-                    if (this.TextureToRepeat != null)
+                    if (TextureToRepeat != null)
                     {
                         width = TextureCache.getInstance().GetCurrentTexture().Width;
                         height = TextureCache.getInstance().GetCurrentTexture().Height;
                     }
 
-                    int putX = (int)mouseCursorUpperLeftCorner.X+(width*j);
-                    int putY = (int)mouseCursorUpperLeftCorner.Y+(height*i);
-                    
-                    Vector2 alteredPosition = new Vector2(putX, putY);
-                    spriteBatch.Draw(this.SelectDeleteBrushPossibly(this.TextureToRepeat), alteredPosition, Color.White);
+                    var putX = (int) mouseCursorUpperLeftCorner.X + (width*j);
+                    var putY = (int) mouseCursorUpperLeftCorner.Y + (height*i);
+
+                    var alteredPosition = new Vector2(putX, putY);
+                    spriteBatch.Draw(SelectDeleteBrushPossibly(TextureToRepeat), alteredPosition, Color.White);
                 }
             } // end for
         } // end method
@@ -54,7 +52,7 @@ namespace OurGame.OurGameLibrary
         {
             // t can be null!
 
-            if (this.TextureToRepeat == null)
+            if (TextureToRepeat == null)
             {
                 return TextureCache.getInstance().GetTexture2DFromStringBoardArray("Images/DeleteBrush");
             }

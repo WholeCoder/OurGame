@@ -16,10 +16,9 @@ namespace Tests
             Assert.Equal(5, Add(2, 2));
         }
 
-        int Add(int x, int y)
+        private int Add(int x, int y)
         {
             return x + y;
         }
     }
 }
-

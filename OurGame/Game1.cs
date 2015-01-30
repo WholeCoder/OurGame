@@ -1,19 +1,17 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-
-// My usings.
+using Microsoft.Xna.Framework.Input;
 using OurGame.GameStates;
 
 namespace OurGame.WindowsGame1
 {
     /// <summary>
-    /// This is the main type for your game
+    ///     This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
-        SpriteBatch _spriteBatch;
+        private SpriteBatch _spriteBatch;
 
         public Game1()
         {
@@ -21,10 +19,8 @@ namespace OurGame.WindowsGame1
             Content.RootDirectory = "Content";
         }
 
-
         // These next methods and properties let us use the State pattern to switch between Game states - i.e. editor, play game, game over.
         public State CurrentState { get; set; }
-
         // Create one instance variable for each oft the different States that this game will have!
         // Create them in the Initialize method as well.
         public State EditBoardState { get; set; }
@@ -32,7 +28,6 @@ namespace OurGame.WindowsGame1
         public State PlayGameState { get; set; }
         public State HelpMenuState { get; set; }
         public State EditSpritesState { get; set; }
-
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
 
@@ -42,8 +37,8 @@ namespace OurGame.WindowsGame1
             Debug.Assert(state != null, "state can't be null!");
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
-            this.CurrentState = state;
-            this.CurrentState.Update(gameTime);
+            CurrentState = state;
+            CurrentState.Update(gameTime);
         }
 
         // This version is called in the Game1.Initilize() method.
@@ -51,78 +46,78 @@ namespace OurGame.WindowsGame1
         {
             Debug.Assert(state != null, "state can't be null!");
 
-            this.CurrentState = state;
+            CurrentState = state;
         }
 
         /***************************************************************************************************************/
 
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        ///     Allows the game to perform any initialization it needs to before starting to run.
+        ///     This is where it can query for any required services and load any non-graphic
+        ///     related content.  Calling base.Initialize will enumerate through any components
+        ///     and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
-            this.IsMouseVisible = true;
+            IsMouseVisible = true;
 
             // Create all states that this game will go through here! And initialize them!
-            this.EditBoardState = new EditBoardState();
-            this.EditBoardState.Initialize(this);
+            EditBoardState = new EditBoardState();
+            EditBoardState.Initialize(this);
 
-            this.BlankState = new BlankState();
-            this.BlankState.Initialize(this);
+            BlankState = new BlankState();
+            BlankState.Initialize(this);
 
-            this.PlayGameState = new PlayGameState();
-            this.PlayGameState.Initialize(this);
+            PlayGameState = new PlayGameState();
+            PlayGameState.Initialize(this);
 
-            this.HelpMenuState = new HelpMenuState();
-            this.HelpMenuState.Initialize(this);
+            HelpMenuState = new HelpMenuState();
+            HelpMenuState.Initialize(this);
 
-            this.EditSpritesState = new EditSpritesState();
-            this.EditSpritesState.Initialize(this);
+            EditSpritesState = new EditSpritesState();
+            EditSpritesState.Initialize(this);
 
-            this.SetStateWhenInitializing(this.EditSpritesState);
+            SetStateWhenInitializing(EditSpritesState);
 
             base.Initialize();
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        ///     LoadContent will be called once per game and is the place to load
+        ///     all of your content.
         /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            this.EditBoardState.LoadContent(Content);
-            this.BlankState.LoadContent(Content);
-            this.PlayGameState.LoadContent(Content);
-            this.HelpMenuState.LoadContent(Content);
-            this.EditSpritesState.LoadContent(Content);
+            EditBoardState.LoadContent(Content);
+            BlankState.LoadContent(Content);
+            PlayGameState.LoadContent(Content);
+            HelpMenuState.LoadContent(Content);
+            EditSpritesState.LoadContent(Content);
         }
 
         /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
+        ///     UnloadContent will be called once per game and is the place to unload
+        ///     all content.
         /// </summary>
         protected override void UnloadContent()
         {
             // Unload any non ContentManager content here
 
             // Call UnloadContent for every State you create!
-            this.EditBoardState.UnloadContent();
-            this.BlankState.UnloadContent();
-            this.PlayGameState.UnloadContent();
-            this.HelpMenuState.UnloadContent();
-            this.EditSpritesState.UnloadContent();
+            EditBoardState.UnloadContent();
+            BlankState.UnloadContent();
+            PlayGameState.UnloadContent();
+            HelpMenuState.UnloadContent();
+            EditSpritesState.UnloadContent();
         }
 
         /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
+        ///     Allows the game to run logic such as updating the world,
+        ///     checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
@@ -131,15 +126,15 @@ namespace OurGame.WindowsGame1
 
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+                Exit();
 
-            this.CurrentState.Update(gameTime);
+            CurrentState.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        ///     This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
@@ -150,7 +145,7 @@ namespace OurGame.WindowsGame1
 
             _spriteBatch.Begin();
 
-            this.CurrentState.Draw(gameTime, _spriteBatch);
+            CurrentState.Draw(gameTime, _spriteBatch);
 
             _spriteBatch.End();
 
