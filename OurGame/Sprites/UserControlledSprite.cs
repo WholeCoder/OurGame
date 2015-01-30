@@ -27,8 +27,6 @@ namespace OurGame.Sprites
         public UserControlledSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
         {
-            Debug.Assert(configFilePathAndName != null && !configFilePathAndName.Equals(""),
-                "configFilePathAndName can't be null and can't be the empty string!");
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
