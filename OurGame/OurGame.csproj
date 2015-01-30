@@ -128,7 +128,6 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\Windows\Debug\" />
     <Folder Include="Commands\MenuComponentCommands\" />
     <Folder Include="Sprites\SpriteObserver\" />
   </ItemGroup>
