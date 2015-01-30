@@ -106,9 +106,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\DeleteBrush.png">
@@ -131,6 +128,7 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Windows\Debug\" />
     <Folder Include="Commands\MenuComponentCommands\" />
     <Folder Include="Sprites\SpriteObserver\" />
   </ItemGroup>
