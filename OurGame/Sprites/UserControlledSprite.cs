@@ -55,14 +55,20 @@ namespace OurGame.Sprites
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
-                CurrentPosition.X = CurrentPosition.X + 5;
+                if (CurrentPosition.X < Board.SCREEN_WIDTH - 100)
+                {
+                    CurrentPosition.X = CurrentPosition.X + 5;
+                }
 
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToGoRightTexture();
             }
             else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
-                CurrentPosition.X = CurrentPosition.X - 5;
+                if (CurrentPosition.X > 100)
+                {
+                    CurrentPosition.X = CurrentPosition.X - 5;
+                }
 
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToGoLeftTexture();
@@ -71,7 +77,7 @@ namespace OurGame.Sprites
             {
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToAtRestTexture();
-            }
+            } 
 
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
