@@ -20,10 +20,14 @@ namespace OurGame.OurGameLibrary
         public int BoardHeight { get; set; }
         private int NumberOfHorizontalTiles { get; set; }
         private int NumberOfVerticalTiles { get; set; }
+        
+        // The elements of this 2D array can be NULL!  This will signify that the tile is empty.
         public Tile[,] TheBoard { get; set; }
+
         // The width and height of the individual tiles.
         public int TileWidth { get; set; }
         public int TileHeight { get; set; }
+
         // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - used to speed up the game by not drawing
         // all the game board every cycle.
         private int BoardMarginX { get; set; }
@@ -175,7 +179,8 @@ namespace OurGame.OurGameLibrary
 
         public void PutTextureOntoBoard(Texture2D tTexture, int rowIndex, int columnIndex)
         {
-            // tTexture can be null!
+            // tTexture can be null!*****************************************************
+            //      - this will signify that the board position is empty on the screen
 
             var t = TheBoard[rowIndex, columnIndex];
             t.TheTexture = tTexture;
