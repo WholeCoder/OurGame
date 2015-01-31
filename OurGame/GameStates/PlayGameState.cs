@@ -59,18 +59,6 @@ namespace OurGame.GameStates
                 SetSpritePositionIfIntersectingWithGroundOrPlatform(_spriteManager.Sprites[i]);
             }
 
-            // Ensure the game board isn't past it's ends.
-            // The code to actaully scroll the board is in the UserControlledSprite class.
-            if (ScreenXOffset <= -_board.BoardWidth + Board.SCREEN_WIDTH)
-            {
-                ScreenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
-            }
-
-            if (ScreenXOffset >= 0)
-            {
-                ScreenXOffset = 0;
-            }
-
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 _spriteManager.ReverseTimeForSprites();

@@ -29,7 +29,7 @@ namespace OurGame.Sprites
         // when the user is this far away from the ends of the screen, we will trigger board scrolling
         private const int MIN_LIMIT_X_LEFT_HAND_MARGIN = 10;
         // this will be the least value that the X co-ordinate will take on if the board is scrolled all the way to the left.
-        private const int MAX_LIMIT_X_RIGHT_HAND_MARGIN = 10;
+        private const int MAX_LIMIT_X_RIGHT_HAND_MARGIN = 40;
 
         public UserControlledSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
@@ -170,6 +170,18 @@ namespace OurGame.Sprites
             {
                 CurrentPosition.Y = _theBoard.BoardHeight - BoundingRectangle.Height;
             }
+
+            // Ensure the game board isn't past it's ends.
+            if (_playGameState.ScreenXOffset <= -_theBoard.BoardWidth + Board.SCREEN_WIDTH)
+            {
+                _playGameState.ScreenXOffset = -_theBoard.BoardWidth + Board.SCREEN_WIDTH;
+            }
+
+            if (_playGameState.ScreenXOffset >= 0)
+            {
+                _playGameState.ScreenXOffset = 0;
+            }
+
         }
 
         private static int ComputeJumpIncremnet()
