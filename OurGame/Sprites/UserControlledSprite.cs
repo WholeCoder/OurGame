@@ -25,8 +25,12 @@ namespace OurGame.Sprites
         private bool CanJump { get; set; }
 
         // ReSharper disable once InconsistentNaming
-        private const int CHARACTER_SCROLL_TRIGGER_MARGIN =300; // when the user is this far away from the ends of the screen, we will trigger board scrolling
-        private const int MIN_LIMIT_X_LEFT_HAND_MARGIN = 10; // this will be the least value that the X co-ordinate will take on if the board is scrolled all the way to the left.
+        private const int CHARACTER_SCROLL_TRIGGER_MARGIN = 300;
+            // when the user is this far away from the ends of the screen, we will trigger board scrolling
+
+        private const int MIN_LIMIT_X_LEFT_HAND_MARGIN = 10;
+            // this will be the least value that the X co-ordinate will take on if the board is scrolled all the way to the left.
+
         private const int MAX_LIMIT_X_RIGHT_HAND_MARGIN = 10;
 
         public UserControlledSprite(string configFilePathAndName, Board board, State pState)
@@ -58,26 +62,25 @@ namespace OurGame.Sprites
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
-                if (CurrentPosition.X < Board.SCREEN_WIDTH - UserControlledSprite.CHARACTER_SCROLL_TRIGGER_MARGIN)
+                if (CurrentPosition.X < Board.SCREEN_WIDTH - CHARACTER_SCROLL_TRIGGER_MARGIN)
                 {
-                    CurrentPosition.X = CurrentPosition.X + PlayGameState.SCROLL_AMOUNT;
+                    CurrentPosition.X = CurrentPosition.X + State.SCROLL_AMOUNT;
                 }
-                else if (CurrentPosition.X >= Board.SCREEN_WIDTH - UserControlledSprite.CHARACTER_SCROLL_TRIGGER_MARGIN
-                          && this._playGameState.ScreenXOffset <= -this._theBoard.BoardWidth + Board.SCREEN_WIDTH)
+                else if (CurrentPosition.X >= Board.SCREEN_WIDTH - CHARACTER_SCROLL_TRIGGER_MARGIN
+                         && _playGameState.ScreenXOffset <= -_theBoard.BoardWidth + Board.SCREEN_WIDTH)
                 {
-                    if (CurrentPosition.X >= Board.SCREEN_WIDTH - UserControlledSprite.MAX_LIMIT_X_RIGHT_HAND_MARGIN)
+                    if (CurrentPosition.X >= Board.SCREEN_WIDTH - MAX_LIMIT_X_RIGHT_HAND_MARGIN)
                     {
-                        CurrentPosition.X = Board.SCREEN_WIDTH - UserControlledSprite.MAX_LIMIT_X_RIGHT_HAND_MARGIN;
+                        CurrentPosition.X = Board.SCREEN_WIDTH - MAX_LIMIT_X_RIGHT_HAND_MARGIN;
                     }
                     else
                     {
-                        CurrentPosition.X += PlayGameState.SCROLL_AMOUNT;
+                        CurrentPosition.X += State.SCROLL_AMOUNT;
                     }
                 }
                 else
                 {
-                    this._playGameState.ScreenXOffset -= PlayGameState.SCROLL_AMOUNT;
-
+                    _playGameState.ScreenXOffset -= State.SCROLL_AMOUNT;
                 }
 
                 // This method only switches if we didn't call this method on the last Update
@@ -85,25 +88,25 @@ namespace OurGame.Sprites
             }
             else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
-                if (CurrentPosition.X > UserControlledSprite.CHARACTER_SCROLL_TRIGGER_MARGIN)
+                if (CurrentPosition.X > CHARACTER_SCROLL_TRIGGER_MARGIN)
                 {
-                    CurrentPosition.X = CurrentPosition.X - PlayGameState.SCROLL_AMOUNT;
+                    CurrentPosition.X = CurrentPosition.X - State.SCROLL_AMOUNT;
                 }
-                else if (CurrentPosition.X <= UserControlledSprite.CHARACTER_SCROLL_TRIGGER_MARGIN
-                         && this._playGameState.ScreenXOffset >= 0)
+                else if (CurrentPosition.X <= CHARACTER_SCROLL_TRIGGER_MARGIN
+                         && _playGameState.ScreenXOffset >= 0)
                 {
-                    if (CurrentPosition.X <= UserControlledSprite.MIN_LIMIT_X_LEFT_HAND_MARGIN)
+                    if (CurrentPosition.X <= MIN_LIMIT_X_LEFT_HAND_MARGIN)
                     {
-                        CurrentPosition.X = UserControlledSprite.MIN_LIMIT_X_LEFT_HAND_MARGIN;
+                        CurrentPosition.X = MIN_LIMIT_X_LEFT_HAND_MARGIN;
                     }
                     else
                     {
-                        CurrentPosition.X -= PlayGameState.SCROLL_AMOUNT;
+                        CurrentPosition.X -= State.SCROLL_AMOUNT;
                     }
                 }
                 else
                 {
-                    this._playGameState.ScreenXOffset += PlayGameState.SCROLL_AMOUNT;
+                    _playGameState.ScreenXOffset += State.SCROLL_AMOUNT;
                 }
 
                 // This method only switches if we didn't call this method on the last Update
@@ -113,7 +116,7 @@ namespace OurGame.Sprites
             {
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToAtRestTexture();
-            } 
+            }
 
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
