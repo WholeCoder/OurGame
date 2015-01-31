@@ -51,28 +51,12 @@ namespace OurGame.GameStates
 
             _spriteManager.Update(gameTime);
 
-
-
+            // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
+            // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
             for (var i = 0; i < _spriteManager.Sprites.Count; i++)
             {
-                var aSprite = _spriteManager.Sprites[i];
-
-                // Get all tiles, on the screen, that intersect with our sprite.
-                var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(aSprite,
-                    ScreenXOffset).Where(tile => aSprite.CurrentPosition.Y > tile.BoundingRectangle.Y
-                                               && aSprite.CurrentPosition.Y < tile.BoundingRectangle.Y+tile.BoundingRectangle.Height);
-
-                if (tilesThatHaveCollisionWithSprite.Count() != 0)
-                {
-                    // var oldest = People.OrderBy(p => p.DateOfBirth ?? DateTime.MaxValue).First();
-                    var firstTile = tilesThatHaveCollisionWithSprite.OrderBy(tile => tile.BoundingRectangle.Y).Last();
-                    aSprite.CurrentPosition.Y = firstTile.BoundingRectangle.Y+firstTile.BoundingRectangle.Height;
-                }
-
+                SetSpritePositonIfIntersectingUnderneathAPlatform(_spriteManager.Sprites[i]);
             }
-
-
-
 
             // This next loop make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
@@ -99,6 +83,22 @@ namespace OurGame.GameStates
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame, gameTime);
 
             _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
+        }
+
+        private void SetSpritePositonIfIntersectingUnderneathAPlatform(AnimatedSprite aSprite)
+        {
+            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(aSprite,
+                ScreenXOffset).Where(tile => aSprite.CurrentPosition.Y > tile.BoundingRectangle.Y
+                                             &&
+                                             aSprite.CurrentPosition.Y <
+                                             tile.BoundingRectangle.Y + tile.BoundingRectangle.Height);
+
+            if (tilesThatHaveCollisionWithSprite.Count() != 0)
+            {
+                // var oldest = People.OrderBy(p => p.DateOfBirth ?? DateTime.MaxValue).First();
+                var firstTile = tilesThatHaveCollisionWithSprite.OrderBy(tile => tile.BoundingRectangle.Y).Last();
+                aSprite.CurrentPosition.Y = firstTile.BoundingRectangle.Y + firstTile.BoundingRectangle.Height;
+            }
         }
 
         private void SetSpritePositionIfIntersectingWithGroundOrPlatform(AnimatedSprite sSprite)
