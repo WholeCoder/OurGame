@@ -51,6 +51,29 @@ namespace OurGame.GameStates
 
             _spriteManager.Update(gameTime);
 
+
+
+            for (var i = 0; i < _spriteManager.Sprites.Count; i++)
+            {
+                var aSprite = _spriteManager.Sprites[i];
+
+                // Get all tiles, on the screen, that intersect with our sprite.
+                var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(aSprite,
+                    ScreenXOffset).Where(tile => aSprite.CurrentPosition.Y > tile.BoundingRectangle.Y
+                                               && aSprite.CurrentPosition.Y < tile.BoundingRectangle.Y+tile.BoundingRectangle.Height);
+
+                if (tilesThatHaveCollisionWithSprite.Count() != 0)
+                {
+                    // var oldest = People.OrderBy(p => p.DateOfBirth ?? DateTime.MaxValue).First();
+                    var firstTile = tilesThatHaveCollisionWithSprite.OrderBy(tile => tile.BoundingRectangle.Y).Last();
+                    aSprite.CurrentPosition.Y = firstTile.BoundingRectangle.Y+firstTile.BoundingRectangle.Height;
+                }
+
+            }
+
+
+
+
             // This next loop make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
@@ -84,16 +107,17 @@ namespace OurGame.GameStates
 
 
             // Get all tiles, on the screen, that intersect with our sprite.
-            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(sSprite,
-                ScreenXOffset);
+            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(sSprite,ScreenXOffset)
+                .Where(tile => sSprite.BoundingRectangle.Y < tile.BoundingRectangle.Y);
+            //var firstTile = tilesThatHaveCollisionWithSprite.OrderBy(tile => tile.BoundingRectangle.Y).Last();
 
             // if we are not in mid air then find the tile that interesects our sprite with the least Y co-ordinate.
-            if (tilesThatHaveCollisionWithSprite.Count != 0)
+            if (tilesThatHaveCollisionWithSprite.Count() != 0)
             {
                 var leastY = _board.BoardHeight;
                 leastY =
                     tilesThatHaveCollisionWithSprite.Select(tile => tile.BoundingRectangle.Y)
-                        .Concat(new[] {leastY})
+                        .Concat(new[] { leastY })
                         .Min();
 
                 // Now make the sprite stay on that tile that was found.
