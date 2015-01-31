@@ -59,20 +59,7 @@ namespace OurGame.GameStates
                 SetSpritePositionIfIntersectingWithGroundOrPlatform(_spriteManager.Sprites[i]);
             }
 
-            // Move game board.
-            var keyState = Keyboard.GetState();
-
-            if (keyState.IsKeyDown(Keys.Right))
-            {
-                ScreenXOffset -= SCROLL_AMOUNT;
-            }
-
-            if (keyState.IsKeyDown(Keys.Left))
-            {
-                ScreenXOffset += SCROLL_AMOUNT;
-            }
-
-
+            // Ensure the game board isn't past it's ends.
             if (ScreenXOffset <= -_board.BoardWidth + Board.SCREEN_WIDTH)
             {
                 ScreenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
