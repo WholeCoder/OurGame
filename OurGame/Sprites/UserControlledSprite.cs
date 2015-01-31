@@ -26,11 +26,9 @@ namespace OurGame.Sprites
 
         // ReSharper disable once InconsistentNaming
         private const int CHARACTER_SCROLL_TRIGGER_MARGIN = 300;
-            // when the user is this far away from the ends of the screen, we will trigger board scrolling
-
+        // when the user is this far away from the ends of the screen, we will trigger board scrolling
         private const int MIN_LIMIT_X_LEFT_HAND_MARGIN = 10;
-            // this will be the least value that the X co-ordinate will take on if the board is scrolled all the way to the left.
-
+        // this will be the least value that the X co-ordinate will take on if the board is scrolled all the way to the left.
         private const int MAX_LIMIT_X_RIGHT_HAND_MARGIN = 10;
 
         public UserControlledSprite(string configFilePathAndName, Board board, State pState)
