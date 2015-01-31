@@ -60,6 +60,7 @@ namespace OurGame.GameStates
             }
 
             // Ensure the game board isn't past it's ends.
+            // The code to actaully scroll the board is in the UserControlledSprite class.
             if (ScreenXOffset <= -_board.BoardWidth + Board.SCREEN_WIDTH)
             {
                 ScreenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
