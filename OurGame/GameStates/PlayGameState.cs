@@ -95,7 +95,6 @@ namespace OurGame.GameStates
 
             if (tilesThatHaveCollisionWithSprite.Count() != 0)
             {
-                // var oldest = People.OrderBy(p => p.DateOfBirth ?? DateTime.MaxValue).First();
                 var firstTile = tilesThatHaveCollisionWithSprite.OrderBy(tile => tile.BoundingRectangle.Y).Last();
                 aSprite.CurrentPosition.Y = firstTile.BoundingRectangle.Y + firstTile.BoundingRectangle.Height;
             }
