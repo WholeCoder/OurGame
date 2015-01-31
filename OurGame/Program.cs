@@ -4,8 +4,6 @@ using System;
 
 #endregion
 
-using OurGame.WindowsGame1;
-
 // Our usings.
 
 namespace OurGame

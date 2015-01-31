@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {

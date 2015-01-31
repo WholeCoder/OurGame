@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Input;
 using OurGame.Commands;
 using OurGame.Commands.EditBoardCommands;
 using OurGame.OurGameLibrary;
-using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {

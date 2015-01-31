@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OurGame.OurGameLibrary;
 using OurGame.Sprites;
-using OurGame.WindowsGame1;
 
 namespace OurGame.GameStates
 {

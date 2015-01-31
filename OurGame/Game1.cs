@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OurGame.GameStates;
 
-namespace OurGame.WindowsGame1
+namespace OurGame
 {
     /// <summary>
     ///     This is the main type for your game
@@ -78,7 +78,7 @@ namespace OurGame.WindowsGame1
             EditSpritesState = new EditSpritesState();
             EditSpritesState.Initialize(this);
 
-            SetStateWhenInitializing(PlayGameState);
+            SetStateWhenInitializing(EditSpritesState);
 
             base.Initialize();
         }
