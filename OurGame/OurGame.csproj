@@ -132,7 +132,9 @@
     <Folder Include="Sprites\SpriteObserver\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\fonts\helpfont.spritefont" />
+    <None Include="Content\fonts\helpfont.spritefont">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\fonts\helpfont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
