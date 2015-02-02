@@ -94,6 +94,7 @@ namespace OurGame.GameStates
             }
             _previousScrollValue = _currentMouseState.ScrollWheelValue;
 
+            _spriteManager.UpdateForEditSpriteState(gameTime, _screenXOffset);
 
             // Recognize a single click of the leftmouse button
             if (_lastMouseState.LeftButton == ButtonState.Released &&
@@ -122,7 +123,7 @@ namespace OurGame.GameStates
                     */
                     _player.CurrentPosition.X = putX;
                     _player.CurrentPosition.Y = putY;
-                    _player.InitialPosition.X = putX;
+                    _player.InitialPosition.X = putX-_screenXOffset;
                     _player.InitialPosition.Y = putY;
                     _player.BoundingRectangle.X = putX;
                     _player.BoundingRectangle.Y = putY;

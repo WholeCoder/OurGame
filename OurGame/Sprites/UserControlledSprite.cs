@@ -236,6 +236,10 @@ namespace OurGame.Sprites
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
             base.Draw(spriteBatch);
+
+            BoundingRectangle.X = (int)this.CurrentPosition.X;
+            BoundingRectangle.Y = (int)this.CurrentPosition.Y;
+
             C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Red);
         }
     } // end class

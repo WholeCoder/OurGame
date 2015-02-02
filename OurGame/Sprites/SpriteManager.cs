@@ -78,6 +78,15 @@ namespace OurGame.Sprites
             }
         }
 
+        public void UpdateForEditSpriteState(GameTime gameTime, int screenXOffset)
+        {
+            foreach (var theSprite in Sprites)
+            {
+                Console.WriteLine("calling- UpdateForEditSpriteState() - screenXoffset == "+ screenXOffset);
+                theSprite.CurrentPosition.X = theSprite.InitialPosition.X + screenXOffset;
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
