@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -29,8 +30,10 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.PlayGameState)
                 {
-                    ((EditBoardState) ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameStateAndEditSpriteState(gameTime);
-                    ((EditSpritesState) ourGame.EditSpritesState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
+                    ((EditBoardState) ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
+                    Console.WriteLine("Saving Sprites in - SwitchStateLogic");
+                    ((EditSpritesState)ourGame.EditSpritesState).SaveSpritesToDiskAndLoadItIntoPlayGameState(gameTime);
+                    ((PlayGameState)ourGame.PlayGameState).LoadContentForRefresh();
                     ourGame.SetStateWhenUpdating(ourGame.PlayGameState, gameTime);
                 }
             }
@@ -60,7 +63,8 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.EditSpritesState)
                 {
-                    ((EditBoardState)ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameStateAndEditSpriteState(gameTime);
+                    ((EditBoardState)ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
+                    ((EditSpritesState)ourGame.EditSpritesState).LoadContentForRefresh();
                     ourGame.SetStateWhenUpdating(ourGame.EditSpritesState, gameTime);
                 }
             }

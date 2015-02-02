@@ -99,6 +99,11 @@ namespace OurGame.GameStates
             }
         }
 
+        public void LoadContentForRefresh()
+        {
+            LoadContent(this.OurGame.Content);
+        }
+
         private void SetSpritePositionIfIntersectingWithGroundOrPlatform(AnimatedSprite sSprite)
         {
             Debug.Assert(sSprite != null, "sSprite can not be null!");

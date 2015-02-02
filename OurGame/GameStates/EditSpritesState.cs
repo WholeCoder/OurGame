@@ -61,9 +61,11 @@ namespace OurGame.GameStates
         public void SaveSpritesToDiskAndLoadItIntoPlayGameState(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
-
-            SaveCurrentSprites();
-            OurGame.PlayGameState.LoadContent(Content);
+            Console.WriteLine("----- Saving Sprites in - SaveSpritesToDiskAndLoadItIntoPlayGameState");
+            _spriteManager.WriteOutSpritesToAfile(); 
+            //SaveCurrentSprites();
+            Console.WriteLine("----- Saving Sprites in - Calling PLayGameState.LoadContent");
+            //OurGame.PlayGameState.LoadContent(Content);
         }
 
         public override void UnloadContent()
@@ -208,17 +210,9 @@ namespace OurGame.GameStates
             _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
         }
 
-        public void SaveBoardToDiskAndLoadItIntoPlayGameState(GameTime gameTime)
+        public void LoadContentForRefresh()
         {
-            Debug.Assert(gameTime != null, "gameTime can not be null!");
-
-            SaveCurrentSprites();
-            OurGame.PlayGameState.LoadContent(Content);
-        }
-
-        public void SaveCurrentSprites()
-        {
-            _spriteManager.WriteOutSpritesToAfile();
+            LoadContent(this.OurGame.Content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
