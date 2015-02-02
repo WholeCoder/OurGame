@@ -20,6 +20,7 @@ namespace OurGame.GameStates
 
             // This is the reason that this method was implemented - to call TextureCache.SetContent(Content).
             TextureCache.SetContent(Content); // Must be called before TextureCache.getInstance() - a Singleton.
+            SoundSystem.SetContent(Content);
 
             LoadStatesContent(Content);
         }

@@ -124,6 +124,7 @@ namespace OurGame.Sprites
                 IsGoingDown = false;
                 CanJump = false;
 
+                SoundSystem.getInstance().getSound("mariojumpting").Play();
                 _currentJumpIncrement = ComputeJumpIncremnet();
             }
 
