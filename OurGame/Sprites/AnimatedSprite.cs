@@ -415,59 +415,48 @@ namespace OurGame.Sprites
 
             using (var fs = File.Create(filepath))
             {
-                AddText(fs, NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
-                AddText(fs, "\n");
+                Utilities.AddText(fs, NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, InitialPosition.X + "," + InitialPosition.Y);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, InitialPosition.X + "," + InitialPosition.Y);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _leftFrameSize.X + "," + _leftFrameSize.Y);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _leftFrameSize.X + "," + _leftFrameSize.Y);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _rightFrameSize.X + "," + _rightFrameSize.Y);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _rightFrameSize.X + "," + _rightFrameSize.Y);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _atRestFrameSize.X + "," + _atRestFrameSize.Y);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _atRestFrameSize.X + "," + _atRestFrameSize.Y);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _leftSheetSize.X + "," + _leftSheetSize.Y);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _leftSheetSize.X + "," + _leftSheetSize.Y);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _rightSheetSize.X + "," + _rightSheetSize.Y);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _rightSheetSize.X + "," + _rightSheetSize.Y);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _atRestSheetSize.X + "," + _atRestSheetSize.Y);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _atRestSheetSize.X + "," + _atRestSheetSize.Y);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _leftTextureFilename);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _leftTextureFilename);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _rightTextureFilename);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _rightTextureFilename);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _atRestTextureFilename);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _atRestTextureFilename);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _timeBetweenFrames + "");
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _timeBetweenFrames + "");
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, _scaleUpThisSpriteFactor + "");
-                AddText(fs, "\n");
+                Utilities.AddText(fs, _scaleUpThisSpriteFactor + "");
+                Utilities.AddText(fs, "\n");
 
                 // Write out the subclass's properties.
                 Write(fs);
             }
-        }
-
-        // Useful in sub-classes.
-        public static void AddText(FileStream fs, string value)
-        {
-            Debug.Assert(fs != null, "FileStream fs can't be null!");
-            Debug.Assert(value != null, "value can't be null!");
-            Debug.Assert(fs.CanWrite, "FileStream fs must be open for writing!");
-
-            var info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
         } // end method
     } // end class
 } // end namespace

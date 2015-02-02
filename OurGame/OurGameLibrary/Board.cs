@@ -307,15 +307,15 @@ namespace OurGame.OurGameLibrary
 
             using (var fs = File.Create(path))
             {
-                AddText(fs, "screenHeight:" + BoardHeight);
-                AddText(fs, "\n");
-                AddText(fs, "screenWidth:" + BoardWidth);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, "screenHeight:" + BoardHeight);
+                Utilities.AddText(fs, "\n");
+                Utilities.AddText(fs, "screenWidth:" + BoardWidth);
+                Utilities.AddText(fs, "\n");
 
-                AddText(fs, "tileHeight:" + TileHeight);
-                AddText(fs, "\n");
-                AddText(fs, "tileWidth:" + TileWidth);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, "tileHeight:" + TileHeight);
+                Utilities.AddText(fs, "\n");
+                Utilities.AddText(fs, "tileWidth:" + TileWidth);
+                Utilities.AddText(fs, "\n");
 
                 for (var i = 0; i < TheBoard.GetLength(0); i++)
                 {
@@ -324,33 +324,23 @@ namespace OurGame.OurGameLibrary
                         var gBTile = TheBoard[i, j];
                         if (gBTile.TheTexture == null)
                         {
-                            AddText(fs, "null");
+                            Utilities.AddText(fs, "null");
                         }
                         else
                         {
-                            AddText(fs,
+                            Utilities.AddText(fs,
                                 TextureCache.getInstance().GetStringFilenameFromTexture2DForBoard(gBTile.TheTexture));
                         }
 
                         if (j != TheBoard.GetLength(1) - 1)
                         {
-                            AddText(fs, ",");
+                            Utilities.AddText(fs, ",");
                         } // end if
                     } // end inner for
-                    AddText(fs, "\n");
+                    Utilities.AddText(fs, "\n");
                 } // end outer for
             } // end using
         } // end method
-
-
-        private static void AddText(FileStream fs, string value)
-        {
-            Debug.Assert(fs.CanWrite, "FileStream fs nust be writable!");
-            Debug.Assert(value != null, "value being written can not be null!");
-
-            var info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
-        }
 
         public void PutMultiTileInBoard(MultiTexture mTile, int rowIndex, int columnIndex)
         {

@@ -92,6 +92,7 @@
     <Compile Include="OurGameLibrary\MustCallSetContentMethodFirst.cs" />
     <Compile Include="OurGameLibrary\TextureCache.cs" />
     <Compile Include="OurGameLibrary\Tile.cs" />
+    <Compile Include="OurGameLibrary\Utilities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />

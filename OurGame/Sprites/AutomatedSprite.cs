@@ -103,11 +103,11 @@ namespace OurGame.Sprites
             // Nothing to write yet!
             // TODO: Write out attributes if they exist for UserControlledSprite
             _howFarToWalkInOneDirection = GetSpriteScaleFactor()*BoundingRectangle.Width;
-            AddText(fs, _howFarToWalkInOneDirection + "");
-            AddText(fs, "\n");
+            Utilities.AddText(fs, _howFarToWalkInOneDirection + "");
+            Utilities.AddText(fs, "\n");
 
             IsGoingRight = true;
-            AddText(fs, IsGoingRight + "");
+            Utilities.AddText(fs, IsGoingRight + "");
         }
     } // end class
 }

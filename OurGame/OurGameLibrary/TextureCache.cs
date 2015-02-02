@@ -271,25 +271,16 @@ namespace OurGame.OurGameLibrary
 
             using (var fs = File.Create(textureFileName))
             {
-                AddText(fs, "numberOfTileTextures:" + texStringRay.Length);
-                AddText(fs, "\n");
+                Utilities.AddText(fs, "numberOfTileTextures:" + texStringRay.Length);
+                Utilities.AddText(fs, "\n");
 
                 // ReSharper disable once ForCanBeConvertedToForeach
                 for (var i = 0; i < texStringRay.Length; i++)
                 {
-                    AddText(fs, texStringRay[i]);
-                    AddText(fs, "\n");
+                    Utilities.AddText(fs, texStringRay[i]);
+                    Utilities.AddText(fs, "\n");
                 }
             } // end using
-        }
-
-        private static void AddText(FileStream fs, string value)
-        {
-            Debug.Assert(fs.CanWrite, "FileStream fs nust be writable!");
-            Debug.Assert(value != null, "value being written can not be null!");
-
-            var info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
         } // End method.
     } // End class.
 }
