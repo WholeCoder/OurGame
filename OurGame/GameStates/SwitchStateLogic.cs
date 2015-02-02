@@ -29,7 +29,7 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.PlayGameState)
                 {
-                    ((EditBoardState) ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
+                    ((EditBoardState) ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameStateAndEditSpriteState(gameTime);
                     ((EditSpritesState) ourGame.EditSpritesState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
                     ourGame.SetStateWhenUpdating(ourGame.PlayGameState, gameTime);
                 }
@@ -60,6 +60,7 @@ namespace OurGame.GameStates
             {
                 if (ourGame.CurrentState != ourGame.EditSpritesState)
                 {
+                    ((EditBoardState)ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameStateAndEditSpriteState(gameTime);
                     ourGame.SetStateWhenUpdating(ourGame.EditSpritesState, gameTime);
                 }
             }

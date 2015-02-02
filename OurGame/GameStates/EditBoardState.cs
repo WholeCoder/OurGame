@@ -232,12 +232,13 @@ namespace OurGame.GameStates
             _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
         }
 
-        public void SaveBoardToDiskAndLoadItIntoPlayGameState(GameTime gameTime)
+        public void SaveBoardToDiskAndLoadItIntoPlayGameStateAndEditSpriteState(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
             SaveCurrentBoard();
             OurGame.PlayGameState.LoadContent(Content);
+            OurGame.EditSpritesState.LoadContent(Content);
         }
 
         public void SaveCurrentBoard()
