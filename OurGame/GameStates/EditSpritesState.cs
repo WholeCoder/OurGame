@@ -61,11 +61,7 @@ namespace OurGame.GameStates
         public void SaveSpritesToDiskAndLoadItIntoPlayGameState(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
-            Console.WriteLine("----- Saving Sprites in - SaveSpritesToDiskAndLoadItIntoPlayGameState");
             _spriteManager.WriteOutSpritesToAfile(); 
-            //SaveCurrentSprites();
-            Console.WriteLine("----- Saving Sprites in - Calling PLayGameState.LoadContent");
-            //OurGame.PlayGameState.LoadContent(Content);
         }
 
         public override void UnloadContent()
@@ -202,7 +198,6 @@ namespace OurGame.GameStates
             if (newKeyboardState.IsKeyDown(Keys.S) && _oldKeyboardState.IsKeyUp(Keys.S))
             {
                 _spriteManager.WriteOutSpritesToAfile();
-                Console.WriteLine(("Writing out SPRITES to config fiile"));
             }
 
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame, gameTime);

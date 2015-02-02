@@ -82,7 +82,6 @@ namespace OurGame.Sprites
         {
             foreach (var theSprite in Sprites)
             {
-                Console.WriteLine("calling- UpdateForEditSpriteState() - screenXoffset == "+ screenXOffset);
                 theSprite.CurrentPosition.X = theSprite.InitialPosition.X + screenXOffset;
             }
         }

@@ -31,7 +31,6 @@ namespace OurGame.GameStates
                 if (ourGame.CurrentState != ourGame.PlayGameState)
                 {
                     ((EditBoardState) ourGame.EditBoardState).SaveBoardToDiskAndLoadItIntoPlayGameState(gameTime);
-                    Console.WriteLine("Saving Sprites in - SwitchStateLogic");
                     ((EditSpritesState)ourGame.EditSpritesState).SaveSpritesToDiskAndLoadItIntoPlayGameState(gameTime);
                     ((PlayGameState)ourGame.PlayGameState).LoadContentForRefresh();
                     ourGame.SetStateWhenUpdating(ourGame.PlayGameState, gameTime);
