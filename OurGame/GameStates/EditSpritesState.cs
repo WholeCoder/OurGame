@@ -27,7 +27,7 @@ namespace OurGame.GameStates
         private AnimatedSprite _player;
         private int _previousScrollValue;
         private bool _rightMouseClickOccurred;
-        private int _screenXOffset;
+        
         private SpriteManager _spriteManager;
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         public Game1 OurGame { get; set; }
@@ -94,7 +94,7 @@ namespace OurGame.GameStates
             }
             _previousScrollValue = _currentMouseState.ScrollWheelValue;
 
-            _spriteManager.UpdateForEditSpriteState(gameTime, _screenXOffset);
+            _spriteManager.UpdateForEditSpriteState(gameTime, ScreenXOffset);
 
             // Recognize a single click of the leftmouse button
             if (_lastMouseState.LeftButton == ButtonState.Released &&
@@ -105,7 +105,7 @@ namespace OurGame.GameStates
                 _leftMouseClickOccurred = true;
             }
 
-            var putX = _board.CalculateScreenCoordinateXFromMousePosition(ms.X, _screenXOffset);
+            var putX = _board.CalculateScreenCoordinateXFromMousePosition(ms.X, ScreenXOffset);
             var putY = _board.CalculateScreenCoordinateYFromMousePosition(ms.Y);
 
             _mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
@@ -113,8 +113,8 @@ namespace OurGame.GameStates
             if (_leftMouseClickOccurred)
             {
                 if (_board.CalculateYIndex(ms.Y) < _board.TheBoard.GetLength(0) &&
-                    _board.CalculateXIndex(ms.X, _screenXOffset) < _board.TheBoard.GetLength(1)
-                    && _board.CalculateYIndex(ms.Y) >= 0 && _board.CalculateXIndex(ms.X, _screenXOffset) >= 0)
+                    _board.CalculateXIndex(ms.X, ScreenXOffset) < _board.TheBoard.GetLength(1)
+                    && _board.CalculateYIndex(ms.Y) >= 0 && _board.CalculateXIndex(ms.X, ScreenXOffset) >= 0)
                 {
                     /* OurGame.Commands.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this._board, ms.X, ms.Y, this._multiTexture.TextureToRepeat, _screenXOffset, this._multiTexture.NumberOfHorizontalTiles, this._multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.Execute();
@@ -123,7 +123,7 @@ namespace OurGame.GameStates
                     */
                     _player.CurrentPosition.X = putX;
                     _player.CurrentPosition.Y = putY;
-                    _player.InitialPosition.X = putX-_screenXOffset;
+                    _player.InitialPosition.X = putX - ScreenXOffset;
                     _player.InitialPosition.Y = putY;
                     _player.BoundingRectangle.X = putX;
                     _player.BoundingRectangle.Y = putY;
@@ -179,22 +179,22 @@ namespace OurGame.GameStates
             var keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.Right))
             {
-                _screenXOffset -= ScrollAmount;
+                ScreenXOffset -= ScrollAmount;
             }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
-                _screenXOffset += ScrollAmount;
+                ScreenXOffset += ScrollAmount;
             }
 
-            if (_screenXOffset <= -_board.BoardWidth + Board.SCREEN_WIDTH)
+            if (ScreenXOffset <= -_board.BoardWidth + Board.SCREEN_WIDTH)
             {
-                _screenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
+                ScreenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
             }
 
-            if (_screenXOffset >= 0)
+            if (ScreenXOffset >= 0)
             {
-                _screenXOffset = 0;
+                ScreenXOffset = 0;
             }
 
             var newKeyboardState = Keyboard.GetState(); // get the newest state
@@ -222,7 +222,7 @@ namespace OurGame.GameStates
             Debug.Assert(gameTime != null, "gameTime can't be null!");
             Debug.Assert(spriteBatch != null, "spriteBatch can't be null");
 
-            _board.DrawBoard(spriteBatch, _screenXOffset, true); // screenXOffset scrolls the board left and right!
+            _board.DrawBoard(spriteBatch, ScreenXOffset, true); // screenXOffset scrolls the board left and right!
 
             _player.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
 
