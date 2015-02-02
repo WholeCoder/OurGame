@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using OurGame.OurGameLibrary;
 using OurGame.Sprites;
 
@@ -19,6 +21,9 @@ namespace OurGame.GameStates
         private SpriteManager _spriteManager;
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
+
+        SoundEffect soundEffect;
+        private SoundEffectInstance soundEffectInstance;
 
         public override void Initialize(Game1 ourGame)
         {
@@ -38,6 +43,19 @@ namespace OurGame.GameStates
             //new UserControlledSprite("UserControlledSpriteConfig.txt", _board, this);
 
             _helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+
+            // For wavs.
+            soundEffect = Content.Load<SoundEffect>(@"audio\mario_jump");
+            soundEffectInstance = soundEffect.CreateInstance();
+            //            SoundEffectInstance soundEffectInstance = soundEffect.CreateInstance();
+//            soundEffectInstance.Play();
+
+            // For mp3s
+/*
+            Song song = Content.Load<Song>("meat1");  // Put the name of your song in instead of "song_title"
+            MediaPlayer.Play(song);
+*/
+
         }
 
         public override void UnloadContent()
@@ -76,6 +94,10 @@ namespace OurGame.GameStates
                 _spriteManager.SavePositionForReverseTime(this);
             }
 
+            if(Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                soundEffectInstance.Play();
+            }
 
             var newKeyboardState = Keyboard.GetState(); // get the newest state
 
