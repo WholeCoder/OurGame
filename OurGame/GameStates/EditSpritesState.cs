@@ -210,6 +210,7 @@ namespace OurGame.GameStates
             _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
         }
 
+        // This next method is used to load in the sprites and board in the SwitchStateLogic class.
         public void LoadContentForRefresh()
         {
             LoadContent(this.OurGame.Content);
