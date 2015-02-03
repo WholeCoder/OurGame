@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 namespace OurGame.OurGameLibrary
 {
@@ -37,14 +38,6 @@ namespace OurGame.OurGameLibrary
         {
             // For wavs.
             soundEffect = Content.Load<SoundEffect>(@"audio\mario_jump");
-            //            SoundEffectInstance soundEffectInstance = soundEffect.CreateInstance();
-            //            soundEffectInstance.Play();
-
-            // For mp3s
-            /*
-                        Song song = Content.Load<Song>("meat1");  // Put the name of your song in instead of "song_title"
-                        MediaPlayer.Play(song);
-            */
         }
 
         // This method needs to be called before the TextureCache.getInstance() is called!
@@ -55,9 +48,17 @@ namespace OurGame.OurGameLibrary
             _content = Content;
         }
 
+        // For wav files.
         public SoundEffectInstance getSound(String nameOfSoundEffect)
         {
             return soundEffect.CreateInstance();
+        }
+
+        // For mp3 files.
+        public void playMusic(String nameOfMusic)
+        {
+            Song song = _content.Load<Song>("meat1");  // Put the name of your song in instead of "song_title"
+            MediaPlayer.Play(song);
         }
     }
 }
