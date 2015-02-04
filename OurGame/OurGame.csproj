@@ -78,6 +78,8 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\MacroCommand.cs" />
     <Compile Include="Commands\ReverseTimeCommands\SetGameMetricsToPreviousValuesCommand.cs" />
+    <Compile Include="EventSystem\EventSystem.cs" />
+    <Compile Include="EventSystem\Events\Event.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates\BlankState.cs" />
     <Compile Include="GameStates\EditBoardState.cs" />
