@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -51,6 +52,14 @@ namespace OurGame.GameStates
 
             _spriteManager.Update(gameTime);
 
+
+            // Make sure the player can't go through the side of a block that is 1/2 of its height.
+            // SetSpriteXPositionSoItdoesNotGoThroughSideOfPlatform modifies the sprites sent in as parameters.
+            for (var i = 0; i < _spriteManager.Sprites.Count; i++)
+            {
+                SetSpriteXPositionSoItdoesNotGoThroughSideOfPlatform(_spriteManager.Sprites[i]);
+            }
+
             // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
             for (var i = 0; i < _spriteManager.Sprites.Count; i++)
@@ -82,6 +91,33 @@ namespace OurGame.GameStates
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame, gameTime);
 
             _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
+        }
+
+        private void SetSpriteXPositionSoItdoesNotGoThroughSideOfPlatform(AnimatedSprite aSprite)
+        {
+
+//            1.  Get all intersecting tiles.
+            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(aSprite,ScreenXOffset);
+//            2.  save all tile x values that have a y value less than the player's Y positon + 1/2 of the player's height 
+//                and the tiles have an x value greater than the players. x value
+            var tilesXValues = tilesThatHaveCollisionWithSprite
+                                                             .Where(tile => 
+                                                             tile.BoundingRectangle.Y < aSprite.CurrentPosition.Y+aSprite.BoundingRectangle.Height*0.5
+                                                             && tile.BoundingRectangle.X > aSprite.BoundingRectangle.X
+                                                             && tile.BoundingRectangle.X < aSprite.BoundingRectangle.X+aSprite.BoundingRectangle.Width)
+                                                             .Select(tile => tile.BoundingRectangle.X);
+
+
+//            3.  find the least x value and set the user's sprite to be equal to this x value - user sprite's width
+            if (tilesXValues.Count() != 0)
+            {
+                var minXValue = tilesXValues.Min();
+                Console.WriteLine("found minXValue == " + minXValue);
+                if (tilesXValues.Count() != 0)
+                {
+                    aSprite.CurrentPosition.X = minXValue-aSprite.BoundingRectangle.Width;
+                }
+            }
         }
 
         private void SetSpritePositonIfIntersectingUnderneathAPlatform(AnimatedSprite aSprite)
