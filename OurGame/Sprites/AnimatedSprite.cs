@@ -51,6 +51,8 @@ namespace OurGame.Sprites
         private int _lastY;
         private int _lastX;
 
+        private int _lastScreenXOffset;
+
         public bool IsJumping;
 
         protected AnimatedSprite(string configFilePathAndName)
@@ -80,12 +82,14 @@ namespace OurGame.Sprites
             _lastX = -1;
             _lastY = -1;
             IsJumping = false;
+            _lastScreenXOffset = 0;
         }
 
-        public void SetLastXAndY(int x, int y)
+        public void SetLastXAndY(int x, int y, int screenXOffset)
         {
             _lastX = x;
             _lastY = y;
+            _lastScreenXOffset = screenXOffset;
         }
 
         public int GetLastX()
@@ -96,6 +100,11 @@ namespace OurGame.Sprites
         public int GetLastY()
         {
             return _lastY;
+        }
+
+        public int GetLastScreenXOffset()
+        {
+            return _lastScreenXOffset;
         }
 
         public void IncrementScaleFactor()

@@ -84,11 +84,12 @@ namespace OurGame.GameStates
                 {
                     _spriteManager.Sprites[i].CurrentPosition.Y = _spriteManager.Sprites[i].GetLastY();
                     _spriteManager.Sprites[i].CurrentPosition.X = _spriteManager.Sprites[i].GetLastX();
+                    ScreenXOffset = _spriteManager.Sprites[i].GetLastScreenXOffset();
                 }
                 else
                 {
                     _spriteManager.Sprites[i].SetLastXAndY((int)_spriteManager.Sprites[i].CurrentPosition.X,
-                        (int)_spriteManager.Sprites[i].CurrentPosition.Y);
+                        (int)_spriteManager.Sprites[i].CurrentPosition.Y, ScreenXOffset);
                 } // end else
             } // end for
             
