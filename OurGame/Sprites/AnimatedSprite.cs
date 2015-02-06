@@ -48,6 +48,11 @@ namespace OurGame.Sprites
 
         private readonly Stack<ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
 
+        private int _lastY;
+        private int _lastX;
+
+        public bool IsJumping;
+
         protected AnimatedSprite(string configFilePathAndName)
         {
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null,
@@ -71,6 +76,26 @@ namespace OurGame.Sprites
                 _currentFrameSize.X*_scaleUpThisSpriteFactor, _currentFrameSize.Y*_scaleUpThisSpriteFactor);
 
             _ReversePositionAndScreenOffsetStackOfCommands = new Stack<ICommand>();
+
+            _lastX = -1;
+            _lastY = -1;
+            IsJumping = false;
+        }
+
+        public void SetLastXAndY(int x, int y)
+        {
+            _lastX = x;
+            _lastY = y;
+        }
+
+        public int GetLastX()
+        {
+            return _lastX;
+        }
+
+        public int GetLastY()
+        {
+            return _lastY;
         }
 
         public void IncrementScaleFactor()

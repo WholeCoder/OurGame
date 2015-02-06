@@ -119,7 +119,7 @@ namespace OurGame.Sprites
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
                 _jumpStart = (int) CurrentPosition.Y;
-                _currentlyJumping = true;
+                IsJumping = _currentlyJumping = true;
                 IsGoingUp = true;
                 IsGoingDown = false;
                 CanJump = false;
@@ -152,7 +152,7 @@ namespace OurGame.Sprites
                 {
                     IsGoingDown = false;
                     IsGoingUp = false;
-                    _currentlyJumping = false;
+                    IsJumping = _currentlyJumping = false;
                 }
             }
 
@@ -160,7 +160,7 @@ namespace OurGame.Sprites
             if (_theBoard.RetrieveTilesThatIntersectWithThisSprite(this, _playGameState.ScreenXOffset).Count != 0)
             {
                 CanJump = true;
-                _currentlyJumping = false;
+                IsJumping = _currentlyJumping = false;
             }
             else
             {
@@ -241,7 +241,7 @@ namespace OurGame.Sprites
             BoundingRectangle.X = (int)this.CurrentPosition.X;
             BoundingRectangle.Y = (int)this.CurrentPosition.Y;
 
-            //C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Red);
+            C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Black);
         }
     } // end class
 } // end using

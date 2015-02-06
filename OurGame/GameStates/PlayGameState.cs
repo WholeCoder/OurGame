@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -50,6 +51,18 @@ namespace OurGame.GameStates
 
             _spriteManager.Update(gameTime);
 
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                _spriteManager.ReverseTimeForSprites();
+            }
+            else
+            {
+                // "Gravity" to pull down the player or enemies if they are in mid-air.
+                _spriteManager.ApplyDownwordGravity();
+                _spriteManager.SavePositionForReverseTime(this);
+            }
+
+
             // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
             for (var i = 0; i < _spriteManager.Sprites.Count; i++)
@@ -65,16 +78,20 @@ namespace OurGame.GameStates
                 SetSpritePositionIfIntersectingWithGroundOrPlatform(_spriteManager.Sprites[i]);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            for (var i = 0; i < _spriteManager.Sprites.Count; i++)
             {
-                _spriteManager.ReverseTimeForSprites();
-            }
-            else
-            {
-                // "Gravity" to pull down the player or enemies if they are in mid-air.
-                _spriteManager.ApplyDownwordGravity();
-                _spriteManager.SavePositionForReverseTime(this);
-            }
+                if (_spriteManager.Sprites[i].CurrentPosition.Y < _spriteManager.Sprites[i].GetLastY() && !_spriteManager.Sprites[i].IsJumping)
+                {
+                    _spriteManager.Sprites[i].CurrentPosition.Y = _spriteManager.Sprites[i].GetLastY();
+                    _spriteManager.Sprites[i].CurrentPosition.X = _spriteManager.Sprites[i].GetLastX();
+                }
+                else
+                {
+                    _spriteManager.Sprites[i].SetLastXAndY((int)_spriteManager.Sprites[i].CurrentPosition.X,
+                        (int)_spriteManager.Sprites[i].CurrentPosition.Y);
+                } // end else
+            } // end for
+            
 
             var newKeyboardState = Keyboard.GetState(); // get the newest state
 
@@ -125,6 +142,7 @@ namespace OurGame.GameStates
 
                 // Now make the sprite stay on that tile that was found.
                 sSprite.CurrentPosition.Y = leastY - sSprite.BoundingRectangle.Height;
+                //Console.WriteLine("COLLISION WITH TILE(S) - "+new Random().Next());
             }
         }
 
