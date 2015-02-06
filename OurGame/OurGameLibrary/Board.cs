@@ -78,6 +78,43 @@ namespace OurGame.OurGameLibrary
             return tileList;
         } // end method
 
+        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aSprite.
+        public List<Tile> RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(AnimatedSprite aSprite, int screenXOffset)
+        {
+            Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
+
+            var tileList = new List<Tile>();
+
+            for (var i = 0; i < TheBoard.GetLength(0); i++)
+            {
+                int startX;
+                int endX;
+
+                // This next method gets the array indices of the board for only the visible portion of this Board's 2D array.
+                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
+
+                for (var j = startX; j < endX; j++)
+                {
+                    if (TheBoard[i, j].TheTexture != null)
+                    {
+                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
+                        TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
+                            TheBoard[i, j].Width, TheBoard[i, j].Height);
+
+                        var aSpritesBoundingBoxModified = new Rectangle(aSprite.BoundingRectangle.X,
+                            aSprite.BoundingRectangle.Y,
+                            aSprite.BoundingRectangle.Width,
+                            aSprite.BoundingRectangle.Height+1);
+                        if (aSpritesBoundingBoxModified.Intersects(TheBoard[i, j].BoundingRectangle))
+                        {
+                            tileList.Add(TheBoard[i, j]);
+                        }
+                    }
+                }
+            } // End outer for.
+            return tileList;
+        } // end method
+
         public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
         {
             Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");

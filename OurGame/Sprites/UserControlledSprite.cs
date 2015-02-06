@@ -115,7 +115,7 @@ namespace OurGame.Sprites
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToAtRestTexture();
             }
-
+            Console.WriteLine("CanJump == "+CanJump);
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
                 _jumpStart = (int) CurrentPosition.Y;
@@ -123,6 +123,8 @@ namespace OurGame.Sprites
                 IsGoingUp = true;
                 IsGoingDown = false;
                 CanJump = false;
+
+                Console.WriteLine("SPACE key pressed - setting _currentlyJumping to TRUE");
 
                 SoundSystem.getInstance().getSound("mariojumpting").Play();
                 _currentJumpIncrement = ComputeJumpIncremnet();
@@ -157,7 +159,7 @@ namespace OurGame.Sprites
             }
 
 
-            if (_theBoard.RetrieveTilesThatIntersectWithThisSprite(this, _playGameState.ScreenXOffset).Count != 0)
+            if (_theBoard.RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(this, _playGameState.ScreenXOffset).Count != 0)
             {
                 CanJump = true;
                 IsJumping = _currentlyJumping = false;
