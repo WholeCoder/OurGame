@@ -189,10 +189,6 @@ namespace OurGame.Sprites
             {
                 _playGameState.ScreenXOffset = 0;
             }
-
-            BoundingRectangle.X = (int)CurrentPosition.X;
-            BoundingRectangle.Y = (int)CurrentPosition.Y;
-
         }
 
         private static int ComputeJumpIncremnet()
