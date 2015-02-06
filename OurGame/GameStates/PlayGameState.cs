@@ -49,8 +49,6 @@ namespace OurGame.GameStates
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
-            _spriteManager.Update(gameTime);
-
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 _spriteManager.ReverseTimeForSprites();
@@ -62,6 +60,8 @@ namespace OurGame.GameStates
                 _spriteManager.SavePositionForReverseTime(this);
             }
 
+
+            _spriteManager.Update(gameTime);
 
             // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
@@ -80,19 +80,25 @@ namespace OurGame.GameStates
 
             for (var i = 0; i < _spriteManager.Sprites.Count; i++)
             {
-                if (_spriteManager.Sprites[i].CurrentPosition.Y < _spriteManager.Sprites[i].GetLastY() && !_spriteManager.Sprites[i].IsJumping)
-                {
-                    _spriteManager.Sprites[i].CurrentPosition.Y = _spriteManager.Sprites[i].GetLastY();
-                    _spriteManager.Sprites[i].CurrentPosition.X = _spriteManager.Sprites[i].GetLastX();
-                    ScreenXOffset = _spriteManager.Sprites[i].GetLastScreenXOffset();
-                }
-                else
-                {
-                    _spriteManager.Sprites[i].SetLastXAndY((int)_spriteManager.Sprites[i].CurrentPosition.X,
-                        (int)_spriteManager.Sprites[i].CurrentPosition.Y, ScreenXOffset);
-                } // end else
+                //if (c.GetType() == typeof(TForm))
+                
+                    if (_spriteManager.Sprites[i].CurrentPosition.Y < _spriteManager.Sprites[i].GetLastY() &&
+                        !_spriteManager.Sprites[i].IsJumping)
+                    {
+                        _spriteManager.Sprites[i].CurrentPosition.Y = _spriteManager.Sprites[i].GetLastY();
+                        _spriteManager.Sprites[i].CurrentPosition.X = _spriteManager.Sprites[i].GetLastX();
+                        if (_spriteManager.Sprites[i].GetType() == typeof (UserControlledSprite))
+                        {
+                            ScreenXOffset = _spriteManager.Sprites[i].GetLastScreenXOffset();
+                        }
+                    }
+                    else
+                    {
+                        _spriteManager.Sprites[i].SetLastXAndY((int) _spriteManager.Sprites[i].CurrentPosition.X,
+                            (int) _spriteManager.Sprites[i].CurrentPosition.Y, ScreenXOffset);
+                    } // end else
+                
             } // end for
-            
 
             var newKeyboardState = Keyboard.GetState(); // get the newest state
 

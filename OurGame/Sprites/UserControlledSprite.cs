@@ -144,11 +144,16 @@ namespace OurGame.Sprites
                 {
                     CurrentPosition.Y += _currentJumpIncrement - GRAVITY_DOWNWARD;
                     _currentJumpIncrement++;
+                    BoundingRectangle.X = (int)CurrentPosition.X;
+                    BoundingRectangle.Y = (int)CurrentPosition.Y;
+
                 }
                 else if (CurrentPosition.Y <= _jumpStart && IsGoingUp)
                 {
                     CurrentPosition.Y += -_currentJumpIncrement - GRAVITY_DOWNWARD;
                     _currentJumpIncrement--;
+                    BoundingRectangle.X = (int)CurrentPosition.X;
+                    BoundingRectangle.Y = (int)CurrentPosition.Y;
                 }
                 else
                 {
@@ -184,6 +189,9 @@ namespace OurGame.Sprites
             {
                 _playGameState.ScreenXOffset = 0;
             }
+
+            BoundingRectangle.X = (int)CurrentPosition.X;
+            BoundingRectangle.Y = (int)CurrentPosition.Y;
 
         }
 
