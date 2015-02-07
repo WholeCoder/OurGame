@@ -79,7 +79,8 @@ namespace OurGame.OurGameLibrary
             return tileList;
         } // end method
 
-        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aSprite.
+        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aSprite (extending its bounding box 5 pixels down)
+        // It also only gets the tiles that are under the sprite's top-edge..
         public List<Tile> RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(AnimatedSprite aSprite, int screenXOffset)
         {
             Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
