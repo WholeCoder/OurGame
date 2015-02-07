@@ -47,10 +47,12 @@ namespace OurGame.OurGameLibrary
             ReadInBoardConfigurationOrUseDefault(pathToConfigFile);
         } // end constructor
 
-        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aSprite.
-        public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)
+        //tempBoundingRectangle
+
+        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aRectangle.
+        public List<Tile> RetrieveTilesThatIntersectWithThisSprite(Rectangle aRectangle, int screenXOffset)
         {
-            Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
+            Debug.Assert(aRectangle != null, "Rectangle aRectangle can not be null!");
 
             var tileList = new List<Tile>();
 
@@ -67,7 +69,39 @@ namespace OurGame.OurGameLibrary
                     if (TheBoard[i, j].TheTexture != null)
                     {
                         var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
+                        TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
+                            TheBoard[i, j].Width, TheBoard[i, j].Height);
+                        if (aRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
+                        {
+                            tileList.Add(TheBoard[i, j]);
+                        }
+                    }
+                }
+            } // End outer for.
+            return tileList;
+        } // end method
+
+        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aRectangle.
+        public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)
+        {
+            Debug.Assert(aSprite != null, "AnimatedSprite aRectangle can not be null!");
+
+            var tileList = new List<Tile>();
+
+            for (var i = 0; i < TheBoard.GetLength(0); i++)
+            {
+                int startX;
+                int endX;
+
+                // This next method gets the array indices of the board for only the visible portion of this Board's 2D array.
+                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
+
+                for (var j = startX; j < endX; j++)
+                {
+                    if (TheBoard[i, j].TheTexture != null)
+                    {
+                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
+                        TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
                             TheBoard[i, j].Width, TheBoard[i, j].Height);
                         if (aSprite.BoundingRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
                         {
@@ -79,11 +113,11 @@ namespace OurGame.OurGameLibrary
             return tileList;
         } // end method
 
-        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aSprite (extending its bounding box 5 pixels down)
+        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aRectangle (extending its bounding box 5 pixels down)
         // It also only gets the tiles that are under the sprite's top-edge..
         public List<Tile> RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(AnimatedSprite aSprite, int screenXOffset)
         {
-            Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
+            Debug.Assert(aSprite != null, "AnimatedSprite aRectangle can not be null!");
 
             var tileList = new List<Tile>();
 
@@ -120,7 +154,7 @@ namespace OurGame.OurGameLibrary
 
         public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
         {
-            Debug.Assert(aSprite != null, "AnimatedSprite aSprite can not be null!");
+            Debug.Assert(aSprite != null, "AnimatedSprite aRectangle can not be null!");
 
             // This will make the board only draw the part that is on the screen on the left side.
             BoardMarginX = TileWidth*NUMBER_OF_TILES_IN_MARGIN_X;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -60,25 +61,40 @@ namespace OurGame.Sprites
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
-                if (CurrentPosition.X < Board.SCREEN_WIDTH - CHARACTER_SCROLL_TRIGGER_MARGIN)
+                var tempBoundingRectangle = new Rectangle((int)(CurrentPosition.X + State.SCROLL_AMOUNT),
+                    (int)CurrentPosition.Y,
+                    BoundingRectangle.Width,
+                    BoundingRectangle.Height);
+
+                var tilesToRightAndAtOrAbove = _theBoard
+                        .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
+                        .Select(tile => tile)
+                        .Where(tile => tile.BoundingRectangle.X > CurrentPosition.X
+                                       && tile.BoundingRectangle.Y < CurrentPosition.Y+BoundingRectangle.Height-5).ToList();
+
+                if (!tilesToRightAndAtOrAbove.Any())
                 {
-                    CurrentPosition.X = CurrentPosition.X + State.SCROLL_AMOUNT;
-                }
-                else if (CurrentPosition.X >= Board.SCREEN_WIDTH - CHARACTER_SCROLL_TRIGGER_MARGIN
-                         && _playGameState.ScreenXOffset <= -_theBoard.BoardWidth + Board.SCREEN_WIDTH)
-                {
-                    if (CurrentPosition.X >= Board.SCREEN_WIDTH - MAX_LIMIT_X_RIGHT_HAND_MARGIN)
+
+                    if (CurrentPosition.X < Board.SCREEN_WIDTH - CHARACTER_SCROLL_TRIGGER_MARGIN)
                     {
-                        CurrentPosition.X = Board.SCREEN_WIDTH - MAX_LIMIT_X_RIGHT_HAND_MARGIN;
+                        CurrentPosition.X = CurrentPosition.X + State.SCROLL_AMOUNT;
+                    }
+                    else if (CurrentPosition.X >= Board.SCREEN_WIDTH - CHARACTER_SCROLL_TRIGGER_MARGIN
+                             && _playGameState.ScreenXOffset <= -_theBoard.BoardWidth + Board.SCREEN_WIDTH)
+                    {
+                        if (CurrentPosition.X >= Board.SCREEN_WIDTH - MAX_LIMIT_X_RIGHT_HAND_MARGIN)
+                        {
+                            CurrentPosition.X = Board.SCREEN_WIDTH - MAX_LIMIT_X_RIGHT_HAND_MARGIN;
+                        }
+                        else
+                        {
+                            CurrentPosition.X += State.SCROLL_AMOUNT;
+                        }
                     }
                     else
                     {
-                        CurrentPosition.X += State.SCROLL_AMOUNT;
+                        _playGameState.ScreenXOffset -= State.SCROLL_AMOUNT;
                     }
-                }
-                else
-                {
-                    _playGameState.ScreenXOffset -= State.SCROLL_AMOUNT;
                 }
 
                 // This method only switches if we didn't call this method on the last Update
@@ -86,26 +102,41 @@ namespace OurGame.Sprites
             }
             else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
-                if (CurrentPosition.X > CHARACTER_SCROLL_TRIGGER_MARGIN)
+                var tempBoundingRectangle = new Rectangle((int)(CurrentPosition.X - State.SCROLL_AMOUNT),
+                    (int)CurrentPosition.Y,
+                    BoundingRectangle.Width,
+                    BoundingRectangle.Height);
+                var tilesToLeftAndAtOrAbove = _theBoard
+                        .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
+                        .Select(tile => tile)
+                        .Where(tile => tile.BoundingRectangle.X < CurrentPosition.X
+                                       && tile.BoundingRectangle.Y < CurrentPosition.Y+BoundingRectangle.Height-5).ToList();
+
+                if (!tilesToLeftAndAtOrAbove.Any())
                 {
-                    CurrentPosition.X = CurrentPosition.X - State.SCROLL_AMOUNT;
-                }
-                else if (CurrentPosition.X <= CHARACTER_SCROLL_TRIGGER_MARGIN
-                         && _playGameState.ScreenXOffset >= 0)
-                {
-                    if (CurrentPosition.X <= MIN_LIMIT_X_LEFT_HAND_MARGIN)
+                    Console.WriteLine("FOUND SOME!");
+                    if (CurrentPosition.X > CHARACTER_SCROLL_TRIGGER_MARGIN)
                     {
-                        CurrentPosition.X = MIN_LIMIT_X_LEFT_HAND_MARGIN;
+                        CurrentPosition.X = CurrentPosition.X - State.SCROLL_AMOUNT;
+                    }
+                    else if (CurrentPosition.X <= CHARACTER_SCROLL_TRIGGER_MARGIN
+                             && _playGameState.ScreenXOffset >= 0)
+                    {
+                        if (CurrentPosition.X <= MIN_LIMIT_X_LEFT_HAND_MARGIN)
+                        {
+                            CurrentPosition.X = MIN_LIMIT_X_LEFT_HAND_MARGIN;
+                        }
+                        else
+                        {
+                            CurrentPosition.X -= State.SCROLL_AMOUNT;
+                        }
                     }
                     else
                     {
-                        CurrentPosition.X -= State.SCROLL_AMOUNT;
+                        _playGameState.ScreenXOffset += State.SCROLL_AMOUNT;
                     }
                 }
-                else
-                {
-                    _playGameState.ScreenXOffset += State.SCROLL_AMOUNT;
-                }
+
 
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToGoLeftTexture();

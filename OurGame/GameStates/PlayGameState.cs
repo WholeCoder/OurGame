@@ -113,8 +113,8 @@ namespace OurGame.GameStates
             }
             else
             {
-                aSprite.SetLastXAndY((int) aSprite.CurrentPosition.X,
-                    (int) aSprite.CurrentPosition.Y, ScreenXOffset);
+                aSprite.SetLastXAndY((int)aSprite.CurrentPosition.X,
+                    (int)aSprite.CurrentPosition.Y, ScreenXOffset);
             } // end else
 
             aSprite.BoundingRectangle.X = (int) aSprite.CurrentPosition.X;
