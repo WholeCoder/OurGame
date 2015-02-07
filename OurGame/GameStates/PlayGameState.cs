@@ -65,46 +65,60 @@ namespace OurGame.GameStates
 
             // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
-            for (var i = 0; i < _spriteManager.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in _spriteManager.Sprites)
             {
-                SetSpritePositonIfIntersectingUnderneathAPlatform(_spriteManager.Sprites[i]);
+                SetSpritePositonIfIntersectingUnderneathAPlatform(aSprite);
             }
 
             // This next loop make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
-            for (var i = 0; i < _spriteManager.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in _spriteManager.Sprites)
             {
-                SetSpritePositionIfIntersectingWithGroundOrPlatform(_spriteManager.Sprites[i]);
+                SetSpritePositionIfIntersectingWithGroundOrPlatform(aSprite);
             }
 
-            for (var i = 0; i < _spriteManager.Sprites.Count; i++)
+            foreach (AnimatedSprite aSprite in _spriteManager.Sprites)
             {
-                //if (c.GetType() == typeof(TForm))
-                
-                    if (_spriteManager.Sprites[i].CurrentPosition.Y < _spriteManager.Sprites[i].GetLastY() &&
-                        !_spriteManager.Sprites[i].IsJumping)
-                    {
-                        _spriteManager.Sprites[i].CurrentPosition.Y = _spriteManager.Sprites[i].GetLastY();
-                        _spriteManager.Sprites[i].CurrentPosition.X = _spriteManager.Sprites[i].GetLastX();
-                        if (_spriteManager.Sprites[i].GetType() == typeof (UserControlledSprite))
-                        {
-                            ScreenXOffset = _spriteManager.Sprites[i].GetLastScreenXOffset();
-                        }
-                    }
-                    else
-                    {
-                        _spriteManager.Sprites[i].SetLastXAndY((int) _spriteManager.Sprites[i].CurrentPosition.X,
-                            (int) _spriteManager.Sprites[i].CurrentPosition.Y, ScreenXOffset);
-                    } // end else
-                
-            } // end for
+                MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
+            }
 
             var newKeyboardState = Keyboard.GetState(); // get the newest state
 
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame, gameTime);
 
             _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
+        }
+
+        private void MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(AnimatedSprite aSprite)
+        {
+            if (aSprite.CurrentPosition.Y < aSprite.GetLastY() &&
+                !aSprite.IsJumping)
+            {
+                aSprite.CurrentPosition.Y = aSprite.GetLastY();
+
+                if (aSprite.CurrentPosition.X > aSprite.GetLastX())
+                {
+                    aSprite.CurrentPosition.X = aSprite.GetLastX();
+                }
+                else
+                {
+                    aSprite.CurrentPosition.X = aSprite.GetLastX();
+                }
+
+                if (aSprite.GetType() == typeof (UserControlledSprite))
+                {
+                    ScreenXOffset = aSprite.GetLastScreenXOffset();
+                }
+            }
+            else
+            {
+                aSprite.SetLastXAndY((int) aSprite.CurrentPosition.X,
+                    (int) aSprite.CurrentPosition.Y, ScreenXOffset);
+            } // end else
+
+            aSprite.BoundingRectangle.X = (int) aSprite.CurrentPosition.X;
+            aSprite.BoundingRectangle.Y = (int) aSprite.CurrentPosition.Y;
         }
 
         private void SetSpritePositonIfIntersectingUnderneathAPlatform(AnimatedSprite aSprite)

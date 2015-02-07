@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -112,6 +113,7 @@ namespace OurGame.OurGameLibrary
                     }
                 }
             } // End outer for.
+            tileList = tileList.Where(tile => tile.BoundingRectangle.Y > aSprite.CurrentPosition.Y).ToList();
             return tileList;
         } // end method
 
