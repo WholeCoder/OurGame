@@ -11,13 +11,13 @@ namespace OurGame.GameStates
         // Scroll amount lef tand right.0.
         public const int SCROLL_AMOUNT = 5;
         // This instance variable lets us scroll the board horizontally.
-        private int _screenXOffset = 0;
 
-        public int ScreenXOffset
+        protected State()
         {
-            get { return _screenXOffset; }
-            set { _screenXOffset = value; }
+            ScreenXOffset = 0;
         }
+
+        public int ScreenXOffset { get; set; }
 
         public abstract void Initialize(Game1 ourGame);
         // Don't override this to load the content!  Use the method below!
