@@ -10,7 +10,7 @@ namespace OurGame.OurGameLibrary
     {
         private static SoundSystem _soundSystem;
 
-        private SoundEffect soundEffect;
+        private readonly SoundEffect soundEffect;
         private static ContentManager _content;
 
         public static SoundSystem getInstance()

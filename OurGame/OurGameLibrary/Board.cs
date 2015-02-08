@@ -26,8 +26,8 @@ namespace OurGame.OurGameLibrary
         public Tile[,] TheBoard { get; set; }
 
         // The width and height of the individual tiles.
-        public int TileWidth { get; set; }
-        public int TileHeight { get; set; }
+        private int TileWidth { get; set; }
+        private int TileHeight { get; set; }
 
         // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - used to speed up the game by not drawing
         // all the game board every cycle.
@@ -37,8 +37,8 @@ namespace OurGame.OurGameLibrary
         // ReSharper disable once InconsistentNaming
         private const int NUMBER_OF_TILES_IN_MARGIN_X = 1;
 
-        public const int DEFAULT_TILE_WIDTH = 20;
-        public const int DEFAULT_TILE_HEIGHT = 20;
+        private const int DEFAULT_TILE_WIDTH = 20;
+        private const int DEFAULT_TILE_HEIGHT = 20;
 
         public Board(String pathToConfigFile)
         {
