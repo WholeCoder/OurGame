@@ -35,7 +35,7 @@ namespace OurGame.GameStates
         private Stack<ICommand> _undoDeleteBoardStack;
         private Stack<ICommand> _undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
-        public Game1 OurGame { get; set; }
+        private Game1 OurGame { get; set; }
         // Used to reload the contend in the board for the playGameState
         private ContentManager Content { get; set; }
 
