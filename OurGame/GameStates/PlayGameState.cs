@@ -77,7 +77,7 @@ namespace OurGame.GameStates
                 SetSpritePositionIfIntersectingWithGroundOrPlatform(aSprite);
             }
 
-            // Can Remove this but the AutomatedSprites float.  Need to find a way to fix this withouth the
+            // Can Remove this but the AutomatedSprites float with it in.  Need to find a way to fix this without the
             // following funciton
             foreach (var aSprite in _spriteManager.Sprites)
             {
