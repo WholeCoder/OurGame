@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -65,7 +64,7 @@ namespace OurGame.GameStates
 
             // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
-            foreach (AnimatedSprite aSprite in _spriteManager.Sprites)
+            foreach (var aSprite in _spriteManager.Sprites)
             {
                 SetSpritePositonIfIntersectingUnderneathAPlatform(aSprite);
             }
@@ -73,12 +72,12 @@ namespace OurGame.GameStates
             // This next loop make sure, if the sprite hits the ground, it will not go through the ground.
             // (On the closest tile that is below the sprite).
             // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
-            foreach (AnimatedSprite aSprite in _spriteManager.Sprites)
+            foreach (var aSprite in _spriteManager.Sprites)
             {
                 SetSpritePositionIfIntersectingWithGroundOrPlatform(aSprite);
             }
 
-            foreach (AnimatedSprite aSprite in _spriteManager.Sprites)
+            foreach (var aSprite in _spriteManager.Sprites)
             {
                 MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
             }
@@ -113,8 +112,8 @@ namespace OurGame.GameStates
             }
             else
             {
-                aSprite.SetLastXAndY((int)aSprite.CurrentPosition.X,
-                    (int)aSprite.CurrentPosition.Y, ScreenXOffset);
+                aSprite.SetLastXAndY((int) aSprite.CurrentPosition.X,
+                    (int) aSprite.CurrentPosition.Y, ScreenXOffset);
             } // end else
 
             aSprite.BoundingRectangle.X = (int) aSprite.CurrentPosition.X;
@@ -139,7 +138,7 @@ namespace OurGame.GameStates
         // This next method is used to load in the sprites and board in the SwitchStateLogic class.
         public void LoadContentForRefresh()
         {
-            LoadContent(this.OurGame.Content);
+            LoadContent(OurGame.Content);
         }
 
         private void SetSpritePositionIfIntersectingWithGroundOrPlatform(AnimatedSprite sSprite)
@@ -148,7 +147,8 @@ namespace OurGame.GameStates
 
 
             // Get all tiles, on the screen, that intersect with our sprite.
-            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(sSprite, ScreenXOffset)
+            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(sSprite,
+                ScreenXOffset)
                 .Where(tile => sSprite.BoundingRectangle.Y < tile.BoundingRectangle.Y);
             //var firstTile = tilesThatHaveCollisionWithSprite.OrderBy(tile => tile.BoundingRectangle.Y).Last();
 
@@ -158,7 +158,7 @@ namespace OurGame.GameStates
                 var leastY = _board.BoardHeight;
                 leastY =
                     tilesThatHaveCollisionWithSprite.Select(tile => tile.BoundingRectangle.Y)
-                        .Concat(new[] { leastY })
+                        .Concat(new[] {leastY})
                         .Min();
 
                 // Now make the sprite stay on that tile that was found.

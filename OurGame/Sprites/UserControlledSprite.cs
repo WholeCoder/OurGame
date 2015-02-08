@@ -61,20 +61,20 @@ namespace OurGame.Sprites
 
             if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
             {
-                var tempBoundingRectangle = new Rectangle((int)(CurrentPosition.X + State.SCROLL_AMOUNT),
-                    (int)CurrentPosition.Y,
+                var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X + State.SCROLL_AMOUNT),
+                    (int) CurrentPosition.Y,
                     BoundingRectangle.Width,
                     BoundingRectangle.Height);
 
                 var tilesToRightAndAtOrAbove = _theBoard
-                        .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
-                        .Select(tile => tile)
-                        .Where(tile => tile.BoundingRectangle.X > CurrentPosition.X
-                                       && tile.BoundingRectangle.Y < CurrentPosition.Y+BoundingRectangle.Height-5).ToList();
+                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
+                    .Select(tile => tile)
+                    .Where(tile => tile.BoundingRectangle.X > CurrentPosition.X
+                                   && tile.BoundingRectangle.Y < CurrentPosition.Y + BoundingRectangle.Height - 5)
+                    .ToList();
 
                 if (!tilesToRightAndAtOrAbove.Any())
                 {
-
                     if (CurrentPosition.X < Board.SCREEN_WIDTH - CHARACTER_SCROLL_TRIGGER_MARGIN)
                     {
                         CurrentPosition.X = CurrentPosition.X + State.SCROLL_AMOUNT;
@@ -102,15 +102,16 @@ namespace OurGame.Sprites
             }
             else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
-                var tempBoundingRectangle = new Rectangle((int)(CurrentPosition.X - State.SCROLL_AMOUNT),
-                    (int)CurrentPosition.Y,
+                var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X - State.SCROLL_AMOUNT),
+                    (int) CurrentPosition.Y,
                     BoundingRectangle.Width,
                     BoundingRectangle.Height);
                 var tilesToLeftAndAtOrAbove = _theBoard
-                        .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
-                        .Select(tile => tile)
-                        .Where(tile => tile.BoundingRectangle.X < CurrentPosition.X
-                                       && tile.BoundingRectangle.Y < CurrentPosition.Y+BoundingRectangle.Height-5).ToList();
+                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
+                    .Select(tile => tile)
+                    .Where(tile => tile.BoundingRectangle.X < CurrentPosition.X
+                                   && tile.BoundingRectangle.Y < CurrentPosition.Y + BoundingRectangle.Height - 5)
+                    .ToList();
 
                 if (!tilesToLeftAndAtOrAbove.Any())
                 {
@@ -146,7 +147,7 @@ namespace OurGame.Sprites
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToAtRestTexture();
             }
-            Console.WriteLine("CanJump == "+CanJump);
+            Console.WriteLine("CanJump == " + CanJump);
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
                 _jumpStart = (int) CurrentPosition.Y;
@@ -175,16 +176,15 @@ namespace OurGame.Sprites
                 {
                     CurrentPosition.Y += _currentJumpIncrement - GRAVITY_DOWNWARD;
                     _currentJumpIncrement++;
-                    BoundingRectangle.X = (int)CurrentPosition.X;
-                    BoundingRectangle.Y = (int)CurrentPosition.Y;
-
+                    BoundingRectangle.X = (int) CurrentPosition.X;
+                    BoundingRectangle.Y = (int) CurrentPosition.Y;
                 }
                 else if (CurrentPosition.Y <= _jumpStart && IsGoingUp)
                 {
                     CurrentPosition.Y += -_currentJumpIncrement - GRAVITY_DOWNWARD;
                     _currentJumpIncrement--;
-                    BoundingRectangle.X = (int)CurrentPosition.X;
-                    BoundingRectangle.Y = (int)CurrentPosition.Y;
+                    BoundingRectangle.X = (int) CurrentPosition.X;
+                    BoundingRectangle.Y = (int) CurrentPosition.Y;
                 }
                 else
                 {
@@ -195,7 +195,9 @@ namespace OurGame.Sprites
             }
 
 
-            if (_theBoard.RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(this, _playGameState.ScreenXOffset).Count != 0)
+            if (
+                _theBoard.RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(this,
+                    _playGameState.ScreenXOffset).Count != 0)
             {
                 CanJump = true;
                 IsJumping = _currentlyJumping = false;
@@ -221,8 +223,8 @@ namespace OurGame.Sprites
                 _playGameState.ScreenXOffset = 0;
             }
 
-            BoundingRectangle.X = (int)CurrentPosition.X;
-            BoundingRectangle.Y = (int)CurrentPosition.Y;
+            BoundingRectangle.X = (int) CurrentPosition.X;
+            BoundingRectangle.Y = (int) CurrentPosition.Y;
         }
 
         private static int ComputeJumpIncremnet()
@@ -278,8 +280,8 @@ namespace OurGame.Sprites
 
             base.Draw(spriteBatch);
 
-            BoundingRectangle.X = (int)this.CurrentPosition.X;
-            BoundingRectangle.Y = (int)this.CurrentPosition.Y;
+            BoundingRectangle.X = (int) CurrentPosition.X;
+            BoundingRectangle.Y = (int) CurrentPosition.Y;
 
             C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Black);
         }

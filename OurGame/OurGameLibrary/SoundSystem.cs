@@ -9,9 +9,14 @@ namespace OurGame.OurGameLibrary
     public class SoundSystem
     {
         private static SoundSystem _soundSystem;
-
-        private readonly SoundEffect soundEffect;
         private static ContentManager _content;
+        private readonly SoundEffect soundEffect;
+
+        private SoundSystem(ContentManager Content)
+        {
+            // For wavs.
+            soundEffect = Content.Load<SoundEffect>(@"audio\mario_jump");
+        }
 
         public static SoundSystem getInstance()
         {
@@ -31,12 +36,6 @@ namespace OurGame.OurGameLibrary
             return _soundSystem;
         }
 
-        private SoundSystem(ContentManager Content)
-        {
-            // For wavs.
-            soundEffect = Content.Load<SoundEffect>(@"audio\mario_jump");
-        }
-
         // This method needs to be called before the TextureCache.getInstance() is called!
         public static void SetContent(ContentManager Content)
         {
@@ -54,7 +53,7 @@ namespace OurGame.OurGameLibrary
         // For mp3 files.
         public void playMusic(String nameOfMusic)
         {
-            Song song = _content.Load<Song>("meat1");  // Put the name of your song in instead of "song_title"
+            var song = _content.Load<Song>("meat1"); // Put the name of your song in instead of "song_title"
             MediaPlayer.Play(song);
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +26,6 @@ namespace OurGame.GameStates
         private AnimatedSprite _player;
         private int _previousScrollValue;
         private bool _rightMouseClickOccurred;
-        
         private SpriteManager _spriteManager;
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
@@ -61,7 +59,7 @@ namespace OurGame.GameStates
         public void SaveSpritesToDiskAndLoadItIntoPlayGameState(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
-            _spriteManager.WriteOutSpritesToAfile(); 
+            _spriteManager.WriteOutSpritesToAfile();
         }
 
         public override void UnloadContent()
@@ -209,7 +207,7 @@ namespace OurGame.GameStates
         // This next method is used to load in the sprites and board in the SwitchStateLogic class.
         public void LoadContentForRefresh()
         {
-            LoadContent(this.OurGame.Content);
+            LoadContent(OurGame.Content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

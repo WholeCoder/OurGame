@@ -50,9 +50,9 @@ namespace OurGame.Sprites
             if (_firstTime || _playGameState.ScreenXOffset != _startXOffset)
             {
                 _moveRightLength = (int) InitialPosition.X + _playGameState.ScreenXOffset + _howFarToWalkInOneDirection;
-                    // Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+                // Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
                 _moveLeftLength = (int) InitialPosition.X + _playGameState.ScreenXOffset - _howFarToWalkInOneDirection;
-                    // Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
+                // Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
 
                 _startXOffset = _playGameState.ScreenXOffset;
                 _firstTime = false;

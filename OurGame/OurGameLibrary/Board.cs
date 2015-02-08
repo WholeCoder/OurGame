@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OurGame.Sprites;
@@ -21,14 +20,11 @@ namespace OurGame.OurGameLibrary
         public int BoardHeight { get; set; }
         private int NumberOfHorizontalTiles { get; set; }
         private int NumberOfVerticalTiles { get; set; }
-        
         // The elements of this 2D array can be NULL!  This will signify that the tile is empty.
         public Tile[,] TheBoard { get; set; }
-
         // The width and height of the individual tiles.
         private int TileWidth { get; set; }
         private int TileHeight { get; set; }
-
         // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - used to speed up the game by not drawing
         // all the game board every cycle.
         private int BoardMarginX { get; set; }
@@ -69,7 +65,7 @@ namespace OurGame.OurGameLibrary
                     if (TheBoard[i, j].TheTexture != null)
                     {
                         var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
+                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
                             TheBoard[i, j].Width, TheBoard[i, j].Height);
                         if (aRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
                         {
@@ -101,7 +97,7 @@ namespace OurGame.OurGameLibrary
                     if (TheBoard[i, j].TheTexture != null)
                     {
                         var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
+                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
                             TheBoard[i, j].Width, TheBoard[i, j].Height);
                         if (aSprite.BoundingRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
                         {
@@ -115,7 +111,8 @@ namespace OurGame.OurGameLibrary
 
         // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aRectangle (extending its bounding box 5 pixels down)
         // It also only gets the tiles that are under the sprite's top-edge..
-        public List<Tile> RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(AnimatedSprite aSprite, int screenXOffset)
+        public List<Tile> RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(AnimatedSprite aSprite,
+            int screenXOffset)
         {
             Debug.Assert(aSprite != null, "AnimatedSprite aRectangle can not be null!");
 
@@ -134,13 +131,13 @@ namespace OurGame.OurGameLibrary
                     if (TheBoard[i, j].TheTexture != null)
                     {
                         var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
+                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
                             TheBoard[i, j].Width, TheBoard[i, j].Height);
 
                         var aSpritesBoundingBoxModified = new Rectangle(aSprite.BoundingRectangle.X,
                             aSprite.BoundingRectangle.Y,
                             aSprite.BoundingRectangle.Width,
-                            aSprite.BoundingRectangle.Height+1);
+                            aSprite.BoundingRectangle.Height + 1);
                         if (aSpritesBoundingBoxModified.Intersects(TheBoard[i, j].BoundingRectangle))
                         {
                             tileList.Add(TheBoard[i, j]);
@@ -225,8 +222,8 @@ namespace OurGame.OurGameLibrary
                         var tilePosition = ExtractTilePosition(screenXOffset, i, j);
                         spriteBatch.Draw(TheBoard[i, j].TheTexture, tilePosition, Color.White);
 
-                        TheBoard[i, j].BoundingRectangle.X = (int)tilePosition.X;
-                        TheBoard[i, j].BoundingRectangle.Y = (int)tilePosition.Y;
+                        TheBoard[i, j].BoundingRectangle.X = (int) tilePosition.X;
+                        TheBoard[i, j].BoundingRectangle.Y = (int) tilePosition.Y;
 
                         C3.XNA.Primitives2D.DrawRectangle(spriteBatch, TheBoard[i, j].BoundingRectangle, Color.Black);
                     }
@@ -243,7 +240,7 @@ namespace OurGame.OurGameLibrary
 
             // Transform the end of the visible board on the screen into an index into this Board object's 2D array.
             endX = Math.Max(startX, CalculateXIndex(SCREEN_WIDTH - BoardMarginX, screenXOffset));
-                // this.TheBoard.GetLength(1);
+            // this.TheBoard.GetLength(1);
 
             // Make sure the board indicies are not greater than the column width oft he board.
             if (startX >= TheBoard.GetLength(1))
@@ -304,9 +301,9 @@ namespace OurGame.OurGameLibrary
             if (!File.Exists(path))
             {
                 BoardHeight = 20*24;
-                    // Screen's height is 480 BoardHeight and Tile Height will be used to calc the number of tiles across array will be
+                // Screen's height is 480 BoardHeight and Tile Height will be used to calc the number of tiles across array will be
                 BoardWidth = 29*80;
-                    // Screen's width is 800 BoardWidth and Tile Height will be used to calc the # of tiles across the array will be
+                // Screen's width is 800 BoardWidth and Tile Height will be used to calc the # of tiles across the array will be
 
                 TileHeight = DEFAULT_TILE_WIDTH;
                 TileWidth = DEFAULT_TILE_HEIGHT;

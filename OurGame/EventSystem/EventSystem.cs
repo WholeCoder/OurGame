@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Diagnostics.Eventing.Reader;
 using OurGame.EventSystem.Events;
 
 namespace OurGame.EventSystem
@@ -8,9 +7,13 @@ namespace OurGame.EventSystem
     // Can't use event in lowercase as a varibalbe name!
     public class EventSystem
     {
+        private readonly Hashtable _ehTable;
         private EventSystem _eventSystem;
 
-        private readonly Hashtable _ehTable ;
+        private EventSystem()
+        {
+            _ehTable = new Hashtable();
+        }
 
         public EventSystem GetInstance()
         {
@@ -20,12 +23,6 @@ namespace OurGame.EventSystem
             }
 
             return _eventSystem;
-
-        }
-
-        private EventSystem()
-        {
-            _ehTable = new Hashtable();
         }
 
         public void RegisterEvent(String eventMessage, Event et)

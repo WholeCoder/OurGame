@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace OurGame.OurGameLibrary
@@ -17,6 +14,6 @@ namespace OurGame.OurGameLibrary
 
             var info = new UTF8Encoding(true).GetBytes(value);
             fs.Write(info, 0, info.Length);
-        } // end method
+        }
     }
 }

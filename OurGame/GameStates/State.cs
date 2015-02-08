@@ -18,7 +18,6 @@ namespace OurGame.GameStates
         }
 
         public int ScreenXOffset { get; set; }
-
         public abstract void Initialize(Game1 ourGame);
         // Don't override this to load the content!  Use the method below!
         public void LoadContent(ContentManager Content)
