@@ -20,7 +20,7 @@ namespace OurGame.GameStates
         private const int COMMAND_DESCRIPTION_OFFSET = 450;
 
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
-        public Game1 OurGame { get; set; }
+        private Game1 OurGame { get; set; }
 
         public override void Initialize(Game1 ourGame)
         {
