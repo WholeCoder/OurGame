@@ -29,6 +29,16 @@ namespace OurGame.Sprites
         }
 
         private bool IsGoingRight { get; set; }
+
+        public override string NameOfThisSubclassForWritingToConfigFile
+        {
+            get
+            {
+                // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
+                return "AutomatedSprite";
+            }
+        }
+
         // This will start at the startOffset and read out it's attributes.
         protected override sealed void Load(string[] configArray, int startOffset)
         {
@@ -86,14 +96,6 @@ namespace OurGame.Sprites
             if (CurrentPosition.Y + BoundingRectangle.Height > _theBoard.BoardHeight)
             {
                 CurrentPosition.Y = _theBoard.BoardHeight - BoundingRectangle.Height;
-            }
-        }
-
-        public override string NameOfThisSubclassForWritingToConfigFile
-        {
-            get {
-                // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
-                return "AutomatedSprite";
             }
         }
 
