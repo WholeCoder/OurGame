@@ -107,7 +107,7 @@ namespace OurGame.GameStates
                     aSprite.CurrentPosition.X = aSprite.GetLastX();
                 }
 
-                if (aSprite.GetType() == typeof (UserControlledSprite))
+                if (aSprite is UserControlledSprite)
                 {
                     ScreenXOffset = aSprite.GetLastScreenXOffset();
                 }
