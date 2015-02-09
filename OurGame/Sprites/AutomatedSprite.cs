@@ -89,10 +89,12 @@ namespace OurGame.Sprites
             }
         }
 
-        public override string NameOfThisSubclassForWritingToConfigFile()
+        public override string NameOfThisSubclassForWritingToConfigFile
         {
-            // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
-            return "AutomatedSprite";
+            get {
+                // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
+                return "AutomatedSprite";
+            }
         }
 
         // In this method we use fs to write out the subclasses properties.

@@ -68,7 +68,7 @@ namespace OurGame.Sprites
             {
                 for (var i = 0; i < Sprites.Count; i++)
                 {
-                    var filename = Sprites[i].NameOfThisSubclassForWritingToConfigFile() + i + ".txt";
+                    var filename = Sprites[i].NameOfThisSubclassForWritingToConfigFile + i + ".txt";
                     Sprites[i].WritePropertiesToFile(filename);
 
                     Utilities.AddText(fs, filename);

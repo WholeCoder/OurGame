@@ -259,10 +259,13 @@ namespace OurGame.Sprites
 
 // end method
 
-        public override string NameOfThisSubclassForWritingToConfigFile()
+        public override string NameOfThisSubclassForWritingToConfigFile
         {
-            // This is written out to the config file.
-            return "UserControlledSprite";
+            get
+            {
+                // This is written out to the config file.
+                return "UserControlledSprite";
+            }
         }
 
         // In this method we use fs to write out the subclasses properties.

@@ -292,11 +292,11 @@ namespace OurGame.Sprites
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
-            var subClassName = NameOfThisSubclassForWritingToConfigFile();
+            var subClassName = NameOfThisSubclassForWritingToConfigFile;
             var posAboveSprite = CurrentPosition.Y - pState._helpFont.MeasureString(subClassName).Y;
 
             //Vector2 posAboveSprite = new Vector2(this.CurrentPosition.X, this.CurrentPosition.Y-Boa);
-            spriteBatch.DrawString(pState._helpFont, NameOfThisSubclassForWritingToConfigFile(),
+            spriteBatch.DrawString(pState._helpFont, NameOfThisSubclassForWritingToConfigFile,
                 new Vector2(CurrentPosition.X, posAboveSprite), Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
         }
@@ -309,10 +309,10 @@ namespace OurGame.Sprites
             Debug.Assert(mouseCursorUpperLeftCorner != null, "mouseCursorUpperLeftCorner can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
-            var subClassName = NameOfThisSubclassForWritingToConfigFile();
+            var subClassName = NameOfThisSubclassForWritingToConfigFile;
             var posAboveSprite = mouseCursorUpperLeftCorner.Y - pState._helpFont.MeasureString(subClassName).Y;
 
-            spriteBatch.DrawString(pState._helpFont, NameOfThisSubclassForWritingToConfigFile(),
+            spriteBatch.DrawString(pState._helpFont, NameOfThisSubclassForWritingToConfigFile,
                 new Vector2(mouseCursorUpperLeftCorner.X, posAboveSprite), Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
         }
@@ -336,7 +336,8 @@ namespace OurGame.Sprites
 
         // This will start at the startOffset and read out it's attributes.
         protected abstract void Load(string[] configArray, int startOffset);
-        public abstract string NameOfThisSubclassForWritingToConfigFile();
+        public abstract string NameOfThisSubclassForWritingToConfigFile { get; }
+    
 
         // In this method we use fs to write out the subclasses properties.
         protected abstract void Write(FileStream fs);
@@ -352,7 +353,7 @@ namespace OurGame.Sprites
                 // Set defaults
 
                 // Write "AutomatedSprite" to file and a \n.
-                Debug.Assert(!NameOfThisSubclassForWritingToConfigFile().Equals(""),
+                Debug.Assert(!NameOfThisSubclassForWritingToConfigFile.Equals(""),
                     "AnimatedSprite.NameOfThisSubclassForWritingToConfigFile() must return the name of the subclass that is being loaded!");
 
                 InitialPosition = new Vector2(200, 200);
@@ -448,7 +449,7 @@ namespace OurGame.Sprites
 
             using (var fs = File.Create(filepath))
             {
-                Utilities.AddText(fs, NameOfThisSubclassForWritingToConfigFile()); // ex) "UserControlledSprite"
+                Utilities.AddText(fs, NameOfThisSubclassForWritingToConfigFile); // ex) "UserControlledSprite"
                 Utilities.AddText(fs, "\n");
 
                 Utilities.AddText(fs, InitialPosition.X + "," + InitialPosition.Y);
