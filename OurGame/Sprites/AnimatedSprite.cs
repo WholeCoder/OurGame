@@ -293,10 +293,10 @@ namespace OurGame.Sprites
             Debug.Assert(pState != null, "pState can not be null!");
 
             var subClassName = NameOfThisSubclassForWritingToConfigFile;
-            var posAboveSprite = CurrentPosition.Y - pState._helpFont.MeasureString(subClassName).Y;
+            var posAboveSprite = CurrentPosition.Y - pState.HelpFont.MeasureString(subClassName).Y;
 
             //Vector2 posAboveSprite = new Vector2(this.CurrentPosition.X, this.CurrentPosition.Y-Boa);
-            spriteBatch.DrawString(pState._helpFont, NameOfThisSubclassForWritingToConfigFile,
+            spriteBatch.DrawString(pState.HelpFont, NameOfThisSubclassForWritingToConfigFile,
                 new Vector2(CurrentPosition.X, posAboveSprite), Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
         }
@@ -310,9 +310,9 @@ namespace OurGame.Sprites
             Debug.Assert(pState != null, "pState can not be null!");
 
             var subClassName = NameOfThisSubclassForWritingToConfigFile;
-            var posAboveSprite = mouseCursorUpperLeftCorner.Y - pState._helpFont.MeasureString(subClassName).Y;
+            var posAboveSprite = mouseCursorUpperLeftCorner.Y - pState.HelpFont.MeasureString(subClassName).Y;
 
-            spriteBatch.DrawString(pState._helpFont, NameOfThisSubclassForWritingToConfigFile,
+            spriteBatch.DrawString(pState.HelpFont, NameOfThisSubclassForWritingToConfigFile,
                 new Vector2(mouseCursorUpperLeftCorner.X, posAboveSprite), Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
         }

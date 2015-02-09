@@ -16,7 +16,7 @@ namespace OurGame.GameStates
         private const string PathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
         private Board _board;
         private MouseState _currentMouseState;
-        public SpriteFont _helpFont;
+        public SpriteFont HelpFont { get; set; }
         private bool _isUserSprite;
         private MouseState _lastMouseState;
         private bool _leftMouseClickOccurred;
@@ -53,7 +53,7 @@ namespace OurGame.GameStates
             _isUserSprite = false;
             _spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
 
-            _helpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
+            HelpFont = Content.Load<SpriteFont>(@"fonts\helpfont");
         }
 
         public void SaveSpritesToDiskAndLoadItIntoPlayGameState(GameTime gameTime)
@@ -221,7 +221,7 @@ namespace OurGame.GameStates
 
             _spriteManager.Draw(spriteBatch);
 
-            spriteBatch.DrawString(_helpFont, "Edit Sprites Mode",
+            spriteBatch.DrawString(HelpFont, "Edit Sprites Mode",
                 new Vector2(20, 10), Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
             _spriteManager.DrawSubclassName(spriteBatch, this);
