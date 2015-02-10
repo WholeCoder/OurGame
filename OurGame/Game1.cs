@@ -13,11 +13,6 @@ namespace OurGame
     {
         private SpriteBatch _spriteBatch;
 
-        public override string ToString()
-        {
-            return "Game1";
-        }
-
         public Game1()
         {
             new GraphicsDeviceManager(this);
@@ -33,6 +28,12 @@ namespace OurGame
         public State PlayGameState { get; set; }
         public State HelpMenuState { get; set; }
         public State EditSpritesState { get; set; }
+
+        public override string ToString()
+        {
+            return "Game1";
+        }
+
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
 

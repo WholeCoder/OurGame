@@ -17,11 +17,6 @@ namespace OurGame.Sprites
         private int _moveRightLength;
         private int _startXOffset;
 
-        public override string ToString()
-        {
-            return "AutomatedSprite";
-        }
-
         public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
         {
@@ -42,6 +37,11 @@ namespace OurGame.Sprites
                 // This is written out to the config file and used as a "constant" in the SimpleAnimatedSpriteFactory.
                 return "AutomatedSprite";
             }
+        }
+
+        public override string ToString()
+        {
+            return "AutomatedSprite";
         }
 
         // This will start at the startOffset and read out it's attributes.

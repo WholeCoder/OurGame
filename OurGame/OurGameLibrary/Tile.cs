@@ -8,11 +8,6 @@ namespace OurGame.OurGameLibrary
         // This will be changed by the Board class to allow a check to see if something (ex: Player) hits a Tile on the board.
         public Rectangle BoundingRectangle;
 
-        public override string ToString()
-        {
-            return "Tile";
-        }
-
         public Tile(Texture2D tTexture,
             int arrayX, // array position column   DON noT FORGET THESE ARE BACKWARDS IN ARRAY!!
             int arrayY, //                row
@@ -59,5 +54,10 @@ namespace OurGame.OurGameLibrary
         private int StartBoundaryY { get; set; }
         public int EndBoundaryX { get; set; }
         public int EndBoundaryY { get; set; }
+
+        public override string ToString()
+        {
+            return "Tile";
+        }
     } // End class.
 }

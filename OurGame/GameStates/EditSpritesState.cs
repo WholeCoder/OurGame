@@ -16,7 +16,6 @@ namespace OurGame.GameStates
         private const string PathToSavedGambeBoardConfigurationFile = @"MyLevel.txt";
         private Board _board;
         private MouseState _currentMouseState;
-        public SpriteFont HelpFont { get; set; }
         private bool _isUserSprite;
         private MouseState _lastMouseState;
         private bool _leftMouseClickOccurred;
@@ -27,6 +26,7 @@ namespace OurGame.GameStates
         private int _previousScrollValue;
         private bool _rightMouseClickOccurred;
         private SpriteManager _spriteManager;
+        public SpriteFont HelpFont { get; set; }
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
         // Used to reload the contend in the board for the playGameState
@@ -34,7 +34,7 @@ namespace OurGame.GameStates
 
         public override string ToString()
         {
-            return "EditSpritesState - number of sprites on board == "+_spriteManager.Sprites.Count;
+            return "EditSpritesState - number of sprites on board == " + _spriteManager.Sprites.Count;
         }
 
         public override void Initialize(Game1 ourGame)

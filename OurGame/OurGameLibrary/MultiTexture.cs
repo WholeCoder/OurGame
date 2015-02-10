@@ -7,11 +7,6 @@ namespace OurGame.OurGameLibrary
     // This class will hold 1-many Tile classes so that the user can place more tiles at the same time onto the game board.
     public class MultiTexture
     {
-        public override string ToString()
-        {
-            return "MultiTexture";
-        }
-
         public MultiTexture(int numberOfHorizontalTiles, int numberOfVirticalTiles, Texture2D tileToRepeat)
         {
             // tileToRepeat can be null!
@@ -25,6 +20,11 @@ namespace OurGame.OurGameLibrary
         public int NumberOfHorizontalTiles { get; set; }
         public int NumberOfVerticalTiles { get; set; }
         public Texture2D TextureToRepeat { get; set; }
+
+        public override string ToString()
+        {
+            return "MultiTexture";
+        }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)
         {

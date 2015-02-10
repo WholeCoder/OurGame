@@ -15,12 +15,6 @@ namespace OurGame.Sprites
     {
         private readonly string _spritesFileName;
         public List<AnimatedSprite> Sprites;
-
-        public override string ToString()
-        {
-            return "SpriteManager - Number of sprites is " + Sprites.Count;
-        }
-
         // THis constructor will read in the spritesFileName or create it with default values if it doesn't exist.
         public SpriteManager(String spritesFileName, Board board, State pState)
         {
@@ -31,6 +25,11 @@ namespace OurGame.Sprites
 
             _spritesFileName = spritesFileName;
             LoadSpritesFromAfile(board, pState);
+        }
+
+        public override string ToString()
+        {
+            return "SpriteManager - Number of sprites is " + Sprites.Count;
         }
 
         public void AddSprite(AnimatedSprite aSprite)

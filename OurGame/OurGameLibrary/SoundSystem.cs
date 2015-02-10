@@ -12,15 +12,15 @@ namespace OurGame.OurGameLibrary
         private static ContentManager _content;
         private readonly SoundEffect soundEffect;
 
-        public override string ToString()
-        {
-            return "SoundSystem";
-        }
-
         private SoundSystem(ContentManager Content)
         {
             // For wavs.
             soundEffect = Content.Load<SoundEffect>(@"audio\mario_jump");
+        }
+
+        public override string ToString()
+        {
+            return "SoundSystem";
         }
 
         public static SoundSystem getInstance()

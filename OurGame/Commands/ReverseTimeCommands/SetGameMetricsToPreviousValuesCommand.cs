@@ -13,11 +13,6 @@ namespace OurGame.Commands.ReverseTimeCommands
         private readonly int _screenOffset;
         private Vector2 _currentPosition;
 
-        public override string ToString()
-        {
-            return "SetGameMetricsToPreviousValuesCommand\n\t_currentPosition == ("+_currentPosition.X+", "+_currentPosition.Y+")\n\t_screenOffset == "+_screenOffset;
-        }
-
         public SetGameMetricsToPreviousValuesCommand(PlayGameState pGameState, int screenOffset, AnimatedSprite player)
         {
             Debug.Assert(pGameState != null, "pGameState can't be null!");
@@ -39,6 +34,12 @@ namespace OurGame.Commands.ReverseTimeCommands
         public void Undo()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return "SetGameMetricsToPreviousValuesCommand\n\t_currentPosition == (" + _currentPosition.X + ", " +
+                   _currentPosition.Y + ")\n\t_screenOffset == " + _screenOffset;
         }
     }
 }

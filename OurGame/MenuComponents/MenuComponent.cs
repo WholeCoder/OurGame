@@ -18,16 +18,6 @@ namespace OurGame.MenuComponents
         private readonly int _yStart;
         private ICommand _command;
 
-        public override string ToString()
-        {
-            string str = "MenuComponent - "+GetName()+"\n";
-            foreach (var mComp in _menuComponents)
-            {
-                str += "\t" + mComp.ToString() + "\n";
-            }
-            return str;
-        }
-
         public MenuComponent(string name, int nameJustifyPixels, string description, int descriptionPixels, int yStart)
         {
             Debug.Assert(name != null, "name can not be null!");
@@ -43,6 +33,16 @@ namespace OurGame.MenuComponents
 
             _menuComponents = new List<MenuComponent>();
             _command = new DoNothingCommand();
+        }
+
+        public override string ToString()
+        {
+            var str = "MenuComponent - " + GetName() + "\n";
+            foreach (var mComp in _menuComponents)
+            {
+                str += "\t" + mComp + "\n";
+            }
+            return str;
         }
 
         private IEnumerable<MenuComponent> GetMenuComponents()

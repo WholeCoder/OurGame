@@ -10,12 +10,6 @@ namespace OurGame.GameStates
     {
         // Scroll amount lef tand right.0.
         public const int SCROLL_AMOUNT = 5;
-        // This instance variable lets us scroll the board horizontally.
-
-        public override string ToString()
-        {
-            return "State - ScreenXOffset == " + ScreenXOffset;
-        }
 
         protected State()
         {
@@ -23,6 +17,13 @@ namespace OurGame.GameStates
         }
 
         public int ScreenXOffset { get; set; }
+        // This instance variable lets us scroll the board horizontally.
+
+        public override string ToString()
+        {
+            return "State - ScreenXOffset == " + ScreenXOffset;
+        }
+
         public abstract void Initialize(Game1 ourGame);
         // Don't override this to load the content!  Use the method below!
         public void LoadContent(ContentManager Content)

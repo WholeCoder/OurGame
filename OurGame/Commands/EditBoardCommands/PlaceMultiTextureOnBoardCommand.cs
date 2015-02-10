@@ -16,11 +16,6 @@ namespace OurGame.Commands.EditBoardCommands
         private readonly int _putY;
         private readonly Texture2D[,] _undoTextures;
 
-        public override string ToString()
-        {
-            return "PlaceMultiTextureOnBoardCommand\n\t_numberOfHorizontalTiles == " + _numberOfHorizontalTiles + "\n\t_numberOfVerticalTiles == "+_numberOfVerticalTiles;
-        }
-
         public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset,
             int numberOfHorizontalTiles, int numberOfVerticalTiles)
         {
@@ -89,5 +84,11 @@ namespace OurGame.Commands.EditBoardCommands
                 }
             } // end outer for
         } // end method
+
+        public override string ToString()
+        {
+            return "PlaceMultiTextureOnBoardCommand\n\t_numberOfHorizontalTiles == " + _numberOfHorizontalTiles +
+                   "\n\t_numberOfVerticalTiles == " + _numberOfVerticalTiles;
+        }
     } // end class
 } // end namespace

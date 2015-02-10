@@ -23,11 +23,6 @@ namespace OurGame.OurGameLibrary
         // These are for the player and non-player characters
         private Texture2D[] _spriteTextures;
 
-        public override string ToString()
-        {
-            return "TextureCache\n\t" + BoardTextureCacheFileNameString + "\n\t" + SpriteFileName;
-        }
-
         private TextureCache(String boardFileNameString, string spriteFileName, ContentManager Content)
         {
             Debug.Assert(boardFileNameString != null && !boardFileNameString.Equals(""),
@@ -38,6 +33,11 @@ namespace OurGame.OurGameLibrary
 
             LoadBoardTextures(boardFileNameString, Content);
             LoadSpriteTextures(spriteFileName, Content);
+        }
+
+        public override string ToString()
+        {
+            return "TextureCache\n\t" + BoardTextureCacheFileNameString + "\n\t" + SpriteFileName;
         }
 
         // MUST CALL setupFileNamesAndcontent(...) BEFORE CALLING THIS!

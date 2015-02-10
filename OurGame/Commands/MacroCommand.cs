@@ -7,12 +7,6 @@ namespace OurGame.Commands
     {
         private readonly ICommand[] _commands;
 
-        public override string ToString()
-        {
-            string tostr = "MacroCommand - has " + _commands.Length + " Commands in it whitch are:\n";
-            return _commands.Aggregate(tostr, (current, command) => current + ("\t" + command.ToString() + "\n"));
-        }
-
         public MacroCommand(params ICommand[] com)
         {
             Debug.Assert(com != null, "Command list, com, can't be null!");
@@ -23,6 +17,12 @@ namespace OurGame.Commands
             {
                 _commands[i] = com[i];
             }
+        }
+
+        public override string ToString()
+        {
+            var tostr = "MacroCommand - has " + _commands.Length + " Commands in it whitch are:\n";
+            return _commands.Aggregate(tostr, (current, command) => current + ("\t" + command.ToString() + "\n"));
         }
 
         public void Execute()
