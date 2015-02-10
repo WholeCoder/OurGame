@@ -62,39 +62,39 @@ namespace OurGame.GameStates
                 // "Gravity" to pull down the player or enemies if they are in mid-air.
                 _spriteManager.ApplyDownwordGravity();
                 _spriteManager.SavePositionForReverseTime(this);
-            }
 
+                _spriteManager.Update(gameTime);
 
-            _spriteManager.Update(gameTime);
+                // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
+                // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
+                foreach (var aSprite in _spriteManager.Sprites)
+                {
+                    SetSpritePositonIfIntersectingUnderneathAPlatform(aSprite);
+                }
 
-            // Make sure a jumping sprite doesn't go thorugh a platform in mid air.
-            // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
-            foreach (var aSprite in _spriteManager.Sprites)
-            {
-                SetSpritePositonIfIntersectingUnderneathAPlatform(aSprite);
-            }
+                // This next loop make sure, if the sprite hits the ground, it will not go through the ground.
+                // (On the closest tile that is below the sprite).
+                // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
+                foreach (var aSprite in _spriteManager.Sprites)
+                {
+                    SetSpritePositionIfIntersectingWithGroundOrPlatform(aSprite);
+                }
 
-            // This next loop make sure, if the sprite hits the ground, it will not go through the ground.
-            // (On the closest tile that is below the sprite).
-            // SetSpritePositionIfIntersectingWithGroundOrPlatform possibly modifies the sprites sent in as parameters.
-            foreach (var aSprite in _spriteManager.Sprites)
-            {
-                SetSpritePositionIfIntersectingWithGroundOrPlatform(aSprite);
-            }
+                // Can Remove this but the AutomatedSprites float with it in.  Need to find a way to fix this without the
+                // following funciton
+                foreach (var aSprite in _spriteManager.Sprites)
+                {
+                    MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
+                }
 
-            // Can Remove this but the AutomatedSprites float with it in.  Need to find a way to fix this without the
-            // following funciton
-            foreach (var aSprite in _spriteManager.Sprites)
-            {
-                MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
-            }
+                var newKeyboardState = Keyboard.GetState(); // get the newest state
 
-            var newKeyboardState = Keyboard.GetState(); // get the newest state
+                SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame,
+                    gameTime);
 
-            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame, gameTime);
-
-            _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
-        }
+                _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
+            } // end else
+        } // end methods
 
         private void MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(AnimatedSprite aSprite)
         {

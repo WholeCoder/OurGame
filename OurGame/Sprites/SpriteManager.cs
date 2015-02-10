@@ -15,6 +15,8 @@ namespace OurGame.Sprites
     {
         private readonly string _spritesFileName;
         public List<AnimatedSprite> Sprites;
+        private Board _board;
+        private State _state;
         // THis constructor will read in the spritesFileName or create it with default values if it doesn't exist.
         public SpriteManager(String spritesFileName, Board board, State pState)
         {
@@ -23,6 +25,8 @@ namespace OurGame.Sprites
             Debug.Assert(board != null, "board can not be null!");
             Debug.Assert(pState != null, "pState can not be null!");
 
+            _board = board;
+            _state = pState;
             _spritesFileName = spritesFileName;
             LoadSpritesFromAfile(board, pState);
         }
@@ -114,7 +118,14 @@ namespace OurGame.Sprites
         {
             foreach (var aSprite in Sprites)
             {
-                aSprite.ApplyDownwardGravity();
+                Rectangle tempBoundingRectangle = new Rectangle(aSprite.BoundingRectangle.X,
+                                                                aSprite.BoundingRectangle.Y+AnimatedSprite.GRAVITY_DOWNWARD,
+                                                                aSprite.BoundingRectangle.Width,
+                                                                aSprite.BoundingRectangle.Height);
+                if (_board.RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _state.ScreenXOffset ).Count == 0)
+                {
+                    aSprite.ApplyDownwardGravity();
+                }
             }
         }
 

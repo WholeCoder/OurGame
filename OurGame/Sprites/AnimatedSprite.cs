@@ -40,7 +40,7 @@ namespace OurGame.Sprites
         public Vector2 CurrentPosition;
         public Vector2 InitialPosition;
         // ReSharper disable once InconsistentNaming
-        protected const int GRAVITY_DOWNWARD = 5;
+        public const int GRAVITY_DOWNWARD = 5;
         // This makes sure there is always downward "pressure" to keep the sprit on the ground;
 
         public Rectangle BoundingRectangle; // For collision detection.
