@@ -7,12 +7,11 @@ namespace OurGame.EventSystem
     // Can't use event in lowercase as a varibalbe name!
     public class EventSystem
     {
-        private readonly Hashtable _ehTable;
+        private readonly Hashtable _ehTable = new Hashtable();
         private EventSystem _eventSystem;
 
         private EventSystem()
         {
-            _ehTable = new Hashtable();
         }
 
         public EventSystem GetInstance()

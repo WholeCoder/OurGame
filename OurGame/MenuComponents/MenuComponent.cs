@@ -14,9 +14,9 @@ namespace OurGame.MenuComponents
         private readonly string _commandName;
         private readonly int _commandNameLeftJustifyPixels;
         // This instance member is null unless this MenuComponent is a sub-menu;
-        private readonly List<MenuComponent> _menuComponents;
+        private readonly List<MenuComponent> _menuComponents = new List<MenuComponent>();
         private readonly int _yStart;
-        private ICommand _command;
+        private ICommand _command = new DoNothingCommand();
 
         public MenuComponent(string name, int nameJustifyPixels, string description, int descriptionPixels, int yStart)
         {
@@ -29,10 +29,7 @@ namespace OurGame.MenuComponents
             _commandDescription = description;
             _commandDescriptionJustifyPixels = descriptionPixels;
 
-            _yStart = yStart;
-
-            _menuComponents = new List<MenuComponent>();
-            _command = new DoNothingCommand();
+            _yStart = yStart;            
         }
 
         public override string ToString()
