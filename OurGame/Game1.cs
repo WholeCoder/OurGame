@@ -36,7 +36,7 @@ namespace OurGame
         /***************************************************************************************************************/
         /*  *note*  These are used by the State subclasses to change state of the game to another. ex) Game Over state.*/
 
-        // This version is called when we change state in an updateObserver() call.
+        // This version is called in SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(...).
         public void SetStateWhenUpdating(State state, GameTime gameTime)
         {
             Debug.Assert(state != null, "state can't be null!");
