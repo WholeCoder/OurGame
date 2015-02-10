@@ -32,6 +32,11 @@ namespace OurGame.Sprites
         // this will be the least value that the X co-ordinate will take on if the board is scrolled all the way to the left.
         private const int MAX_LIMIT_X_RIGHT_HAND_MARGIN = 40;
 
+        public override string ToString()
+        {
+            return "UserControlledSprite";
+        }
+
         public UserControlledSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
         {

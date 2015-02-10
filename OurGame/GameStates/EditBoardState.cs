@@ -39,6 +39,11 @@ namespace OurGame.GameStates
         // Used to reload the contend in the board for the playGameState
         private ContentManager Content { get; set; }
 
+        public override string ToString()
+        {
+            return "EditBoardState";
+        }
+
         public override void Initialize(Game1 ourGame)
         {
             Debug.Assert(ourGame != null, "ourGame can't be null!");

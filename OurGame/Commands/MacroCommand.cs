@@ -1,10 +1,17 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 
 namespace OurGame.Commands
 {
     public class MacroCommand : ICommand
     {
         private readonly ICommand[] _commands;
+
+        public override string ToString()
+        {
+            string tostr = "MacroCommand - has " + _commands.Length + " Commands in it whitch are:\n";
+            return _commands.Aggregate(tostr, (current, command) => current + ("\t" + command.ToString() + "\n"));
+        }
 
         public MacroCommand(params ICommand[] com)
         {

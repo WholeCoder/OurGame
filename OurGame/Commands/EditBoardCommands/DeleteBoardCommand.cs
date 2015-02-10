@@ -12,6 +12,12 @@ namespace OurGame.Commands.EditBoardCommands
         private readonly EditBoardState _editBoardState;
         private readonly String _pathToSavedGambeBoardConfigurationFile;
 
+        public override string ToString()
+        {
+            return "DeleteBoardCommand - _pathToSavedGambeBoardConfigurationFile == " +
+                   _pathToSavedGambeBoardConfigurationFile;
+        }
+
         public DeleteBoardCommand(String pathToSavedGameBoardConfigurationFile, Board board,
             EditBoardState editBoardState)
         {

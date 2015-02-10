@@ -54,6 +54,11 @@ namespace OurGame.Sprites
 
         public bool IsJumping;
 
+        public override string ToString()
+        {
+            return "AnimatedSprite";
+        }
+
         protected AnimatedSprite(string configFilePathAndName)
         {
             Debug.Assert(!configFilePathAndName.Equals("") && configFilePathAndName != null,

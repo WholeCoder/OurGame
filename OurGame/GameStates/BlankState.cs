@@ -13,6 +13,11 @@ namespace OurGame.GameStates
         private KeyboardState _oldKeyboardState;
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
+        
+        public override string ToString()
+        {
+            return "BlankState";
+        }
 
         public override void Initialize(Game1 ourGame)
         {

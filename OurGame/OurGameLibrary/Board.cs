@@ -36,6 +36,11 @@ namespace OurGame.OurGameLibrary
         private const int DEFAULT_TILE_WIDTH = 20;
         private const int DEFAULT_TILE_HEIGHT = 20;
 
+        public override string ToString()
+        {
+            return "Board (width, height) in tiles == (" + TheBoard.GetLength(1) + "," + TheBoard.GetLength(0) + ")";
+        }
+
         public Board(String pathToConfigFile)
         {
             Debug.Assert(pathToConfigFile != null && !pathToConfigFile.Equals(""), "pathToConfigFile is null or empty!");

@@ -17,6 +17,11 @@ namespace OurGame.Sprites
         private int _moveRightLength;
         private int _startXOffset;
 
+        public override string ToString()
+        {
+            return "AutomatedSprite";
+        }
+
         public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
         {

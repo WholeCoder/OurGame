@@ -3,6 +3,7 @@
 namespace OurGame.OurGameLibrary
 {
     // This exception is thrown when you fail to call TextureCache.SetContent(...) with valid parameters before calling Texture.getInstance();
+    // or call SoundSystem.getInstance() without calling SoundSystem.SetContent(...) method.
     internal class MustCallSetContentMethodFirst : Exception
     {
         public MustCallSetContentMethodFirst()

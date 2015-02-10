@@ -22,6 +22,11 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
 
+        public override string ToString()
+        {
+            return "HelpMenuState";
+        }
+
         public override void Initialize(Game1 ourGame)
         {
             Debug.Assert(ourGame != null, "ourGame can not be null!");

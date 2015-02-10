@@ -13,6 +13,11 @@ namespace OurGame
     {
         private SpriteBatch _spriteBatch;
 
+        public override string ToString()
+        {
+            return "Game1";
+        }
+
         public Game1()
         {
             new GraphicsDeviceManager(this);
