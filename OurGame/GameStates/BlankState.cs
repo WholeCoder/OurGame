@@ -14,6 +14,8 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
 
+        private readonly Vector2 _positionOfTitle = new Vector2(10, 10);
+
         public override string ToString()
         {
             return "BlankState";
@@ -54,7 +56,7 @@ namespace OurGame.GameStates
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
             spriteBatch.DrawString(_helpFont, "Blank Mode",
-                new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
+                _positionOfTitle, Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
         }
     }

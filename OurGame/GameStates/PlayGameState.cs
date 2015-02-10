@@ -20,6 +20,8 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
 
+        private readonly Vector2 _positionOfTitle = new Vector2(10, 10);
+
         public override string ToString()
         {
             return "PlayGameState - number of sprites on board == " + _spriteManager.Sprites.Count;
@@ -84,7 +86,7 @@ namespace OurGame.GameStates
                 // following funciton
                 foreach (var aSprite in _spriteManager.Sprites)
                 {
-                    MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
+                    //MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
                 }
 
                 var newKeyboardState = Keyboard.GetState(); // get the newest state
@@ -184,7 +186,7 @@ namespace OurGame.GameStates
             _spriteManager.Draw(spriteBatch);
 
             spriteBatch.DrawString(_helpFont, "Play Game Mode",
-                new Vector2(10, 10), Color.Black, 0, Vector2.Zero,
+                _positionOfTitle, Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
         }
     }

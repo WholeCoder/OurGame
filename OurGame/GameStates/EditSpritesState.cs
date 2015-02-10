@@ -31,6 +31,7 @@ namespace OurGame.GameStates
         private Game1 OurGame { get; set; }
         // Used to reload the contend in the board for the playGameState
         private ContentManager Content { get; set; }
+        private readonly Vector2 _positionOfTitle = new Vector2(20, 10);
 
         public override string ToString()
         {
@@ -227,7 +228,7 @@ namespace OurGame.GameStates
             _spriteManager.Draw(spriteBatch);
 
             spriteBatch.DrawString(HelpFont, "Edit Sprites Mode",
-                new Vector2(20, 10), Color.Black, 0, Vector2.Zero,
+                _positionOfTitle, Color.Black, 0, Vector2.Zero,
                 1, SpriteEffects.None, 1);
             _spriteManager.DrawSubclassName(spriteBatch, this);
             _player.DrawSubclassName(spriteBatch, _mouseCursorLockedToNearestGridPositionVector, this);
