@@ -155,30 +155,17 @@ namespace OurGame.Sprites
             Console.WriteLine("CanJump == " + CanJump);
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
-                 var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X - State.SCROLL_AMOUNT),
-                    (int) CurrentPosition.Y-1,
-                    BoundingRectangle.Width,
-                    BoundingRectangle.Height);
-                var tilesToLeftAndAtOrAbove = _theBoard
-                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState, (int)this.CurrentPosition.Y)
-                    .Select(tile => tile)
-                    .Where(tile => tile.BoundingRectangle.Y < CurrentPosition.Y)
-                    .ToList();
 
-                if (!tilesToLeftAndAtOrAbove.Any())
-                {
+                _jumpStart = (int) CurrentPosition.Y;
+                IsJumping = _currentlyJumping = true;
+                IsGoingUp = true;
+                IsGoingDown = false;
+                CanJump = false;
 
-                    _jumpStart = (int) CurrentPosition.Y;
-                    IsJumping = _currentlyJumping = true;
-                    IsGoingUp = true;
-                    IsGoingDown = false;
-                    CanJump = false;
+                Console.WriteLine("SPACE key pressed - setting _currentlyJumping to TRUE");
 
-                    Console.WriteLine("SPACE key pressed - setting _currentlyJumping to TRUE");
-
-                    SoundSystem.getInstance().getSound("mariojumpting").Play();
-                    _currentJumpIncrement = ComputeJumpIncremnet();
-                }
+                SoundSystem.getInstance().getSound("mariojumpting").Play();
+                _currentJumpIncrement = ComputeJumpIncremnet();
             }
 
             if (_currentlyJumping)
