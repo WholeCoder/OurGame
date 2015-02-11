@@ -39,7 +39,7 @@ namespace OurGame.OurGameLibrary
         private const int DEFAULT_TILE_HEIGHT = 20;
 
         private readonly RetrieveTilesTemplateMethod _rTilesTemplatMethod = new RetrieveTilesTemplateMethod();
-        private readonly RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod rTilesTemplatMethod = new RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod();
+        private readonly RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod _rTilesTemplatMethodWithLessY = new RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod();
 
         public override string ToString()
         {
@@ -80,7 +80,7 @@ namespace OurGame.OurGameLibrary
                             aSprite.BoundingRectangle.Width,
                             aSprite.BoundingRectangle.Height + 1);
 
-            var tileList = rTilesTemplatMethod.RetrieveTilesThatIntersectWithRectangle(this, state, aSpritesBoundingBoxModified,(int)aSprite.CurrentPosition.Y);
+            var tileList = _rTilesTemplatMethodWithLessY.RetrieveTilesThatIntersectWithRectangle(this, state, aSpritesBoundingBoxModified,(int)aSprite.CurrentPosition.Y);
 
             return tileList;
         } // end method
