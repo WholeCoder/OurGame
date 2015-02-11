@@ -82,20 +82,18 @@ namespace OurGame.GameStates
                     SetSpritePositionIfIntersectingWithGroundOrPlatform(aSprite);
                 }
 
-                // Can Remove this but the AutomatedSprites float with it in.  Need to find a way to fix this without the
-                // following funciton
+                // Need this!  Changed my mind.  If this isn't in then the user can jump through "sandwiched" platform gaps.
                 foreach (var aSprite in _spriteManager.Sprites)
                 {
-                    //MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
+                    MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(aSprite);
                 }
+            }
+            var newKeyboardState = Keyboard.GetState(); // get the newest state
 
-                var newKeyboardState = Keyboard.GetState(); // get the newest state
+            SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame,
+                gameTime);
 
-                SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame,
-                    gameTime);
-
-                _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
-            } // end else
+            _oldKeyboardState = newKeyboardState; // set the new state as the old state for next time
         } // end methods
 
         private void MakeSureThatSpriteCanNotGoThroughSideOfGroundOrPlatform(AnimatedSprite aSprite)
