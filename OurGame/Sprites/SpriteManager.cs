@@ -122,7 +122,7 @@ namespace OurGame.Sprites
                                                                 aSprite.BoundingRectangle.Y+AnimatedSprite.GRAVITY_DOWNWARD,
                                                                 aSprite.BoundingRectangle.Width,
                                                                 aSprite.BoundingRectangle.Height);
-                if (_board.RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _state.ScreenXOffset ).Count == 0)
+                if (_board.RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _state, (int)aSprite.CurrentPosition.Y).Count == 0)
                 {
                     aSprite.ApplyDownwardGravity();
                 }

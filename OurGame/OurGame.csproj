@@ -92,6 +92,8 @@
     <Compile Include="OurGameLibrary\Board.cs" />
     <Compile Include="OurGameLibrary\MultiTexture.cs" />
     <Compile Include="OurGameLibrary\MustCallSetContentMethodFirst.cs" />
+    <Compile Include="OurGameLibrary\TemplateMethod\RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod.cs" />
+    <Compile Include="OurGameLibrary\TemplateMethod\RetrieveTilesTemplateMethod.cs" />
     <Compile Include="OurGameLibrary\SoundSystem.cs" />
     <Compile Include="OurGameLibrary\TextureCache.cs" />
     <Compile Include="OurGameLibrary\Tile.cs" />

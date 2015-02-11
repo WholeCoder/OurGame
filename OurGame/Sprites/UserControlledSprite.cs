@@ -72,7 +72,7 @@ namespace OurGame.Sprites
                     BoundingRectangle.Height);
 
                 var tilesToRightAndAtOrAbove = _theBoard
-                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
+                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState,(int)this.CurrentPosition.Y)
                     .Select(tile => tile)
                     .Where(tile => tile.BoundingRectangle.X > CurrentPosition.X
                                    && tile.BoundingRectangle.Y < CurrentPosition.Y + BoundingRectangle.Height - 5)
@@ -107,12 +107,12 @@ namespace OurGame.Sprites
             }
             else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
             {
-                var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X - State.SCROLL_AMOUNT),
+                var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X - State.SCROLL_AMOUNT-1),
                     (int) CurrentPosition.Y,
                     BoundingRectangle.Width,
                     BoundingRectangle.Height);
                 var tilesToLeftAndAtOrAbove = _theBoard
-                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState.ScreenXOffset)
+                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState, (int)this.CurrentPosition.Y)
                     .Select(tile => tile)
                     .Where(tile => tile.BoundingRectangle.X < CurrentPosition.X
                                    && tile.BoundingRectangle.Y < CurrentPosition.Y + BoundingRectangle.Height - 5)
@@ -155,16 +155,30 @@ namespace OurGame.Sprites
             Console.WriteLine("CanJump == " + CanJump);
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
-                _jumpStart = (int) CurrentPosition.Y;
-                IsJumping = _currentlyJumping = true;
-                IsGoingUp = true;
-                IsGoingDown = false;
-                CanJump = false;
+                 var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X - State.SCROLL_AMOUNT),
+                    (int) CurrentPosition.Y-1,
+                    BoundingRectangle.Width,
+                    BoundingRectangle.Height);
+                var tilesToLeftAndAtOrAbove = _theBoard
+                    .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState, (int)this.CurrentPosition.Y)
+                    .Select(tile => tile)
+                    .Where(tile => tile.BoundingRectangle.Y < CurrentPosition.Y)
+                    .ToList();
 
-                Console.WriteLine("SPACE key pressed - setting _currentlyJumping to TRUE");
+                if (!tilesToLeftAndAtOrAbove.Any())
+                {
 
-                SoundSystem.getInstance().getSound("mariojumpting").Play();
-                _currentJumpIncrement = ComputeJumpIncremnet();
+                    _jumpStart = (int) CurrentPosition.Y;
+                    IsJumping = _currentlyJumping = true;
+                    IsGoingUp = true;
+                    IsGoingDown = false;
+                    CanJump = false;
+
+                    Console.WriteLine("SPACE key pressed - setting _currentlyJumping to TRUE");
+
+                    SoundSystem.getInstance().getSound("mariojumpting").Play();
+                    _currentJumpIncrement = ComputeJumpIncremnet();
+                }
             }
 
             if (_currentlyJumping)
@@ -201,8 +215,7 @@ namespace OurGame.Sprites
 
 
             if (
-                _theBoard.RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(this,
-                    _playGameState.ScreenXOffset).Count != 0)
+                _theBoard.RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(this,_playGameState).Count != 0)
             {
                 CanJump = true;
                 IsJumping = _currentlyJumping = false;

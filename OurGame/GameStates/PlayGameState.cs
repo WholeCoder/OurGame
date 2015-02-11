@@ -131,8 +131,8 @@ namespace OurGame.GameStates
 
         private void SetSpritePositonIfIntersectingUnderneathAPlatform(AnimatedSprite aSprite)
         {
-            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(aSprite,
-                ScreenXOffset).Where(tile => aSprite.CurrentPosition.Y > tile.BoundingRectangle.Y
+            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(aSprite.BoundingRectangle,
+                this, (int)aSprite.CurrentPosition.Y).Where(tile => aSprite.CurrentPosition.Y > tile.BoundingRectangle.Y
                                              &&
                                              aSprite.CurrentPosition.Y <
                                              tile.BoundingRectangle.Y + tile.BoundingRectangle.Height);
@@ -156,8 +156,7 @@ namespace OurGame.GameStates
 
 
             // Get all tiles, on the screen, that intersect with our sprite.
-            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(sSprite,
-                ScreenXOffset)
+            var tilesThatHaveCollisionWithSprite = _board.RetrieveTilesThatIntersectWithThisSprite(sSprite.BoundingRectangle, this, (int)sSprite.CurrentPosition.Y)
                 .Where(tile => sSprite.BoundingRectangle.Y < tile.BoundingRectangle.Y);
             //var firstTile = tilesThatHaveCollisionWithSprite.OrderBy(tile => tile.BoundingRectangle.Y).Last();
 

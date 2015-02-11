@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OurGame.GameStates;
+using OurGame.OurGameLibrary.TemplateMethod;
 using OurGame.Sprites;
 
 namespace OurGame.OurGameLibrary
@@ -23,11 +25,12 @@ namespace OurGame.OurGameLibrary
         // The elements of this 2D array can be NULL!  This will signify that the tile is empty.
         public Tile[,] TheBoard { get; set; }
         // The width and height of the individual tiles.
-        private int TileWidth { get; set; }
-        private int TileHeight { get; set; }
+        public int TileWidth { get; set; }
+        public int TileHeight { get; set; }
         // Amount in pixels that, beyond this point to the left and the right, the board won't be drawn. - used to speed up the game by not drawing
         // all the game board every cycle.
-        private int BoardMarginX { get; set; }
+        public int BoardMarginX { get; set; }
+
         // ReSharper disable once InconsistentNaming
         public const int SCREEN_WIDTH = 800;
         // ReSharper disable once InconsistentNaming
@@ -35,6 +38,9 @@ namespace OurGame.OurGameLibrary
 
         private const int DEFAULT_TILE_WIDTH = 20;
         private const int DEFAULT_TILE_HEIGHT = 20;
+
+        private readonly RetrieveTilesTemplateMethod _rTilesTemplatMethod = new RetrieveTilesTemplateMethod();
+        private readonly RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod rTilesTemplatMethod = new RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod();
 
         public override string ToString()
         {
@@ -51,138 +57,33 @@ namespace OurGame.OurGameLibrary
         //tempBoundingRectangle
 
         // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aRectangle.
-        public List<Tile> RetrieveTilesThatIntersectWithThisSprite(Rectangle aRectangle, int screenXOffset)
+        public List<Tile> RetrieveTilesThatIntersectWithThisSprite(Rectangle aRectangle, State state, int spritesCurrentPositionY)
         {
             Debug.Assert(aRectangle != null, "Rectangle aRectangle can not be null!");
 
-            var tileList = new List<Tile>();
+            var tileList = _rTilesTemplatMethod.RetrieveTilesThatIntersectWithRectangle(this, state, aRectangle,
+                spritesCurrentPositionY);
 
-            for (var i = 0; i < TheBoard.GetLength(0); i++)
-            {
-                int startX;
-                int endX;
-
-                // This next method gets the array indices of the board for only the visible portion of this Board's 2D array.
-                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
-
-                for (var j = startX; j < endX; j++)
-                {
-                    if (TheBoard[i, j].TheTexture != null)
-                    {
-                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
-                            TheBoard[i, j].Width, TheBoard[i, j].Height);
-                        if (aRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
-                        {
-                            tileList.Add(TheBoard[i, j]);
-                        }
-                    }
-                }
-            } // End outer for.
             return tileList;
+
         } // end method
 
-        // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aRectangle.
-        public List<Tile> RetrieveTilesThatIntersectWithThisSprite(AnimatedSprite aSprite, int screenXOffset)
-        {
-            Debug.Assert(aSprite != null, "AnimatedSprite aRectangle can not be null!");
-
-            var tileList = new List<Tile>();
-
-            for (var i = 0; i < TheBoard.GetLength(0); i++)
-            {
-                int startX;
-                int endX;
-
-                // This next method gets the array indices of the board for only the visible portion of this Board's 2D array.
-                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
-
-                for (var j = startX; j < endX; j++)
-                {
-                    if (TheBoard[i, j].TheTexture != null)
-                    {
-                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
-                            TheBoard[i, j].Width, TheBoard[i, j].Height);
-                        if (aSprite.BoundingRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
-                        {
-                            tileList.Add(TheBoard[i, j]);
-                        }
-                    }
-                }
-            } // End outer for.
-            return tileList;
-        } // end method
 
         // This method gets ALL of the tiles, currently visible on the screen, that overlap with the aRectangle (extending its bounding box 5 pixels down)
         // It also only gets the tiles that are under the sprite's top-edge..
-        public List<Tile> RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(AnimatedSprite aSprite,
-            int screenXOffset)
+        public List<Tile> RetrieveTilesThatIntersectWithThisSpriteWithBoundingBoxAdjustment(AnimatedSprite aSprite, State state)
         {
+            if (state == null) throw new ArgumentNullException("state");
             Debug.Assert(aSprite != null, "AnimatedSprite aRectangle can not be null!");
 
-            var tileList = new List<Tile>();
-
-            for (var i = 0; i < TheBoard.GetLength(0); i++)
-            {
-                int startX;
-                int endX;
-
-                // This next method gets the array indices of the board for only the visible portion of this Board's 2D array.
-                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
-
-                for (var j = startX; j < endX; j++)
-                {
-                    if (TheBoard[i, j].TheTexture != null)
-                    {
-                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
-                            TheBoard[i, j].Width, TheBoard[i, j].Height);
-
-                        var aSpritesBoundingBoxModified = new Rectangle(aSprite.BoundingRectangle.X,
+            var aSpritesBoundingBoxModified = new Rectangle(aSprite.BoundingRectangle.X,
                             aSprite.BoundingRectangle.Y,
                             aSprite.BoundingRectangle.Width,
                             aSprite.BoundingRectangle.Height + 1);
-                        if (aSpritesBoundingBoxModified.Intersects(TheBoard[i, j].BoundingRectangle))
-                        {
-                            tileList.Add(TheBoard[i, j]);
-                        }
-                    }
-                }
-            } // End outer for.
-            // Only return tiles that are greater than the sprites top-left corner.
-            tileList = tileList.Where(tile => tile.BoundingRectangle.Y > aSprite.CurrentPosition.Y).ToList();
+
+            var tileList = rTilesTemplatMethod.RetrieveTilesThatIntersectWithRectangle(this, state, aSpritesBoundingBoxModified,(int)aSprite.CurrentPosition.Y);
+
             return tileList;
-        } // end method
-
-        public bool IsThereACollisionWith(AnimatedSprite aSprite, int screenXOffset)
-        {
-            Debug.Assert(aSprite != null, "AnimatedSprite aRectangle can not be null!");
-
-            // This will make the board only draw the part that is on the screen on the left side.
-            BoardMarginX = TileWidth*NUMBER_OF_TILES_IN_MARGIN_X;
-
-            for (var i = 0; i < TheBoard.GetLength(0); i++)
-            {
-                int startX;
-                int endX;
-                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
-
-                for (var j = startX; j < endX; j++)
-                {
-                    if (TheBoard[i, j].TheTexture != null)
-                    {
-                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
-                            TheBoard[i, j].Width, TheBoard[i, j].Height);
-                        if (aSprite.BoundingRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            } // End outer for.
-            return false;
         } // end method
 
         private Vector2 ExtractTilePosition(int screenXOffset, int i, int j)
