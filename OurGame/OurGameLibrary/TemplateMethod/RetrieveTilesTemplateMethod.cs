@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using OurGame.GameStates;
 
@@ -9,9 +8,10 @@ namespace OurGame.OurGameLibrary.TemplateMethod
 {
     public class RetrieveTilesTemplateMethod
     {
-        public List<Tile> RetrieveTilesThatIntersectWithRectangle(Board aBoardObject, State state, Rectangle theBoundingRectangle, int spritesCurrentPositionY)
+        public List<Tile> RetrieveTilesThatIntersectWithRectangle(Board aBoardObject, State state,
+            Rectangle theBoundingRectangle, int spritesCurrentPositionY)
         {
-            Tile[,] TheBoard = aBoardObject.TheBoard;
+            var TheBoard = aBoardObject.TheBoard;
 
             var tileList = new List<Tile>();
 
@@ -28,7 +28,7 @@ namespace OurGame.OurGameLibrary.TemplateMethod
                     if (TheBoard[i, j].TheTexture != null)
                     {
                         var tilePosition = ExtractTilePosition(state.ScreenXOffset, i, j, aBoardObject);
-                        TheBoard[i, j].BoundingRectangle = new Rectangle((int)tilePosition.X, (int)tilePosition.Y,
+                        TheBoard[i, j].BoundingRectangle = new Rectangle((int) tilePosition.X, (int) tilePosition.Y,
                             TheBoard[i, j].Width, TheBoard[i, j].Height);
                         if (theBoundingRectangle.Intersects(TheBoard[i, j].BoundingRectangle))
                         {
@@ -53,13 +53,13 @@ namespace OurGame.OurGameLibrary.TemplateMethod
 
         private Vector2 ExtractTilePosition(int screenXOffset, int i, int j, Board board)
         {
-            var tilePosition = new Vector2(j * board.TileWidth + screenXOffset + board.BoardMarginX, i * board.TileHeight);
+            var tilePosition = new Vector2(j*board.TileWidth + screenXOffset + board.BoardMarginX, i*board.TileHeight);
             return tilePosition;
         }
 
         private void CalculateStartAndEndOfBoardToCheck(int screenXOffset, out int startX, out int endX, Board board)
         {
-            Tile[,] TheBoard = board.TheBoard;
+            var TheBoard = board.TheBoard;
 
             // Transform BoardMargin on screen coordinate into an index into this Board object's 2D array of Tiles.
             startX = CalculateXIndex(board.BoardMarginX, screenXOffset, board);
@@ -78,14 +78,12 @@ namespace OurGame.OurGameLibrary.TemplateMethod
                 endX = TheBoard.GetLength(1) - 1;
             }
         } // end method
-
         // This method takes a onScreenXCoordinate from the screen and transforms it into an index
         // into an instance of the this Board class.
-        public int CalculateXIndex(int onScreenXCoordinate, int screenXOffset,Board board)
+        public int CalculateXIndex(int onScreenXCoordinate, int screenXOffset, Board board)
         {
-            var putInGameArrayX = (onScreenXCoordinate - screenXOffset - board.BoardMarginX) / board.TileWidth;
+            var putInGameArrayX = (onScreenXCoordinate - screenXOffset - board.BoardMarginX)/board.TileWidth;
             return putInGameArrayX;
         }
-
     } // end class
 }
