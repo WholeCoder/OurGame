@@ -8,6 +8,12 @@ namespace OurGame.OurGameLibrary.TemplateMethod
 {
     public class RetrieveTilesTemplateMethod
     {
+        public override string ToString()
+        {
+            return
+                "RetrieveTileTemplateMethod - Will get all the tiles that intersect with the given bounding rectangle.";
+        }
+
         public List<Tile> RetrieveTilesThatIntersectWithRectangle(Board aBoardObject, State state,
             Rectangle theBoundingRectangle, int spritesCurrentPositionY)
         {
