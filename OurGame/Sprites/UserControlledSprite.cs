@@ -291,7 +291,7 @@ namespace OurGame.Sprites
             BoundingRectangle.X = (int) CurrentPosition.X;
             BoundingRectangle.Y = (int) CurrentPosition.Y;
 
-            C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Black);
+            // C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Black);
         }
     } // end class
 } // end using

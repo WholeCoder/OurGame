@@ -33,7 +33,7 @@ namespace OurGame.OurGameLibrary
         // ReSharper disable once InconsistentNaming
         public const int SCREEN_WIDTH = 800;
         // ReSharper disable once InconsistentNaming
-        private const int NUMBER_OF_TILES_IN_MARGIN_X = 1;
+        private const int NUMBER_OF_TILES_IN_MARGIN_X = 0;
 
         private const int DEFAULT_TILE_WIDTH = 20;
         private const int DEFAULT_TILE_HEIGHT = 20;
@@ -106,7 +106,7 @@ namespace OurGame.OurGameLibrary
                         new Vector2(BoardWidth + screenXOffset + BoardMarginX, y), Color.White);
                 }
 
-                for (var x = 0; x < BoardWidth + 1; x += TileWidth)
+                for (var x = 0; x < BoardWidth; x += TileWidth)
                 {
                     var putItX = x/TileWidth*TileWidth + BoardMarginX + screenXOffset;
                     C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(putItX, 0.0f),
@@ -131,7 +131,7 @@ namespace OurGame.OurGameLibrary
                         TheBoard[i, j].BoundingRectangle.X = (int) tilePosition.X;
                         TheBoard[i, j].BoundingRectangle.Y = (int) tilePosition.Y;
 
-                        C3.XNA.Primitives2D.DrawRectangle(spriteBatch, TheBoard[i, j].BoundingRectangle, Color.Black);
+                        //C3.XNA.Primitives2D.DrawRectangle(spriteBatch, TheBoard[i, j].BoundingRectangle, Color.Black);
                     }
                 }
             } // End outer for.
