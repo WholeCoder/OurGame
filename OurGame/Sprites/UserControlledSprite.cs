@@ -262,8 +262,6 @@ namespace OurGame.Sprites
 
         private bool IsGoingUp { get; set; }
 
-// end method
-
         public override string NameOfThisSubclassForWritingToConfigFile
         {
             get
