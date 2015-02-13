@@ -27,7 +27,7 @@ namespace OurGame.OurGameLibrary
         {
             if (_content == null)
             {
-                throw new MustCallSetContentMethodFirst(
+                throw new MustCallSetContentMethodFirstException(
                     "SoundSystem.SetContent(...) must be called (usually in LoadContent(..) method of the State subclass) before SoundSystem.getInstance() is called!");
             }
 
