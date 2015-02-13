@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OurGame.GameStates;
 using OurGame.OurGameLibrary;
 
@@ -16,6 +17,7 @@ namespace OurGame.Sprites
         private int _moveLeftLength;
         private int _moveRightLength;
         private int _startXOffset;
+        private bool _onScreen = true;
 
         public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
@@ -62,6 +64,16 @@ namespace OurGame.Sprites
         {
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
+            if (CurrentPosition.X + _playGameState.ScreenXOffset > Board.SCREEN_WIDTH-10 || CurrentPosition.X + _playGameState.ScreenXOffset < 10)
+            {
+                _onScreen = false;
+                return;
+            }
+            else
+            {
+                _onScreen = true;
+            }
+
             if (_firstTime || _playGameState.ScreenXOffset != _startXOffset)
             {
                 _moveRightLength = (int) InitialPosition.X + _playGameState.ScreenXOffset + _howFarToWalkInOneDirection;
@@ -101,6 +113,14 @@ namespace OurGame.Sprites
             if (CurrentPosition.Y + BoundingRectangle.Height > _theBoard.BoardHeight)
             {
                 CurrentPosition.Y = _theBoard.BoardHeight - BoundingRectangle.Height;
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (_onScreen)
+            {
+                base.Draw(spriteBatch);
             }
         }
 
