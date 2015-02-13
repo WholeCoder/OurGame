@@ -17,7 +17,9 @@ namespace OurGame.Sprites
         private int _moveLeftLength;
         private int _moveRightLength;
         private int _startXOffset;
+
         private bool _onScreen = true;
+        private Vector2 _previousPosition;
 
         public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
@@ -64,14 +66,16 @@ namespace OurGame.Sprites
         {
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
-            if (CurrentPosition.X + _playGameState.ScreenXOffset > Board.SCREEN_WIDTH-10 || CurrentPosition.X + _playGameState.ScreenXOffset < 10)
+
+            if (_previousPosition.Y == 0.0f || CurrentPosition.X + _playGameState.ScreenXOffset > -BoundingRectangle.Width)
             {
-                _onScreen = false;
-                return;
+                _previousPosition = new Vector2(CurrentPosition.X, CurrentPosition.Y);
+                _onScreen = true;
             }
             else
             {
-                _onScreen = true;
+                _onScreen = false;
+                return;
             }
 
             if (_firstTime || _playGameState.ScreenXOffset != _startXOffset)
@@ -114,7 +118,19 @@ namespace OurGame.Sprites
             {
                 CurrentPosition.Y = _theBoard.BoardHeight - BoundingRectangle.Height;
             }
-        }
+
+/*
+            if (CurrentPosition.X + _playGameState.ScreenXOffset > 10 && CurrentPosition.X + _playGameState.ScreenXOffset < Board.SCREEN_WIDTH - BoundingRectangle.Width)
+            {
+                _onScreen = true;
+                return;
+            }
+            else
+            {
+                _onScreen = false;
+            }
+*/
+        } // end method
 
         public override void Draw(SpriteBatch spriteBatch)
         {
