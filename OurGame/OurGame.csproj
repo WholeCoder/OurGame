@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -91,7 +91,7 @@
     <Compile Include="MenuComponents\MenuComponent.cs" />
     <Compile Include="OurGameLibrary\Board.cs" />
     <Compile Include="OurGameLibrary\MultiTexture.cs" />
-    <Compile Include="OurGameLibrary\MustCallSetContentMethodFirst.cs" />
+    <Compile Include="OurGameLibrary\MustCallSetContentMethodFirstException.cs" />
     <Compile Include="OurGameLibrary\TemplateMethod\RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod.cs" />
     <Compile Include="OurGameLibrary\TemplateMethod\RetrieveTilesTemplateMethod.cs" />
     <Compile Include="OurGameLibrary\SoundSystem.cs" />
