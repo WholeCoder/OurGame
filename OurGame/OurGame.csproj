@@ -91,7 +91,7 @@
     <Compile Include="MenuComponents\MenuComponent.cs" />
     <Compile Include="OurGameLibrary\Board.cs" />
     <Compile Include="OurGameLibrary\MultiTexture.cs" />
-    <Compile Include="OurGameLibrary\MustCallSetContentMethodFirst.cs" />
+    <Compile Include="OurGameLibrary\MustCallSetContentMethodFirstException.cs" />
     <Compile Include="OurGameLibrary\TemplateMethod\RetrieveTilesLessThanCurrentSpriteYPositionTemplateMethod.cs" />
     <Compile Include="OurGameLibrary\TemplateMethod\RetrieveTilesTemplateMethod.cs" />
     <Compile Include="OurGameLibrary\SoundSystem.cs" />

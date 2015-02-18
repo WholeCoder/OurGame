@@ -22,7 +22,7 @@ namespace OurGame.OurGameLibrary
         {
         }
 
-        protected MustCallSetContentMethodFirstException(SerializationInfo info, StreamingContext context) 
+        protected MustCallSetContentMethodFirstException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
