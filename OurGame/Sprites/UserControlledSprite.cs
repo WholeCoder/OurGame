@@ -120,7 +120,6 @@ namespace OurGame.Sprites
 
                 if (!tilesToLeftAndAtOrAbove.Any())
                 {
-                    Console.WriteLine("FOUND SOME!");
                     if (CurrentPosition.X > CHARACTER_SCROLL_TRIGGER_MARGIN)
                     {
                         CurrentPosition.X = CurrentPosition.X - State.SCROLL_AMOUNT;
@@ -152,7 +151,6 @@ namespace OurGame.Sprites
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToAtRestTexture();
             }
-            Console.WriteLine("CanJump == " + CanJump);
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
 

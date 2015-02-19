@@ -67,13 +67,14 @@ namespace OurGame.Sprites
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
 
-            if (_previousPosition.Y == 0.0f || CurrentPosition.X + _playGameState.ScreenXOffset > -BoundingRectangle.Width)
+            if (_previousPosition.Y == 0.0f || CurrentPosition.X > -BoundingRectangle.Width)
             {
                 _previousPosition = new Vector2(CurrentPosition.X, CurrentPosition.Y);
                 _onScreen = true;
             }
             else
             {
+                Console.WriteLine("CurrentPosition.X + _playGameState.ScreenXOffset == "+(CurrentPosition.X + _playGameState.ScreenXOffset));
                 _onScreen = false;
                 return;
             }
@@ -137,6 +138,11 @@ namespace OurGame.Sprites
             if (_onScreen)
             {
                 base.Draw(spriteBatch);
+            }
+            else
+            {
+                Rectangle previousPositonRectangle = new Rectangle((int)_previousPosition.X, (int)_previousPosition.Y, BoundingRectangle.Width, BoundingRectangle.Height);
+                C3.XNA.Primitives2D.DrawRectangle(spriteBatch, previousPositonRectangle, Color.Black);
             }
         }
 
