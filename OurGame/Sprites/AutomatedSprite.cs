@@ -19,7 +19,6 @@ namespace OurGame.Sprites
         private int _startXOffset;
 
         private bool _onScreen = true;
-        private Vector2 _previousPosition;
 
         public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
@@ -67,16 +66,14 @@ namespace OurGame.Sprites
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
 
-            if (_previousPosition.Y == 0.0f || CurrentPosition.X > -BoundingRectangle.Width)
+            if (CurrentPosition.X > -BoundingRectangle.Width+10)
             {
-                _previousPosition = new Vector2(CurrentPosition.X, CurrentPosition.Y);
                 _onScreen = true;
             }
             else
             {
-                Console.WriteLine("CurrentPosition.X + _playGameState.ScreenXOffset == "+(CurrentPosition.X + _playGameState.ScreenXOffset));
                 _onScreen = false;
-                return;
+                //return;
             }
 
             if (_firstTime || _playGameState.ScreenXOffset != _startXOffset)
@@ -120,29 +117,21 @@ namespace OurGame.Sprites
                 CurrentPosition.Y = _theBoard.BoardHeight - BoundingRectangle.Height;
             }
 
-/*
-            if (CurrentPosition.X + _playGameState.ScreenXOffset > 10 && CurrentPosition.X + _playGameState.ScreenXOffset < Board.SCREEN_WIDTH - BoundingRectangle.Width)
-            {
-                _onScreen = true;
-                return;
-            }
-            else
-            {
-                _onScreen = false;
-            }
-*/
         } // end method
+
+        public override void ApplyDownwardGravity()
+        {
+            if (_onScreen)
+            { 
+                base.ApplyDownwardGravity();
+            }
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (_onScreen)
             {
                 base.Draw(spriteBatch);
-            }
-            else
-            {
-                Rectangle previousPositonRectangle = new Rectangle((int)_previousPosition.X, (int)_previousPosition.Y, BoundingRectangle.Width, BoundingRectangle.Height);
-                C3.XNA.Primitives2D.DrawRectangle(spriteBatch, previousPositonRectangle, Color.Black);
             }
         }
 

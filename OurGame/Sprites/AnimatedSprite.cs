@@ -144,7 +144,7 @@ namespace OurGame.Sprites
             }
         }
 
-        public void ApplyDownwardGravity()
+        public virtual void ApplyDownwardGravity()
         {
             CurrentPosition.Y += GRAVITY_DOWNWARD;
             BoundingRectangle.Y = (int) CurrentPosition.Y;
