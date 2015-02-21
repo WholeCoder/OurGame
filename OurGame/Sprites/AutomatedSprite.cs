@@ -66,7 +66,7 @@ namespace OurGame.Sprites
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
 
-            if (CurrentPosition.X > -BoundingRectangle.Width+10)
+            if (CurrentPosition.X > -BoundingRectangle.Width+10 && CurrentPosition.X < Board.SCREEN_WIDTH-20)
             {
                 _onScreen = true;
             }
