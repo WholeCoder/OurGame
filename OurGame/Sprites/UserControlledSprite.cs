@@ -282,7 +282,20 @@ namespace OurGame.Sprites
         {
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
-            base.Draw(spriteBatch);
+            
+            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
+                CurrentPosition,
+                new Rectangle(_currentFrame.X * _currentFrameSize.X + _currentFrame.X + 1,
+                // CurrentFrame.X+1 is an offset for pixel boundaries in image
+                    _currentFrame.Y * _currentFrameSize.Y,
+                    _currentFrameSize.X,
+                    _currentFrameSize.Y),
+                Color.White,
+                0,
+                Vector2.Zero,
+                _scaleUpThisSpriteFactor, // scale
+                _currentSpriteEffect,
+                0);
 
             BoundingRectangle.X = (int) CurrentPosition.X;
             BoundingRectangle.Y = (int) CurrentPosition.Y;

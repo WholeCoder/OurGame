@@ -12,13 +12,11 @@ namespace OurGame.Sprites
     {
         private readonly State _playGameState;
         private readonly Board _theBoard;
-        private bool _firstTime = true;
         private int _howFarToWalkInOneDirection;
         private int _moveLeftLength;
         private int _moveRightLength;
-        private int _startXOffset;
 
-        private bool _onScreen = true;
+        private bool _onScreen = false;
 
         public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
@@ -27,7 +25,6 @@ namespace OurGame.Sprites
             Debug.Assert(board != null, "board can't be null!");
 
             _playGameState = pState;
-            _startXOffset = pState.ScreenXOffset;
             _theBoard = board;
         }
 
@@ -57,8 +54,10 @@ namespace OurGame.Sprites
             // TODO: Read properties starting at startOffset.
             _howFarToWalkInOneDirection = Convert.ToInt32(configArray[startOffset]);
             IsGoingRight = configArray[startOffset + 1].Equals("True");
-            _moveLeftLength = _howFarToWalkInOneDirection;
-            _moveRightLength = _howFarToWalkInOneDirection;
+
+            _moveRightLength = (int)InitialPosition.X + _howFarToWalkInOneDirection;
+            _moveLeftLength = (int)InitialPosition.X - _howFarToWalkInOneDirection;
+
         }
 
         protected override void UpdateAfterNextFrame(GameTime gameTime)
@@ -66,7 +65,7 @@ namespace OurGame.Sprites
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
 
-            if (CurrentPosition.X > -BoundingRectangle.Width+10 && CurrentPosition.X < Board.SCREEN_WIDTH-20)
+            if (CurrentPosition.X+_playGameState.ScreenXOffset > -BoundingRectangle.Width+10 && CurrentPosition.X+_playGameState.ScreenXOffset < Board.SCREEN_WIDTH-20)
             {
                 _onScreen = true;
             }
@@ -76,17 +75,7 @@ namespace OurGame.Sprites
                 //return;
             }
 
-            if (_firstTime || _playGameState.ScreenXOffset != _startXOffset)
-            {
-                _moveRightLength = (int) InitialPosition.X + _playGameState.ScreenXOffset + _howFarToWalkInOneDirection;
-                // Math.Max((int)(this.CurrentPosition.X - this._InitialPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
-                _moveLeftLength = (int) InitialPosition.X + _playGameState.ScreenXOffset - _howFarToWalkInOneDirection;
-                // Math.Max((int)(this._InitialPosition.X - this.CurrentPosition.X + this._PlayGameState.screenXOffset), this._HowFarToWalkInOneDirection);
-
-                _startXOffset = _playGameState.ScreenXOffset;
-                _firstTime = false;
-            }
-
+/*
             if (IsGoingRight)
             {
                 SwitchToGoRightTexture();
@@ -111,6 +100,7 @@ namespace OurGame.Sprites
                     CurrentPosition.X -= 5;
                 }
             }
+*/
 
             if (CurrentPosition.Y + BoundingRectangle.Height > _theBoard.BoardHeight)
             {
@@ -131,7 +121,24 @@ namespace OurGame.Sprites
         {
             if (_onScreen)
             {
-                base.Draw(spriteBatch);
+                Vector2 realPosition = CurrentPosition;
+                realPosition.X += _playGameState.ScreenXOffset;
+                BoundingRectangle.X = (int)realPosition.X;
+                BoundingRectangle.Y = (int) realPosition.Y;
+
+                spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
+                    realPosition,
+                    new Rectangle(_currentFrame.X * _currentFrameSize.X + _currentFrame.X + 1,
+                    // CurrentFrame.X+1 is an offset for pixel boundaries in image
+                        _currentFrame.Y * _currentFrameSize.Y,
+                        _currentFrameSize.X,
+                        _currentFrameSize.Y),
+                    Color.White,
+                    0,
+                    Vector2.Zero,
+                    _scaleUpThisSpriteFactor, // scale
+                    _currentSpriteEffect,
+                    0);
             }
         }
 

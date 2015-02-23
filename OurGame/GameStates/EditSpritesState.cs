@@ -125,7 +125,7 @@ namespace OurGame.GameStates
                     _player.CurrentPosition.Y = putY;
                     _player.InitialPosition.X = putX - ScreenXOffset;
                     _player.InitialPosition.Y = putY;
-                    _player.BoundingRectangle.X = putX;
+                    _player.BoundingRectangle.X = putX - ScreenXOffset;
                     _player.BoundingRectangle.Y = putY;
 
                     _spriteManager.AddSprite(_player);

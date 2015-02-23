@@ -19,11 +19,11 @@ namespace OurGame.Sprites
         private Point _atRestFrameSize;
         private Point _atRestSheetSize;
         private string _atRestTextureFilename;
-        private Point _currentFrame;
-        private Point _currentFrameSize;
+        protected Point _currentFrame;
+        protected Point _currentFrameSize;
         private Point _currentSheetSize;
-        private SpriteEffects _currentSpriteEffect;
-        private String _currentTextureFilename; // The textures are received from the TextureCache.
+        protected SpriteEffects _currentSpriteEffect;
+        protected String _currentTextureFilename; // The textures are received from the TextureCache.
         private int _elapsedGameTime; // Used to slow down the animaiton of this AnimatedSprite.
         private bool _isAtRest;
         private bool _isGoingLeft;
@@ -35,7 +35,7 @@ namespace OurGame.Sprites
         private Point _rightSheetSize;
         private string _rightTextureFilename;
         // This scales our characters and enemies up or down.
-        private int _scaleUpThisSpriteFactor;
+        protected int _scaleUpThisSpriteFactor;
         private int _timeBetweenFrames;
         public Vector2 CurrentPosition;
         public Vector2 InitialPosition;
@@ -252,24 +252,7 @@ namespace OurGame.Sprites
 
         protected abstract void UpdateAfterNextFrame(GameTime gameTime);
 
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
-
-            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
-                CurrentPosition,
-                new Rectangle(_currentFrame.X*_currentFrameSize.X + _currentFrame.X + 1,
-                    // CurrentFrame.X+1 is an offset for pixel boundaries in image
-                    _currentFrame.Y*_currentFrameSize.Y,
-                    _currentFrameSize.X,
-                    _currentFrameSize.Y),
-                Color.White,
-                0,
-                Vector2.Zero,
-                _scaleUpThisSpriteFactor, // scale
-                _currentSpriteEffect,
-                0);
-        } // end Draw method
+        public abstract void Draw(SpriteBatch spriteBatch);
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 mouseCursorUpperLeftCorner)
         {
