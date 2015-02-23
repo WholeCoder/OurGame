@@ -94,7 +94,7 @@ namespace OurGame.GameStates
             }
             _previousScrollValue = _currentMouseState.ScrollWheelValue;
 
-            _spriteManager.UpdateForEditSpriteState(gameTime, ScreenXOffset);
+            //_spriteManager.UpdateForEditSpriteState(gameTime, ScreenXOffset);
 
             // Recognize a single click of the leftmouse button
             if (_lastMouseState.LeftButton == ButtonState.Released &&

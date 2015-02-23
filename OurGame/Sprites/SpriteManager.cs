@@ -86,6 +86,7 @@ namespace OurGame.Sprites
             }
         }
 
+/*
         public void UpdateForEditSpriteState(GameTime gameTime, int screenXOffset)
         {
             foreach (var theSprite in Sprites)
@@ -93,6 +94,7 @@ namespace OurGame.Sprites
                 theSprite.CurrentPosition.X = theSprite.InitialPosition.X + screenXOffset;
             }
         }
+*/
 
         public void Update(GameTime gameTime)
         {

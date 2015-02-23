@@ -119,27 +119,24 @@ namespace OurGame.Sprites
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (_onScreen)
-            {
-                Vector2 realPosition = CurrentPosition;
-                realPosition.X += _playGameState.ScreenXOffset;
-                BoundingRectangle.X = (int)realPosition.X;
-                BoundingRectangle.Y = (int) realPosition.Y;
+            Vector2 realPosition = CurrentPosition;
+            realPosition.X += _playGameState.ScreenXOffset;
+            BoundingRectangle.X = (int)realPosition.X;
+            BoundingRectangle.Y = (int) realPosition.Y;
 
-                spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
-                    realPosition,
-                    new Rectangle(_currentFrame.X * _currentFrameSize.X + _currentFrame.X + 1,
-                    // CurrentFrame.X+1 is an offset for pixel boundaries in image
-                        _currentFrame.Y * _currentFrameSize.Y,
-                        _currentFrameSize.X,
-                        _currentFrameSize.Y),
-                    Color.White,
-                    0,
-                    Vector2.Zero,
-                    _scaleUpThisSpriteFactor, // scale
-                    _currentSpriteEffect,
-                    0);
-            }
+            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
+                realPosition,
+                new Rectangle(_currentFrame.X * _currentFrameSize.X + _currentFrame.X + 1,
+                // CurrentFrame.X+1 is an offset for pixel boundaries in image
+                    _currentFrame.Y * _currentFrameSize.Y,
+                    _currentFrameSize.X,
+                    _currentFrameSize.Y),
+                Color.White,
+                0,
+                Vector2.Zero,
+                _scaleUpThisSpriteFactor, // scale
+                _currentSpriteEffect,
+                0);
         }
 
         // In this method we use fs to write out the subclasses properties.
