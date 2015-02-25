@@ -162,7 +162,7 @@ namespace OurGame.Sprites
 
                 Console.WriteLine("SPACE key pressed - setting _currentlyJumping to TRUE");
 
-                //SoundSystem.getInstance().getSound("mariojumpting").Play();
+                SoundSystem.getInstance().getSound("mariojumpting").Play();
                 _currentJumpIncrement = ComputeJumpIncremnet();
             }
 
