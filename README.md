@@ -23,10 +23,6 @@ After a fresh clone you must do the following to get nuget to fetch the dependen
 
 ---
 
-**Important Note**  - In order to use a **SpriteFont** you must use **Visual Studio 2010 Express** to **compile** them into **.xnb** files and then **include** them in the **Content/font** directory and make them **copy to output**.
-
----
-
 **Controls** - **Game Board Edit Mode**
 
 **mouse scroll wheel** - makes the brush bigger or smaller
