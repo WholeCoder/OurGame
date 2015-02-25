@@ -72,10 +72,10 @@ namespace OurGame.Sprites
             else
             {
                 _onScreen = false;
-                //return;
+                return;
             }
 
-/*
+
             if (IsGoingRight)
             {
                 SwitchToGoRightTexture();
@@ -100,7 +100,7 @@ namespace OurGame.Sprites
                     CurrentPosition.X -= 5;
                 }
             }
-*/
+
 
             if (CurrentPosition.Y + BoundingRectangle.Height > _theBoard.BoardHeight)
             {
