@@ -121,7 +121,7 @@ namespace OurGame.GameStates
 
                     this._undoStack.Push(ptMultiOnBoardCommand);
                     */
-                    _player.CurrentPosition.X = putX;
+                    _player.CurrentPosition.X = putX - ScreenXOffset;
                     _player.CurrentPosition.Y = putY;
                     _player.InitialPosition.X = putX - ScreenXOffset;
                     _player.InitialPosition.Y = putY;
