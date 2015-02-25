@@ -1,7 +1,7 @@
 OurGame
 =======
 
-This is a 2D video game level editor created with the MonoGame framework.
+This is a 2D video game level editor created with the XNA 4.0 framework refresh.
 
 ---
 
