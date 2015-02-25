@@ -16,6 +16,7 @@ namespace OurGame
 
         public Game1()
         {
+            // ReSharper disable once UnusedVariable
             GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
             //graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
