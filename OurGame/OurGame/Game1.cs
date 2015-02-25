@@ -17,7 +17,7 @@ namespace OurGame
         public Game1()
         {
             GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
-            
+            //graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
         }
 
