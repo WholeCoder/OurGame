@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using OurGame.Commands.EditSpritesCommands;
 using OurGame.OurGameLibrary;
 using OurGame.Sprites;
 
@@ -202,6 +203,12 @@ namespace OurGame.GameStates
             if (newKeyboardState.IsKeyDown(Keys.S) && _oldKeyboardState.IsKeyUp(Keys.S))
             {
                 _spriteManager.WriteOutSpritesToAfile();
+            }
+
+            if (newKeyboardState.IsKeyDown(Keys.D) && _oldKeyboardState.IsKeyUp(Keys.D))
+            {
+                DeleteAllSprites das = new DeleteAllSprites("MyLevelsEnemySpritesList.txt", _board, this);
+                das.ExecuteDelete(ref _spriteManager);
             }
 
             SwitchStateLogic.DoChangeGameStateFromKeyboardLogic(newKeyboardState, _oldKeyboardState, OurGame, gameTime);
