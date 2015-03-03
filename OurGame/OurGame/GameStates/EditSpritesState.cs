@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -122,14 +125,19 @@ namespace OurGame.GameStates
 
                     this._undoStack.Push(ptMultiOnBoardCommand);
                     */
-                    _player.CurrentPosition.X = putX - ScreenXOffset;
-                    _player.CurrentPosition.Y = putY;
-                    _player.InitialPosition.X = putX - ScreenXOffset;
-                    _player.InitialPosition.Y = putY;
-                    _player.BoundingRectangle.X = putX - ScreenXOffset;
-                    _player.BoundingRectangle.Y = putY;
+                    bool noUserControlledSpriteYet = ((IEnumerable<AnimatedSprite>)_spriteManager.Sprites).Count(s => s is UserControlledSprite) == 0;
 
-                    _spriteManager.AddSprite(_player);
+                    if (noUserControlledSpriteYet || _player is AutomatedSprite)
+                    {
+                        _player.CurrentPosition.X = putX - ScreenXOffset;
+                        _player.CurrentPosition.Y = putY;
+                        _player.InitialPosition.X = putX - ScreenXOffset;
+                        _player.InitialPosition.Y = putY;
+                        _player.BoundingRectangle.X = putX - ScreenXOffset;
+                        _player.BoundingRectangle.Y = putY;
+
+                        _spriteManager.AddSprite(_player);
+                    }
 
                     var savedSpriteScale = _player.GetSpriteScaleFactor();
                     if (_isUserSprite)
@@ -163,9 +171,15 @@ namespace OurGame.GameStates
 
                 var savedSpriteScale = _player.GetSpriteScaleFactor();
 
+                
                 if (_isUserSprite)
                 {
-                    _player = new UserControlledSprite("IgnoreThisSpriteConfig.txt", _board, this);
+                    bool noUserControlledSpriteYet = ((IEnumerable<AnimatedSprite>)_spriteManager.Sprites).Count(s => s is UserControlledSprite) == 0;
+
+                    if (noUserControlledSpriteYet)
+                    {
+                        _player = new UserControlledSprite("IgnoreThisSpriteConfig.txt", _board, this);
+                    }
                 }
                 else
                 {
