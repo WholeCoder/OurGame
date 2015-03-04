@@ -91,12 +91,38 @@ namespace OurGame.OurGameLibrary
             return tilePosition;
         }
 
+        public void UpdateBoard(int screenXOffset)
+        {
+            // This will make the board only draw the part that is on the screen on the left side.
+            BoardMarginX = TileWidth * NUMBER_OF_TILES_IN_MARGIN_X;
+
+            for (var i = 0; i < TheBoard.GetLength(0); i++)
+            {
+                int startX;
+                int endX;
+                CalculateStartAndEndOfBoardToCheck(screenXOffset, out startX, out endX);
+
+                for (var j = startX; j < endX; j++)
+                {
+                    // ReSharper disable once InvertIf
+                    if (TheBoard[i, j].TheTexture != null)
+                    {
+                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
+
+                        TheBoard[i, j].BoundingRectangle.X = (int)tilePosition.X;
+                        TheBoard[i, j].BoundingRectangle.Y = (int)tilePosition.Y;
+
+                    }
+                }
+            } // End outer for.
+        } // end method DrawBoard
+
         public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
         {
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
             // This will make the board only draw the part that is on the screen on the left side.
-            BoardMarginX = TileWidth*NUMBER_OF_TILES_IN_MARGIN_X;
+            BoardMarginX = TileWidth * NUMBER_OF_TILES_IN_MARGIN_X;
 
             if (drawGrid)
             {
@@ -108,7 +134,7 @@ namespace OurGame.OurGameLibrary
 
                 for (var x = 0; x < BoardWidth; x += TileWidth)
                 {
-                    var putItX = x/TileWidth*TileWidth + BoardMarginX + screenXOffset;
+                    var putItX = x / TileWidth * TileWidth + BoardMarginX + screenXOffset;
                     C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(putItX, 0.0f),
                         new Vector2(putItX, BoardHeight), Color.White);
                 }
@@ -127,9 +153,6 @@ namespace OurGame.OurGameLibrary
                     {
                         var tilePosition = ExtractTilePosition(screenXOffset, i, j);
                         spriteBatch.Draw(TheBoard[i, j].TheTexture, tilePosition, Color.White);
-
-                        TheBoard[i, j].BoundingRectangle.X = (int) tilePosition.X;
-                        TheBoard[i, j].BoundingRectangle.Y = (int) tilePosition.Y;
 
                         C3.XNA.Primitives2D.DrawRectangle(spriteBatch, TheBoard[i, j].BoundingRectangle, Color.Black);
                     }

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -20,6 +21,8 @@ namespace OurGame.GameStates
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
         private Game1 OurGame { get; set; }
 
+        private bool DrawRanAlready = true;
+        
         private readonly Vector2 _positionOfTitle = new Vector2(10, 10);
 
         public override string ToString()
@@ -54,6 +57,20 @@ namespace OurGame.GameStates
         public override void Update(GameTime gameTime)
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
+
+            if (DrawRanAlready)
+            {
+                DrawRanAlready = false; 
+            }
+            else
+            {
+                return;
+            }
+
+            Console.WriteLine("PlayGameState.Update(..) - "+(new Random()).Next());
+
+            //ScreenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
+            _board.UpdateBoard(ScreenXOffset);
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
@@ -177,6 +194,17 @@ namespace OurGame.GameStates
         {
             Debug.Assert(gameTime != null, "gameTime can not be null!");
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
+
+            if (!DrawRanAlready)
+            {
+                DrawRanAlready = true;
+            }
+            else
+            {
+                return;
+            }
+
+            Console.WriteLine("PlayGameState.Draw(..) - " + (new Random()).Next());
 
             _board.DrawBoard(spriteBatch, ScreenXOffset, false); // screenXOffset scrolls the board left and right!
 

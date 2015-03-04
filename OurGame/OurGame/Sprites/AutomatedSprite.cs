@@ -16,7 +16,7 @@ namespace OurGame.Sprites
         private int _moveLeftLength;
         private int _moveRightLength;
 
-        private bool _onScreen = false;
+        private bool _onScreen = true;
 
         public AutomatedSprite(string configFilePathAndName, Board board, State pState)
             : base(configFilePathAndName)
@@ -64,7 +64,6 @@ namespace OurGame.Sprites
         {
             Debug.Assert(gameTime != null, "gameTime can't be null!");
 
-
             if (CurrentPosition.X+_playGameState.ScreenXOffset > -BoundingRectangle.Width+10 && CurrentPosition.X+_playGameState.ScreenXOffset < Board.SCREEN_WIDTH-20)
             {
                 _onScreen = true;
@@ -75,9 +74,9 @@ namespace OurGame.Sprites
                 return;
             }
 
-
             if (IsGoingRight)
             {
+
                 SwitchToGoRightTexture();
                 if (CurrentPosition.X > _moveRightLength)
                 {
@@ -87,9 +86,11 @@ namespace OurGame.Sprites
                 {
                     CurrentPosition.X += 5;
                 }
+
             }
             else
             {
+
                 SwitchToGoLeftTexture();
                 if (CurrentPosition.X < _moveLeftLength)
                 {
@@ -99,6 +100,7 @@ namespace OurGame.Sprites
                 {
                     CurrentPosition.X -= 5;
                 }
+
             }
 
 
@@ -106,6 +108,7 @@ namespace OurGame.Sprites
             {
                 CurrentPosition.Y = _theBoard.BoardHeight - BoundingRectangle.Height;
             }
+
 
         } // end method
 
@@ -121,8 +124,9 @@ namespace OurGame.Sprites
         {
             Vector2 realPosition = CurrentPosition;
             realPosition.X += _playGameState.ScreenXOffset;
-            BoundingRectangle.X = (int) realPosition.X;
-            BoundingRectangle.Y = (int) realPosition.Y;
+            BoundingRectangle.X = (int)realPosition.X;
+            BoundingRectangle.Y = (int)realPosition.Y;
+
 
             spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
                 realPosition,
@@ -138,7 +142,7 @@ namespace OurGame.Sprites
                 _currentSpriteEffect,
                 0);
 
-            C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Black);
+            C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.White);
         }
 
         // In this method we use fs to write out the subclasses properties.

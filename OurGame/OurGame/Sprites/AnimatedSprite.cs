@@ -147,8 +147,31 @@ namespace OurGame.Sprites
 
         public virtual void ApplyDownwardGravity(Board theBoard, State state)
         {
-            CurrentPosition.Y += GRAVITY_DOWNWARD;
-            BoundingRectangle.Y = (int)CurrentPosition.Y;
+            Rectangle possiblePosition = BoundingRectangle;
+            possiblePosition.Y += GRAVITY_DOWNWARD;
+
+            var tilesBelowSprite = new List<Tile>();
+            for (int i = 0; i < theBoard.TheBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < theBoard.TheBoard.GetLength(1); j++)
+                {
+                    if (possiblePosition.Intersects(theBoard.TheBoard[i, j].BoundingRectangle))
+                    {
+                        if (theBoard.TheBoard[i, j].BoundingRectangle.Y > possiblePosition.Y)
+                        {
+                            tilesBelowSprite.Add(theBoard.TheBoard[i, j]);
+                            Console.Write("Found -"+(new Random()).Next());
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!tilesBelowSprite.Any())
+            {
+                CurrentPosition.Y += GRAVITY_DOWNWARD;
+                BoundingRectangle.Y = (int) CurrentPosition.Y;
+            }
         }
 
         private void NextFrame(GameTime gameTime)
