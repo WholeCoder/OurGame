@@ -78,7 +78,7 @@ namespace OurGame.OurGameLibrary
             var aSpritesBoundingBoxModified = new Rectangle(aSprite.BoundingRectangle.X,
                             aSprite.BoundingRectangle.Y,
                             aSprite.BoundingRectangle.Width,
-                            aSprite.BoundingRectangle.Height + 1);
+                            aSprite.BoundingRectangle.Height + 5); // MUST BE 5 FOR CanJump to trigger properly!
 
             var tileList = _rTilesTemplatMethodWithLessY.RetrieveTilesThatIntersectWithRectangle(this, state, aSpritesBoundingBoxModified,(int)aSprite.CurrentPosition.Y);
 

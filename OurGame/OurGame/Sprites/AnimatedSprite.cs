@@ -147,6 +147,7 @@ namespace OurGame.Sprites
 
         public virtual void ApplyDownwardGravity(Board theBoard, State state)
         {
+/*
             Rectangle possiblePosition = BoundingRectangle;
             possiblePosition.Y += GRAVITY_DOWNWARD;
 
@@ -171,7 +172,12 @@ namespace OurGame.Sprites
             {
                 CurrentPosition.Y += GRAVITY_DOWNWARD;
                 BoundingRectangle.Y = (int) CurrentPosition.Y;
+
             }
+*/
+            CurrentPosition.Y += GRAVITY_DOWNWARD;
+            BoundingRectangle.Y = (int)CurrentPosition.Y;
+
         }
 
         private void NextFrame(GameTime gameTime)

@@ -67,7 +67,7 @@ namespace OurGame.GameStates
                 return;
             }
 
-            Console.WriteLine("PlayGameState.Update(..) - "+(new Random()).Next());
+//            Console.WriteLine("PlayGameState.Update(..) - "+(new Random()).Next());
 
             //ScreenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
             _board.UpdateBoard(ScreenXOffset);
@@ -204,7 +204,7 @@ namespace OurGame.GameStates
                 return;
             }
 
-            Console.WriteLine("PlayGameState.Draw(..) - " + (new Random()).Next());
+//            Console.WriteLine("PlayGameState.Draw(..) - " + (new Random()).Next());
 
             _board.DrawBoard(spriteBatch, ScreenXOffset, false); // screenXOffset scrolls the board left and right!
 

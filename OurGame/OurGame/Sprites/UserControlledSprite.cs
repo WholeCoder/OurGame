@@ -153,7 +153,7 @@ namespace OurGame.Sprites
             }
             if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
             {
-
+                Console.WriteLine("UserControlledSprite - Started jumping(..) - " + (new Random()).Next());
                 _jumpStart = (int) CurrentPosition.Y;
                 IsJumping = _currentlyJumping = true;
                 IsGoingUp = true;
@@ -300,7 +300,7 @@ namespace OurGame.Sprites
             BoundingRectangle.X = (int) CurrentPosition.X;
             BoundingRectangle.Y = (int) CurrentPosition.Y;
 
-            // C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Black);
+            C3.XNA.Primitives2D.DrawRectangle(spriteBatch, BoundingRectangle, Color.Green);
         }
 
         public override void DrawSubclassName(SpriteBatch spriteBatch, EditSpritesState pState)
