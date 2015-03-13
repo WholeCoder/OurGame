@@ -63,8 +63,10 @@ namespace OurGame.Sprites
             Debug.Assert(gameTime != null, "gameTime can not be null!");
 
             var keyState = Keyboard.GetState();
+            GamePadState gamepadState = GamePad.GetState(PlayerIndex.One);
 
-            if (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left))
+
+            if (gamepadState.ThumbSticks.Left.X > 0 || (keyState.IsKeyDown(Keys.Right) && keyState.IsKeyUp(Keys.Left)) || gamepadState.DPad.Right == ButtonState.Pressed)
             {
                 var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X + State.SCROLL_AMOUNT),
                     (int) CurrentPosition.Y,
@@ -105,7 +107,7 @@ namespace OurGame.Sprites
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToGoRightTexture();
             }
-            else if (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right))
+            else if (gamepadState.ThumbSticks.Left.X < 0 || (keyState.IsKeyDown(Keys.Left) && keyState.IsKeyUp(Keys.Right)) || gamepadState.DPad.Left == ButtonState.Pressed)
             {
                 var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X - State.SCROLL_AMOUNT-1),
                     (int) CurrentPosition.Y,
@@ -151,7 +153,8 @@ namespace OurGame.Sprites
                 // This method only switches if we didn't call this method on the last Update
                 SwitchToAtRestTexture();
             }
-            if (CanJump && keyState.IsKeyDown(Keys.Space) && !_currentlyJumping)
+
+            if (CanJump && (gamepadState.Buttons.A == ButtonState.Pressed || keyState.IsKeyDown(Keys.Space)) && !_currentlyJumping)
             {
                 Console.WriteLine("UserControlledSprite - Started jumping(..) - " + (new Random()).Next());
                 _jumpStart = (int) CurrentPosition.Y;
