@@ -65,7 +65,7 @@ namespace OurGame.OurGameLibrary.TemplateMethod
 
         private void CalculateStartAndEndOfBoardToCheck(int screenXOffset, out int startX, out int endX, Board board)
         {
-            var TheBoard = board.TheBoard;
+            var theBoard = board.TheBoard;
 
             // Transform BoardMargin on screen coordinate into an index into this Board object's 2D array of Tiles.
             startX = CalculateXIndex(board.BoardMarginX, screenXOffset, board);
@@ -75,13 +75,13 @@ namespace OurGame.OurGameLibrary.TemplateMethod
             // this.TheBoard.GetLength(1);
 
             // Make sure the board indicies are not greater than the column width oft he board.
-            if (startX >= TheBoard.GetLength(1))
+            if (startX >= theBoard.GetLength(1))
             {
-                startX = TheBoard.GetLength(1) - 1;
+                startX = theBoard.GetLength(1) - 1;
             }
-            if (endX >= TheBoard.GetLength(1))
+            if (endX >= theBoard.GetLength(1))
             {
-                endX = TheBoard.GetLength(1) - 1;
+                endX = theBoard.GetLength(1) - 1;
             }
         } // end method
         // This method takes a onScreenXCoordinate from the screen and transforms it into an index

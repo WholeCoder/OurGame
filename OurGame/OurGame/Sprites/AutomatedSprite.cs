@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OurGame.GameStates;
@@ -13,8 +14,9 @@ namespace OurGame.Sprites
         private readonly State _playGameState;
         private readonly Board _theBoard;
         private int _howFarToWalkInOneDirection;
-        private int _moveLeftLength;
-        private int _moveRightLength;
+//        private int _moveLeftLength;
+//        private int _moveRightLength;
+        private int _howFarWalkedSoFarInDirection = 0;
 
         private bool _onScreen = true;
 
@@ -55,8 +57,8 @@ namespace OurGame.Sprites
             _howFarToWalkInOneDirection = Convert.ToInt32(configArray[startOffset]);
             IsGoingRight = configArray[startOffset + 1].Equals("True");
 
-            _moveRightLength = (int)InitialPosition.X + _howFarToWalkInOneDirection;
-            _moveLeftLength = (int)InitialPosition.X - _howFarToWalkInOneDirection;
+//            _moveRightLength = (int)InitialPosition.X + _howFarToWalkInOneDirection;
+//            _moveLeftLength = (int)InitialPosition.X - _howFarToWalkInOneDirection;
 
         }
 
@@ -78,6 +80,19 @@ namespace OurGame.Sprites
             {
 
                 SwitchToGoRightTexture();
+
+                if (_howFarWalkedSoFarInDirection > _howFarToWalkInOneDirection)
+                {
+                    IsGoingRight = false;
+                    _howFarWalkedSoFarInDirection = 0;
+                }
+                else
+                {
+                    CurrentPosition.X += 5;
+                    _howFarWalkedSoFarInDirection += 5;
+                }
+
+/*
                 if (CurrentPosition.X > _moveRightLength)
                 {
                     IsGoingRight = false;
@@ -86,12 +101,25 @@ namespace OurGame.Sprites
                 {
                     CurrentPosition.X += 5;
                 }
+*/
 
             }
             else
             {
 
                 SwitchToGoLeftTexture();
+
+                if (_howFarWalkedSoFarInDirection > _howFarToWalkInOneDirection)
+                {
+                    IsGoingRight = true;
+                    _howFarWalkedSoFarInDirection = 0;
+                }
+                else
+                {
+                    CurrentPosition.X -= 5;
+                    _howFarWalkedSoFarInDirection += 5;
+                }
+/*
                 if (CurrentPosition.X < _moveLeftLength)
                 {
                     IsGoingRight = true;
@@ -100,6 +128,7 @@ namespace OurGame.Sprites
                 {
                     CurrentPosition.X -= 5;
                 }
+*/
 
             }
 
