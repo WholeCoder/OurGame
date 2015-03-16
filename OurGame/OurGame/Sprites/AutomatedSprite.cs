@@ -132,7 +132,21 @@ namespace OurGame.Sprites
                 }
                 else
                 {
-                    CurrentPosition.X -= 5;
+                    var tempBoundingRectangle = new Rectangle((int)(CurrentPosition.X+_playGameState.ScreenXOffset - State.SCROLL_AMOUNT - 1),
+                                                                (int)CurrentPosition.Y,
+                                                                BoundingRectangle.Width,
+                                                                BoundingRectangle.Height);
+                    var tilesToLeftAndAtOrAbove = _theBoard
+                        .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState, (int)this.CurrentPosition.Y)
+                        .Select(tile => tile)
+                        .Where(tile => tile.BoundingRectangle.X < CurrentPosition.X + _playGameState.ScreenXOffset
+                                       && tile.BoundingRectangle.Y < CurrentPosition.Y + BoundingRectangle.Height - 5)
+                        .ToList();
+
+                    if (!tilesToLeftAndAtOrAbove.Any())
+                    {
+                        CurrentPosition.X -= 5;
+                    }
                     _howFarWalkedSoFarInDirection += 5;
                 }
 /*
