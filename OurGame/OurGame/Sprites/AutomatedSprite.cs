@@ -14,8 +14,6 @@ namespace OurGame.Sprites
         private readonly State _playGameState;
         private readonly Board _theBoard;
         private int _howFarToWalkInOneDirection;
-//        private int _moveLeftLength;
-//        private int _moveRightLength;
         private int _howFarWalkedSoFarInDirection = 0;
 
         private bool _onScreen = true;
@@ -56,10 +54,6 @@ namespace OurGame.Sprites
             // TODO: Read properties starting at startOffset.
             _howFarToWalkInOneDirection = Convert.ToInt32(configArray[startOffset]);
             IsGoingRight = configArray[startOffset + 1].Equals("True");
-
-//            _moveRightLength = (int)InitialPosition.X + _howFarToWalkInOneDirection;
-//            _moveLeftLength = (int)InitialPosition.X - _howFarToWalkInOneDirection;
-
         }
 
         protected override void UpdateAfterNextFrame(GameTime gameTime)
@@ -107,18 +101,6 @@ namespace OurGame.Sprites
                     
                     _howFarWalkedSoFarInDirection += 5;
                 }
-
-/*
-                if (CurrentPosition.X > _moveRightLength)
-                {
-                    IsGoingRight = false;
-                }
-                else
-                {
-                    CurrentPosition.X += 5;
-                }
-*/
-
             }
             else
             {
@@ -149,17 +131,6 @@ namespace OurGame.Sprites
                     }
                     _howFarWalkedSoFarInDirection += 5;
                 }
-/*
-                if (CurrentPosition.X < _moveLeftLength)
-                {
-                    IsGoingRight = true;
-                }
-                else
-                {
-                    CurrentPosition.X -= 5;
-                }
-*/
-
             }
 
 
