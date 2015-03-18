@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -82,6 +83,9 @@ namespace OurGame.Sprites
                 }
                 else
                 {
+                    // This fixes when the sprite goes offscreen and reappears in some blocks that appear from scrolling.
+                    EnsureThatSpriteDoesNotGetStuckInBlocks(true); // going right
+
                     var tempBoundingRectangle = new Rectangle((int)(CurrentPosition.X+_playGameState.ScreenXOffset + State.SCROLL_AMOUNT),
                                                                 (int)CurrentPosition.Y,
                                                                 BoundingRectangle.Width,
@@ -114,6 +118,9 @@ namespace OurGame.Sprites
                 }
                 else
                 {
+                    // This fixes when the sprite goes offscreen and reappears in some blocks that appear from scrolling.
+                    EnsureThatSpriteDoesNotGetStuckInBlocks(false); // going left == false
+
                     var tempBoundingRectangle = new Rectangle((int)(CurrentPosition.X+_playGameState.ScreenXOffset - State.SCROLL_AMOUNT - 1),
                                                                 (int)CurrentPosition.Y,
                                                                 BoundingRectangle.Width,
@@ -140,7 +147,45 @@ namespace OurGame.Sprites
             }
 
 
-        } // end method
+        }
+
+        // This fixes when the sprite goes offscreen and reappears in some blocks that appear from scrolling.
+        private void EnsureThatSpriteDoesNotGetStuckInBlocks(bool goingRight)
+        {
+            var tilesToRightAndAtOrAbove = TilesToRightAndAtOrAbove();
+
+            while (tilesToRightAndAtOrAbove.Any())
+            {
+                if (goingRight)
+                {
+                    CurrentPosition.X += 5;
+                }
+                else
+                {
+                    CurrentPosition.X -= 5;
+                }
+                tilesToRightAndAtOrAbove = TilesToRightAndAtOrAbove();
+            } 
+
+        }
+
+        private List<Tile> TilesToRightAndAtOrAbove()
+        {
+            var tempBoundingRectangle = new Rectangle((int) (CurrentPosition.X + _playGameState.ScreenXOffset),
+                (int) CurrentPosition.Y,
+                BoundingRectangle.Width,
+                BoundingRectangle.Height);
+
+            var tilesToRightAndAtOrAbove = _theBoard
+                .RetrieveTilesThatIntersectWithThisSprite(tempBoundingRectangle, _playGameState, (int) this.CurrentPosition.Y)
+                .Select(tile => tile)
+                .Where(tile => tile.BoundingRectangle.X > CurrentPosition.X + _playGameState.ScreenXOffset
+                               && tile.BoundingRectangle.Y < CurrentPosition.Y + BoundingRectangle.Height - 5)
+                .ToList();
+            return tilesToRightAndAtOrAbove;
+        }
+
+// end method
 
         public override void ApplyDownwardGravity(Board theBoard,State state)
         {
