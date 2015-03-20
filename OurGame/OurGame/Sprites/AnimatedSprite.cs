@@ -19,11 +19,11 @@ namespace OurGame.Sprites
         private Point _atRestFrameSize;
         private Point _atRestSheetSize;
         private string _atRestTextureFilename;
-        protected Point _currentFrame;
-        protected Point _currentFrameSize;
+        protected Point CurrentFrame;
+        protected Point CurrentFrameSize;
         private Point _currentSheetSize;
-        protected SpriteEffects _currentSpriteEffect;
-        protected String _currentTextureFilename; // The textures are received from the TextureCache.
+        protected SpriteEffects CurrentSpriteEffect;
+        protected String CurrentTextureFilename; // The textures are received from the TextureCache.
         private int _elapsedGameTime; // Used to slow down the animaiton of this AnimatedSprite.
         private bool _isAtRest;
         private bool _isGoingLeft;
@@ -35,7 +35,7 @@ namespace OurGame.Sprites
         private Point _rightSheetSize;
         private string _rightTextureFilename;
         // This scales our characters and enemies up or down.
-        protected int _scaleUpThisSpriteFactor;
+        protected int ScaleUpThisSpriteFactor;
         private int _timeBetweenFrames;
         public Vector2 CurrentPosition;
         public Vector2 InitialPosition;
@@ -45,7 +45,7 @@ namespace OurGame.Sprites
 
         public Rectangle BoundingRectangle; // For collision detection.
 
-        private readonly Stack<ICommand> _ReversePositionAndScreenOffsetStackOfCommands;
+        private readonly Stack<ICommand> _reversePositionAndScreenOffsetStackOfCommands;
 
         private int _lastY;
         private int _lastX;
@@ -66,22 +66,22 @@ namespace OurGame.Sprites
 
             Load(configFilePathAndName);
 
-            _currentFrame = new Point(0, 0);
-            _currentTextureFilename = _atRestTextureFilename;
+            CurrentFrame = new Point(0, 0);
+            CurrentTextureFilename = _atRestTextureFilename;
             _currentSheetSize = _atRestSheetSize;
-            _currentFrameSize = _atRestFrameSize;
+            CurrentFrameSize = _atRestFrameSize;
             CurrentPosition.X = InitialPosition.X;
             CurrentPosition.Y = InitialPosition.Y;
-            _currentSpriteEffect = AtRestCurrentEffect;
+            CurrentSpriteEffect = AtRestCurrentEffect;
             _isAtRest = true;
             _isGoingLeft = false;
             _isGoingRight = false;
 
             // _scaleUpThisSpriteFactor is the scale factor used in Draw.
             BoundingRectangle = new Rectangle((int) CurrentPosition.X, (int) CurrentPosition.Y,
-                _currentFrameSize.X*_scaleUpThisSpriteFactor, _currentFrameSize.Y*_scaleUpThisSpriteFactor);
+                CurrentFrameSize.X*ScaleUpThisSpriteFactor, CurrentFrameSize.Y*ScaleUpThisSpriteFactor);
 
-            _ReversePositionAndScreenOffsetStackOfCommands = new Stack<ICommand>();
+            _reversePositionAndScreenOffsetStackOfCommands = new Stack<ICommand>();
 
             _lastX = -1;
             _lastY = -1;
@@ -113,33 +113,33 @@ namespace OurGame.Sprites
 
         public void IncrementScaleFactor()
         {
-            _scaleUpThisSpriteFactor++;
-            BoundingRectangle.Width = _scaleUpThisSpriteFactor*_currentFrameSize.X;
-            BoundingRectangle.Height = _scaleUpThisSpriteFactor*_currentFrameSize.Y;
+            ScaleUpThisSpriteFactor++;
+            BoundingRectangle.Width = ScaleUpThisSpriteFactor*CurrentFrameSize.X;
+            BoundingRectangle.Height = ScaleUpThisSpriteFactor*CurrentFrameSize.Y;
         }
 
         public void DecrementScaleFactor()
         {
-            _scaleUpThisSpriteFactor--;
-            if (_scaleUpThisSpriteFactor <= 0)
+            ScaleUpThisSpriteFactor--;
+            if (ScaleUpThisSpriteFactor <= 0)
             {
-                _scaleUpThisSpriteFactor = 1;
+                ScaleUpThisSpriteFactor = 1;
             }
-            BoundingRectangle.Width = _scaleUpThisSpriteFactor*_currentFrameSize.X;
-            BoundingRectangle.Height = _scaleUpThisSpriteFactor*_currentFrameSize.Y;
+            BoundingRectangle.Width = ScaleUpThisSpriteFactor*CurrentFrameSize.X;
+            BoundingRectangle.Height = ScaleUpThisSpriteFactor*CurrentFrameSize.Y;
         }
 
         public void SavePositionToReverseTimeStack(PlayGameState pState)
         {
             ICommand reverseTimeCommand = new SetGameMetricsToPreviousValuesCommand(pState, pState.ScreenXOffset, this);
-            _ReversePositionAndScreenOffsetStackOfCommands.Push(reverseTimeCommand);
+            _reversePositionAndScreenOffsetStackOfCommands.Push(reverseTimeCommand);
         }
 
         public void ReverseTimeForThisSprite()
         {
-            if (_ReversePositionAndScreenOffsetStackOfCommands.Count > 0)
+            if (_reversePositionAndScreenOffsetStackOfCommands.Count > 0)
             {
-                var reverseTimeCommand = _ReversePositionAndScreenOffsetStackOfCommands.Pop();
+                var reverseTimeCommand = _reversePositionAndScreenOffsetStackOfCommands.Pop();
                 reverseTimeCommand.Execute();
             }
         }
@@ -189,14 +189,14 @@ namespace OurGame.Sprites
             {
                 _elapsedGameTime = 0;
 
-                ++_currentFrame.X;
+                ++CurrentFrame.X;
 
-                if (_currentFrame.X >= _currentSheetSize.X)
+                if (CurrentFrame.X >= _currentSheetSize.X)
                 {
-                    _currentFrame.X = 0;
-                    ++_currentFrame.Y;
-                    if (_currentFrame.Y >= _currentSheetSize.Y)
-                        _currentFrame.Y = 0;
+                    CurrentFrame.X = 0;
+                    ++CurrentFrame.Y;
+                    if (CurrentFrame.Y >= _currentSheetSize.Y)
+                        CurrentFrame.Y = 0;
                 }
             } // end if
         }
@@ -212,11 +212,11 @@ namespace OurGame.Sprites
             _isGoingLeft = false;
             _isAtRest = false;
 
-            _currentFrame = new Point(0, 0);
-            _currentTextureFilename = _rightTextureFilename;
+            CurrentFrame = new Point(0, 0);
+            CurrentTextureFilename = _rightTextureFilename;
             _currentSheetSize = _rightSheetSize;
-            _currentFrameSize = _rightFrameSize;
-            _currentSpriteEffect = RightCurrentEffect;
+            CurrentFrameSize = _rightFrameSize;
+            CurrentSpriteEffect = RightCurrentEffect;
 
             _elapsedGameTime = 0;
         }
@@ -232,11 +232,11 @@ namespace OurGame.Sprites
             _isGoingRight = false;
             _isAtRest = false;
 
-            _currentFrame = new Point(0, 0);
-            _currentTextureFilename = _leftTextureFilename;
+            CurrentFrame = new Point(0, 0);
+            CurrentTextureFilename = _leftTextureFilename;
             _currentSheetSize = _leftSheetSize;
-            _currentFrameSize = _leftFrameSize;
-            _currentSpriteEffect = LeftCurrentEffect;
+            CurrentFrameSize = _leftFrameSize;
+            CurrentSpriteEffect = LeftCurrentEffect;
 
             _elapsedGameTime = 0;
         }
@@ -252,11 +252,11 @@ namespace OurGame.Sprites
             _isGoingRight = false;
             _isGoingLeft = false;
 
-            _currentFrame = new Point(0, 0);
-            _currentTextureFilename = _atRestTextureFilename;
+            CurrentFrame = new Point(0, 0);
+            CurrentTextureFilename = _atRestTextureFilename;
             _currentSheetSize = _atRestSheetSize;
-            _currentFrameSize = _atRestFrameSize;
-            _currentSpriteEffect = AtRestCurrentEffect;
+            CurrentFrameSize = _atRestFrameSize;
+            CurrentSpriteEffect = AtRestCurrentEffect;
 
             _elapsedGameTime = 0;
         }
@@ -275,7 +275,7 @@ namespace OurGame.Sprites
 
             // Update the bounding rectangle of this sprite
             BoundingRectangle = new Rectangle((int) CurrentPosition.X, (int) CurrentPosition.Y,
-                _currentFrameSize.X*_scaleUpThisSpriteFactor, _currentFrameSize.Y*_scaleUpThisSpriteFactor);
+                CurrentFrameSize.X*ScaleUpThisSpriteFactor, CurrentFrameSize.Y*ScaleUpThisSpriteFactor);
             //******************************** DO NOT CHANGE THE ORDER OF THIS CODE!!!!!!!!!!!!!!!
         } // end method
 
@@ -288,18 +288,18 @@ namespace OurGame.Sprites
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
             Debug.Assert(mouseCursorUpperLeftCorner != null, "mouseCursorUpperLeftCorner can not be null!");
 
-            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(_currentTextureFilename),
+            spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(CurrentTextureFilename),
                 mouseCursorUpperLeftCorner,
-                new Rectangle(_currentFrame.X*_currentFrameSize.X + _currentFrame.X + 1,
+                new Rectangle(CurrentFrame.X*CurrentFrameSize.X + CurrentFrame.X + 1,
                     // CurrentFrame.X+1 is an offset for pixel boundaries in image
-                    _currentFrame.Y*_currentFrameSize.Y,
-                    _currentFrameSize.X,
-                    _currentFrameSize.Y),
+                    CurrentFrame.Y*CurrentFrameSize.Y,
+                    CurrentFrameSize.X,
+                    CurrentFrameSize.Y),
                 Color.White,
                 0,
                 Vector2.Zero,
-                _scaleUpThisSpriteFactor, // scale
-                _currentSpriteEffect,
+                ScaleUpThisSpriteFactor, // scale
+                CurrentSpriteEffect,
                 0);
         }
 
@@ -336,7 +336,7 @@ namespace OurGame.Sprites
 
         public int GetSpriteScaleFactor()
         {
-            return _scaleUpThisSpriteFactor;
+            return ScaleUpThisSpriteFactor;
         }
 
         public void SetSpriteScaleFactor(int sf)
@@ -346,9 +346,9 @@ namespace OurGame.Sprites
                 sf = 1;
             }
 
-            _scaleUpThisSpriteFactor = sf;
-            BoundingRectangle.Width = _scaleUpThisSpriteFactor*_currentFrameSize.X;
-            BoundingRectangle.Height = _scaleUpThisSpriteFactor*_currentFrameSize.Y;
+            ScaleUpThisSpriteFactor = sf;
+            BoundingRectangle.Width = ScaleUpThisSpriteFactor*CurrentFrameSize.X;
+            BoundingRectangle.Height = ScaleUpThisSpriteFactor*CurrentFrameSize.Y;
         }
 
         // This will start at the startOffset and read out it's attributes.
@@ -397,7 +397,7 @@ namespace OurGame.Sprites
 
                 _timeBetweenFrames = 100;
 
-                _scaleUpThisSpriteFactor = 2;
+                ScaleUpThisSpriteFactor = 2;
             }
             else
             {
@@ -447,7 +447,7 @@ namespace OurGame.Sprites
 
                 _timeBetweenFrames = Convert.ToInt32(configStringSplitRay[11]);
 
-                _scaleUpThisSpriteFactor = Convert.ToInt32(configStringSplitRay[12]);
+                ScaleUpThisSpriteFactor = Convert.ToInt32(configStringSplitRay[12]);
 
 
                 // This next call reads in the properties of the sub-class. (template method)
@@ -455,7 +455,7 @@ namespace OurGame.Sprites
             } // end else
 
             _elapsedGameTime = 0;
-            _currentTextureFilename = _atRestTextureFilename;
+            CurrentTextureFilename = _atRestTextureFilename;
             CurrentPosition = InitialPosition;
         }
 
@@ -502,7 +502,7 @@ namespace OurGame.Sprites
                 Utilities.AddText(fs, _timeBetweenFrames + "");
                 Utilities.AddText(fs, "\n");
 
-                Utilities.AddText(fs, _scaleUpThisSpriteFactor + "");
+                Utilities.AddText(fs, ScaleUpThisSpriteFactor + "");
                 Utilities.AddText(fs, "\n");
 
                 // Write out the subclass's properties.
