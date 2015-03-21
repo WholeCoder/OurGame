@@ -32,6 +32,7 @@ namespace OurGame.GameStates
         private bool _rightMouseClickOccurred;
         // This instance variable lets us scroll the board horizontally.
         private int _screenXOffset;
+        private int _screenYOffset;
         private Stack<ICommand> _undoDeleteBoardStack;
         private Stack<ICommand> _undoStack; // Holds the executed PlaceTileOnBoardCommands to undo then if we hit z
         // Call setStateWhenUpdating on this instance variable to change to a different game state.
@@ -60,6 +61,7 @@ namespace OurGame.GameStates
             Debug.Assert(Content != null, " Content can't be null!");
 
             _board = new Board(PathToSavedGambeBoardConfigurationFile);
+            _screenYOffset = Board.SCREEN_HEIGHT - _board.BoardHeight;
 
             this.Content = Content;
 
@@ -124,12 +126,12 @@ namespace OurGame.GameStates
 
             if (_leftMouseClickOccurred)
             {
-                if (_board.CalculateYIndex(ms.Y) < _board.TheBoard.GetLength(0) &&
+                if (_board.CalculateYIndex(ms.Y,ScreenYOffset) < _board.TheBoard.GetLength(0) &&
                     _board.CalculateXIndex(ms.X, _screenXOffset) < _board.TheBoard.GetLength(1)
-                    && _board.CalculateYIndex(ms.Y) >= 0 && _board.CalculateXIndex(ms.X, _screenXOffset) >= 0)
+                    && _board.CalculateYIndex(ms.Y,ScreenYOffset) >= 0 && _board.CalculateXIndex(ms.X, _screenXOffset) >= 0)
                 {
                     ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(_board, ms.X, ms.Y,
-                        _multiTexture.TextureToRepeat, _screenXOffset, _multiTexture.NumberOfHorizontalTiles,
+                        _multiTexture.TextureToRepeat, _screenXOffset, _screenYOffset, _multiTexture.NumberOfHorizontalTiles,
                         _multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.Execute();
 
@@ -269,7 +271,7 @@ namespace OurGame.GameStates
             Debug.Assert(gameTime != null, "gameTime can't be null!");
             Debug.Assert(spriteBatch != null, "spriteBatch can't be null");
 
-            _board.DrawBoard(spriteBatch, _screenXOffset, true); // screenXOffset scrolls the board left and right!
+            _board.DrawBoard(spriteBatch, _screenXOffset, _screenYOffset, true); // screenXOffset scrolls the board left and right!
 
             _multiTexture.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
 

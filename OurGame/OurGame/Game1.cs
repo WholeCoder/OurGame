@@ -87,7 +87,7 @@ namespace OurGame
             EditSpritesState = new EditSpritesState();
             EditSpritesState.Initialize(this);
 
-            SetStateWhenInitializing(PlayGameState);
+            SetStateWhenInitializing(EditBoardState);
 
             base.Initialize();
         }

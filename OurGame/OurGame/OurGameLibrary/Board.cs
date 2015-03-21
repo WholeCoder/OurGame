@@ -33,9 +33,14 @@ namespace OurGame.OurGameLibrary
         // ReSharper disable once InconsistentNaming
         public const int SCREEN_WIDTH = 800;
         // ReSharper disable once InconsistentNaming
+        public const int SCREEN_HEIGHT = 480;
+
+        // ReSharper disable once InconsistentNaming
         private const int NUMBER_OF_TILES_IN_MARGIN_X = 0;
 
+        // ReSharper disable once InconsistentNaming
         private const int DEFAULT_TILE_WIDTH = 20;
+        // ReSharper disable once InconsistentNaming
         private const int DEFAULT_TILE_HEIGHT = 20;
 
         private readonly RetrieveTilesTemplateMethod _rTilesTemplatMethod = new RetrieveTilesTemplateMethod();
@@ -85,13 +90,13 @@ namespace OurGame.OurGameLibrary
             return tileList;
         } // end method
 
-        private Vector2 ExtractTilePosition(int screenXOffset, int i, int j)
+        private Vector2 ExtractTilePosition(int screenXOffset, int screenYOffset, int i, int j)
         {
-            var tilePosition = new Vector2(j*TileWidth + screenXOffset + BoardMarginX, i*TileHeight);
+            var tilePosition = new Vector2(j*TileWidth + screenXOffset + BoardMarginX, i*TileHeight+screenYOffset);
             return tilePosition;
         }
 
-        public void UpdateBoard(int screenXOffset)
+        public void UpdateBoard(int screenXOffset, int screenYOffset)
         {
             // This will make the board only draw the part that is on the screen on the left side.
             BoardMarginX = TileWidth * NUMBER_OF_TILES_IN_MARGIN_X;
@@ -107,7 +112,7 @@ namespace OurGame.OurGameLibrary
                     // ReSharper disable once InvertIf
                     if (TheBoard[i, j].TheTexture != null)
                     {
-                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
+                        var tilePosition = ExtractTilePosition(screenXOffset, screenYOffset, i, j);
 
                         TheBoard[i, j].BoundingRectangle.X = (int)tilePosition.X;
                         TheBoard[i, j].BoundingRectangle.Y = (int)tilePosition.Y;
@@ -117,7 +122,7 @@ namespace OurGame.OurGameLibrary
             } // End outer for.
         } // end method DrawBoard
 
-        public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, bool drawGrid)
+        public void DrawBoard(SpriteBatch spriteBatch, int screenXOffset, int screenYOffset, bool drawGrid)
         {
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
 
@@ -128,15 +133,15 @@ namespace OurGame.OurGameLibrary
             {
                 for (var y = 0; y < BoardHeight; y += TileHeight)
                 {
-                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + BoardMarginX + screenXOffset, y),
-                        new Vector2(BoardWidth + screenXOffset + BoardMarginX, y), Color.White);
+                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(0.0f + BoardMarginX + screenXOffset, y+screenYOffset),
+                        new Vector2(BoardWidth + screenXOffset + BoardMarginX, y+screenYOffset), Color.White);
                 }
 
                 for (var x = 0; x < BoardWidth; x += TileWidth)
                 {
                     var putItX = x / TileWidth * TileWidth + BoardMarginX + screenXOffset;
-                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(putItX, 0.0f),
-                        new Vector2(putItX, BoardHeight), Color.White);
+                    C3.XNA.Primitives2D.DrawLine(spriteBatch, new Vector2(putItX, 0.0f+screenYOffset),
+                        new Vector2(putItX, BoardHeight+screenYOffset), Color.White);
                 }
             } // end if
 
@@ -151,7 +156,7 @@ namespace OurGame.OurGameLibrary
                     // ReSharper disable once InvertIf
                     if (TheBoard[i, j].TheTexture != null)
                     {
-                        var tilePosition = ExtractTilePosition(screenXOffset, i, j);
+                        var tilePosition = ExtractTilePosition(screenXOffset, screenYOffset, i, j);
                         spriteBatch.Draw(TheBoard[i, j].TheTexture, tilePosition, Color.White);
 
                         C3.XNA.Primitives2D.DrawRectangle(spriteBatch, TheBoard[i, j].BoundingRectangle, Color.Black);
@@ -192,9 +197,9 @@ namespace OurGame.OurGameLibrary
         }
 
         // for calculating the indices intot he game board array.
-        public int CalculateYIndex(int mouseY)
+        public int CalculateYIndex(int mouseY, int screenYOffset)
         {
-            var putInGameArrayY = mouseY/TileHeight;
+            var putInGameArrayY = (mouseY-screenYOffset)/TileHeight;
             return putInGameArrayY;
         }
 
@@ -229,7 +234,7 @@ namespace OurGame.OurGameLibrary
             // Load the default game board configuration if the config file doesn't exist.
             if (!File.Exists(path))
             {
-                BoardHeight = 20*24;
+                BoardHeight = 40*24;
                 // Screen's height is 480 BoardHeight and Tile Height will be used to calc the number of tiles across array will be
                 BoardWidth = 29*80;
                 // Screen's width is 800 BoardWidth and Tile Height will be used to calc the # of tiles across the array will be
@@ -248,7 +253,7 @@ namespace OurGame.OurGameLibrary
                     {
                         var t = new Tile(null, // blank tile
                         
-                            column, // remembert hese are swapped in array!!!
+                            column, // remember these are swapped in array!!!
                             row,
                             TileWidth, // width
                             TileHeight, // height
@@ -269,8 +274,8 @@ namespace OurGame.OurGameLibrary
                 // A config file exists for the board so load it now!
                 var configStringSplitRay = File.ReadAllLines(path);
 
-                BoardHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]); // defaults to 480
-                BoardWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]); // defaults to 800
+                BoardHeight = Convert.ToInt32(configStringSplitRay[0].Split(':')[1]);
+                BoardWidth = Convert.ToInt32(configStringSplitRay[1].Split(':')[1]);
 
                 TileHeight = Convert.ToInt32(configStringSplitRay[2].Split(':')[1]);
                 TileWidth = Convert.ToInt32(configStringSplitRay[3].Split(':')[1]);

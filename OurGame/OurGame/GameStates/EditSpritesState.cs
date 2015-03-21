@@ -116,9 +116,9 @@ namespace OurGame.GameStates
 
             if (_leftMouseClickOccurred)
             {
-                if (_board.CalculateYIndex(ms.Y) < _board.TheBoard.GetLength(0) &&
+                if (_board.CalculateYIndex(ms.Y, ScreenYOffset) < _board.TheBoard.GetLength(0) &&
                     _board.CalculateXIndex(ms.X, ScreenXOffset) < _board.TheBoard.GetLength(1)
-                    && _board.CalculateYIndex(ms.Y) >= 0 && _board.CalculateXIndex(ms.X, ScreenXOffset) >= 0)
+                    && _board.CalculateYIndex(ms.Y, ScreenYOffset) >= 0 && _board.CalculateXIndex(ms.X, ScreenXOffset) >= 0)
                 {
                     /* OurGame.Commands.ICommand ptMultiOnBoardCommand = new PlaceMultiTextureOnBoardCommand(this._board, ms.X, ms.Y, this._multiTexture.TextureToRepeat, _screenXOffset, this._multiTexture.NumberOfHorizontalTiles, this._multiTexture.NumberOfVerticalTiles);
                     ptMultiOnBoardCommand.Execute();
@@ -242,7 +242,7 @@ namespace OurGame.GameStates
             Debug.Assert(gameTime != null, "gameTime can't be null!");
             Debug.Assert(spriteBatch != null, "spriteBatch can't be null");
 
-            _board.DrawBoard(spriteBatch, ScreenXOffset, true); // screenXOffset scrolls the board left and right!
+            _board.DrawBoard(spriteBatch, ScreenXOffset, ScreenYOffset, true); // screenXOffset scrolls the board left and right!
 
             _player.Draw(spriteBatch, _mouseCursorLockedToNearestGridPositionVector);
 

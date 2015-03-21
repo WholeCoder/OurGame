@@ -16,7 +16,7 @@ namespace OurGame.Commands.EditBoardCommands
         private readonly int _putY;
         private readonly Texture2D[,] _undoTextures;
 
-        public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset,
+        public PlaceMultiTextureOnBoardCommand(Board pBoard, int mouseX, int mouseY, Texture2D tex, int screenXOffset, int screenYOffset,
             int numberOfHorizontalTiles, int numberOfVerticalTiles)
         {
             Debug.Assert(pBoard != null, "pBoard can't be null!");
@@ -24,7 +24,7 @@ namespace OurGame.Commands.EditBoardCommands
 
             // Do some calcs with board.
             _gameBoard = pBoard;
-            _putY = _gameBoard.CalculateYIndex(mouseY);
+            _putY = _gameBoard.CalculateYIndex(mouseY, screenYOffset);
             _putX = _gameBoard.CalculateXIndex(mouseX, screenXOffset);
             _putTexture = tex;
 

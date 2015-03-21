@@ -14,10 +14,12 @@ namespace OurGame.GameStates
         protected State()
         {
             ScreenXOffset = 0;
+            ScreenYOffset = 0; // Must be initilized in the subclass.
         }
 
-        public int ScreenXOffset { get; set; }
         // This instance variable lets us scroll the board horizontally.
+        public int ScreenXOffset { get; set; }
+        public int ScreenYOffset { get; set; }
 
         public override string ToString()
         {

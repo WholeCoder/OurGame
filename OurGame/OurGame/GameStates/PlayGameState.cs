@@ -70,7 +70,7 @@ namespace OurGame.GameStates
 //            Console.WriteLine("PlayGameState.Update(..) - "+(new Random()).Next());
 
             //ScreenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
-            _board.UpdateBoard(ScreenXOffset);
+            _board.UpdateBoard(ScreenXOffset,ScreenYOffset);
 
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
@@ -206,7 +206,7 @@ namespace OurGame.GameStates
 
 //            Console.WriteLine("PlayGameState.Draw(..) - " + (new Random()).Next());
 
-            _board.DrawBoard(spriteBatch, ScreenXOffset, false); // screenXOffset scrolls the board left and right!
+            _board.DrawBoard(spriteBatch, ScreenXOffset, ScreenYOffset, false); // screenXOffset scrolls the board left and right!
 
             _spriteManager.Draw(spriteBatch);
 
