@@ -158,6 +158,26 @@ namespace OurGame.GameStates
                 _screenXOffset += ScrollAmount;
             }
 
+            if (keyState.IsKeyDown(Keys.Up))
+            {
+                _screenYOffset-= ScrollAmount;
+            }
+
+            if (keyState.IsKeyDown(Keys.Down))
+            {
+                _screenYOffset += ScrollAmount;
+            }
+
+            if (_screenYOffset <= -_board.BoardHeight + Board.SCREEN_HEIGHT)
+            {
+                _screenYOffset = -_board.BoardHeight + Board.SCREEN_HEIGHT;
+            }
+
+            if (_screenYOffset >= 0)
+            {
+                _screenYOffset = 0;
+            }
+
             if (_screenXOffset <= -_board.BoardWidth + Board.SCREEN_WIDTH)
             {
                 _screenXOffset = -_board.BoardWidth + Board.SCREEN_WIDTH;
