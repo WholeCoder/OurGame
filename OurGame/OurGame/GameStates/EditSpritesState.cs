@@ -55,6 +55,7 @@ namespace OurGame.GameStates
             Debug.Assert(Content != null, " Content can't be null!");
 
             _board = new Board(PathToSavedGambeBoardConfigurationFile);
+            ScreenYOffset = Board.SCREEN_HEIGHT - _board.BoardHeight;
 
             this.Content = Content;
 

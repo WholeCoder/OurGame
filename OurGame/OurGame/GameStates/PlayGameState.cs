@@ -42,6 +42,7 @@ namespace OurGame.GameStates
             Debug.Assert(Content != null, "Content can not be null!");
 
             _board = new Board(pathToSavedGambeBoardConfigurationFile);
+            ScreenYOffset= Board.SCREEN_HEIGHT - _board.BoardHeight;
 
             _spriteManager = new SpriteManager("MyLevelsEnemySpritesList.txt", _board, this);
 
