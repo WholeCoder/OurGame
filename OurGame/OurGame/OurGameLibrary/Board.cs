@@ -159,6 +159,9 @@ namespace OurGame.OurGameLibrary
                         var tilePosition = ExtractTilePosition(screenXOffset, screenYOffset, i, j);
                         spriteBatch.Draw(TheBoard[i, j].TheTexture, tilePosition, Color.White);
 
+                        TheBoard[i, j].BoundingRectangle.X = (int)tilePosition.X;
+                        TheBoard[i, j].BoundingRectangle.Y = (int)tilePosition.Y;
+
                         C3.XNA.Primitives2D.DrawRectangle(spriteBatch, TheBoard[i, j].BoundingRectangle, Color.Black);
                     }
                 }
