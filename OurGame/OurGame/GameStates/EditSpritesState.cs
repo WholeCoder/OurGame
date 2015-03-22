@@ -131,11 +131,11 @@ namespace OurGame.GameStates
                     if (noUserControlledSpriteYet || _player is AutomatedSprite)
                     {
                         _player.CurrentPosition.X = putX - ScreenXOffset;
-                        _player.CurrentPosition.Y = putY;
+                        _player.CurrentPosition.Y = putY - ScreenYOffset;
                         _player.InitialPosition.X = putX - ScreenXOffset;
-                        _player.InitialPosition.Y = putY;
+                        _player.InitialPosition.Y = putY - ScreenYOffset;
                         _player.BoundingRectangle.X = putX - ScreenXOffset;
-                        _player.BoundingRectangle.Y = putY;
+                        _player.BoundingRectangle.Y = putY - ScreenYOffset;
 
                         _spriteManager.AddSprite(_player);
                     }
@@ -202,6 +202,27 @@ namespace OurGame.GameStates
             {
                 ScreenXOffset += ScrollAmount;
             }
+
+            if (keyState.IsKeyDown(Keys.Up))
+            {
+                ScreenYOffset -= ScrollAmount;
+            }
+
+            if (keyState.IsKeyDown(Keys.Down))
+            {
+                ScreenYOffset += ScrollAmount;
+            }
+
+            if (ScreenYOffset <= -_board.BoardHeight + Board.SCREEN_HEIGHT)
+            {
+                ScreenYOffset = -_board.BoardHeight + Board.SCREEN_HEIGHT;
+            }
+
+            if (ScreenYOffset >= 0)
+            {
+                ScreenYOffset = 0;
+            }
+
 
             if (ScreenXOffset <= -_board.BoardWidth + Board.SCREEN_WIDTH)
             {
