@@ -25,6 +25,8 @@ namespace OurGame.Sprites
 
         private bool CanJump { get; set; }
 
+        private const int CHARACTER_SCROLL_TRIGGER_FOR_Y = 240;
+
         // ReSharper disable once InconsistentNaming
         private const int CHARACTER_SCROLL_TRIGGER_MARGIN = 300;
         // when the user is this far away from the ends of the screen, we will trigger board scrolling
@@ -181,14 +183,29 @@ namespace OurGame.Sprites
 
                 if (CurrentPosition.Y < _jumpStart && IsGoingDown)
                 {
-                    CurrentPosition.Y += _currentJumpIncrement - GRAVITY_DOWNWARD;
+                    if (CurrentPosition.Y > _theBoard.BoardHeight - UserControlledSprite.CHARACTER_SCROLL_TRIGGER_FOR_Y)
+                    {
+                        CurrentPosition.Y += _currentJumpIncrement - GRAVITY_DOWNWARD;
+                    }
+                    else
+                    {
+                        _playGameState.ScreenYOffset -= _currentJumpIncrement;
+                    }
                     _currentJumpIncrement++;
                     BoundingRectangle.X = (int) CurrentPosition.X;
                     BoundingRectangle.Y = (int) CurrentPosition.Y;
                 }
                 else if (CurrentPosition.Y <= _jumpStart && IsGoingUp)
                 {
-                    CurrentPosition.Y += -_currentJumpIncrement - GRAVITY_DOWNWARD;
+                    if (CurrentPosition.Y > _theBoard.BoardHeight-UserControlledSprite.CHARACTER_SCROLL_TRIGGER_FOR_Y)
+                    {
+                        CurrentPosition.Y += -_currentJumpIncrement - GRAVITY_DOWNWARD;
+                    }
+                    else
+                    {
+                        _playGameState.ScreenYOffset += _currentJumpIncrement;
+                    }
+                    
                     _currentJumpIncrement--;
                     BoundingRectangle.X = (int) CurrentPosition.X;
                     BoundingRectangle.Y = (int) CurrentPosition.Y;
