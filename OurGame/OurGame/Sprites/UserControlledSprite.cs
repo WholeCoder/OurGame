@@ -284,10 +284,11 @@ namespace OurGame.Sprites
         public override void Draw(SpriteBatch spriteBatch)
         {
             Debug.Assert(spriteBatch != null, "spriteBatch can not be null!");
-
+            Vector2 realPosition = CurrentPosition;
+            realPosition.Y += _playGameState.ScreenYOffset;
             
             spriteBatch.Draw(TextureCache.getInstance().GetTexture2DFromStringSpriteArray(CurrentTextureFilename),
-                CurrentPosition,
+                realPosition,
                 new Rectangle(CurrentFrame.X * CurrentFrameSize.X + CurrentFrame.X + 1,
                 // CurrentFrame.X+1 is an offset for pixel boundaries in image
                     CurrentFrame.Y * CurrentFrameSize.Y,

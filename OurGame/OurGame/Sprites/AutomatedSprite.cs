@@ -199,6 +199,7 @@ namespace OurGame.Sprites
         {
             Vector2 realPosition = CurrentPosition;
             realPosition.X += _playGameState.ScreenXOffset;
+            realPosition.Y += _playGameState.ScreenYOffset;
             BoundingRectangle.X = (int)realPosition.X;
             BoundingRectangle.Y = (int)realPosition.Y;
 
