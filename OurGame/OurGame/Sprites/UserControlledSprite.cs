@@ -232,7 +232,11 @@ namespace OurGame.Sprites
 
             if (CanJump)
             {
-                if (_playGameState.ScreenYOffset > -_theBoard.BoardHeight + Board.SCREEN_HEIGHT)
+                Vector2 realPosition = CurrentPosition;
+                realPosition.Y += _playGameState.ScreenYOffset;
+
+                //if (_playGameState.ScreenYOffset > -_theBoard.BoardHeight + Board.SCREEN_HEIGHT)
+                if (Board.SCREEN_HEIGHT - realPosition.Y < 200)
                 {
                     _playGameState.ScreenYOffset -= 5;   
                 }
