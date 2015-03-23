@@ -230,7 +230,7 @@ namespace OurGame.Sprites
                 CanJump = false;
             }
 
-            if (!CanJump)
+            if (CanJump)
             {
                 if (_playGameState.ScreenYOffset > -_theBoard.BoardHeight + Board.SCREEN_HEIGHT)
                 {
