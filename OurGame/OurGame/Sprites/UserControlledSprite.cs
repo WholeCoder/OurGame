@@ -230,6 +230,14 @@ namespace OurGame.Sprites
                 CanJump = false;
             }
 
+            if (!CanJump)
+            {
+                if (_playGameState.ScreenYOffset > -_theBoard.BoardHeight + Board.SCREEN_HEIGHT)
+                {
+                    _playGameState.ScreenYOffset -= 5;   
+                }
+            }
+
             if (CurrentPosition.Y + BoundingRectangle.Height > _theBoard.BoardHeight)
             {
                 CurrentPosition.Y = _theBoard.BoardHeight - BoundingRectangle.Height;
