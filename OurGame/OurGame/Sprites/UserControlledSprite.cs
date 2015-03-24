@@ -236,7 +236,7 @@ namespace OurGame.Sprites
                 realPosition.Y += _playGameState.ScreenYOffset;
 
                 //if (_playGameState.ScreenYOffset > -_theBoard.BoardHeight + Board.SCREEN_HEIGHT)
-                if (Board.SCREEN_HEIGHT - realPosition.Y < 200)
+                if (Board.SCREEN_HEIGHT - realPosition.Y < 150)
                 {
                     _playGameState.ScreenYOffset -= 5;   
                 }
