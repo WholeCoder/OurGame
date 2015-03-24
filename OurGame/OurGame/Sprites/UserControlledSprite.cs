@@ -240,6 +240,11 @@ namespace OurGame.Sprites
                 {
                     _playGameState.ScreenYOffset -= 5;   
                 }
+
+                if (_playGameState.ScreenYOffset < -_theBoard.BoardHeight + Board.SCREEN_HEIGHT)
+                {
+                    _playGameState.ScreenYOffset = -_theBoard.BoardHeight + Board.SCREEN_HEIGHT;
+                }
             }
 
             if (CurrentPosition.Y + BoundingRectangle.Height > _theBoard.BoardHeight)
