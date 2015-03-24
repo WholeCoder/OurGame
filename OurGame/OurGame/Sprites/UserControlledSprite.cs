@@ -22,10 +22,10 @@ namespace OurGame.Sprites
 
         private readonly Board _theBoard;
         private readonly State _playGameState;
+        // ReSharper disable once InconsistentNaming
+        private const int Y_HEIGHT_SCROLL_TRIGGER = 150;
 
         private bool CanJump { get; set; }
-
-        private const int CHARACTER_SCROLL_TRIGGER_FOR_Y = 240;
 
         // ReSharper disable once InconsistentNaming
         private const int CHARACTER_SCROLL_TRIGGER_MARGIN = 300;
@@ -236,7 +236,7 @@ namespace OurGame.Sprites
                 realPosition.Y += _playGameState.ScreenYOffset;
 
                 //if (_playGameState.ScreenYOffset > -_theBoard.BoardHeight + Board.SCREEN_HEIGHT)
-                if (Board.SCREEN_HEIGHT - realPosition.Y < 150)
+                if (Board.SCREEN_HEIGHT - realPosition.Y < Y_HEIGHT_SCROLL_TRIGGER)
                 {
                     _playGameState.ScreenYOffset -= 5;   
                 }
