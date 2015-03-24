@@ -183,11 +183,11 @@ namespace OurGame.Sprites
 
                 if (CurrentPosition.Y < _jumpStart && IsGoingDown)
                 {
-                    if (CurrentPosition.Y > _theBoard.BoardHeight - UserControlledSprite.CHARACTER_SCROLL_TRIGGER_FOR_Y)
+                    //if (CurrentPosition.Y > _theBoard.BoardHeight - UserControlledSprite.CHARACTER_SCROLL_TRIGGER_FOR_Y)
                     {
                         CurrentPosition.Y += _currentJumpIncrement - GRAVITY_DOWNWARD;
                     }
-                    else
+                   // else
                     {
                         _playGameState.ScreenYOffset -= _currentJumpIncrement;
                     }
@@ -197,11 +197,11 @@ namespace OurGame.Sprites
                 }
                 else if (CurrentPosition.Y <= _jumpStart && IsGoingUp)
                 {
-                    if (CurrentPosition.Y > _theBoard.BoardHeight-UserControlledSprite.CHARACTER_SCROLL_TRIGGER_FOR_Y)
+                   // if (CurrentPosition.Y > _theBoard.BoardHeight-UserControlledSprite.CHARACTER_SCROLL_TRIGGER_FOR_Y)
                     {
                         CurrentPosition.Y += -_currentJumpIncrement - GRAVITY_DOWNWARD;
                     }
-                    else
+                   // else
                     {
                         _playGameState.ScreenYOffset += _currentJumpIncrement;
                     }
@@ -230,7 +230,7 @@ namespace OurGame.Sprites
                 CanJump = false;
             }
 
-            if (CanJump)
+            //if (CanJump)
             {
                 Vector2 realPosition = CurrentPosition;
                 realPosition.Y += _playGameState.ScreenYOffset;
