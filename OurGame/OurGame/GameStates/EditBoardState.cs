@@ -142,7 +142,7 @@ namespace OurGame.GameStates
             }
 
             var putX = _board.CalculateScreenCoordinateXFromMousePosition(ms.X, _screenXOffset);
-            var putY = _board.CalculateScreenCoordinateYFromMousePosition(ms.Y);
+            var putY = _board.CalculateScreenCoordinateYFromMousePosition(ms.Y, _screenYOffset);
 
             _mouseCursorLockedToNearestGridPositionVector = new Vector2(putX, putY);
 

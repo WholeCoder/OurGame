@@ -225,9 +225,9 @@ namespace OurGame.OurGameLibrary
             return ((mouseX - screenXOffset)/TileWidth)*TileWidth + screenXOffset;
         }
 
-        public int CalculateScreenCoordinateYFromMousePosition(int mouseY)
+        public int CalculateScreenCoordinateYFromMousePosition(int mouseY, int screenYOffset)
         {
-            return (mouseY/TileHeight)*TileHeight;
+            return ((mouseY-screenYOffset)/TileHeight)*TileHeight + screenYOffset;
         }
 
         public void ReadInBoardConfigurationOrUseDefault(String path)
